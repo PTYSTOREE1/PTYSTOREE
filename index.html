@@ -1,1 +1,1066 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>PTY Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        :root {
+            --purple: #702AD7;
+            --purple-dark: #5219a8;
+            --bg: #0b0810;
+            --card: #15101c;
+            --border: rgba(112, 42, 215, 0.35);
+            --text: #ffffff;
+            --muted: #aaa3b4;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top right, rgba(112,42,215,.16), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(112,42,215,.10), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            width: 100%;
+            height: 72px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 8, 16, .92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            max-width: 1150px;
+            height: 100%;
+            margin: auto;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--purple);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: #ddd;
+            padding: 11px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: rgba(112,42,215,.16);
+            color: white;
+        }
+
+        /* PAGES */
+
+        .page {
+            display: none;
+            max-width: 1050px;
+            margin: auto;
+            padding: 55px 20px 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* HOME */
+
+        .hero {
+            min-height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 75px);
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: var(--purple);
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 650px;
+            line-height: 2;
+            font-size: 16px;
+        }
+
+        .hero-button {
+            margin-top: 30px;
+            border: none;
+            background: var(--purple);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: .2s;
+            box-shadow: 0 8px 30px rgba(112,42,215,.25);
+        }
+
+        .hero-button:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        /* TITLES */
+
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-description {
+            color: var(--muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* CARD */
+
+        .card {
+            background: rgba(21,16,28,.88);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.25);
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #eee;
+        }
+
+        .required {
+            color: #caa6ff;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 9px;
+            border: 1px solid #30243d;
+            background: #0e0a13;
+            color: white;
+            outline: none;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(112,42,215,.12);
+        }
+
+        .phone-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .phone-row input {
+            flex: 1;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .purple-button {
+            border: none;
+            background: var(--purple);
+            color: white;
+            padding: 13px 17px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .purple-button:hover {
+            background: var(--purple-dark);
+        }
+
+        .secondary-button {
+            margin-top: 9px;
+            background: transparent;
+            color: #c9a9ff;
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .secondary-button:hover {
+            background: rgba(112,42,215,.12);
+        }
+
+        /* OTP */
+
+        #otpArea {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(112,42,215,.07);
+            border: 1px solid var(--border);
+        }
+
+        #otpArea.show {
+            display: block;
+        }
+
+        .otp-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .verified {
+            display: none;
+            margin-top: 10px;
+            color: #b995ff;
+            font-size: 13px;
+        }
+
+        .verified.show {
+            display: block;
+        }
+
+        /* TRADE */
+
+        .trade-help {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 7px;
+            line-height: 1.8;
+        }
+
+        /* PROFILE STATUS */
+
+        .profile-status {
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border-radius: 9px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.025);
+            color: #bbb;
+        }
+
+        .profile-status.complete {
+            color: #d7c0ff;
+            border-color: rgba(112,42,215,.5);
+            background: rgba(112,42,215,.09);
+        }
+
+        /* CONTACT */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .contact-box {
+            padding: 25px;
+            background: rgba(21,16,28,.88);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .contact-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .contact-box a {
+            color: #c6a1ff;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .contact-box a:hover {
+            color: white;
+        }
+
+        /* TELEGRAM */
+
+        .telegram-float {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 25px;
+            z-index: 2000;
+            box-shadow: 0 8px 30px rgba(112,42,215,.4);
+            transition: .2s;
+        }
+
+        .telegram-float:hover {
+            transform: scale(1.08);
+            background: var(--purple-dark);
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255,255,255,.05);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            header {
+                height: auto;
+            }
+
+            .nav {
+                flex-direction: column;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            nav button {
+                padding: 9px 10px;
+                font-size: 13px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .phone-row {
+                flex-direction: column;
+            }
+
+            .phone-row .purple-button {
+                width: 100%;
+            }
+
+            .hero {
+                min-height: 60vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+
+        <div class="logo">
+            PTY <span>Store</span>
+        </div>
+
+        <nav>
+            <button class="nav-btn active" data-page="home">
+                صفحه نخست
+            </button>
+
+            <button class="nav-btn" data-page="profile">
+                پروفایل
+            </button>
+
+            <button class="nav-btn" data-page="contact">
+                تماس با ما
+            </button>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <h1>
+            PTY <span>Store</span>
+        </h1>
+
+        <p>
+            به PTY Store خوش آمدید.
+            برای خرید و ثبت سفارش، ابتدا اطلاعات پروفایل خود را تکمیل کنید.
+        </p>
+
+        <button class="hero-button" onclick="showPage('profile')">
+            تکمیل پروفایل
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+    <h2 class="page-title">
+        پروفایل
+    </h2>
+
+    <p class="page-description">
+        برای تکمیل پروفایل، تمام اطلاعات زیر باید وارد و شماره تلفن تأیید شود.
+    </p>
+
+    <div class="card">
+
+        <div id="profileStatus" class="profile-status">
+            پروفایل شما هنوز تکمیل نشده است.
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label>
+                شماره تلفن
+                <span class="required">*</span>
+            </label>
+
+            <div class="phone-row">
+
+                <input
+                    id="phone"
+                    type="tel"
+                    placeholder="مثلاً 09123456789"
+                    maxlength="11"
+                >
+
+                <button
+                    class="purple-button"
+                    onclick="sendOTP()"
+                    id="sendOtpButton"
+                >
+                    ارسال کد تأیید
+                </button>
+
+            </div>
+
+            <div id="otpArea">
+
+                <label>
+                    کد تأیید
+                </label>
+
+                <div class="otp-row">
+
+                    <input
+                        id="otp"
+                        type="text"
+                        maxlength="6"
+                        placeholder="کد ۶ رقمی"
+                    >
+
+                    <button
+                        class="purple-button"
+                        onclick="verifyOTP()"
+                    >
+                        تأیید
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="verifiedText" class="verified">
+                ✓ شماره تلفن تأیید شد
+            </div>
+
+        </div>
+
+
+        <!-- FIRST NAME -->
+
+        <div class="form-group">
+
+            <label>
+                نام
+                <span class="required">*</span>
+            </label>
+
+            <input
+                id="firstName"
+                type="text"
+                placeholder="نام خود را وارد کنید"
+            >
+
+        </div>
+
+
+        <!-- LAST NAME -->
+
+        <div class="form-group">
+
+            <label>
+                نام خانوادگی
+                <span class="required">*</span>
+            </label>
+
+            <input
+                id="lastName"
+                type="text"
+                placeholder="نام خانوادگی خود را وارد کنید"
+            >
+
+        </div>
+
+
+        <!-- STEAM TRADE LINK -->
+
+        <div class="form-group">
+
+            <label>
+                Steam Trade Link
+                <span class="required">*</span>
+            </label>
+
+            <input
+                id="tradeLink"
+                type="url"
+                placeholder="https://steamcommunity.com/tradeoffer/new/?partner=..."
+            >
+
+            <div class="trade-help">
+                لینک Trade خود را از Steam دریافت و در کادر بالا وارد کنید.
+            </div>
+
+            <button
+                class="secondary-button"
+                onclick="openTradePage()"
+            >
+                دریافت لینک ترید از Steam
+            </button>
+
+        </div>
+
+
+        <button
+            class="purple-button"
+            style="width:100%; margin-top:10px;"
+            onclick="saveProfile()"
+        >
+            ذخیره پروفایل
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="page">
+
+    <h2 class="page-title">
+        تماس با ما
+    </h2>
+
+    <p class="page-description">
+        برای ارتباط با PTY Store می‌توانید از روش‌های زیر استفاده کنید.
+    </p>
+
+    <div class="contact-grid">
+
+        <div class="contact-box">
+
+            <h3>ایمیل</h3>
+
+            <!-- ایمیل را اینجا تغییر بده -->
+            <a href="mailto:YOUR_EMAIL@example.com">
+                YOUR_EMAIL@example.com
+            </a>
+
+        </div>
+
+
+        <div class="contact-box">
+
+            <h3>تلگرام</h3>
+
+            <a
+                href="https://t.me/ptystoresup"
+                target="_blank"
+            >
+                @ptystoresup
+            </a>
+
+        </div>
+
+
+        <div class="contact-box">
+
+            <h3>کانال تلگرام</h3>
+
+            <!-- آدرس کانال را اینجا تغییر بده -->
+            <a
+                href="https://t.me/YOUR_CHANNEL"
+                target="_blank"
+            >
+                @YOUR_CHANNEL
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TELEGRAM FLOATING BUTTON -->
+
+<a
+    class="telegram-float"
+    href="https://t.me/ptystoresup"
+    target="_blank"
+    aria-label="Telegram Support"
+>
+    ✈
+</a>
+
+
+<footer>
+    PTY Store © 2026
+</footer>
+
+
+<script>
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
+    function showPage(pageName) {
+
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        document.querySelectorAll(".nav-btn").forEach(button => {
+            button.classList.remove("active");
+        });
+
+        const page = document.getElementById(pageName);
+
+        if (page) {
+            page.classList.add("active");
+        }
+
+        const activeButton =
+            document.querySelector(`[data-page="${pageName}"]`);
+
+        if (activeButton) {
+            activeButton.classList.add("active");
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    document.querySelectorAll(".nav-btn").forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            showPage(button.dataset.page);
+
+        });
+
+    });
+
+
+    /* =========================
+       STEAM TRADE LINK
+    ========================= */
+
+    function openTradePage() {
+
+        window.open(
+            "https://steamcommunity.com/my/tradeoffers/privacy/#trade_offer_access_url",
+            "_blank"
+        );
+
+    }
+
+
+    /* =========================
+       OTP DEMO
+       
+       IMPORTANT:
+       GitHub Pages cannot send
+       real SMS by itself.
+       
+       This currently simulates
+       the OTP process.
+    ========================= */
+
+    let generatedOTP = null;
+    let phoneVerified = false;
+
+
+    function sendOTP() {
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        if (!/^09\d{9}$/.test(phone)) {
+
+            alert("شماره تلفن را به صورت صحیح وارد کنید.");
+
+            return;
+        }
+
+
+        /*
+           DEMO ONLY
+
+           بعداً این قسمت باید به
+           Supabase Edge Function +
+           SMS Provider متصل شود.
+        */
+
+        generatedOTP =
+            Math.floor(100000 + Math.random() * 900000).toString();
+
+
+        document.getElementById("otpArea")
+            .classList.add("show");
+
+
+        alert(
+            "نسخه آزمایشی سایت فعال است.\n\nکد آزمایشی: " +
+            generatedOTP
+        );
+
+    }
+
+
+    function verifyOTP() {
+
+        const otp =
+            document.getElementById("otp").value.trim();
+
+
+        if (!generatedOTP) {
+
+            alert("ابتدا درخواست کد تأیید کنید.");
+
+            return;
+        }
+
+
+        if (otp !== generatedOTP) {
+
+            alert("کد تأیید اشتباه است.");
+
+            return;
+        }
+
+
+        phoneVerified = true;
+
+
+        document.getElementById("verifiedText")
+            .classList.add("show");
+
+
+        document.getElementById("otpArea")
+            .classList.remove("show");
+
+
+        document.getElementById("sendOtpButton")
+            .disabled = true;
+
+
+        updateProfileStatus();
+
+    }
+
+
+    /* =========================
+       SAVE PROFILE
+    ========================= */
+
+    function saveProfile() {
+
+        const firstName =
+            document.getElementById("firstName").value.trim();
+
+        const lastName =
+            document.getElementById("lastName").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const tradeLink =
+            document.getElementById("tradeLink").value.trim();
+
+
+        if (!phoneVerified) {
+
+            alert("ابتدا باید شماره تلفن خود را تأیید کنید.");
+
+            return;
+        }
+
+
+        if (!firstName) {
+
+            alert("نام را وارد کنید.");
+
+            return;
+        }
+
+
+        if (!lastName) {
+
+            alert("نام خانوادگی را وارد کنید.");
+
+            return;
+        }
+
+
+        if (!tradeLink) {
+
+            alert("Steam Trade Link را وارد کنید.");
+
+            return;
+        }
+
+
+        if (
+            !tradeLink.includes("steamcommunity.com")
+        ) {
+
+            alert("لینک Steam Trade معتبر نیست.");
+
+            return;
+        }
+
+
+        const profile = {
+
+            phone: phone,
+            firstName: firstName,
+            lastName: lastName,
+            tradeLink: tradeLink,
+            phoneVerified: true
+
+        };
+
+
+        localStorage.setItem(
+            "ptyStoreProfile",
+            JSON.stringify(profile)
+        );
+
+
+        updateProfileStatus();
+
+
+        alert("پروفایل با موفقیت تکمیل شد.");
+
+    }
+
+
+    /* =========================
+       PROFILE STATUS
+    ========================= */
+
+    function updateProfileStatus() {
+
+        const status =
+            document.getElementById("profileStatus");
+
+
+        const firstName =
+            document.getElementById("firstName").value.trim();
+
+        const lastName =
+            document.getElementById("lastName").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const tradeLink =
+            document.getElementById("tradeLink").value.trim();
+
+
+        if (
+            phoneVerified &&
+            firstName &&
+            lastName &&
+            tradeLink &&
+            phone
+        ) {
+
+            status.innerText =
+                "✓ پروفایل شما کامل است.";
+
+            status.classList.add("complete");
+
+        } else {
+
+            status.innerText =
+                "پروفایل شما هنوز تکمیل نشده است.";
+
+            status.classList.remove("complete");
+
+        }
+
+    }
+
+
+    /* =========================
+       LOAD PROFILE
+    ========================= */
+
+    function loadProfile() {
+
+        const saved =
+            localStorage.getItem("ptyStoreProfile");
+
+
+        if (!saved) return;
+
+
+        try {
+
+            const profile =
+                JSON.parse(saved);
+
+
+            document.getElementById("phone").value =
+                profile.phone || "";
+
+
+            document.getElementById("firstName").value =
+                profile.firstName || "";
+
+
+            document.getElementById("lastName").value =
+                profile.lastName || "";
+
+
+            document.getElementById("tradeLink").value =
+                profile.tradeLink || "";
+
+
+            if (profile.phoneVerified) {
+
+                phoneVerified = true;
+
+                document.getElementById("verifiedText")
+                    .classList.add("show");
+
+                document.getElementById("sendOtpButton")
+                    .disabled = true;
+
+            }
+
+
+            updateProfileStatus();
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+
+    document
+        .getElementById("firstName")
+        .addEventListener("input", updateProfileStatus);
+
+    document
+        .getElementById("lastName")
+        .addEventListener("input", updateProfileStatus);
+
+    document
+        .getElementById("tradeLink")
+        .addEventListener("input", updateProfileStatus);
+
+
+    loadProfile();
+
+</script>
+
+</body>
+</html>
