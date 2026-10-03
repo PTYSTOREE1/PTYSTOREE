@@ -521,6 +521,63 @@
         }
 
         /* =========================
+           CONTACT BUTTERFLY
+        ========================= */
+
+        .contact-butterfly-wrap {
+            margin: 35px auto 10px;
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(112,42,215,.20), transparent 58%),
+                #15101c;
+        }
+
+        .contact-butterfly-wrap::before {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(112,42,215,.16);
+            filter: blur(65px);
+        }
+
+        .contact-butterfly {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: min(650px, 88vw);
+            max-height: 520px;
+            object-fit: contain;
+            /* White background of the source image blends into the dark site background */
+            mix-blend-mode: multiply;
+            filter: brightness(1.12) saturate(1.08) drop-shadow(0 16px 30px rgba(0,0,0,.38));
+            animation: butterflyFloat 4.5s ease-in-out infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes butterflyFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-14px) rotate(1deg); }
+        }
+
+        @media (max-width: 700px) {
+            .contact-butterfly-wrap {
+                min-height: 300px;
+            }
+
+            .contact-butterfly {
+                width: 100%;
+            }
+        }
+
+        /* =========================
            TELEGRAM
         ========================= */
 
@@ -546,7 +603,7 @@
 
             color: white;
 
-            font-size: 25px;
+            font-size: 0;
 
             z-index: 2000;
 
@@ -714,7 +771,7 @@
     </h2>
 
     <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی، شماره موبایل و Steam Trade Link را وارد کنید.
+        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
     </p>
 
     <div class="card">
@@ -836,26 +893,6 @@
                 id="lastName"
                 type="text"
                 placeholder="نام خانوادگی خود را وارد کنید"
-            >
-
-        </div>
-
-
-        <!-- PHONE -->
-
-        <div class="form-group">
-
-            <label>
-                شماره موبایل
-                <span class="required">*</span>
-            </label>
-
-            <input
-                id="phone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="11"
-                placeholder="09123456789"
             >
 
         </div>
@@ -984,6 +1021,16 @@
 
     </div>
 
+    <div class="contact-butterfly-wrap" aria-label="Butterfly Knife | Slaughter">
+        <img
+            class="contact-butterfly"
+            src="https://knify.gg/medias/2023/11/real-cs-butterfly-knife-slaughter-irl-2000x2000.webp"
+            alt="Butterfly Knife | Slaughter"
+            loading="eager"
+            decoding="async"
+        >
+    </div>
+
 </section>
 
 
@@ -994,9 +1041,15 @@
     href="https://t.me/ptystoresup"
     target="_blank"
     rel="noopener"
-    aria-label="Telegram Support"
+    aria-label="پشتیبانی تلگرام"
+    title="پشتیبانی تلگرام"
 >
-    ✈
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <path
+            fill="currentColor"
+            d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6z"
+        />
+    </svg>
 </a>
 
 
@@ -1445,7 +1498,7 @@ async function loadProfile() {
         await supabaseClient
             .from("profiles")
             .select(
-                "first_name,last_name,phone,trade_link"
+                "first_name,last_name,trade_link"
             )
             .eq("id", user.id)
             .maybeSingle();
@@ -1480,12 +1533,6 @@ async function loadProfile() {
         .getElementById("lastName")
         .value =
         data.last_name || "";
-
-
-    document
-        .getElementById("phone")
-        .value =
-        data.phone || "";
 
 
     document
@@ -1535,20 +1582,6 @@ async function saveProfile() {
             .trim();
 
 
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
     const tradeLink =
         document
             .getElementById("tradeLink")
@@ -1570,26 +1603,6 @@ async function saveProfile() {
 
         showMessage(
             "نام خانوادگی را وارد کنید."
-        );
-
-        return;
-    }
-
-
-    if (!phone) {
-
-        showMessage(
-            "شماره موبایل را وارد کنید."
-        );
-
-        return;
-    }
-
-
-    if (!/^09\d{9}$/.test(phone)) {
-
-        showMessage(
-            "شماره موبایل باید دقیقاً ۱۱ رقم و با 09 شروع شود."
         );
 
         return;
@@ -1639,9 +1652,6 @@ async function saveProfile() {
 
                     last_name:
                         lastName,
-
-                    phone:
-                        phone,
 
                     trade_link:
                         tradeLink,
@@ -1741,7 +1751,6 @@ function updateProfileStatus() {
         verified &&
         firstName &&
         lastName &&
-        phone &&
         tradeLink
     ) {
 
@@ -1795,11 +1804,6 @@ async function logout() {
 
     document
         .getElementById("lastName")
-        .value = "";
-
-
-    document
-        .getElementById("phone")
         .value = "";
 
 
@@ -1890,23 +1894,6 @@ document
     .addEventListener(
         "input",
         updateProfileStatus
-    );
-
-
-document
-    .getElementById("phone")
-    .addEventListener(
-        "input",
-        function() {
-
-            this.value =
-                this.value
-                    .replace(/\D/g,"")
-                    .slice(0,11);
-
-            updateProfileStatus();
-
-        }
     );
 
 
