@@ -1160,7 +1160,7 @@
     </h2>
 
     <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
+        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی، شماره موبایل و Steam Trade Link را وارد کنید.
     </p>
 
     <div class="card">
@@ -1309,6 +1309,14 @@
                 شماره باید دقیقاً ۱۱ رقم و با 09 شروع شود.
             </div>
 
+        </div>
+
+
+        <!-- PHONE -->
+        <div class="form-group">
+            <label>شماره موبایل <span class="required">*</span></label>
+            <input id="phone" type="tel" inputmode="numeric" maxlength="11" autocomplete="tel" placeholder="09123456789">
+            <div class="trade-help">شماره باید دقیقاً ۱۱ رقم باشد و با 09 شروع شود.</div>
         </div>
 
 
@@ -1695,6 +1703,12 @@ async function saveProfile() {
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const phone = normalizeDigits(document.getElementById("phone").value.trim());
+    const phone =
+        document.getElementById("phone").value.trim()
+            .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+            .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+
+
     const tradeLink = document.getElementById("tradeLink").value.trim();
 
     if (!firstName) return showMessage("نام را وارد کنید.");
@@ -1730,6 +1744,12 @@ function updateProfileStatus() {
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const phone = normalizeDigits(document.getElementById("phone").value.trim());
+    const phone =
+        document.getElementById("phone").value.trim()
+            .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+            .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+
+
     const tradeLink = document.getElementById("tradeLink").value.trim();
     const verified = document.getElementById("verifiedText").classList.contains("show");
 
