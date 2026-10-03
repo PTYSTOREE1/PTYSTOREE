@@ -1160,7 +1160,7 @@
     </h2>
 
     <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
+        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی، شماره موبایل و Steam Trade Link را وارد کنید.
     </p>
 
     <div class="card">
@@ -1283,6 +1283,31 @@
                 type="text"
                 placeholder="نام خانوادگی خود را وارد کنید"
             >
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label>
+                شماره موبایل
+                <span class="required">*</span>
+            </label>
+
+            <input
+                id="phone"
+                type="tel"
+                inputmode="numeric"
+                maxlength="11"
+                placeholder="09123456789"
+                autocomplete="tel"
+            >
+
+            <div class="trade-help">
+                شماره باید دقیقاً ۱۱ رقم و با 09 شروع شود.
+            </div>
 
         </div>
 
@@ -1473,10 +1498,10 @@
 <script>
 
 const SUPABASE_URL =
-    "https://gsslpnuhbztmlthrgqnd.supabase.co";
+    "https://vsogwimdladgagjoqdst.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_vcuAxttLoSEzJyeC0LsZMA_LO2gwUp9";
+    "sb_publishable_AOwyJvQdNhY0m_dcwGpiPw_DK0LHqjv";
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1904,7 +1929,7 @@ async function loadProfile() {
         await supabaseClient
             .from("profiles")
             .select(
-                "first_name,last_name,trade_link"
+                "first_name,last_name,phone,trade_link"
             )
             .eq("id", user.id)
             .maybeSingle();
@@ -1939,6 +1964,12 @@ async function loadProfile() {
         .getElementById("lastName")
         .value =
         data.last_name || "";
+
+
+    document
+        .getElementById("phone")
+        .value =
+        data.phone || "";
 
 
     document
@@ -1988,6 +2019,12 @@ async function saveProfile() {
             .trim();
 
 
+    const phone =
+        document
+            .getElementById("phone")
+            .value
+            .trim();
+
     const tradeLink =
         document
             .getElementById("tradeLink")
@@ -2009,6 +2046,16 @@ async function saveProfile() {
 
         showMessage(
             "نام خانوادگی را وارد کنید."
+        );
+
+        return;
+    }
+
+
+    if (!/^09\d{9}$/.test(phone)) {
+
+        showMessage(
+            "شماره موبایل باید دقیقاً ۱۱ رقم و با 09 شروع شود."
         );
 
         return;
@@ -2058,6 +2105,9 @@ async function saveProfile() {
 
                     last_name:
                         lastName,
+
+                    phone:
+                        phone,
 
                     trade_link:
                         tradeLink,
@@ -2136,6 +2186,13 @@ function updateProfileStatus() {
             .trim();
 
 
+    const phone =
+        document
+            .getElementById("phone")
+            .value
+            .trim();
+
+
     const tradeLink =
         document
             .getElementById("tradeLink")
@@ -2157,6 +2214,7 @@ function updateProfileStatus() {
         verified &&
         firstName &&
         lastName &&
+        /^09\d{9}$/.test(phone) &&
         tradeLink
     ) {
 
@@ -2210,6 +2268,11 @@ async function logout() {
 
     document
         .getElementById("lastName")
+        .value = "";
+
+
+    document
+        .getElementById("phone")
         .value = "";
 
 
@@ -2300,6 +2363,30 @@ document
     .addEventListener(
         "input",
         updateProfileStatus
+    );
+
+
+document
+    .getElementById("phone")
+    .addEventListener(
+        "input",
+        function() {
+            const persian = "۰۱۲۳۴۵۶۷۸۹";
+            const arabic = "٠١٢٣٤٥٦٧٨٩";
+            this.value = this.value
+                .split("")
+                .map(ch => {
+                    const p = persian.indexOf(ch);
+                    if (p !== -1) return String(p);
+                    const a = arabic.indexOf(ch);
+                    if (a !== -1) return String(a);
+                    return ch;
+                })
+                .join("")
+                .replace(/\D/g, "")
+                .slice(0, 11);
+            updateProfileStatus();
+        }
     );
 
 
