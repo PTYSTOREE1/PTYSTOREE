@@ -521,6 +521,361 @@
         }
 
         /* =========================
+           CONTACT LOADOUT
+        ========================= */
+
+        .contact-loadout-wrap {
+            margin: 35px auto 10px;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            border-radius: 24px;
+
+            /* خود مپ فقط از این لایه می‌آید تا بتوانیم آن را جداگانه تار کنیم */
+            background: #08050d;
+
+            border: 1px solid rgba(112,42,215,.55);
+            box-shadow:
+                0 20px 70px rgba(0,0,0,.58),
+                0 0 55px rgba(112,42,215,.16),
+                inset 0 0 45px rgba(0,0,0,.45);
+        }
+
+        /* لایه‌ی Dust 2: تار، تیره و سینمایی */
+        .contact-loadout-wrap::before {
+            content: "";
+            position: absolute;
+            inset: -14px;
+            z-index: -3;
+            background:
+                linear-gradient(
+                    115deg,
+                    rgba(3,2,7,.82) 0%,
+                    rgba(40,12,70,.56) 45%,
+                    rgba(7,4,14,.80) 100%
+                ),
+                url("https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/maps/dust2_double_doors_s2.jpg");
+            background-size: cover;
+            background-position: center;
+            filter:
+                blur(4px)
+                brightness(.68)
+                saturate(.78)
+                contrast(.92);
+            transform: scale(1.035);
+        }
+
+        /* هاله‌های بنفش و وینیت */
+        .contact-loadout-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(112,42,215,.13) 0%,
+                    rgba(112,42,215,.06) 35%,
+                    transparent 62%
+                ),
+                radial-gradient(
+                    ellipse at center,
+                    transparent 40%,
+                    rgba(0,0,0,.62) 100%
+                );
+            box-shadow:
+                inset 0 0 90px rgba(0,0,0,.58);
+        }
+
+        /* ذرات/خطوط نوری ظریف */
+        .contact-loadout-wrap {
+            animation: dust2Ambient 7s ease-in-out infinite alternate;
+        }
+
+        .contact-loadout-wrap::marker {
+            display: none;
+        }
+
+        .contact-item {
+            position: relative;
+            z-index: 2;
+            width: min(62%, 680px);
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-item::before {
+            content: "";
+            position: absolute;
+            width: 68%;
+            height: 45%;
+            border-radius: 50%;
+            background: rgba(112,42,215,.22);
+            filter: blur(55px);
+            opacity: .75;
+            pointer-events: none;
+        }
+
+        .contact-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+
+            /* نایف واضح‌تر و براق‌تر از بک‌گراند */
+            filter:
+                brightness(1.24)
+                contrast(1.28)
+                saturate(1.22)
+                drop-shadow(0 12px 12px rgba(0,0,0,.72))
+                drop-shadow(0 0 22px rgba(112,42,215,.30));
+
+            transform: scale(0.816);
+            image-rendering: auto;
+            will-change: transform, filter;
+        }
+
+        .contact-knife {
+            margin-right: 0;
+        }
+
+        .contact-knife img {
+            image-rendering: auto;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+            animation: contactKnifeGod 4.8s ease-in-out infinite;
+        }
+
+        @keyframes contactKnifeGod {
+            0%, 100% {
+                transform: translateY(0) scale(0.816) rotate(-1deg);
+                filter:
+                    brightness(1.18)
+                    contrast(1.18)
+                    saturate(1.18)
+                    drop-shadow(0 12px 12px rgba(0,0,0,.72))
+                    drop-shadow(0 0 22px rgba(112,42,215,.30));
+            }
+            50% {
+                transform: translateY(-10px) scale(0.84) rotate(1deg);
+                filter:
+                    brightness(1.28)
+                    contrast(1.25)
+                    saturate(1.24)
+                    drop-shadow(0 18px 16px rgba(0,0,0,.78))
+                    drop-shadow(0 0 34px rgba(112,42,215,.48));
+            }
+        }
+
+        @keyframes dust2Ambient {
+            0% {
+                box-shadow:
+                    0 20px 70px rgba(0,0,0,.58),
+                    0 0 55px rgba(112,42,215,.13),
+                    inset 0 0 45px rgba(0,0,0,.45);
+            }
+            100% {
+                box-shadow:
+                    0 24px 80px rgba(0,0,0,.62),
+                    0 0 75px rgba(112,42,215,.23),
+                    inset 0 0 55px rgba(0,0,0,.52);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .contact-loadout-wrap {
+                min-height: 620px;
+                flex-direction: column;
+                gap: -10px;
+            }
+
+            .contact-item {
+                width: 96%;
+                height: 330px;
+                margin: 0;
+            }
+
+            .contact-loadout-wrap::before {
+                filter: blur(3px) brightness(.66) saturate(.76) contrast(.92);
+            }
+        }
+
+        .contact-butterfly-wrap {
+            margin: 35px auto 10px;
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(112,42,215,.20), transparent 58%),
+                #15101c;
+        }
+
+        .contact-butterfly-wrap::before {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(112,42,215,.16);
+            filter: blur(65px);
+        }
+
+        .contact-butterfly {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: min(650px, 88vw);
+            max-height: 520px;
+            object-fit: contain;
+            /* White background of the source image blends into the dark site background */
+            mix-blend-mode: multiply;
+            filter: brightness(1.12) saturate(1.08) drop-shadow(0 16px 30px rgba(0,0,0,.38));
+            animation: butterflyFloat 4.5s ease-in-out infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes butterflyFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-14px) rotate(1deg); }
+        }
+
+        @media (max-width: 700px) {
+            .contact-butterfly-wrap {
+                min-height: 300px;
+            }
+
+            .contact-butterfly {
+                width: 100%;
+            }
+        }
+
+
+        /* =========================
+           PRODUCTS
+        ========================= */
+
+        .products-section {
+            margin-top: 45px;
+        }
+
+        .products-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .products-subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #17111f, #0f0b14);
+            border: 1px solid rgba(112,42,215,.30);
+            border-radius: 18px;
+            padding: 16px;
+            overflow: hidden;
+            transition: .25s ease;
+            box-shadow: 0 12px 35px rgba(0,0,0,.22);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(112,42,215,.75);
+            box-shadow: 0 18px 45px rgba(112,42,215,.16);
+        }
+
+        .product-image {
+            height: 190px;
+            border-radius: 13px;
+            background: radial-gradient(circle, rgba(112,42,215,.15), transparent 65%), #0b0810;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,.45));
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-meta {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .product-price {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .product-buy {
+            border: 0;
+            background: var(--purple);
+            color: white;
+            padding: 9px 13px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .product-buy:hover {
+            background: var(--purple-dark);
+            transform: scale(1.03);
+        }
+
+        @media(max-width:900px) {
+            .products-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media(max-width:560px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================
            TELEGRAM
         ========================= */
 
@@ -546,7 +901,7 @@
 
             color: white;
 
-            font-size: 25px;
+            font-size: 0;
 
             z-index: 2000;
 
@@ -626,6 +981,14 @@
             }
         }
     </style>
+
+<style>
+.social-platforms{display:flex;gap:10px;align-items:center;direction:ltr;margin-top:18px}
+.social-platforms a{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#15101f;border:1px solid rgba(112,42,215,.55);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
+.social-platforms a:hover{transform:translateY(-4px);background:#702AD7;border-color:#9b65ee;box-shadow:0 8px 25px rgba(112,42,215,.45)}
+.social-platforms svg{width:22px;height:22px;fill:currentColor}
+@media(max-width:600px){.social-platforms{left:12px;bottom:12px;gap:7px}.social-platforms a{width:38px;height:38px;border-radius:10px}.social-platforms svg{width:20px;height:20px}}
+</style>
 </head>
 
 <body>
@@ -697,6 +1060,89 @@
 
     </div>
 
+    <div class="products-section">
+
+        <h2 class="products-title">اسکین‌های موجود</h2>
+        <p class="products-subtitle">چند اسکین منتخب برای فروش در PTY Store</p>
+
+        <div class="products-grid">
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Redline.png" alt="AK-47 Redline" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">AK-47 | Redline</div>
+                <div class="product-meta">Field-Tested</div>
+                <div class="product-bottom">
+                    <div class="product-price">153,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Slate.png" alt="AK-47 Slate" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">AK-47 | Slate</div>
+                <div class="product-meta">Field-Tested</div>
+                <div class="product-bottom">
+                    <div class="product-price">60,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Neon_Rider.png" alt="AK-47 Neon Rider" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">AK-47 | Neon Rider</div>
+                <div class="product-meta">Minimal Wear</div>
+                <div class="product-bottom">
+                    <div class="product-price">210,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/M4A4_Temukau.png" alt="M4A4 Temukau" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">M4A4 | Temukau</div>
+                <div class="product-meta">Minimal Wear</div>
+                <div class="product-bottom">
+                    <div class="product-price">180,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/M4A1-S_Printstream.png" alt="M4A1-S Printstream" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">M4A1-S | Printstream</div>
+                <div class="product-meta">Field-Tested</div>
+                <div class="product-bottom">
+                    <div class="product-price">420,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.csgodatabase.com/images/skins/webp/Desert_Eagle_Printstream.png" alt="Desert Eagle Printstream" onerror="this.style.display='none'">
+                </div>
+                <div class="product-name">Desert Eagle | Printstream</div>
+                <div class="product-meta">Minimal Wear</div>
+                <div class="product-bottom">
+                    <div class="product-price">250,000 تومان</div>
+                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 </section>
 
 
@@ -714,7 +1160,7 @@
     </h2>
 
     <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی، شماره موبایل و Steam Trade Link را وارد کنید.
+        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
     </p>
 
     <div class="card">
@@ -841,7 +1287,7 @@
         </div>
 
 
-        <!-- PHONE -->
+        <!-- STEAM TRADE LINK -->
 
         <div class="form-group">
 
@@ -860,8 +1306,6 @@
 
         </div>
 
-
-        <!-- STEAM TRADE LINK -->
 
         <div class="form-group">
 
@@ -984,6 +1428,19 @@
 
     </div>
 
+    <div class="contact-loadout-wrap" aria-label="Karambit Tiger Tooth">
+
+        <div class="contact-item contact-knife">
+            <img
+                src="https://csgoskin.ir/assets/images/d0e2e57e4ed0bfc5bcefb7ba9e7932a419ed0825_256.png"
+                alt="Karambit | Tiger Tooth"
+                loading="eager"
+                decoding="async"
+            >
+        </div>
+
+    </div>
+
 </section>
 
 
@@ -994,14 +1451,34 @@
     href="https://t.me/ptystoresup"
     target="_blank"
     rel="noopener"
-    aria-label="Telegram Support"
+    aria-label="پشتیبانی تلگرام"
+    title="پشتیبانی تلگرام"
 >
-    ✈
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <path
+            fill="currentColor"
+            d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6z"
+        />
+    </svg>
 </a>
 
 
 <footer>
-    PTY Store © 2026
+    <div class="social-platforms" aria-label="شبکه‌های اجتماعی PTY Store">
+  <a href="https://discord.com/" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.03A16.9 16.9 0 0 0 15.4 3.75l-.5 1.02a15.2 15.2 0 0 0-5.8 0l-.5-1.02a16.9 16.9 0 0 0-4.14 1.28C1.84 8.94 1.13 12.77 1.49 16.54a16.8 16.8 0 0 0 5.08 2.57l1.23-1.68c-.68-.25-1.33-.57-1.94-.95l.48-.37c3.73 1.74 7.77 1.74 11.45 0l.48.37c-.61.38-1.26.7-1.94.95l1.23 1.68a16.8 16.8 0 0 0 5.08-2.57c.42-4.37-.71-8.17-1.6-11.51ZM8.69 14.63c-1.12 0-2.04-1.03-2.04-2.29s.9-2.29 2.04-2.29 2.05 1.03 2.04 2.29c0 1.26-.9 2.29-2.04 2.29Zm6.62 0c-1.12 0-2.04-1.03-2.04-2.29s.9-2.29 2.04-2.29 2.05 1.03 2.04 2.29c0 1.26-.9 2.29-2.04 2.29Z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg>
+  </a>
+  <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.4.58A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.85.58 9.4.58 9.4.58s7.55 0 9.4-.58a3 3 0 0 0 2.1-2.12A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.5v-7l6 3.5-6 3.5Z"/></svg>
+  </a>
+  <a href="https://t.me/ptystoresup" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6Z"/></svg>
+  </a>
+</div>
+    <div style="margin-top:12px;">PTY Store © 2026</div>
 </footer>
 
 
@@ -1506,182 +1983,64 @@ async function saveProfile() {
 
     clearMessage();
 
-
-    const user =
-        await getCurrentUser();
-
+    const user = await getCurrentUser();
 
     if (!user) {
-
-        showMessage(
-            "ابتدا باید ایمیل خود را تأیید کنید."
-        );
-
+        showMessage("ابتدا باید ایمیل خود را تأیید کنید.");
         return;
     }
 
-
-    const firstName =
-        document
-            .getElementById("firstName")
-            .value
-            .trim();
-
-
-    const lastName =
-        document
-            .getElementById("lastName")
-            .value
-            .trim();
-
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-    const tradeLink =
-        document
-            .getElementById("tradeLink")
-            .value
-            .trim();
-
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const tradeLink = document.getElementById("tradeLink").value.trim();
 
     if (!firstName) {
-
-        showMessage(
-            "نام را وارد کنید."
-        );
-
+        showMessage("نام را وارد کنید.");
         return;
     }
-
 
     if (!lastName) {
-
-        showMessage(
-            "نام خانوادگی را وارد کنید."
-        );
-
+        showMessage("نام خانوادگی را وارد کنید.");
         return;
     }
-
-
-    if (!phone) {
-
-        showMessage(
-            "شماره موبایل را وارد کنید."
-        );
-
-        return;
-    }
-
 
     if (!/^09\d{9}$/.test(phone)) {
-
-        showMessage(
-            "شماره موبایل باید دقیقاً ۱۱ رقم و با 09 شروع شود."
-        );
-
+        showMessage("شماره موبایل باید دقیقاً ۱۱ رقم و با 09 شروع شود.");
         return;
     }
-
 
     if (!tradeLink) {
-
-        showMessage(
-            "Steam Trade Link را وارد کنید."
-        );
-
+        showMessage("Steam Trade Link را وارد کنید.");
         return;
     }
 
-
-    if (
-        !tradeLink.includes(
-            "steamcommunity.com"
-        )
-    ) {
-
-        showMessage(
-            "لینک Steam Trade معتبر نیست."
-        );
-
+    if (!tradeLink.includes("steamcommunity.com")) {
+        showMessage("لینک Steam Trade معتبر نیست.");
         return;
     }
-
 
     try {
+        const { error } = await supabaseClient
+            .from("profiles")
+            .upsert({
+                id: user.id,
+                email: user.email,
+                first_name: firstName,
+                last_name: lastName,
+                phone: phone,
+                trade_link: tradeLink,
+                updated_at: new Date().toISOString()
+            }, { onConflict: "id" });
 
-        const {
-            error
-        } =
-            await supabaseClient
-                .from("profiles")
-                .upsert({
+        if (error) throw error;
 
-                    id: user.id,
-
-                    email:
-                        user.email,
-
-                    first_name:
-                        firstName,
-
-                    last_name:
-                        lastName,
-
-                    phone:
-                        phone,
-
-                    trade_link:
-                        tradeLink,
-
-                    updated_at:
-                        new Date().toISOString()
-
-                }, {
-
-                    onConflict: "id"
-
-                });
-
-
-        if (error) {
-
-            throw error;
-        }
-
-
-        showMessage(
-            "پروفایل با موفقیت ذخیره شد.",
-            "success"
-        );
-
-
+        showMessage("پروفایل با موفقیت ذخیره شد.", "success");
         updateProfileStatus();
 
-
     } catch (error) {
-
-        console.error(
-            "PROFILE SAVE ERROR:",
-            error
-        );
-
-        showMessage(
-            "ذخیره پروفایل انجام نشد: " +
-            error.message
-        );
+        console.error("PROFILE SAVE ERROR:", error);
+        showMessage("ذخیره پروفایل انجام نشد: " + error.message);
     }
 }
 
@@ -1692,74 +2051,20 @@ async function saveProfile() {
 
 function updateProfileStatus() {
 
-    const status =
-        document
-            .getElementById(
-                "profileStatus"
-            );
+    const status = document.getElementById("profileStatus");
+    const email = document.getElementById("email").value.trim();
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const tradeLink = document.getElementById("tradeLink").value.trim();
+    const verified = document.getElementById("verifiedText").classList.contains("show");
 
-
-    const email =
-        document
-            .getElementById("email")
-            .value
-            .trim();
-
-
-    const firstName =
-        document
-            .getElementById("firstName")
-            .value
-            .trim();
-
-
-    const lastName =
-        document
-            .getElementById("lastName")
-            .value
-            .trim();
-
-
-    const tradeLink =
-        document
-            .getElementById("tradeLink")
-            .value
-            .trim();
-
-
-    const verified =
-        document
-            .getElementById(
-                "verifiedText"
-            )
-            .classList
-            .contains("show");
-
-
-    if (
-        email &&
-        verified &&
-        firstName &&
-        lastName &&
-        phone &&
-        tradeLink
-    ) {
-
-        status.textContent =
-            "✓ پروفایل شما کامل است.";
-
-        status.classList.add(
-            "complete"
-        );
-
+    if (email && verified && firstName && lastName && /^09\d{9}$/.test(phone) && tradeLink) {
+        status.textContent = "✓ پروفایل شما کامل است.";
+        status.classList.add("complete");
     } else {
-
-        status.textContent =
-            "پروفایل شما هنوز تکمیل نشده است.";
-
-        status.classList.remove(
-            "complete"
-        );
+        status.textContent = "پروفایل شما هنوز تکمیل نشده است.";
+        status.classList.remove("complete");
     }
 }
 
@@ -1898,14 +2203,8 @@ document
     .addEventListener(
         "input",
         function() {
-
-            this.value =
-                this.value
-                    .replace(/\D/g,"")
-                    .slice(0,11);
-
+            this.value = this.value.replace(/\D/g, "").slice(0, 11);
             updateProfileStatus();
-
         }
     );
 
@@ -1948,6 +2247,8 @@ document.addEventListener(
 );
 
 </script>
+
+
 
 </body>
 </html>
