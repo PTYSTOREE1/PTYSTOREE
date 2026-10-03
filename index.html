@@ -1,468 +1,637 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PTY Store</title>
-
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Tahoma,Arial,sans-serif;
-}
-
-:root{
-    --purple:#702AD7;
-    --purple-dark:#5219a8;
-    --bg:#0b0810;
-    --card:#15101c;
-    --border:rgba(112,42,215,.35);
-    --text:#fff;
-    --muted:#aaa3b4;
-}
-
-body{
-    background:
-    radial-gradient(circle at top right,rgba(112,42,215,.16),transparent 35%),
-    radial-gradient(circle at bottom left,rgba(112,42,215,.10),transparent 30%),
-    var(--bg);
-    color:var(--text);
-    min-height:100vh;
-}
-
-header{
-    width:100%;
-    height:72px;
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(11,8,16,.92);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
-}
-
-.nav{
-    max-width:1150px;
-    height:100%;
-    margin:auto;
-    padding:0 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:bold;
-    color:white;
-    letter-spacing:1px;
-}
-
-.logo span{
-    color:var(--purple);
-}
-
-nav{
-    display:flex;
-    gap:8px;
-}
-
-nav button{
-    background:transparent;
-    border:none;
-    color:#ddd;
-    padding:11px 16px;
-    border-radius:9px;
-    cursor:pointer;
-    font-size:14px;
-    transition:.2s;
-}
-
-nav button:hover,
-nav button.active{
-    background:rgba(112,42,215,.16);
-    color:white;
-}
-
-.page{
-    display:none;
-    max-width:1050px;
-    margin:auto;
-    padding:55px 20px 100px;
-}
-
-.page.active{
-    display:block;
-}
-
-.hero{
-    min-height:65vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.hero h1{
-    font-size:clamp(42px,7vw,75px);
-    margin-bottom:18px;
-}
-
-.hero h1 span{
-    color:var(--purple);
-}
-
-.hero p{
-    color:var(--muted);
-    max-width:650px;
-    line-height:2;
-    font-size:16px;
-}
-
-.hero-button{
-    margin-top:30px;
-    border:none;
-    background:var(--purple);
-    color:white;
-    padding:14px 28px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-    transition:.2s;
-    box-shadow:0 8px 30px rgba(112,42,215,.25);
-}
-
-.hero-button:hover{
-    background:var(--purple-dark);
-    transform:translateY(-2px);
-}
-
-.page-title{
-    font-size:32px;
-    margin-bottom:10px;
-}
-
-.page-description{
-    color:var(--muted);
-    margin-bottom:30px;
-    line-height:1.8;
-}
-
-.card{
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:28px;
-    box-shadow:0 15px 50px rgba(0,0,0,.25);
-}
-
-.form-group{
-    margin-bottom:20px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:8px;
-    font-size:14px;
-    color:#eee;
-}
-
-.required{
-    color:#caa6ff;
-}
-
-input{
-    width:100%;
-    padding:14px 15px;
-    border-radius:9px;
-    border:1px solid #30243d;
-    background:#0e0a13;
-    color:white;
-    outline:none;
-    font-size:14px;
-    transition:.2s;
-}
-
-input:focus{
-    border-color:var(--purple);
-    box-shadow:0 0 0 3px rgba(112,42,215,.12);
-}
-
-button{
-    font-family:inherit;
-}
-
-.purple-button{
-    border:none;
-    background:var(--purple);
-    color:white;
-    padding:13px 17px;
-    border-radius:9px;
-    cursor:pointer;
-    transition:.2s;
-    white-space:nowrap;
-}
-
-.purple-button:hover{
-    background:var(--purple-dark);
-}
-
-.purple-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-.secondary-button{
-    margin-top:9px;
-    background:transparent;
-    color:#c9a9ff;
-    border:1px solid var(--border);
-    padding:10px 14px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.secondary-button:hover{
-    background:rgba(112,42,215,.12);
-}
-
-.email-row{
-    display:flex;
-    gap:10px;
-}
-
-.email-row input{
-    flex:1;
-}
-
-#otpArea{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    border-radius:10px;
-    background:rgba(112,42,215,.07);
-    border:1px solid var(--border);
-}
-
-#otpArea.show{
-    display:block;
-}
-
-.otp-row{
-    display:flex;
-    gap:10px;
-}
-
-.otp-row input{
-    flex:1;
-    letter-spacing:5px;
-    text-align:center;
-}
-
-.verified{
-    display:none;
-    margin-top:10px;
-    color:#b995ff;
-    font-size:13px;
-}
-
-.verified.show{
-    display:block;
-}
-
-.email-help{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:7px;
-    line-height:1.8;
-}
-
-.trade-help{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:7px;
-    line-height:1.8;
-}
-
-.profile-status{
-    margin-bottom:20px;
-    padding:13px 15px;
-    border-radius:9px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.025);
-    color:#bbb;
-}
-
-.profile-status.complete{
-    color:#d7c0ff;
-    border-color:rgba(112,42,215,.5);
-    background:rgba(112,42,215,.09);
-}
-
-.account-box{
-    display:none;
-    margin-bottom:20px;
-    padding:15px;
-    border-radius:10px;
-    background:rgba(112,42,215,.07);
-    border:1px solid var(--border);
-}
-
-.account-box.show{
-    display:block;
-}
-
-.account-email{
-    color:#c9a9ff;
-    word-break:break-all;
-    margin-bottom:12px;
-}
-
-.logout-button{
-    background:transparent;
-    color:#ddd;
-    border:1px solid #3a3045;
-    padding:9px 14px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.contact-box{
-    padding:25px;
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:14px;
-}
-
-.contact-box h3{
-    margin-bottom:10px;
-}
-
-.contact-box a{
-    color:#c6a1ff;
-    text-decoration:none;
-    word-break:break-word;
-}
-
-.contact-box a:hover{
-    color:white;
-}
-
-.telegram-float{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:var(--purple);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    color:white;
-    font-size:25px;
-    z-index:2000;
-    box-shadow:0 8px 30px rgba(112,42,215,.4);
-    transition:.2s;
-}
-
-.telegram-float:hover{
-    transform:scale(1.08);
-    background:var(--purple-dark);
-}
-
-footer{
-    text-align:center;
-    color:#777;
-    padding:30px 20px;
-    border-top:1px solid rgba(255,255,255,.05);
-}
-
-.message{
-    display:none;
-    margin-top:15px;
-    padding:12px;
-    border-radius:9px;
-    font-size:13px;
-    line-height:1.8;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.error{
-    color:#ffb5b5;
-    background:rgba(255,60,60,.08);
-    border:1px solid rgba(255,60,60,.2);
-}
-
-.message.success{
-    color:#d7c0ff;
-    background:rgba(112,42,215,.09);
-    border:1px solid var(--border);
-}
-
-@media(max-width:700px){
-
-    header{
-        height:auto;
-    }
-
-    .nav{
-        flex-direction:column;
-        padding:15px;
-        gap:12px;
-    }
-
-    nav{
-        width:100%;
-        justify-content:center;
-    }
-
-    nav button{
-        padding:9px 10px;
-        font-size:13px;
-    }
-
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .email-row,
-    .otp-row{
-        flex-direction:column;
-    }
-
-    .email-row .purple-button,
-    .otp-row .purple-button{
-        width:100%;
-    }
-
-    .hero{
-        min-height:60vh;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PTY Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        :root {
+            --purple: #702AD7;
+            --purple-dark: #5219a8;
+            --bg: #0b0810;
+            --card: #15101c;
+            --border: rgba(112, 42, 215, 0.35);
+            --text: #ffffff;
+            --muted: #aaa3b4;
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(112,42,215,.16),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(112,42,215,.10),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: 100%;
+            height: 72px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(11,8,16,.92);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            max-width: 1150px;
+            height: 100%;
+            margin: auto;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--purple);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: #ddd;
+
+            padding: 11px 16px;
+            border-radius: 9px;
+
+            cursor: pointer;
+            font-size: 14px;
+
+            transition: .2s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: rgba(112,42,215,.16);
+            color: white;
+        }
+
+        /* =========================
+           PAGES
+        ========================= */
+
+        .page {
+            display: none;
+
+            max-width: 1050px;
+            margin: auto;
+
+            padding: 55px 20px 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* =========================
+           HOME
+        ========================= */
+
+        .hero {
+            min-height: 65vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px,7vw,75px);
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: var(--purple);
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 650px;
+
+            line-height: 2;
+            font-size: 16px;
+        }
+
+        .hero-button {
+            margin-top: 30px;
+
+            border: none;
+            background: var(--purple);
+            color: white;
+
+            padding: 14px 28px;
+            border-radius: 10px;
+
+            cursor: pointer;
+            font-size: 15px;
+
+            transition: .2s;
+
+            box-shadow:
+                0 8px 30px rgba(112,42,215,.25);
+        }
+
+        .hero-button:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           TITLES
+        ========================= */
+
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-description {
+            color: var(--muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: rgba(21,16,28,.88);
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.25);
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            color: #eee;
+        }
+
+        .required {
+            color: #caa6ff;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 9px;
+            border: 1px solid #30243d;
+
+            background: #0e0a13;
+            color: white;
+
+            outline: none;
+            font-size: 14px;
+
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+
+            box-shadow:
+                0 0 0 3px rgba(112,42,215,.12);
+        }
+
+        input:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .purple-button {
+            border: none;
+
+            background: var(--purple);
+            color: white;
+
+            padding: 13px 17px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            white-space: nowrap;
+        }
+
+        .purple-button:hover {
+            background: var(--purple-dark);
+        }
+
+        .purple-button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .secondary-button {
+            margin-top: 9px;
+
+            background: transparent;
+            color: #c9a9ff;
+
+            border: 1px solid var(--border);
+
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .secondary-button:hover {
+            background: rgba(112,42,215,.12);
+        }
+
+        /* =========================
+           EMAIL
+        ========================= */
+
+        .email-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .email-row input {
+            flex: 1;
+        }
+
+        /* =========================
+           OTP
+        ========================= */
+
+        #otpArea {
+            display: none;
+
+            margin-top: 15px;
+            padding: 15px;
+
+            border-radius: 10px;
+
+            background: rgba(112,42,215,.07);
+
+            border: 1px solid var(--border);
+        }
+
+        #otpArea.show {
+            display: block;
+        }
+
+        .otp-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        #otp {
+            direction: ltr;
+            text-align: center;
+
+            letter-spacing: 5px;
+
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .verified {
+            display: none;
+
+            margin-top: 10px;
+
+            color: #c9a9ff;
+
+            font-size: 13px;
+        }
+
+        .verified.show {
+            display: block;
+        }
+
+        /* =========================
+           PROFILE STATUS
+        ========================= */
+
+        .profile-status {
+            margin-bottom: 20px;
+
+            padding: 13px 15px;
+
+            border-radius: 9px;
+
+            border: 1px solid rgba(255,255,255,.08);
+
+            background: rgba(255,255,255,.025);
+
+            color: #bbb;
+        }
+
+        .profile-status.complete {
+            color: #d7c0ff;
+
+            border-color:
+                rgba(112,42,215,.5);
+
+            background:
+                rgba(112,42,215,.09);
+        }
+
+        /* =========================
+           ERROR / MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: #ffb5b5;
+
+            background: rgba(255,70,70,.08);
+
+            border: 1px solid rgba(255,70,70,.2);
+        }
+
+        .message.success {
+            color: #d7c0ff;
+
+            background: rgba(112,42,215,.09);
+
+            border: 1px solid rgba(112,42,215,.3);
+        }
+
+        /* =========================
+           TRADE
+        ========================= */
+
+        .trade-help {
+            color: var(--muted);
+
+            font-size: 12px;
+
+            margin-top: 7px;
+
+            line-height: 1.8;
+        }
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        .logout-button {
+            margin-top: 15px;
+
+            width: 100%;
+
+            background: transparent;
+
+            border: 1px solid rgba(255,70,70,.3);
+
+            color: #ffaaaa;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background: rgba(255,70,70,.08);
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 15px;
+        }
+
+        .contact-box {
+            padding: 25px;
+
+            background:
+                rgba(21,16,28,.88);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+        }
+
+        .contact-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .contact-box a {
+            color: #c6a1ff;
+
+            text-decoration: none;
+
+            word-break: break-word;
+        }
+
+        .contact-box a:hover {
+            color: white;
+        }
+
+        /* =========================
+           TELEGRAM
+        ========================= */
+
+        .telegram-float {
+            position: fixed;
+
+            right: 20px;
+            bottom: 20px;
+
+            width: 56px;
+            height: 56px;
+
+            border-radius: 50%;
+
+            background: var(--purple);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 25px;
+
+            z-index: 2000;
+
+            box-shadow:
+                0 8px 30px rgba(112,42,215,.4);
+
+            transition: .2s;
+        }
+
+        .telegram-float:hover {
+            transform: scale(1.08);
+
+            background: var(--purple-dark);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            color: #777;
+
+            padding: 30px 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,.05);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:700px) {
+
+            header {
+                height: auto;
+            }
+
+            .nav {
+                flex-direction: column;
+
+                padding: 15px;
+
+                gap: 12px;
+            }
+
+            nav {
+                width: 100%;
+
+                justify-content: center;
+            }
+
+            nav button {
+                padding: 9px 10px;
+
+                font-size: 13px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .email-row,
+            .otp-row {
+                flex-direction: column;
+            }
+
+            .email-row .purple-button,
+            .otp-row .purple-button {
+                width: 100%;
+            }
+
+            .hero {
+                min-height: 60vh;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
+
     <div class="nav">
 
         <div class="logo">
@@ -470,26 +639,43 @@ footer{
         </div>
 
         <nav>
-            <button class="nav-btn active" data-page="home">
+
+            <button
+                class="nav-btn active"
+                data-page="home"
+            >
                 صفحه نخست
             </button>
 
-            <button class="nav-btn" data-page="profile">
+            <button
+                class="nav-btn"
+                data-page="profile"
+            >
                 پروفایل
             </button>
 
-            <button class="nav-btn" data-page="contact">
+            <button
+                class="nav-btn"
+                data-page="contact"
+            >
                 تماس با ما
             </button>
+
         </nav>
 
     </div>
+
 </header>
 
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
 
-<section id="home" class="page active">
+<section
+    id="home"
+    class="page active"
+>
 
     <div class="hero">
 
@@ -502,7 +688,10 @@ footer{
             برای خرید و ثبت سفارش، ابتدا اطلاعات پروفایل خود را تکمیل کنید.
         </p>
 
-        <button class="hero-button" onclick="showPage('profile')">
+        <button
+            class="hero-button"
+            onclick="showPage('profile')"
+        >
             تکمیل پروفایل
         </button>
 
@@ -511,9 +700,14 @@ footer{
 </section>
 
 
-<!-- PROFILE -->
+<!-- =========================
+     PROFILE
+========================= -->
 
-<section id="profile" class="page">
+<section
+    id="profile"
+    class="page"
+>
 
     <h2 class="page-title">
         پروفایل
@@ -525,27 +719,18 @@ footer{
 
     <div class="card">
 
-        <div id="profileStatus" class="profile-status">
+        <div
+            id="profileStatus"
+            class="profile-status"
+        >
             پروفایل شما هنوز تکمیل نشده است.
         </div>
 
 
-        <!-- ACCOUNT -->
-
-        <div id="accountBox" class="account-box">
-
-            <div>
-                ایمیل حساب:
-            </div>
-
-            <div id="accountEmail" class="account-email">
-            </div>
-
-            <button class="logout-button" onclick="logout()">
-                خروج از حساب
-            </button>
-
-        </div>
+        <div
+            id="message"
+            class="message"
+        ></div>
 
 
         <!-- EMAIL -->
@@ -567,58 +752,56 @@ footer{
                 >
 
                 <button
+                    id="sendOtpButton"
                     class="purple-button"
                     onclick="sendOTP()"
-                    id="sendOtpButton"
                 >
-                    ارسال کد تأیید
+                    ارسال کد
                 </button>
 
             </div>
 
-            <div class="email-help">
-                یک کد ۶ رقمی به ایمیل شما ارسال می‌شود.
-            </div>
+        </div>
 
 
-            <!-- OTP -->
+        <!-- OTP -->
 
-            <div id="otpArea">
+        <div
+            id="otpArea"
+        >
 
-                <label>
-                    کد تأیید ایمیل
-                </label>
+            <label>
+                کد تأیید ایمیل
+            </label>
 
-                <div class="otp-row">
+            <div class="otp-row">
 
-                    <input
-                        id="otp"
-                        type="text"
-                        inputmode="numeric"
-                        maxlength="6"
-                        placeholder="کد ۶ رقمی"
-                        autocomplete="one-time-code"
-                    >
+                <input
+                    id="otp"
+                    type="text"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    maxlength="8"
+                    placeholder="کد ۸ رقمی"
+                >
 
-                    <button
-                        class="purple-button"
-                        onclick="verifyOTP()"
-                        id="verifyOtpButton"
-                    >
-                        تأیید کد
-                    </button>
-
-                </div>
+                <button
+                    class="purple-button"
+                    onclick="verifyOTP()"
+                >
+                    تأیید کد
+                </button>
 
             </div>
 
+        </div>
 
-            <div id="verifiedText" class="verified">
-                ✓ ایمیل با موفقیت تأیید شد
-            </div>
 
-            <div id="authMessage" class="message"></div>
-
+        <div
+            id="verifiedText"
+            class="verified"
+        >
+            ✓ ایمیل با موفقیت تأیید شد
         </div>
 
 
@@ -687,13 +870,26 @@ footer{
         </div>
 
 
+        <!-- SAVE -->
+
         <button
             class="purple-button"
             style="width:100%;margin-top:10px;"
             onclick="saveProfile()"
-            id="saveProfileButton"
         >
             ذخیره پروفایل
+        </button>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+            onclick="logout()"
+            style="display:none;"
+        >
+            خروج از حساب
         </button>
 
     </div>
@@ -701,9 +897,14 @@ footer{
 </section>
 
 
-<!-- CONTACT -->
+<!-- =========================
+     CONTACT
+========================= -->
 
-<section id="contact" class="page">
+<section
+    id="contact"
+    class="page"
+>
 
     <h2 class="page-title">
         تماس با ما
@@ -717,10 +918,12 @@ footer{
 
         <div class="contact-box">
 
-            <h3>ایمیل</h3>
+            <h3>
+                ایمیل
+            </h3>
 
-            <a href="mailto:YOUR_EMAIL@example.com">
-                YOUR_EMAIL@example.com
+            <a href="mailto:jfazel75@gmail.com">
+                jfazel75@gmail.com
             </a>
 
         </div>
@@ -728,11 +931,14 @@ footer{
 
         <div class="contact-box">
 
-            <h3>تلگرام</h3>
+            <h3>
+                تلگرام
+            </h3>
 
             <a
                 href="https://t.me/ptystoresup"
                 target="_blank"
+                rel="noopener"
             >
                 @ptystoresup
             </a>
@@ -742,13 +948,16 @@ footer{
 
         <div class="contact-box">
 
-            <h3>کانال تلگرام</h3>
+            <h3>
+                کانال تلگرام
+            </h3>
 
             <a
-                href="https://t.me/YOUR_CHANNEL"
+                href="https://t.me/ptystoresup"
                 target="_blank"
+                rel="noopener"
             >
-                @YOUR_CHANNEL
+                @ptystoresup
             </a>
 
         </div>
@@ -764,6 +973,7 @@ footer{
     class="telegram-float"
     href="https://t.me/ptystoresup"
     target="_blank"
+    rel="noopener"
     aria-label="Telegram Support"
 >
     ✈
@@ -775,11 +985,13 @@ footer{
 </footer>
 
 
-<script>
+<!-- =========================
+     SUPABASE
+========================= -->
 
-/* =========================================
-   SUPABASE
-========================================= */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
 
 const SUPABASE_URL =
     "https://gsslpnuhbztmlthrgqnd.supabase.co";
@@ -794,57 +1006,103 @@ const supabaseClient =
     );
 
 
-/* =========================================
+/* =========================
    PAGE NAVIGATION
-========================================= */
+========================= */
 
-function showPage(pageName){
+function showPage(pageName) {
 
-    document.querySelectorAll(".page").forEach(page=>{
-        page.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.remove("active");
+        });
 
-    document.querySelectorAll(".nav-btn").forEach(button=>{
-        button.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
 
     const page =
         document.getElementById(pageName);
 
-    if(page){
+    if (page) {
         page.classList.add("active");
     }
 
-    const activeButton =
+    const button =
         document.querySelector(
             `[data-page="${pageName}"]`
         );
 
-    if(activeButton){
-        activeButton.classList.add("active");
+    if (button) {
+        button.classList.add("active");
     }
 
     window.scrollTo({
-        top:0,
-        behavior:"smooth"
+        top: 0,
+        behavior: "smooth"
     });
 }
 
 
-document.querySelectorAll(".nav-btn").forEach(button=>{
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
 
-    button.addEventListener("click",()=>{
-        showPage(button.dataset.page);
+        button.addEventListener(
+            "click",
+            () => {
+                showPage(
+                    button.dataset.page
+                );
+            }
+        );
+
     });
 
-});
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(
+    text,
+    type = "error"
+) {
+
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+    box.textContent = text;
+
+    box.className =
+        "message show " + type;
+}
 
 
-/* =========================================
-   TRADE LINK
-========================================= */
+function clearMessage() {
 
-function openTradePage(){
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+    box.className =
+        "message";
+
+    box.textContent = "";
+}
+
+
+/* =========================
+   STEAM
+========================= */
+
+function openTradePage() {
 
     window.open(
         "https://steamcommunity.com/my/tradeoffers/privacy/#trade_offer_access_url",
@@ -854,62 +1112,36 @@ function openTradePage(){
 }
 
 
-/* =========================================
-   MESSAGES
-========================================= */
-
-function showMessage(text,type="success"){
-
-    const box =
-        document.getElementById("authMessage");
-
-    box.textContent = text;
-
-    box.className =
-        "message show " + type;
-
-}
-
-function hideMessage(){
-
-    const box =
-        document.getElementById("authMessage");
-
-    box.className = "message";
-    box.textContent = "";
-
-}
-
-
-/* =========================================
+/* =========================
    EMAIL OTP
-========================================= */
+========================= */
 
-async function sendOTP(){
+async function sendOTP() {
 
-    hideMessage();
+    clearMessage();
 
     const email =
-        document.getElementById("email")
-        .value
-        .trim()
-        .toLowerCase();
+        document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
 
-    if(!email){
+
+    if (!email) {
 
         showMessage(
-            "لطفاً ایمیل خود را وارد کنید.",
-            "error"
+            "ایمیل را وارد کنید."
         );
 
         return;
     }
 
-    if(!email.includes("@")){
+
+    if (!email.includes("@")) {
 
         showMessage(
-            "ایمیل وارد شده معتبر نیست.",
-            "error"
+            "ایمیل واردشده معتبر نیست."
         );
 
         return;
@@ -917,37 +1149,37 @@ async function sendOTP(){
 
 
     const button =
-        document.getElementById("sendOtpButton");
+        document.getElementById(
+            "sendOtpButton"
+        );
+
 
     button.disabled = true;
-    button.textContent = "در حال ارسال...";
+
+    button.textContent =
+        "در حال ارسال...";
 
 
-    try{
+    try {
 
-        const {error} =
-            await supabaseClient.auth.signInWithOtp({
+        const {
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithOtp({
 
-                email:email,
+                    email: email,
 
-                options:{
-                    shouldCreateUser:true
-                }
+                    options: {
+                        shouldCreateUser: true
+                    }
 
-            });
+                });
 
 
-        if(error){
+        if (error) {
 
-            console.error(error);
-
-            showMessage(
-                "ارسال کد انجام نشد: " +
-                error.message,
-                "error"
-            );
-
-            return;
+            throw error;
         }
 
 
@@ -957,125 +1189,127 @@ async function sendOTP(){
 
 
         showMessage(
-            "کد تأیید به ایمیل شما ارسال شد. ایمیل خود را بررسی کنید.",
+            "کد تأیید به ایمیل شما ارسال شد.",
             "success"
         );
 
 
-    }catch(error){
+        document
+            .getElementById("otp")
+            .focus();
 
-        console.error(error);
 
-        showMessage(
-            "خطایی هنگام ارسال کد رخ داد.",
-            "error"
+    } catch (error) {
+
+        console.error(
+            "OTP SEND ERROR:",
+            error
         );
 
-    }finally{
+        showMessage(
+            "ارسال کد انجام نشد: " +
+            (error.message ||
+             "خطای نامشخص")
+        );
+
+    } finally {
 
         button.disabled = false;
-        button.textContent = "ارسال مجدد کد";
 
+        button.textContent =
+            "ارسال کد";
     }
-
 }
 
 
-/* =========================================
+/* =========================
    VERIFY OTP
-========================================= */
+========================= */
 
-async function verifyOTP(){
+async function verifyOTP() {
 
-    hideMessage();
+    clearMessage();
 
     const email =
-        document.getElementById("email")
-        .value
-        .trim()
-        .toLowerCase();
+        document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
 
     const token =
-        document.getElementById("otp")
-        .value
-        .trim();
-
-
-    if(!email){
-
-        showMessage(
-            "ایمیل را وارد کنید.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if(!/^\d{6}$/.test(token)){
-
-        showMessage(
-            "کد باید ۶ رقم باشد.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const button =
-        document.getElementById("verifyOtpButton");
-
-    button.disabled = true;
-    button.textContent = "در حال بررسی...";
-
-
-    try{
-
-        const {data,error} =
-            await supabaseClient.auth.verifyOtp({
-
-                email:email,
-
-                token:token,
-
-                type:"email"
-
-            });
-
-
-        if(error){
-
-            console.error(error);
-
-            showMessage(
-                "کد اشتباه است یا منقضی شده.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if(!data.session){
-
-            showMessage(
-                "تأیید انجام شد، اما ورود به حساب کامل نشد.",
-                "error"
-            );
-
-            return;
-        }
-
-
         document
-            .getElementById("verifiedText")
-            .classList.add("show");
+            .getElementById("otp")
+            .value
+            .trim();
+
+
+    if (!email) {
+
+        showMessage(
+            "ایمیل وارد نشده است."
+        );
+
+        return;
+    }
+
+
+    /*
+       SUPABASE PROJECT IS
+       CURRENTLY SENDING
+       8 DIGIT OTP CODES.
+    */
+
+    if (!/^\d{8}$/.test(token)) {
+
+        showMessage(
+            "کد باید دقیقاً ۸ رقم باشد."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .verifyOtp({
+
+                    email: email,
+
+                    token: token,
+
+                    type: "email"
+
+                });
+
+
+        if (error) {
+
+            throw error;
+        }
+
+
+        if (!data.session) {
+
+            throw new Error(
+                "ورود انجام نشد. دوباره تلاش کنید."
+            );
+        }
 
 
         document
             .getElementById("otpArea")
             .classList.remove("show");
+
+
+        document
+            .getElementById("verifiedText")
+            .classList.add("show");
 
 
         document
@@ -1089,80 +1323,99 @@ async function verifyOTP(){
 
 
         showMessage(
-            "✓ ایمیل با موفقیت تأیید شد.",
+            "ایمیل با موفقیت تأیید شد.",
             "success"
         );
 
 
-        await loadProfileFromSupabase();
+        document
+            .getElementById("logoutButton")
+            .style.display = "block";
 
 
-    }catch(error){
+        await loadProfile();
 
-        console.error(error);
 
-        showMessage(
-            "خطایی هنگام تأیید کد رخ داد.",
-            "error"
+    } catch (error) {
+
+        console.error(
+            "OTP VERIFY ERROR:",
+            error
         );
 
-    }finally{
-
-        button.disabled = false;
-        button.textContent = "تأیید کد";
+        showMessage(
+            "کد تأیید اشتباه یا منقضی شده است."
+        );
 
     }
 
 }
 
 
-/* =========================================
-   GET CURRENT USER
-========================================= */
+/* =========================
+   LOAD CURRENT USER
+========================= */
 
-async function getCurrentUser(){
+async function getCurrentUser() {
 
     const {
         data,
         error
-    } = await supabaseClient.auth.getUser();
+    } =
+        await supabaseClient.auth
+            .getUser();
 
-    if(error){
+
+    if (error) {
+
         return null;
     }
+
 
     return data.user || null;
 }
 
 
-/* =========================================
+/* =========================
    LOAD PROFILE
-========================================= */
+========================= */
 
-async function loadProfileFromSupabase(){
+async function loadProfile() {
 
     const user =
         await getCurrentUser();
 
-    if(!user){
-        updateProfileStatus();
+
+    if (!user) {
+
         return;
     }
 
 
     document
-        .getElementById("accountBox")
-        .classList.add("show");
-
-
-    document
-        .getElementById("accountEmail")
-        .textContent = user.email || "";
+        .getElementById("email")
+        .value =
+        user.email || "";
 
 
     document
         .getElementById("email")
-        .value = user.email || "";
+        .disabled = true;
+
+
+    document
+        .getElementById("sendOtpButton")
+        .disabled = true;
+
+
+    document
+        .getElementById("logoutButton")
+        .style.display = "block";
+
+
+    document
+        .getElementById("verifiedText")
+        .classList.add("show");
 
 
     const {
@@ -1171,20 +1424,25 @@ async function loadProfileFromSupabase(){
     } =
         await supabaseClient
             .from("profiles")
-            .select("*")
-            .eq("id",user.id)
+            .select(
+                "first_name,last_name,trade_link"
+            )
+            .eq("id", user.id)
             .maybeSingle();
 
 
-    if(error){
+    if (error) {
 
-        console.error(error);
+        console.error(
+            "PROFILE LOAD ERROR:",
+            error
+        );
 
         return;
     }
 
 
-    if(!data){
+    if (!data) {
 
         updateProfileStatus();
 
@@ -1194,40 +1452,43 @@ async function loadProfileFromSupabase(){
 
     document
         .getElementById("firstName")
-        .value = data.first_name || "";
+        .value =
+        data.first_name || "";
 
 
     document
         .getElementById("lastName")
-        .value = data.last_name || "";
+        .value =
+        data.last_name || "";
 
 
     document
         .getElementById("tradeLink")
-        .value = data.trade_link || "";
+        .value =
+        data.trade_link || "";
 
 
     updateProfileStatus();
-
 }
 
 
-/* =========================================
+/* =========================
    SAVE PROFILE
-========================================= */
+========================= */
 
-async function saveProfile(){
+async function saveProfile() {
 
-    hideMessage();
+    clearMessage();
+
 
     const user =
         await getCurrentUser();
 
 
-    if(!user){
+    if (!user) {
 
-        alert(
-            "ابتدا ایمیل خود را تأیید کنید."
+        showMessage(
+            "ابتدا باید ایمیل خود را تأیید کنید."
         );
 
         return;
@@ -1255,56 +1516,51 @@ async function saveProfile(){
             .trim();
 
 
-    if(!firstName){
+    if (!firstName) {
 
-        alert("نام را وارد کنید.");
+        showMessage(
+            "نام را وارد کنید."
+        );
+
         return;
-
     }
 
 
-    if(!lastName){
+    if (!lastName) {
 
-        alert("نام خانوادگی را وارد کنید.");
+        showMessage(
+            "نام خانوادگی را وارد کنید."
+        );
+
         return;
-
     }
 
 
-    if(!tradeLink){
+    if (!tradeLink) {
 
-        alert("Steam Trade Link را وارد کنید.");
+        showMessage(
+            "Steam Trade Link را وارد کنید."
+        );
+
         return;
-
     }
 
 
-    if(
+    if (
         !tradeLink.includes(
             "steamcommunity.com"
         )
-    ){
+    ) {
 
-        alert(
+        showMessage(
             "لینک Steam Trade معتبر نیست."
         );
 
         return;
-
     }
 
 
-    const saveButton =
-        document.getElementById(
-            "saveProfileButton"
-        );
-
-    saveButton.disabled = true;
-    saveButton.textContent =
-        "در حال ذخیره...";
-
-
-    try{
+    try {
 
         const {
             error
@@ -1313,88 +1569,78 @@ async function saveProfile(){
                 .from("profiles")
                 .upsert({
 
-                    id:user.id,
+                    id: user.id,
 
-                    email:user.email,
+                    email:
+                        user.email,
 
-                    first_name:firstName,
+                    first_name:
+                        firstName,
 
-                    last_name:lastName,
+                    last_name:
+                        lastName,
 
-                    trade_link:tradeLink,
+                    trade_link:
+                        tradeLink,
 
                     updated_at:
                         new Date().toISOString()
 
-                },{
-                    onConflict:"id"
+                }, {
+
+                    onConflict: "id"
+
                 });
 
 
-        if(error){
+        if (error) {
 
-            console.error(error);
-
-            alert(
-                "ذخیره پروفایل انجام نشد:\n" +
-                error.message
-            );
-
-            return;
+            throw error;
         }
+
+
+        showMessage(
+            "پروفایل با موفقیت ذخیره شد.",
+            "success"
+        );
 
 
         updateProfileStatus();
 
-        alert(
-            "✓ پروفایل با موفقیت ذخیره شد."
+
+    } catch (error) {
+
+        console.error(
+            "PROFILE SAVE ERROR:",
+            error
         );
 
-
-    }catch(error){
-
-        console.error(error);
-
-        alert(
-            "خطایی هنگام ذخیره پروفایل رخ داد."
+        showMessage(
+            "ذخیره پروفایل انجام نشد: " +
+            error.message
         );
-
-    }finally{
-
-        saveButton.disabled = false;
-        saveButton.textContent =
-            "ذخیره پروفایل";
-
     }
-
 }
 
 
-/* =========================================
+/* =========================
    PROFILE STATUS
-========================================= */
+========================= */
 
-async function updateProfileStatus(){
+function updateProfileStatus() {
 
     const status =
-        document.getElementById(
-            "profileStatus"
-        );
+        document
+            .getElementById(
+                "profileStatus"
+            );
 
 
-    const user =
-        await getCurrentUser();
-
-
-    if(!user){
-
-        status.innerText =
-            "ابتدا ایمیل خود را تأیید کنید.";
-
-        status.classList.remove("complete");
-
-        return;
-    }
+    const email =
+        document
+            .getElementById("email")
+            .value
+            .trim();
 
 
     const firstName =
@@ -1418,55 +1664,49 @@ async function updateProfileStatus(){
             .trim();
 
 
-    if(
-        user.email_confirmed_at &&
+    const verified =
+        document
+            .getElementById(
+                "verifiedText"
+            )
+            .classList
+            .contains("show");
+
+
+    if (
+        email &&
+        verified &&
         firstName &&
         lastName &&
         tradeLink
-    ){
+    ) {
 
-        status.innerText =
+        status.textContent =
             "✓ پروفایل شما کامل است.";
 
-        status.classList.add("complete");
+        status.classList.add(
+            "complete"
+        );
 
-    }else{
+    } else {
 
-        status.innerText =
+        status.textContent =
             "پروفایل شما هنوز تکمیل نشده است.";
 
-        status.classList.remove("complete");
-
+        status.classList.remove(
+            "complete"
+        );
     }
-
 }
 
 
-/* =========================================
+/* =========================
    LOGOUT
-========================================= */
+========================= */
 
-async function logout(){
+async function logout() {
 
-    const {error} =
-        await supabaseClient.auth.signOut();
-
-
-    if(error){
-
-        alert(
-            "خروج انجام نشد."
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-
-    document
-        .getElementById("accountBox")
-        .classList.remove("show");
+    await supabaseClient.auth.signOut();
 
 
     document
@@ -1515,70 +1755,58 @@ async function logout(){
 
 
     document
-        .getElementById("sendOtpButton")
-        .textContent =
-            "ارسال کد تأیید";
+        .getElementById("logoutButton")
+        .style.display = "none";
 
 
-    hideMessage();
+    clearMessage();
 
     updateProfileStatus();
 
+
+    showPage("home");
 }
 
 
-/* =========================================
+/* =========================
    AUTH STATE
-========================================= */
+========================= */
 
-supabaseClient.auth.onAuthStateChange(
-    async (event,session)=>{
+supabaseClient.auth
+    .onAuthStateChange(
+        async (event, session) => {
 
-        if(session && session.user){
+            if (
+                session &&
+                session.user
+            ) {
 
-            document
-                .getElementById("accountBox")
-                .classList.add("show");
+                await loadProfile();
 
-
-            document
-                .getElementById("accountEmail")
-                .textContent =
-                    session.user.email || "";
-
-
-            document
-                .getElementById("email")
-                .value =
-                    session.user.email || "";
-
-
-            document
-                .getElementById("email")
-                .disabled = true;
-
-
-            document
-                .getElementById("verifiedText")
-                .classList.add("show");
-
-
-            document
-                .getElementById("sendOtpButton")
-                .disabled = true;
-
-
-            await loadProfileFromSupabase();
+            }
 
         }
-
-    }
-);
+    );
 
 
-/* =========================================
-   INPUT EVENTS
-========================================= */
+/* =========================
+   INPUT
+========================= */
+
+document
+    .getElementById("otp")
+    .addEventListener(
+        "input",
+        function() {
+
+            this.value =
+                this.value
+                    .replace(/\D/g,"")
+                    .slice(0,8);
+
+        }
+    );
+
 
 document
     .getElementById("firstName")
@@ -1604,81 +1832,34 @@ document
     );
 
 
-/* =========================================
+/* =========================
    INITIAL LOAD
-========================================= */
+========================= */
 
-async function initialize(){
-
-    try{
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
         const {
             data
         } =
-            await supabaseClient.auth.getSession();
+            await supabaseClient.auth
+                .getSession();
 
 
-        if(
+        if (
             data &&
-            data.session &&
-            data.session.user
-        ){
+            data.session
+        ) {
 
-            const user =
-                data.session.user;
-
-
-            document
-                .getElementById("accountBox")
-                .classList.add("show");
-
-
-            document
-                .getElementById("accountEmail")
-                .textContent =
-                    user.email || "";
-
-
-            document
-                .getElementById("email")
-                .value =
-                    user.email || "";
-
-
-            document
-                .getElementById("email")
-                .disabled = true;
-
-
-            document
-                .getElementById("verifiedText")
-                .classList.add("show");
-
-
-            document
-                .getElementById("sendOtpButton")
-                .disabled = true;
-
-
-            await loadProfileFromSupabase();
-
-        }else{
-
-            updateProfileStatus();
+            await loadProfile();
 
         }
-
-    }catch(error){
-
-        console.error(error);
 
         updateProfileStatus();
 
     }
-
-}
-
-initialize();
+);
 
 </script>
 
