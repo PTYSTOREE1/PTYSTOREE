@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PTY Store</title>
+    <title>PTY Store | CS2 Skins</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23702AD7'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial' font-size='25' font-weight='900' fill='white'%3EPTY%3C/text%3E%3C/svg%3E">
 
     <style>
         * {
@@ -526,101 +526,37 @@
 
         .contact-loadout-wrap {
             margin: 35px auto 10px;
-            min-height: 500px;
+            min-height: 470px;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: clamp(15px, 4vw, 55px);
             position: relative;
             overflow: hidden;
-            isolation: isolate;
             border-radius: 24px;
-
-            /* خود مپ فقط از این لایه می‌آید تا بتوانیم آن را جداگانه تار کنیم */
-            background: #08050d;
-
-            border: 1px solid rgba(112,42,215,.55);
-            box-shadow:
-                0 20px 70px rgba(0,0,0,.58),
-                0 0 55px rgba(112,42,215,.16),
-                inset 0 0 45px rgba(0,0,0,.45);
+            background:
+                radial-gradient(circle at 50% 50%, rgba(112,42,215,.20), transparent 58%),
+                #15101c;
         }
 
-        /* لایه‌ی Dust 2: تار، تیره و سینمایی */
         .contact-loadout-wrap::before {
             content: "";
             position: absolute;
-            inset: -14px;
-            z-index: -3;
-            background:
-                linear-gradient(
-                    115deg,
-                    rgba(3,2,7,.82) 0%,
-                    rgba(40,12,70,.56) 45%,
-                    rgba(7,4,14,.80) 100%
-                ),
-                url("https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/maps/dust2_double_doors_s2.jpg");
-            background-size: cover;
-            background-position: center;
-            filter:
-                blur(4px)
-                brightness(.68)
-                saturate(.78)
-                contrast(.92);
-            transform: scale(1.035);
-        }
-
-        /* هاله‌های بنفش و وینیت */
-        .contact-loadout-wrap::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: -2;
-            pointer-events: none;
-            background:
-                radial-gradient(
-                    ellipse at center,
-                    rgba(112,42,215,.13) 0%,
-                    rgba(112,42,215,.06) 35%,
-                    transparent 62%
-                ),
-                radial-gradient(
-                    ellipse at center,
-                    transparent 40%,
-                    rgba(0,0,0,.62) 100%
-                );
-            box-shadow:
-                inset 0 0 90px rgba(0,0,0,.58);
-        }
-
-        /* ذرات/خطوط نوری ظریف */
-        .contact-loadout-wrap {
-            animation: dust2Ambient 7s ease-in-out infinite alternate;
-        }
-
-        .contact-loadout-wrap::marker {
-            display: none;
+            width: 560px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(112,42,215,.13);
+            filter: blur(75px);
         }
 
         .contact-item {
             position: relative;
-            z-index: 2;
-            width: min(62%, 680px);
-            height: 520px;
+            z-index: 1;
+            width: min(46%, 560px);
+            height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .contact-item::before {
-            content: "";
-            position: absolute;
-            width: 68%;
-            height: 45%;
-            border-radius: 50%;
-            background: rgba(112,42,215,.22);
-            filter: blur(55px);
-            opacity: .75;
-            pointer-events: none;
         }
 
         .contact-item img {
@@ -628,65 +564,35 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-
-            /* نایف واضح‌تر و براق‌تر از بک‌گراند */
-            filter:
-                brightness(1.24)
-                contrast(1.28)
-                saturate(1.22)
-                drop-shadow(0 12px 12px rgba(0,0,0,.72))
-                drop-shadow(0 0 22px rgba(112,42,215,.30));
-
-            transform: scale(0.816);
-            image-rendering: auto;
-            will-change: transform, filter;
+            filter: drop-shadow(0 18px 32px rgba(0,0,0,.42));
         }
 
-        .contact-knife {
-            margin-right: 0;
-        }
+        .contact-knife { margin-right: -35px; }
+
+        .contact-agent { margin-left: -90px; transform: scale(1.08); transform-origin: bottom center; }
 
         .contact-knife img {
-            image-rendering: auto;
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
-            animation: contactKnifeGod 4.8s ease-in-out infinite;
+            mix-blend-mode: multiply;
+            filter: brightness(1.12) saturate(1.08) drop-shadow(0 16px 30px rgba(0,0,0,.38));
+            animation: contactKnifeFloat 4.5s ease-in-out infinite;
         }
 
-        @keyframes contactKnifeGod {
-            0%, 100% {
-                transform: translateY(0) scale(0.816) rotate(-1deg);
-                filter:
-                    brightness(1.18)
-                    contrast(1.18)
-                    saturate(1.18)
-                    drop-shadow(0 12px 12px rgba(0,0,0,.72))
-                    drop-shadow(0 0 22px rgba(112,42,215,.30));
-            }
-            50% {
-                transform: translateY(-10px) scale(0.84) rotate(1deg);
-                filter:
-                    brightness(1.28)
-                    contrast(1.25)
-                    saturate(1.24)
-                    drop-shadow(0 18px 16px rgba(0,0,0,.78))
-                    drop-shadow(0 0 34px rgba(112,42,215,.48));
-            }
+        .contact-agent img {
+            width: min(100%, 470px);
+            mix-blend-mode: multiply;
+            filter: brightness(1.06) saturate(1.08) drop-shadow(0 18px 32px rgba(0,0,0,.38));
+            animation: contactAgentFloat 4.5s ease-in-out infinite;
+            animation-delay: -.8s;
         }
 
-        @keyframes dust2Ambient {
-            0% {
-                box-shadow:
-                    0 20px 70px rgba(0,0,0,.58),
-                    0 0 55px rgba(112,42,215,.13),
-                    inset 0 0 45px rgba(0,0,0,.45);
-            }
-            100% {
-                box-shadow:
-                    0 24px 80px rgba(0,0,0,.62),
-                    0 0 75px rgba(112,42,215,.23),
-                    inset 0 0 55px rgba(0,0,0,.52);
-            }
+        @keyframes contactKnifeFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-14px) rotate(1deg); }
+        }
+
+        @keyframes contactAgentFloat {
+            0%, 100% { transform: translateY(4px); }
+            50% { transform: translateY(-12px); }
         }
 
         @media (max-width: 700px) {
@@ -697,13 +603,9 @@
             }
 
             .contact-item {
-                width: 96%;
-                height: 330px;
+                width: 94%;
+                height: 300px;
                 margin: 0;
-            }
-
-            .contact-loadout-wrap::before {
-                filter: blur(3px) brightness(.66) saturate(.76) contrast(.92);
             }
         }
 
@@ -757,121 +659,6 @@
 
             .contact-butterfly {
                 width: 100%;
-            }
-        }
-
-
-        /* =========================
-           PRODUCTS
-        ========================= */
-
-        .products-section {
-            margin-top: 45px;
-        }
-
-        .products-title {
-            text-align: center;
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .products-subtitle {
-            text-align: center;
-            color: var(--muted);
-            margin-bottom: 28px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            background: linear-gradient(145deg, #17111f, #0f0b14);
-            border: 1px solid rgba(112,42,215,.30);
-            border-radius: 18px;
-            padding: 16px;
-            overflow: hidden;
-            transition: .25s ease;
-            box-shadow: 0 12px 35px rgba(0,0,0,.22);
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(112,42,215,.75);
-            box-shadow: 0 18px 45px rgba(112,42,215,.16);
-        }
-
-        .product-image {
-            height: 190px;
-            border-radius: 13px;
-            background: radial-gradient(circle, rgba(112,42,215,.15), transparent 65%), #0b0810;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 10px;
-            filter: drop-shadow(0 12px 18px rgba(0,0,0,.45));
-        }
-
-        .product-name {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .product-meta {
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 14px;
-        }
-
-        .product-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .product-price {
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .product-buy {
-            border: 0;
-            background: var(--purple);
-            color: white;
-            padding: 9px 13px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: .2s;
-        }
-
-        .product-buy:hover {
-            background: var(--purple-dark);
-            transform: scale(1.03);
-        }
-
-        @media(max-width:900px) {
-            .products-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media(max-width:560px) {
-            .products-grid {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -980,14 +767,26 @@
                 min-height: 60vh;
             }
         }
-    </style>
+    
+.store-wrap{margin-top:35px}.brand-mini{font-size:12px;color:#a987e8;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}.slogan{font-size:18px;color:#d8c7f5;margin-top:5px;line-height:1.8}.shop-toolbar{display:grid;grid-template-columns:1.2fr 2fr;gap:15px;margin:30px 0 18px}.search-box,.filter-card{background:rgba(21,16,28,.88);border:1px solid var(--border);border-radius:16px;padding:16px}.filter-title{font-size:14px;color:#eee;margin-bottom:10px}.chip-row{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid rgba(112,42,215,.45);background:rgba(112,42,215,.13);color:#e7d9ff;padding:9px 13px;border-radius:999px;cursor:pointer;transition:.2s;font-size:13px}.chip:hover,.chip.active{background:#111;color:#fff}.price-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.price-value{color:#d9c3ff;font-weight:bold;font-size:13px}input[type=range]{appearance:none;width:100%;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--purple-dark));outline:none;padding:0;border:0;box-shadow:none}input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--purple);cursor:pointer}.products-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 0 14px}.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.product-card{overflow:hidden;background:linear-gradient(145deg,rgba(25,18,34,.96),rgba(13,9,19,.96));border:1px solid rgba(112,42,215,.25);border-radius:18px;padding:14px;transition:.25s}.product-card:hover{transform:translateY(-5px);border-color:rgba(112,42,215,.65)}.product-img{height:175px;border-radius:13px;background:radial-gradient(circle,rgba(112,42,215,.14),transparent 65%);display:flex;align-items:center;justify-content:center;overflow:hidden}.product-img img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45))}.product-name{font-weight:bold;margin-top:13px;font-size:15px}.product-meta{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}.product-tag{font-size:11px;color:#cdb6ef;background:rgba(112,42,215,.12);border:1px solid rgba(112,42,215,.25);padding:5px 8px;border-radius:999px}.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}.product-price{font-weight:800}.add-cart{border:0;background:#111;color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer}.add-cart.in-cart{background:#24143b;color:#cdb6ef;border:1px solid rgba(112,42,215,.45);cursor:not-allowed}.cart-bar{position:sticky;bottom:15px;z-index:500;margin:25px auto 0;display:flex;align-items:center;justify-content:space-between;background:rgba(20,13,28,.94);backdrop-filter:blur(14px);border:1px solid rgba(112,42,215,.5);border-radius:16px;padding:13px 16px}.cart-items{color:#cdaeff;font-weight:bold}.clear-cart{border:1px solid rgba(255,255,255,.1);background:transparent;color:#bbb;padding:9px 12px;border-radius:9px;cursor:pointer}.empty-results{grid-column:1/-1;text-align:center;padding:45px;color:#999;border:1px dashed rgba(112,42,215,.3);border-radius:16px}.profile-top{display:flex;align-items:center;gap:18px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.07)}.avatar{width:88px;height:88px;border-radius:50%;border:2px solid var(--purple);background:#100b16;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}.avatar img{width:100%;height:100%;object-fit:cover}.avatar-fallback{font-weight:900}.upload-label{display:inline-flex;background:#111;color:#fff;padding:10px 13px;border-radius:9px;cursor:pointer;font-size:13px}.upload-label input{display:none}.optional{color:#9f95a9;font-size:11px}.captcha-box{padding:15px;border:1px solid var(--border);border-radius:12px;background:rgba(112,42,215,.06);margin:20px 0}.captcha-line{display:flex;align-items:center;gap:10px}.captcha-question{font-weight:900;color:#e7d9ff;min-width:100px}.captcha-refresh{border:1px solid var(--border);background:transparent;color:#cdb6ef;padding:10px 12px;border-radius:9px;cursor:pointer}.social-placeholder{display:inline-flex;color:#9f95a9;border:1px solid rgba(112,42,215,.25);padding:9px 12px;border-radius:10px}@media(max-width:850px){.shop-toolbar{grid-template-columns:1fr}.products-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.products-grid{grid-template-columns:1fr}.profile-top{align-items:flex-start}.captcha-line{flex-wrap:wrap}.cart-bar{bottom:8px}}
 
-<style>
-.social-platforms{display:flex;gap:10px;align-items:center;direction:ltr;margin-top:18px}
-.social-platforms a{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#15101f;border:1px solid rgba(112,42,215,.55);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
-.social-platforms a:hover{transform:translateY(-4px);background:#702AD7;border-color:#9b65ee;box-shadow:0 8px 25px rgba(112,42,215,.45)}
-.social-platforms svg{width:22px;height:22px;fill:currentColor}
-@media(max-width:600px){.social-platforms{left:12px;bottom:12px;gap:7px}.social-platforms a{width:38px;height:38px;border-radius:10px}.social-platforms svg{width:20px;height:20px}}
+        /* PTY PRICE RANGE - rebuilt like CSGOSkin */
+        .price-filter{background:rgba(21,16,28,.88)!important;border:1px solid var(--border)!important;border-radius:16px;padding:16px!important}
+        .price-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+        .price-inputs>div{display:flex;align-items:center;gap:7px;color:#9f95a9;font-size:12px}
+        .price-inputs input{width:100%;box-sizing:border-box;background:#09070c;color:#eee;border:1px solid rgba(112,42,215,.35);border-radius:8px;padding:8px 9px;outline:none}
+        .price-inputs input:focus{border-color:#702AD7;box-shadow:0 0 0 2px rgba(112,42,215,.12)}
+        .range-dual{position:relative;height:34px;margin:10px 4px 0}
+        .range-base,.range-fill{position:absolute;left:0;right:0;top:14px;height:6px;border-radius:999px;pointer-events:none}
+        .range-base{background:#050505;border:1px solid #171717;box-sizing:border-box}
+        .range-fill{background:linear-gradient(90deg,#5219a8,#702AD7);box-shadow:0 0 8px rgba(112,42,215,.28)}
+        .range-dual input[type=range]{position:absolute;left:0;top:0;width:100%;height:34px;margin:0;appearance:none;background:transparent!important;pointer-events:none;border:0;outline:none;padding:0}
+        .range-dual input[type=range]::-webkit-slider-runnable-track{height:6px;background:transparent}
+        .range-dual input[type=range]::-moz-range-track{height:6px;background:transparent}
+        .range-dual input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;margin-top:-6px;border-radius:50%;background:#702AD7;border:3px solid #09070c;box-shadow:0 0 0 1px #702AD7;pointer-events:auto;cursor:pointer}
+        .range-dual input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#702AD7;border:3px solid #09070c;box-shadow:0 0 0 1px #702AD7;pointer-events:auto;cursor:pointer}
+        .range-dual input[type=range]::-moz-range-progress{background:transparent}
+        @media(max-width:560px){.price-inputs{grid-template-columns:1fr}}
 </style>
 </head>
 
@@ -1046,6 +845,8 @@
             PTY <span>Store</span>
         </h1>
 
+        <div class="brand-mini">CS2 ITEM MARKET</div>
+        <p class="slogan">فروش امن و سریع آیتم‌ها و اسکین‌های CS2</p>
         <p>
             به PTY Store خوش آمدید.
             برای خرید و ثبت سفارش، ابتدا اطلاعات پروفایل خود را تکمیل کنید.
@@ -1058,90 +859,8 @@
             تکمیل پروفایل
         </button>
 
+        <div class="store-wrap"><div class="shop-toolbar"><div class="search-box"><div class="filter-title">🔎 جست‌وجوی دقیق آیتم</div><input id="searchInput" type="search" placeholder="مثلاً AK-47 | Redline"></div><div class="filter-card price-filter"><div class="filter-title">محدوده قیمت: <span id="priceValue" class="price-value">۰ تا ۲۵,۰۰۰,۰۰۰ تومان</span></div><div class="price-inputs"><div><span>از</span><input id="priceMinInput" type="number" min="0" max="25000000" step="1000" value="0"></div><div><span>تا</span><input id="priceMaxInput" type="number" min="0" max="25000000" step="1000" value="25000000"></div></div><div class="range-dual"><div class="range-base"></div><div id="rangeFill" class="range-fill"></div><input id="priceMinRange" type="range" min="0" max="25000000" step="1000" value="0" aria-label="حداقل قیمت"></div></div><div class="products-head"><h2>آیتم‌های موجود</h2><span id="resultCount" class="result-count"></span></div><div id="productsGrid" class="products-grid"></div><div class="cart-bar"><div>🛒 سبد خرید: <span id="cartCount" class="cart-items">۰ آیتم</span></div><button class="clear-cart" onclick="clearCart()">خالی کردن سبد</button></div></div>
     </div>
-
-    <div class="products-section">
-
-        <h2 class="products-title">اسکین‌های موجود</h2>
-        <p class="products-subtitle">چند اسکین منتخب برای فروش در PTY Store</p>
-
-        <div class="products-grid">
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Redline.png" alt="AK-47 Redline" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">AK-47 | Redline</div>
-                <div class="product-meta">Field-Tested</div>
-                <div class="product-bottom">
-                    <div class="product-price">153,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Slate.png" alt="AK-47 Slate" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">AK-47 | Slate</div>
-                <div class="product-meta">Field-Tested</div>
-                <div class="product-bottom">
-                    <div class="product-price">60,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/AK-47_Neon_Rider.png" alt="AK-47 Neon Rider" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">AK-47 | Neon Rider</div>
-                <div class="product-meta">Minimal Wear</div>
-                <div class="product-bottom">
-                    <div class="product-price">210,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/M4A4_Temukau.png" alt="M4A4 Temukau" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">M4A4 | Temukau</div>
-                <div class="product-meta">Minimal Wear</div>
-                <div class="product-bottom">
-                    <div class="product-price">180,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/M4A1-S_Printstream.png" alt="M4A1-S Printstream" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">M4A1-S | Printstream</div>
-                <div class="product-meta">Field-Tested</div>
-                <div class="product-bottom">
-                    <div class="product-price">420,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://www.csgodatabase.com/images/skins/webp/Desert_Eagle_Printstream.png" alt="Desert Eagle Printstream" onerror="this.style.display='none'">
-                </div>
-                <div class="product-name">Desert Eagle | Printstream</div>
-                <div class="product-meta">Minimal Wear</div>
-                <div class="product-bottom">
-                    <div class="product-price">250,000 تومان</div>
-                    <button class="product-buy" onclick="showPage('profile')">خرید</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
 
 </section>
 
@@ -1160,11 +879,12 @@
     </h2>
 
     <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی، شماره موبایل و Steam Trade Link را وارد کنید.
+        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
     </p>
 
     <div class="card">
 
+        <div class="profile-top"><div class="avatar"><img id="avatarImage" alt="تصویر پروفایل" style="display:none"><div id="avatarFallback" class="avatar-fallback">PTY</div></div><div><h3>حساب کاربری</h3><div class="optional">تصویر پروفایل اختیاری است و روی همین دستگاه ذخیره می‌شود.</div><label class="upload-label" style="margin-top:10px">آپلود / تغییر تصویر<input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp"></label><button class="secondary-button" style="margin:10px 0 0 7px" onclick="removeAvatar()">حذف تصویر</button></div></div>
         <div
             id="profileStatus"
             class="profile-status"
@@ -1287,32 +1007,7 @@
         </div>
 
 
-        <!-- PHONE -->
-
-        <div class="form-group">
-
-            <label>
-                شماره موبایل
-                <span class="required">*</span>
-            </label>
-
-            <input
-                id="phone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="11"
-                placeholder="09123456789"
-                autocomplete="tel"
-            >
-
-            <div class="trade-help">
-                شماره باید دقیقاً ۱۱ رقم و با 09 شروع شود.
-            </div>
-
-        </div>
-
-
-        <!-- STEAM TRADE LINK -->
+        <div class="form-group"><label>آیدی تلگرام <span class="optional">(اختیاری)</span></label><input id="telegramId" type="text" placeholder="@username"></div><div class="form-group"><label>شماره موبایل <span class="optional">(اختیاری)</span></label><input id="phone" type="tel" inputmode="numeric" maxlength="11" placeholder="09123456789"></div><!-- STEAM TRADE LINK -->
 
         <div class="form-group">
 
@@ -1340,6 +1035,8 @@
 
         </div>
 
+
+        <div class="captcha-box"><div class="filter-title">تأیید امنیتی</div><div class="captcha-line"><span id="captchaQuestion" class="captcha-question"></span><input id="captchaAnswer" type="text" inputmode="numeric" placeholder="جواب را وارد کنید"><button class="captcha-refresh" onclick="generateCaptcha()">تغییر</button></div></div>
 
         <!-- SAVE -->
 
@@ -1435,7 +1132,7 @@
 
     </div>
 
-    <div class="contact-loadout-wrap" aria-label="Karambit Tiger Tooth">
+    <div class="contact-loadout-wrap" aria-label="Karambit Tiger Tooth and Sir Bloody Miami Darryl">
 
         <div class="contact-item contact-knife">
             <img
@@ -1446,8 +1143,18 @@
             >
         </div>
 
+        <div class="contact-item contact-agent">
+            <img
+                src="https://images.steamusercontent.com/ugc/62587631002625511/56383A0F7CC3EF9F6109FB67DE41410686431879/"
+                alt="Sir Bloody Miami Darryl | The Professionals"
+                loading="eager"
+                decoding="async"
+            >
+        </div>
+
     </div>
 
+<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0 5px"><span class="social-placeholder">Instagram — لینک بعداً</span><span class="social-placeholder">Discord — لینک بعداً</span><span class="social-placeholder">YouTube — لینک بعداً</span><a class="social-placeholder" href="https://t.me/ptystoresup" target="_blank">Telegram</a></div>
 </section>
 
 
@@ -1471,21 +1178,7 @@
 
 
 <footer>
-    <div class="social-platforms" aria-label="شبکه‌های اجتماعی PTY Store">
-  <a href="https://discord.com/" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.03A16.9 16.9 0 0 0 15.4 3.75l-.5 1.02a15.2 15.2 0 0 0-5.8 0l-.5-1.02a16.9 16.9 0 0 0-4.14 1.28C1.84 8.94 1.13 12.77 1.49 16.54a16.8 16.8 0 0 0 5.08 2.57l1.23-1.68c-.68-.25-1.33-.57-1.94-.95l.48-.37c3.73 1.74 7.77 1.74 11.45 0l.48.37c-.61.38-1.26.7-1.94.95l1.23 1.68a16.8 16.8 0 0 0 5.08-2.57c.42-4.37-.71-8.17-1.6-11.51ZM8.69 14.63c-1.12 0-2.04-1.03-2.04-2.29s.9-2.29 2.04-2.29 2.05 1.03 2.04 2.29c0 1.26-.9 2.29-2.04 2.29Zm6.62 0c-1.12 0-2.04-1.03-2.04-2.29s.9-2.29 2.04-2.29 2.05 1.03 2.04 2.29c0 1.26-.9 2.29-2.04 2.29Z"/></svg>
-  </a>
-  <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg>
-  </a>
-  <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.4.58A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.85.58 9.4.58 9.4.58s7.55 0 9.4-.58a3 3 0 0 0 2.1-2.12A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.5v-7l6 3.5-6 3.5Z"/></svg>
-  </a>
-  <a href="https://t.me/ptystoresup" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6Z"/></svg>
-  </a>
-</div>
-    <div style="margin-top:12px;">PTY Store © 2026</div>
+    PTY Store © 2026
 </footer>
 
 
@@ -1773,6 +1466,10 @@ async function verifyOTP() {
         return;
     }
 
+    if (phone && !/^09\d{9}$/.test(normalizeDigits(phone))) { showMessage("شماره موبایل باید ۱۱ رقم و با 09 شروع شود."); return; }
+    if (telegramId && !/^@?[A-Za-z0-9_]{3,32}$/.test(telegramId)) { showMessage("آیدی تلگرام معتبر نیست."); return; }
+    if (String(document.getElementById("captchaAnswer").value).trim() !== String(window._captchaAnswer)) { showMessage("کپچا صحیح نیست."); generateCaptcha(); return; }
+
 
     try {
 
@@ -1929,7 +1626,7 @@ async function loadProfile() {
         await supabaseClient
             .from("profiles")
             .select(
-                "first_name,last_name,phone,trade_link"
+                "email,first_name,last_name,phone,telegram_id,trade_link"
             )
             .eq("id", user.id)
             .maybeSingle();
@@ -1967,17 +1664,13 @@ async function loadProfile() {
 
 
     document
-        .getElementById("phone")
-        .value =
-        data.phone || "";
-
-
-    document
         .getElementById("tradeLink")
         .value =
         data.trade_link || "";
 
-
+    document.getElementById("phone").value = data.phone || "";
+    document.getElementById("telegramId").value = data.telegram_id || "";
+    loadAvatar(user.id);
     updateProfileStatus();
 }
 
@@ -2019,17 +1712,13 @@ async function saveProfile() {
             .trim();
 
 
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
     const tradeLink =
         document
             .getElementById("tradeLink")
             .value
             .trim();
+    const phone = document.getElementById("phone").value.trim();
+    const telegramId = document.getElementById("telegramId").value.trim();
 
 
     if (!firstName) {
@@ -2046,16 +1735,6 @@ async function saveProfile() {
 
         showMessage(
             "نام خانوادگی را وارد کنید."
-        );
-
-        return;
-    }
-
-
-    if (!/^09\d{9}$/.test(phone)) {
-
-        showMessage(
-            "شماره موبایل باید دقیقاً ۱۱ رقم و با 09 شروع شود."
         );
 
         return;
@@ -2106,8 +1785,8 @@ async function saveProfile() {
                     last_name:
                         lastName,
 
-                    phone:
-                        phone,
+                    phone: phone || null,
+                    telegram_id: telegramId || null,
 
                     trade_link:
                         tradeLink,
@@ -2186,13 +1865,6 @@ function updateProfileStatus() {
             .trim();
 
 
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
     const tradeLink =
         document
             .getElementById("tradeLink")
@@ -2214,7 +1886,6 @@ function updateProfileStatus() {
         verified &&
         firstName &&
         lastName &&
-        /^09\d{9}$/.test(phone) &&
         tradeLink
     ) {
 
@@ -2272,13 +1943,12 @@ async function logout() {
 
 
     document
-        .getElementById("phone")
-        .value = "";
-
-
-    document
         .getElementById("tradeLink")
         .value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("telegramId").value = "";
+    document.getElementById("captchaAnswer").value = "";
+    removeAvatar();
 
 
     document
@@ -2367,30 +2037,6 @@ document
 
 
 document
-    .getElementById("phone")
-    .addEventListener(
-        "input",
-        function() {
-            const persian = "۰۱۲۳۴۵۶۷۸۹";
-            const arabic = "٠١٢٣٤٥٦٧٨٩";
-            this.value = this.value
-                .split("")
-                .map(ch => {
-                    const p = persian.indexOf(ch);
-                    if (p !== -1) return String(p);
-                    const a = arabic.indexOf(ch);
-                    if (a !== -1) return String(a);
-                    return ch;
-                })
-                .join("")
-                .replace(/\D/g, "")
-                .slice(0, 11);
-            updateProfileStatus();
-        }
-    );
-
-
-document
     .getElementById("tradeLink")
     .addEventListener(
         "input",
@@ -2398,6 +2044,7 @@ document
     );
 
 
+const products=[{id:1,name:"AK-47 | Redline",category:"Rifle",wear:"Field-Tested",price:153000,img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Redline.png"},{id:2,name:"AK-47 | Slate",category:"Rifle",wear:"Field-Tested",price:60000,img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Slate.png"},{id:3,name:"AK-47 | Neon Rider",category:"Rifle",wear:"Minimal Wear",price:210000,img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Neon_Rider.png"},{id:4,name:"M4A4 | Temukau",category:"Rifle",wear:"Minimal Wear",price:180000,img:"https://www.csgodatabase.com/images/skins/webp/M4A4_Temukau.png"},{id:5,name:"M4A1-S | Printstream",category:"Rifle",wear:"Field-Tested",price:420000,img:"https://www.csgodatabase.com/images/skins/webp/M4A1-S_Printstream.png"},{id:6,name:"Desert Eagle | Printstream",category:"Pistol",wear:"Minimal Wear",price:250000,img:"https://www.csgodatabase.com/images/skins/webp/Desert_Eagle_Printstream.png"},{id:7,name:"USP-S | Printstream",category:"Pistol",wear:"Factory New",price:1450000,img:"https://www.csgodatabase.com/images/skins/webp/USP-S_Printstream.png"},{id:8,name:"Glock-18 | Water Elemental",category:"Pistol",wear:"Well-Worn",price:390000,img:"https://www.csgodatabase.com/images/skins/webp/Glock-18_Water_Elemental.png"},{id:9,name:"AWP | Asiimov",category:"Sniper",wear:"Field-Tested",price:5200000,img:"https://www.csgodatabase.com/images/skins/webp/AWP_Asiimov.png"},{id:10,name:"AWP | Wildfire",category:"Sniper",wear:"Minimal Wear",price:25000000,img:"https://www.csgodatabase.com/images/skins/webp/AWP_Wildfire.png"},{id:11,name:"MP9 | Starlight Protector",category:"SMG",wear:"Factory New",price:520000,img:"https://www.csgodatabase.com/images/skins/webp/MP9_Starlight_Protector.png"},{id:12,name:"Karambit | Tiger Tooth",category:"Knife",wear:"Factory New",price:18500000,img:"https://csgoskin.ir/assets/images/d0e2e57e4ed0bfc5bcefb7ba9e7932a419ed0825_256.png"}];let selectedCategory="All",selectedWear="All",selectedMinPrice=0,selectedMaxPrice=25000000,cart=JSON.parse(localStorage.getItem("pty_cart")||"[]");function faNum(n){return Number(n).toLocaleString("fa-IR")}function normalizeDigits(v){return String(v).replace(/[۰-۹]/g,d=>String(d.charCodeAt(0)-1776)).replace(/[٠-٩]/g,d=>String(d.charCodeAt(0)-1632))}function renderProducts(){let g=document.getElementById("productsGrid");if(!g)return;let q=(document.getElementById("searchInput").value||"").toLowerCase().trim(),a=products.filter(p=>(!q||p.name.toLowerCase().includes(q))&&(selectedCategory==="All"||p.category===selectedCategory)&&(selectedWear==="All"||p.wear===selectedWear)&&p.price>=selectedMinPrice&&p.price<=selectedMaxPrice);document.getElementById("resultCount").textContent=faNum(a.length)+" آیتم";g.innerHTML=a.length?a.map(p=>{let c=cart.includes(p.id);return `<article class="product-card"><div class="product-img"><img src="${p.img}" alt="${p.name}" loading="lazy"></div><div class="product-name">${p.name}</div><div class="product-meta"><span class="product-tag">${p.category}</span><span class="product-tag">${p.wear}</span></div><div class="product-bottom"><span class="product-price">${faNum(p.price)} تومان</span><button class="add-cart ${c?"in-cart":""}" ${c?"disabled":""} onclick="addToCart(${p.id})">${c?"✓ داخل سبد":"افزودن به سبد"}</button></div></article>`}).join(""):"<div class='empty-results'>آیتمی با این فیلتر پیدا نشد.</div>";updateCart()}function addToCart(id){if(cart.includes(id))return;cart.push(id);localStorage.setItem("pty_cart",JSON.stringify(cart));renderProducts()}function clearCart(){cart=[];localStorage.setItem("pty_cart","[]");renderProducts()}function updateCart(){let e=document.getElementById("cartCount");if(e)e.textContent=faNum(cart.length)+" آیتم"}function updatePriceUI(){const minR=document.getElementById("priceMinRange"),minI=document.getElementById("priceMinInput"),maxI=document.getElementById("priceMaxInput"),fill=document.getElementById("rangeFill"),label=document.getElementById("priceValue");if(!minR)return;let min=+minR.value;selectedMinPrice=min;selectedMaxPrice=25000000;minI.value=min;maxI.value=25000000;const pct1=(min/25000000)*100;fill.style.left=pct1+"%";fill.style.right="0%";label.textContent=faNum(min)+" تا "+faNum(25000000)+" تومان";renderProducts()}function bindShop(){let s=document.getElementById("searchInput"),minR=document.getElementById("priceMinRange"),minI=document.getElementById("priceMinInput"),maxI=document.getElementById("priceMaxInput");s&&s.addEventListener("input",renderProducts);minR&&minR.addEventListener("input",updatePriceUI);minI&&minI.addEventListener("change",()=>{let v=Math.max(0,Math.min(25000000,+minI.value||0));minR.value=v;updatePriceUI()});maxI&&maxI.addEventListener("change",()=>{maxI.value=25000000;updatePriceUI()});renderProducts()});document.querySelectorAll("#wearChips .chip").forEach(b=>b.onclick=()=>{selectedWear=b.dataset.wear;document.querySelectorAll("#wearChips .chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderProducts()});renderProducts()}function generateCaptcha(){let a=Math.floor(Math.random()*8)+2,b=Math.floor(Math.random()*8)+2;window._captchaAnswer=a+b;let q=document.getElementById("captchaQuestion");if(q)q.textContent=`${a} + ${b} = ؟`;let x=document.getElementById("captchaAnswer");if(x)x.value=""}function avatarKey(id){return"pty_avatar_"+id}function loadAvatar(id){let d=localStorage.getItem(avatarKey(id)),i=document.getElementById("avatarImage"),f=document.getElementById("avatarFallback");if(!i)return;if(d){i.src=d;i.style.display="block";f.style.display="none"}else{i.style.display="none";f.style.display="block"}}function removeAvatar(){let id=window._currentUserId;if(id)localStorage.removeItem(avatarKey(id));let i=document.getElementById("avatarImage"),f=document.getElementById("avatarFallback");if(i){i.removeAttribute("src");i.style.display="none"}if(f)f.style.display="block"}function bindAvatar(){let x=document.getElementById("avatarInput");if(!x)return;x.onchange=e=>{let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>2097152){showMessage("حجم تصویر باید کمتر از ۲ مگابایت باشد.");return}let r=new FileReader;r.onload=()=>{if(window._currentUserId){localStorage.setItem(avatarKey(window._currentUserId),r.result);loadAvatar(window._currentUserId)}};r.readAsDataURL(f)}}const _loadProfile=loadProfile;loadProfile=async function(){let u=await getCurrentUser();if(u){window._currentUserId=u.id}let r=await _loadProfile();if(u)loadAvatar(u.id);return r};
 /* =========================
    INITIAL LOAD
 ========================= */
@@ -2423,13 +2070,14 @@ document.addEventListener(
         }
 
         updateProfileStatus();
+        bindShop();
+        bindAvatar();
+        generateCaptcha();
 
     }
 );
 
 </script>
-
-
 
 </body>
 </html>
