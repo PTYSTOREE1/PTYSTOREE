@@ -7147,7 +7147,36 @@ document.addEventListener(
 })();
 </script>
 </script>
+<script>
+document.addEventListener("click", function(e) {
 
+    const logo = e.target.closest(".logo");
+
+    if (!logo) return;
+
+    window.ptyAdminClicks =
+        (window.ptyAdminClicks || 0) + 1;
+
+    clearTimeout(window.ptyAdminTimer);
+
+    window.ptyAdminTimer = setTimeout(function() {
+        window.ptyAdminClicks = 0;
+    }, 2000);
+
+    if (window.ptyAdminClicks >= 5) {
+
+        window.ptyAdminClicks = 0;
+
+        if (typeof window.openPtyAdmin === "function") {
+            window.openPtyAdmin();
+        } else {
+            alert("Admin Panel پیدا نشد!");
+        }
+
+    }
+
+});
+</script>
 </script>
 </body>
 </html>
