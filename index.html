@@ -4586,34 +4586,24 @@ document.addEventListener(
     };
 
 
-    window.openPtyAdmin=function(){
+   window.openPtyAdmin = function () {
 
-        showAdmin();
+    const admin = document.getElementById("ptyAdminModal");
 
-        checkPtyAdminSession();
-
-    };
-
-
-    function toast(text="ITEM SAVED ✓"){
-
-        const t=
-            document.getElementById(
-                "ptyAdminToast"
-            );
-
-        t.textContent=text;
-
-        t.classList.add("show");
-
-        setTimeout(
-            ()=>{
-                t.classList.remove("show");
-            },
-            2200
-        );
-
+    if (admin) {
+        admin.style.display = "flex";
+        admin.classList.add("active");
     }
+
+    if (typeof showAdmin === "function") {
+        showAdmin();
+    }
+
+    if (typeof checkPtyAdminSession === "function") {
+        checkPtyAdminSession();
+    }
+
+};
 
 
     /* ================= ADMIN SESSION ================= */
