@@ -4560,46 +4560,48 @@ document.addEventListener(
 
     function showAdmin(){
 
-        modal().classList.add("show");
+    const admin = document.getElementById("ptyAdminModal");
 
-        modal().setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.style.overflow="hidden";
-
+    if(!admin){
+        console.error("ptyAdminModal NOT FOUND");
+        alert("پنل ادمین پیدا نشد!");
+        return;
     }
 
+    admin.style.display = "flex";
+    admin.classList.add("show");
+    admin.classList.add("active");
 
-    window.closePtyAdmin=function(){
+    admin.setAttribute("aria-hidden","false");
 
-        modal().classList.remove("show");
+    document.body.style.overflow="hidden";
 
-        modal().setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.style.overflow="";
-
-    };
+}
 
 
-   window.openPtyAdmin = function () {
+window.closePtyAdmin=function(){
 
     const admin = document.getElementById("ptyAdminModal");
 
-    if (admin) {
-        admin.style.display = "flex";
-        admin.classList.add("active");
-    }
+    if(!admin) return;
 
-    if (typeof showAdmin === "function") {
-        showAdmin();
-    }
+    admin.style.display="none";
 
-    if (typeof checkPtyAdminSession === "function") {
+    admin.classList.remove("show");
+    admin.classList.remove("active");
+
+    admin.setAttribute("aria-hidden","true");
+
+    document.body.style.overflow="";
+
+};
+
+
+window.openPtyAdmin=function(){
+
+    showAdmin();
+
+    if(typeof checkPtyAdminSession === "function"){
         checkPtyAdminSession();
     }
 
