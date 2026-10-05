@@ -6350,46 +6350,171 @@ window.openPtyAdmin=function(){
 
     /* ---------- OPEN ---------- */
 
-    window.openPtyAdmin = function(){
+  /* =====================================================
+   PTY ADMIN - FORCE OPEN SYSTEM
+   ===================================================== */
 
-        if(!modal){
-            alert("Admin panel not loaded.");
+(function(){
+
+    let adminClicks = 0;
+    let adminClickTimer = null;
+
+    function forceOpenAdmin(){
+
+        console.log("PTY ADMIN: opening...");
+
+        const admin =
+            document.getElementById("ptyAdminModal");
+
+        if(!admin){
+
+            console.error(
+                "PTY ADMIN: ptyAdminModal NOT FOUND"
+            );
+
+            alert("ptyAdminModal پیدا نشد!");
+
             return;
         }
 
-        modal.style.display = "block";
+        /* FORCE VISIBILITY */
+
+        admin.style.display = "flex";
+        admin.style.visibility = "visible";
+        admin.style.opacity = "1";
+        admin.style.pointerEvents = "auto";
+        admin.style.zIndex = "999999";
+
+        admin.classList.add("show");
+        admin.classList.add("active");
+
+        admin.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
         document.body.style.overflow = "hidden";
 
-        document.getElementById("ptySafeLogin").style.display = "block";
 
-        document.getElementById("ptySafeDashboard").style.display = "none";
+        /* START LOGIN / SESSION CHECK */
 
-        document.getElementById("ptySafeError").textContent = "";
+        if(
+            typeof checkPtyAdminSession ===
+            "function"
+        ){
 
-        document.getElementById("ptySafePassword").value = "";
+            checkPtyAdminSession();
 
-    };
+        }else{
 
+            console.error(
+                "PTY ADMIN: checkPtyAdminSession NOT FOUND"
+            );
 
-    /* ---------- CLOSE ---------- */
-
-    function closeAdmin(){
-
-        if(modal){
-            modal.style.display = "none";
         }
-
-        document.body.style.overflow = "";
 
     }
 
-    closeBtn.addEventListener("click", closeAdmin);
+
+    /* MAKE FUNCTION AVAILABLE GLOBALLY */
+
+    window.openPtyAdmin = forceOpenAdmin;
 
 
-    document.getElementById("ptySafeAdminBg")
-        .addEventListener("click", closeAdmin);
+    /* =================================================
+       5 CLICK ADMIN TRIGGER
+       ================================================= */
 
+    function setupAdminTrigger(){
+
+        const logo =
+            document.querySelector(".logo");
+
+        if(!logo){
+
+            console.error(
+                "PTY ADMIN: .logo NOT FOUND"
+            );
+
+            return;
+        }
+
+
+        /* جلوگیری از چند بار وصل شدن Listener */
+
+        if(logo.dataset.ptyAdminReady === "1"){
+            return;
+        }
+
+        logo.dataset.ptyAdminReady = "1";
+
+
+        logo.addEventListener(
+            "click",
+            function(e){
+
+                adminClicks++;
+
+                console.log(
+                    "PTY ADMIN CLICK:",
+                    adminClicks
+                );
+
+
+                clearTimeout(adminClickTimer);
+
+
+                adminClickTimer =
+                    setTimeout(
+                        function(){
+
+                            adminClicks = 0;
+
+                        },
+                        1500
+                    );
+
+
+                if(adminClicks >= 5){
+
+                    adminClicks = 0;
+
+                    clearTimeout(
+                        adminClickTimer
+                    );
+
+                    forceOpenAdmin();
+
+                }
+
+            },
+            true
+        );
+
+    }
+
+
+    /* =================================================
+       START
+       ================================================= */
+
+    if(
+        document.readyState ===
+        "loading"
+    ){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            setupAdminTrigger
+        );
+
+    }else{
+
+        setupAdminTrigger();
+
+    }
+
+})();
 
     /* ---------- LOGIN ---------- */
 
