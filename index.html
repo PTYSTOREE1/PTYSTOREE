@@ -7177,6 +7177,22 @@ document.addEventListener("click", function(e) {
 
 });
 </script>
+</script><script>
+document.addEventListener("keydown", function(e) {
+
+    if (e.key === "F8") {
+
+        e.preventDefault();
+
+        if (typeof window.openPtyAdmin === "function") {
+            window.openPtyAdmin();
+        } else {
+            alert("Admin Panel JS پیدا نشد!");
+        }
+
+    }
+
+});
 </script>
 </body>
 </html>
