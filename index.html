@@ -5771,6 +5771,1105 @@ document.addEventListener(
 })();
 
 </script>
+<!-- ================= PTY ADMIN PANEL ================= -->
+<div id="ptyAdminModal" style="display:none;">
+  <div class="pty-admin-overlay" onclick="closePtyAdmin()"></div>
 
+  <div class="pty-admin-box">
+
+    <button class="pty-admin-close" onclick="closePtyAdmin()">×</button>
+
+    <!-- LOGIN -->
+    <div id="ptyAdminLogin">
+
+      <div class="pty-admin-title">
+        <span>PTY</span> ADMIN
+      </div>
+
+      <p class="pty-admin-subtitle">
+        Admin Login
+      </p>
+
+      <input
+        id="ptyAdminEmail"
+        type="email"
+        placeholder="Admin Email"
+        autocomplete="email"
+      >
+
+      <input
+        id="ptyAdminPassword"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+      <button class="pty-admin-login-btn" onclick="ptyAdminLogin()">
+        LOGIN
+      </button>
+
+      <div id="ptyAdminLoginError"></div>
+    </div>
+
+
+    <!-- DASHBOARD -->
+    <div id="ptyAdminDashboard" style="display:none;">
+
+      <div class="pty-admin-header">
+        <div>
+          <div class="pty-admin-title">
+            <span>PTY</span> ADMIN
+          </div>
+          <div class="pty-admin-small">
+            Product Management
+          </div>
+        </div>
+
+        <button class="pty-admin-logout" onclick="ptyAdminLogout()">
+          LOGOUT
+        </button>
+      </div>
+
+
+      <!-- ADD PRODUCT -->
+      <div class="pty-admin-section">
+
+        <h3>ADD PRODUCT</h3>
+
+        <div class="pty-admin-grid">
+
+          <input
+            id="ptyProductName"
+            type="text"
+            placeholder="Product name"
+          >
+
+          <input
+            id="ptyProductWear"
+            type="text"
+            placeholder="Wear - Factory New / Field-Tested ..."
+          >
+
+          <input
+            id="ptyProductPrice"
+            type="number"
+            placeholder="Price"
+          >
+
+          <select id="ptyProductCategory">
+            <option value="Rifle">Rifle</option>
+            <option value="Pistol">Pistol</option>
+            <option value="SMG">SMG</option>
+            <option value="Knife">Knife</option>
+            <option value="Gloves">Gloves</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <input
+            id="ptyProductImage"
+            type="text"
+            placeholder="Image URL"
+            class="pty-full"
+          >
+
+        </div>
+
+        <button
+          class="pty-admin-add-btn"
+          onclick="ptyAddProduct()"
+        >
+          + ADD PRODUCT
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCTS -->
+      <div class="pty-admin-section">
+
+        <div class="pty-products-head">
+          <h3>PRODUCTS</h3>
+
+          <button
+            class="pty-refresh-btn"
+            onclick="ptyLoadProducts()"
+          >
+            ↻ REFRESH
+          </button>
+        </div>
+
+        <div id="ptyAdminProducts">
+          Loading...
+        </div>
+
+      </div>
+
+
+      <!-- USERS -->
+      <div class="pty-admin-section">
+
+        <div class="pty-products-head">
+          <h3>USERS</h3>
+
+          <button
+            class="pty-refresh-btn"
+            onclick="ptyLoadUsers()"
+          >
+            ↻ LOAD USERS
+          </button>
+        </div>
+
+        <div id="ptyAdminUsers">
+          Click LOAD USERS
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<style>
+
+/* ================= ADMIN MODAL ================= */
+
+#ptyAdminModal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  font-family: Arial, sans-serif;
+}
+
+.pty-admin-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(8px);
+}
+
+.pty-admin-box {
+  position: relative;
+  z-index: 2;
+
+  width: min(1000px, 94%);
+  max-height: 90vh;
+
+  margin: 5vh auto;
+  padding: 30px;
+
+  overflow-y: auto;
+
+  background: #100d18;
+  border: 1px solid #6d35ff;
+  border-radius: 20px;
+
+  box-shadow:
+    0 0 30px rgba(109,53,255,.35),
+    0 0 100px rgba(109,53,255,.12);
+
+  color: white;
+}
+
+.pty-admin-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+
+  width: 38px;
+  height: 38px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #211a2d;
+  color: white;
+
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.pty-admin-close:hover {
+  background: #6d35ff;
+}
+
+.pty-admin-title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.pty-admin-title span {
+  color: #8b5cff;
+}
+
+.pty-admin-subtitle {
+  color: #888;
+  margin-bottom: 25px;
+}
+
+#ptyAdminLogin {
+  max-width: 420px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+#ptyAdminLogin input,
+.pty-admin-grid input,
+.pty-admin-grid select {
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 14px 15px;
+  margin-bottom: 12px;
+
+  background: #181320;
+  border: 1px solid #302642;
+
+  color: white;
+
+  border-radius: 10px;
+  outline: none;
+}
+
+#ptyAdminLogin input:focus,
+.pty-admin-grid input:focus,
+.pty-admin-grid select:focus {
+  border-color: #8b5cff;
+  box-shadow: 0 0 0 2px rgba(139,92,255,.1);
+}
+
+.pty-admin-login-btn,
+.pty-admin-add-btn {
+
+  width: 100%;
+  padding: 14px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #6d35ff,
+    #9b6cff
+  );
+
+  color: white;
+
+  font-weight: 900;
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.pty-admin-login-btn:hover,
+.pty-admin-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(109,53,255,.3);
+}
+
+#ptyAdminLoginError {
+  color: #ff5c75;
+  margin-top: 15px;
+  min-height: 20px;
+}
+
+
+/* DASHBOARD */
+
+.pty-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 25px;
+  border-bottom: 1px solid #292032;
+}
+
+.pty-admin-small {
+  color: #777;
+  margin-top: 5px;
+}
+
+.pty-admin-logout,
+.pty-refresh-btn {
+
+  padding: 9px 14px;
+
+  border: 1px solid #392d4d;
+  border-radius: 8px;
+
+  background: #191421;
+  color: white;
+
+  cursor: pointer;
+}
+
+.pty-admin-logout:hover,
+.pty-refresh-btn:hover {
+  border-color: #8b5cff;
+  color: #a987ff;
+}
+
+.pty-admin-section {
+  margin-top: 25px;
+  padding: 20px;
+
+  background: #15111d;
+  border: 1px solid #272031;
+
+  border-radius: 15px;
+}
+
+.pty-admin-section h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+.pty-admin-grid {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.pty-admin-grid .pty-full {
+  grid-column: 1 / -1;
+}
+
+.pty-products-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+
+/* PRODUCT CARD */
+
+.pty-admin-product {
+
+  display: grid;
+
+  grid-template-columns:
+    70px
+    1fr
+    120px
+    120px
+    100px
+    80px;
+
+  gap: 10px;
+
+  align-items: center;
+
+  padding: 12px;
+
+  margin-bottom: 10px;
+
+  background: #0f0c15;
+  border: 1px solid #251d30;
+
+  border-radius: 12px;
+}
+
+.pty-admin-product img {
+
+  width: 60px;
+  height: 45px;
+
+  object-fit: contain;
+
+  background: #17121f;
+  border-radius: 8px;
+}
+
+.pty-admin-product input,
+.pty-admin-product select {
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 9px;
+
+  background: #181320;
+
+  border: 1px solid #302642;
+
+  color: white;
+
+  border-radius: 7px;
+}
+
+.pty-save-product {
+
+  border: 0;
+  border-radius: 7px;
+
+  padding: 9px;
+
+  background: #6d35ff;
+  color: white;
+
+  cursor: pointer;
+}
+
+.pty-delete-product {
+
+  border: 0;
+  border-radius: 7px;
+
+  padding: 9px;
+
+  background: #3a1720;
+  color: #ff7185;
+
+  cursor: pointer;
+}
+
+.pty-save-product:hover {
+  background: #8758ff;
+}
+
+.pty-delete-product:hover {
+  background: #7d2437;
+}
+
+
+/* USERS */
+
+.pty-admin-user {
+
+  padding: 15px;
+  margin-bottom: 8px;
+
+  background: #0f0c15;
+
+  border: 1px solid #251d30;
+  border-radius: 10px;
+}
+
+.pty-admin-user strong {
+  color: #a987ff;
+}
+
+@media(max-width:700px) {
+
+  .pty-admin-box {
+    padding: 18px;
+  }
+
+  .pty-admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pty-admin-grid .pty-full {
+    grid-column: auto;
+  }
+
+  .pty-admin-product {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+
+
+<script>
+
+/* =====================================================
+   PTY STORE ADMIN PANEL
+   ===================================================== */
+
+
+/* OPEN ADMIN */
+
+window.openPtyAdmin = function(){
+
+  const modal = document.getElementById("ptyAdminModal");
+
+  if(!modal) return;
+
+  modal.style.display = "block";
+
+  document.getElementById("ptyAdminLogin").style.display = "block";
+  document.getElementById("ptyAdminDashboard").style.display = "none";
+
+  document.getElementById("ptyAdminLoginError").textContent = "";
+
+};
+
+
+/* CLOSE ADMIN */
+
+window.closePtyAdmin = function(){
+
+  const modal = document.getElementById("ptyAdminModal");
+
+  if(modal){
+    modal.style.display = "none";
+  }
+
+};
+
+
+/* LOGIN */
+
+window.ptyAdminLogin = async function(){
+
+  const email =
+    document.getElementById("ptyAdminEmail").value.trim();
+
+  const password =
+    document.getElementById("ptyAdminPassword").value;
+
+  const error =
+    document.getElementById("ptyAdminLoginError");
+
+  error.textContent = "";
+
+
+  if(!email || !password){
+
+    error.textContent = "Email و Password را وارد کن.";
+
+    return;
+  }
+
+
+  try {
+
+    const { data, error: loginError } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+
+    if(loginError){
+
+      error.textContent =
+        loginError.message || "Login failed.";
+
+      return;
+    }
+
+
+    /* CHECK ADMIN EMAIL */
+
+    const { data: adminData, error: adminError } =
+      await supabaseClient
+        .from("admin_emails")
+        .select("email")
+        .eq("email", email)
+        .maybeSingle();
+
+
+    if(adminError){
+
+      error.textContent =
+        "خطا در بررسی Admin: " + adminError.message;
+
+      await supabaseClient.auth.signOut();
+
+      return;
+    }
+
+
+    if(!adminData){
+
+      error.textContent =
+        "این ایمیل دسترسی Admin ندارد.";
+
+      await supabaseClient.auth.signOut();
+
+      return;
+    }
+
+
+    /* SUCCESS */
+
+    document.getElementById("ptyAdminLogin").style.display = "none";
+
+    document.getElementById("ptyAdminDashboard").style.display = "block";
+
+    await ptyLoadProducts();
+
+  }
+
+  catch(err){
+
+    error.textContent =
+      err.message || "Unknown error.";
+
+  }
+
+};
+
+
+/* LOGOUT */
+
+window.ptyAdminLogout = async function(){
+
+  await supabaseClient.auth.signOut();
+
+  document.getElementById("ptyAdminDashboard").style.display = "none";
+
+  document.getElementById("ptyAdminLogin").style.display = "block";
+
+};
+
+
+/* LOAD PRODUCTS */
+
+window.ptyLoadProducts = async function(){
+
+  const container =
+    document.getElementById("ptyAdminProducts");
+
+  container.innerHTML = "Loading products...";
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .order("id", { ascending:false });
+
+
+  if(error){
+
+    container.innerHTML =
+      `<div style="color:#ff6175;">
+        ${ptyEscape(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML =
+      `<div style="color:#777;">
+        هنوز محصولی اضافه نشده.
+      </div>`;
+
+    return;
+  }
+
+
+  container.innerHTML = data.map(product => `
+
+    <div class="pty-admin-product"
+         data-id="${product.id}">
+
+      <img
+        src="${ptyEscape(product.image_url || '')}"
+        onerror="this.style.opacity='.2'"
+      >
+
+      <input
+        class="pty-edit-name"
+        value="${ptyEscape(product.name || '')}"
+        placeholder="Name"
+      >
+
+      <input
+        class="pty-edit-wear"
+        value="${ptyEscape(product.wear || '')}"
+        placeholder="Wear"
+      >
+
+      <input
+        class="pty-edit-price"
+        type="number"
+        value="${Number(product.price || 0)}"
+        placeholder="Price"
+      >
+
+      <button
+        class="pty-save-product"
+        onclick="ptySaveProduct(${product.id},this)">
+        SAVE
+      </button>
+
+      <button
+        class="pty-delete-product"
+        onclick="ptyDeleteProduct(${product.id})">
+        DELETE
+      </button>
+
+      <input
+        class="pty-edit-image"
+        value="${ptyEscape(product.image_url || '')}"
+        placeholder="Image URL"
+        style="grid-column:1/-1;"
+      >
+
+    </div>
+
+  `).join("");
+
+};
+
+
+/* ADD PRODUCT */
+
+window.ptyAddProduct = async function(){
+
+  const name =
+    document.getElementById("ptyProductName").value.trim();
+
+  const wear =
+    document.getElementById("ptyProductWear").value.trim();
+
+  const price =
+    Number(document.getElementById("ptyProductPrice").value);
+
+  const category =
+    document.getElementById("ptyProductCategory").value;
+
+  const image =
+    document.getElementById("ptyProductImage").value.trim();
+
+
+  if(!name){
+
+    ptyToast("PRODUCT NAME REQUIRED");
+
+    return;
+  }
+
+
+  if(!price || price < 0){
+
+    ptyToast("PRICE REQUIRED");
+
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .insert({
+
+        name: name,
+        wear: wear,
+        price: price,
+        category: category,
+        image_url: image
+
+      });
+
+
+  if(error){
+
+    ptyToast("ERROR: " + error.message);
+
+    return;
+  }
+
+
+  /* CLEAR */
+
+  document.getElementById("ptyProductName").value = "";
+  document.getElementById("ptyProductWear").value = "";
+  document.getElementById("ptyProductPrice").value = "";
+  document.getElementById("ptyProductImage").value = "";
+
+
+  await ptyLoadProducts();
+
+  ptyToast("ITEM ADDED ✓");
+
+};
+
+
+/* SAVE PRODUCT */
+
+window.ptySaveProduct = async function(id,button){
+
+  const card =
+    button.closest(".pty-admin-product");
+
+
+  const name =
+    card.querySelector(".pty-edit-name").value.trim();
+
+  const wear =
+    card.querySelector(".pty-edit-wear").value.trim();
+
+  const price =
+    Number(card.querySelector(".pty-edit-price").value);
+
+  const image =
+    card.querySelector(".pty-edit-image").value.trim();
+
+
+  const oldText = button.textContent;
+
+  button.textContent = "SAVING...";
+
+  button.disabled = true;
+
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .update({
+
+        name: name,
+        wear: wear,
+        price: price,
+        image_url: image,
+        updated_at: new Date().toISOString()
+
+      })
+      .eq("id", id);
+
+
+  button.disabled = false;
+
+  button.textContent = oldText;
+
+
+  if(error){
+
+    ptyToast("ERROR: " + error.message);
+
+    return;
+  }
+
+
+  ptyToast("ITEM SAVED ✓");
+
+  await ptyLoadProducts();
+
+};
+
+
+/* DELETE */
+
+window.ptyDeleteProduct = async function(id){
+
+  if(!confirm("Delete this product?")) return;
+
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+
+  if(error){
+
+    ptyToast("ERROR: " + error.message);
+
+    return;
+  }
+
+
+  await ptyLoadProducts();
+
+  ptyToast("ITEM DELETED ✓");
+
+};
+
+
+/* LOAD USERS */
+
+window.ptyLoadUsers = async function(){
+
+  const container =
+    document.getElementById("ptyAdminUsers");
+
+  container.innerHTML = "Loading users...";
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .order("created_at", { ascending:false });
+
+
+  if(error){
+
+    container.innerHTML =
+      `<div style="color:#ff6175;">
+        ${ptyEscape(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML = "No users.";
+
+    return;
+  }
+
+
+  container.innerHTML = data.map(user => `
+
+    <div class="pty-admin-user">
+
+      <strong>
+        ${ptyEscape(
+          (user.first_name || "") +
+          " " +
+          (user.last_name || "")
+        )}
+      </strong>
+
+      <br>
+
+      Email:
+      ${ptyEscape(user.email || "-")}
+
+      <br>
+
+      Telegram:
+      ${ptyEscape(user.telegram_id || "-")}
+
+      <br>
+
+      Phone:
+      ${ptyEscape(user.phone || "-")}
+
+      <br>
+
+      Trade:
+      ${ptyEscape(user.trade_link || "-")}
+
+    </div>
+
+  `).join("");
+
+};
+
+
+/* ESCAPE */
+
+window.ptyEscape = function(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+};
+
+
+/* TOAST */
+
+window.ptyToast = function(message){
+
+  let toast =
+    document.getElementById("ptyAdminToast");
+
+  if(!toast){
+
+    toast = document.createElement("div");
+
+    toast.id = "ptyAdminToast";
+
+    toast.style.cssText = `
+      position:fixed;
+      left:50%;
+      bottom:35px;
+      transform:translateX(-50%) translateY(20px);
+      background:#17121f;
+      color:white;
+      border:1px solid #8b5cff;
+      padding:14px 24px;
+      border-radius:12px;
+      z-index:1000000;
+      font-weight:900;
+      opacity:0;
+      transition:.3s;
+      box-shadow:0 10px 40px rgba(0,0,0,.5);
+    `;
+
+    document.body.appendChild(toast);
+
+  }
+
+
+  toast.textContent = message;
+
+  toast.style.opacity = "1";
+  toast.style.transform =
+    "translateX(-50%) translateY(0)";
+
+
+  clearTimeout(window.ptyToastTimer);
+
+  window.ptyToastTimer = setTimeout(()=>{
+
+    toast.style.opacity = "0";
+
+    toast.style.transform =
+      "translateX(-50%) translateY(20px)";
+
+  },2500);
+
+};
+
+
+/* =====================================================
+   5 CLICKS ON LOGO = ADMIN
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  const logo =
+    document.querySelector(".logo");
+
+  if(!logo) return;
+
+
+  let clicks = 0;
+  let timer = null;
+
+
+  logo.addEventListener("click",function(){
+
+    clicks++;
+
+    clearTimeout(timer);
+
+    timer = setTimeout(()=>{
+
+      clicks = 0;
+
+    },1800);
+
+
+    if(clicks >= 5){
+
+      clicks = 0;
+
+      openPtyAdmin();
+
+    }
+
+  });
+
+});
+
+</script>
 </body>
 </html>
