@@ -3725,15 +3725,15 @@ document.addEventListener(
 
 </script>
 
-<!-- ================= ADMIN SYSTEM ================= -->
+<!-- ================= ADMIN CSS ================= -->
 
 <style>
 
 #ptyAdminModal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.86);
-    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(8px);
     z-index:100000;
     display:none;
     align-items:center;
@@ -3746,15 +3746,15 @@ document.addEventListener(
 }
 
 .pty-admin-box{
-    width:min(1150px,97vw);
-    max-height:94vh;
+    width:min(1000px,96vw);
+    max-height:92vh;
     overflow:auto;
-    background:#0d0b11;
+    background:#0d0d10;
     border:1px solid #702AD7;
-    border-radius:20px;
-    box-shadow:0 0 55px rgba(112,42,215,.35);
+    border-radius:18px;
+    box-shadow:0 0 45px rgba(112,42,215,.3);
     padding:22px;
-    color:white;
+    color:#fff;
     font-family:"Cinzel",serif;
 }
 
@@ -3762,38 +3762,33 @@ document.addEventListener(
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
-    margin-bottom:20px;
+    gap:12px;
+    margin-bottom:18px;
 }
 
 .pty-admin-head h2{
     margin:0;
-    font-size:18px;
-}
-
-.pty-admin-head h2 span{
-    color:#702AD7;
+    color:#fff;
+    font-size:17px;
 }
 
 .pty-admin-close{
     border:1px solid #333;
-    background:#151318;
+    background:#151515;
     color:#aaa;
     border-radius:9px;
-    padding:9px 13px;
+    padding:8px 12px;
     cursor:pointer;
 }
 
 .pty-admin-close:hover{
-    color:white;
+    color:#fff;
     border-color:#702AD7;
 }
 
-/* LOGIN */
-
 .pty-admin-login{
     max-width:430px;
-    margin:50px auto;
+    margin:35px auto;
 }
 
 .pty-admin-login h2{
@@ -3806,65 +3801,52 @@ document.addEventListener(
     text-align:center;
     color:#777;
     font-size:10px;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 .pty-admin-field{
-    margin-bottom:14px;
+    margin-bottom:12px;
 }
 
 .pty-admin-field label{
     display:block;
+    font-size:9px;
     color:#999;
-    font-size:10px;
-    margin-bottom:7px;
+    margin-bottom:6px;
 }
 
 .pty-admin-field input{
     width:100%;
     background:#111;
-    border:1px solid #302b38;
+    border:1px solid #303030;
     border-radius:9px;
-    padding:13px;
-    color:white;
+    padding:12px;
+    color:#fff;
     outline:none;
-    box-sizing:border-box;
-}
-
-.pty-admin-field input:focus{
-    border-color:#702AD7;
-    box-shadow:0 0 0 3px rgba(112,42,215,.12);
 }
 
 .pty-admin-btn{
+    width:100%;
     border:0;
     border-radius:9px;
-    padding:12px 16px;
+    padding:12px;
     background:#702AD7;
-    color:white;
+    color:#fff;
     font-weight:900;
     cursor:pointer;
-    transition:.2s;
 }
 
 .pty-admin-btn:hover{
     background:#7d39e2;
-    transform:translateY(-1px);
-}
-
-.pty-admin-btn.full{
-    width:100%;
 }
 
 .pty-admin-msg{
     text-align:center;
     min-height:20px;
-    color:#ff7777;
+    color:#ff6b6b;
     font-size:10px;
     margin-top:10px;
 }
-
-/* DASHBOARD */
 
 .pty-admin-dashboard{
     display:none;
@@ -3878,9 +3860,9 @@ document.addEventListener(
 }
 
 .pty-admin-stat{
-    background:#121016;
-    border:1px solid #28242e;
-    border-radius:13px;
+    background:#121217;
+    border:1px solid #28282f;
+    border-radius:12px;
     padding:16px;
 }
 
@@ -3891,175 +3873,24 @@ document.addEventListener(
 
 .pty-admin-stat strong{
     display:block;
-    color:#702AD7;
-    font-size:22px;
+    font-size:24px;
     margin-top:7px;
-    word-break:break-word;
+    color:#702AD7;
 }
 
 .pty-admin-section{
     background:#101014;
     border:1px solid #28282f;
-    border-radius:14px;
-    padding:16px;
-    margin-top:15px;
-}
-
-.pty-admin-section-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.pty-admin-section-head h3{
-    margin:0;
-    font-size:13px;
-}
-
-/* PRODUCT ADMIN */
-
-.pty-product-form{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    background:#15131a;
-    border:1px solid #292631;
-    border-radius:13px;
+    border-radius:12px;
     padding:15px;
-    margin-bottom:18px;
+    margin-top:14px;
 }
 
-.pty-product-form .full{
-    grid-column:1/-1;
-}
-
-.pty-product-form label{
-    display:block;
-    color:#999;
-    font-size:9px;
-    margin-bottom:6px;
-}
-
-.pty-product-form input,
-.pty-product-form select{
-    width:100%;
-    box-sizing:border-box;
-    background:#0c0b0f;
-    color:white;
-    border:1px solid #302b38;
-    border-radius:8px;
-    padding:11px;
-    outline:none;
-    font-family:"Cinzel",serif;
+.pty-admin-section h3{
+    margin:0 0 12px;
     font-size:11px;
+    color:#ddd;
 }
-
-.pty-product-form input:focus,
-.pty-product-form select:focus{
-    border-color:#702AD7;
-}
-
-.pty-product-form-actions{
-    grid-column:1/-1;
-    display:flex;
-    gap:10px;
-}
-
-.pty-admin-secondary{
-    background:#19171e;
-    border:1px solid #38323f;
-}
-
-.pty-admin-secondary:hover{
-    background:#24202b;
-}
-
-/* PRODUCT LIST */
-
-.pty-products-admin-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.pty-product-admin-card{
-    background:#15131a;
-    border:1px solid #292631;
-    border-radius:13px;
-    padding:14px;
-}
-
-.pty-product-admin-top{
-    display:grid;
-    grid-template-columns:90px 1fr;
-    gap:12px;
-    align-items:center;
-}
-
-.pty-product-admin-image{
-    width:90px;
-    height:75px;
-    border-radius:10px;
-    background:#0b0a0e;
-    border:1px solid #292631;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.pty-product-admin-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.pty-product-admin-name{
-    font-size:13px;
-    font-weight:900;
-    margin-bottom:6px;
-}
-
-.pty-product-admin-meta{
-    color:#999;
-    font-size:9px;
-    line-height:1.8;
-}
-
-.pty-product-admin-actions{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-}
-
-.pty-product-admin-actions button{
-    flex:1;
-    border-radius:8px;
-    padding:9px;
-    cursor:pointer;
-    font-family:"Cinzel",serif;
-    font-size:9px;
-}
-
-.pty-edit-btn{
-    background:#702AD7;
-    color:white;
-    border:0;
-}
-
-.pty-delete-btn{
-    background:transparent;
-    color:#ff9292;
-    border:1px solid rgba(255,70,70,.3);
-}
-
-.pty-delete-btn:hover{
-    background:rgba(255,70,70,.08);
-}
-
-/* PROFILES */
 
 .pty-admin-profile-grid{
     display:grid;
@@ -4083,7 +3914,6 @@ document.addEventListener(
     object-fit:cover;
     background:#080808;
     border:1px solid #444;
-    flex-shrink:0;
 }
 
 .pty-admin-profile-info{
@@ -4113,47 +3943,23 @@ document.addEventListener(
     text-align:center;
 }
 
-/* TOAST */
-
-#ptyAdminToast{
-    position:fixed;
-    left:50%;
-    bottom:35px;
-    transform:translate(-50%,30px);
-    background:#702AD7;
-    color:white;
-    padding:13px 22px;
-    border-radius:12px;
-    font-size:11px;
-    font-weight:900;
-    box-shadow:0 12px 35px rgba(112,42,215,.45);
-    opacity:0;
-    pointer-events:none;
-    z-index:200000;
-    transition:.3s;
+.pty-admin-refresh{
+    width:auto;
+    padding:8px 13px;
+    margin-top:12px;
 }
 
-#ptyAdminToast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-@media(max-width:700px){
+@media(max-width:650px){
 
     .pty-admin-stats{
         grid-template-columns:1fr;
     }
 
-    .pty-product-form{
-        grid-template-columns:1fr;
+    .pty-admin-box{
+        padding:15px;
     }
 
-    .pty-product-form .full,
-    .pty-product-form-actions{
-        grid-column:auto;
-    }
-
-    .pty-products-admin-grid{
+    .pty-admin-profile-grid{
         grid-template-columns:1fr;
     }
 
@@ -4161,18 +3967,19 @@ document.addEventListener(
 
 </style>
 
-
 <!-- ================= ADMIN HTML ================= -->
 
-<div id="ptyAdminModal" aria-hidden="true">
+<div
+    id="ptyAdminModal"
+    aria-hidden="true"
+>
 
     <div class="pty-admin-box">
 
         <div class="pty-admin-head">
 
             <h2>
-                PTY STORE —
-                <span>ADMIN PANEL</span>
+                PTY STORE — ADMIN PANEL
             </h2>
 
             <button
@@ -4185,15 +3992,14 @@ document.addEventListener(
 
         </div>
 
-
-        <!-- LOGIN -->
-
         <div
             id="ptyAdminLogin"
             class="pty-admin-login"
         >
 
-            <h2>ADMIN LOGIN</h2>
+            <h2>
+                ADMIN LOGIN
+            </h2>
 
             <div class="pty-admin-sub">
                 Only authorized PTY STORE administrators can enter.
@@ -4201,7 +4007,9 @@ document.addEventListener(
 
             <div class="pty-admin-field">
 
-                <label>ADMIN EMAIL</label>
+                <label>
+                    ADMIN EMAIL
+                </label>
 
                 <input
                     id="ptyAdminEmail"
@@ -4214,7 +4022,9 @@ document.addEventListener(
 
             <div class="pty-admin-field">
 
-                <label>PASSWORD</label>
+                <label>
+                    PASSWORD
+                </label>
 
                 <input
                     id="ptyAdminPassword"
@@ -4226,7 +4036,7 @@ document.addEventListener(
             </div>
 
             <button
-                class="pty-admin-btn full"
+                class="pty-admin-btn"
                 type="button"
                 onclick="ptyAdminLogin()"
             >
@@ -4240,15 +4050,10 @@ document.addEventListener(
 
         </div>
 
-
-        <!-- DASHBOARD -->
-
         <div
             id="ptyAdminDashboard"
             class="pty-admin-dashboard"
         >
-
-            <!-- STATS -->
 
             <div class="pty-admin-stats">
 
@@ -4258,7 +4063,9 @@ document.addEventListener(
                         REGISTERED PROFILES
                     </small>
 
-                    <strong id="ptyAdminProfileCount">
+                    <strong
+                        id="ptyAdminProfileCount"
+                    >
                         0
                     </strong>
 
@@ -4267,243 +4074,39 @@ document.addEventListener(
                 <div class="pty-admin-stat">
 
                     <small>
-                        PRODUCTS
-                    </small>
-
-                    <strong id="ptyAdminProductCount">
-                        0
-                    </strong>
-
-                </div>
-
-                <div class="pty-admin-stat">
-
-                    <small>
-                        ADMIN
+                        ADMIN EMAIL
                     </small>
 
                     <strong
                         id="ptyAdminCurrentEmail"
-                        style="font-size:12px"
+                        style="font-size:13px;word-break:break-all"
                     >
                         -
                     </strong>
 
                 </div>
 
-            </div>
+                <div class="pty-admin-stat">
 
+                    <small>
+                        STATUS
+                    </small>
 
-            <!-- PRODUCTS -->
-
-            <div class="pty-admin-section">
-
-                <div class="pty-admin-section-head">
-
-                    <h3>
-                        PRODUCT MANAGEMENT
-                    </h3>
-
-                    <button
-                        class="pty-admin-btn"
-                        type="button"
-                        onclick="ptyNewProduct()"
+                    <strong
+                        style="font-size:15px"
                     >
-                        + ADD PRODUCT
-                    </button>
+                        ONLINE
+                    </strong>
 
-                </div>
-
-
-                <!-- FORM -->
-
-                <div
-                    id="ptyProductForm"
-                    class="pty-product-form"
-                    style="display:none;"
-                >
-
-                    <input
-                        id="ptyProductId"
-                        type="hidden"
-                    >
-
-                    <div>
-
-                        <label>
-                            NAME
-                        </label>
-
-                        <input
-                            id="ptyProductName"
-                            type="text"
-                            placeholder="AK-47 | Redline"
-                        >
-
-                    </div>
-
-
-                    <div>
-
-                        <label>
-                            PRICE — TOMAN
-                        </label>
-
-                        <input
-                            id="ptyProductPrice"
-                            type="number"
-                            min="0"
-                            placeholder="153000"
-                        >
-
-                    </div>
-
-
-                    <div>
-
-                        <label>
-                            WEAR
-                        </label>
-
-                        <select id="ptyProductWear">
-
-                            <option value="Factory New">
-                                Factory New
-                            </option>
-
-                            <option value="Minimal Wear">
-                                Minimal Wear
-                            </option>
-
-                            <option value="Field-Tested">
-                                Field-Tested
-                            </option>
-
-                            <option value="Well-Worn">
-                                Well-Worn
-                            </option>
-
-                            <option value="Battle-Scarred">
-                                Battle-Scarred
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div>
-
-                        <label>
-                            CATEGORY
-                        </label>
-
-                        <select id="ptyProductCategory">
-
-                            <option value="Rifle">
-                                Rifle
-                            </option>
-
-                            <option value="Pistol">
-                                Pistol
-                            </option>
-
-                            <option value="Sniper">
-                                Sniper
-                            </option>
-
-                            <option value="SMG">
-                                SMG
-                            </option>
-
-                            <option value="Knife">
-                                Knife
-                            </option>
-
-                            <option value="Gloves">
-                                Gloves
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="full">
-
-                        <label>
-                            IMAGE URL
-                        </label>
-
-                        <input
-                            id="ptyProductImage"
-                            type="url"
-                            placeholder="https://..."
-                        >
-
-                    </div>
-
-
-                    <div class="pty-product-form-actions">
-
-                        <button
-                            class="pty-admin-btn"
-                            type="button"
-                            onclick="ptySaveProduct()"
-                        >
-                            SAVE PRODUCT
-                        </button>
-
-                        <button
-                            class="pty-admin-btn pty-admin-secondary"
-                            type="button"
-                            onclick="ptyCancelProduct()"
-                        >
-                            CANCEL
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PRODUCTS LIST -->
-
-                <div
-                    id="ptyAdminProducts"
-                    class="pty-products-admin-grid"
-                >
-                    <div class="pty-admin-empty">
-                        Loading products...
-                    </div>
                 </div>
 
             </div>
 
-
-            <!-- CUSTOMER PROFILES -->
-
             <div class="pty-admin-section">
 
-                <div class="pty-admin-section-head">
-
-                    <h3>
-                        CUSTOMER PROFILES
-                    </h3>
-
-                    <button
-                        class="pty-admin-btn"
-                        type="button"
-                        onclick="loadPtyAdminProfiles()"
-                    >
-                        REFRESH
-                    </button>
-
-                </div>
+                <h3>
+                    CUSTOMER PROFILES
+                </h3>
 
                 <div
                     id="ptyAdminProfiles"
@@ -4514,14 +4117,19 @@ document.addEventListener(
                     </div>
                 </div>
 
+                <button
+                    class="pty-admin-btn pty-admin-refresh"
+                    type="button"
+                    onclick="loadPtyAdminProfiles()"
+                >
+                    REFRESH
+                </button>
+
             </div>
-
-
-            <!-- LOGOUT -->
 
             <button
                 class="pty-admin-btn"
-                style="width:100%;margin-top:15px;background:#211e25;"
+                style="margin-top:14px;background:#222"
                 type="button"
                 onclick="ptyAdminLogout()"
             >
@@ -4534,12 +4142,6 @@ document.addEventListener(
 
 </div>
 
-
-<div id="ptyAdminToast">
-    ITEM SAVED ✓
-</div>
-
-
 <!-- ================= ADMIN JS ================= -->
 
 <script>
@@ -4548,67 +4150,51 @@ document.addEventListener(
 
     let adminUser=null;
 
-
-    function modal(){
-
-        return document.getElementById(
+    const modal=
+        ()=>document.getElementById(
             "ptyAdminModal"
         );
 
-    }
-
-
     function showAdmin(){
 
-    const admin = document.getElementById("ptyAdminModal");
+        modal()
+            .classList
+            .add("show");
 
-    if(!admin){
-        console.error("ptyAdminModal NOT FOUND");
-        alert("پنل ادمین پیدا نشد!");
-        return;
+        modal()
+            .setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        document.body.style.overflow=
+            "hidden";
     }
 
-    admin.style.display = "flex";
-    admin.classList.add("show");
-    admin.classList.add("active");
+    window.closePtyAdmin=
+        function(){
 
-    admin.setAttribute("aria-hidden","false");
+            modal()
+                .classList
+                .remove("show");
 
-    document.body.style.overflow="hidden";
+            modal()
+                .setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
 
-}
+            document.body.style.overflow="";
+        };
 
+    window.openPtyAdmin=
+        function(){
 
-window.closePtyAdmin=function(){
+            showAdmin();
 
-    const admin = document.getElementById("ptyAdminModal");
+            checkPtyAdminSession();
 
-    if(!admin) return;
-
-    admin.style.display="none";
-
-    admin.classList.remove("show");
-    admin.classList.remove("active");
-
-    admin.setAttribute("aria-hidden","true");
-
-    document.body.style.overflow="";
-
-};
-
-
-window.openPtyAdmin=function(){
-
-    showAdmin();
-
-    if(typeof checkPtyAdminSession === "function"){
-        checkPtyAdminSession();
-    }
-
-};
-
-
-    /* ================= ADMIN SESSION ================= */
+        };
 
     async function checkPtyAdminSession(){
 
@@ -4623,8 +4209,8 @@ window.openPtyAdmin=function(){
             );
 
         const {data}=
-            await supabaseClient.auth.getSession();
-
+            await supabaseClient.auth
+                .getSession();
 
         if(!data?.session){
 
@@ -4632,13 +4218,10 @@ window.openPtyAdmin=function(){
             dash.style.display="none";
 
             return;
-
         }
-
 
         const email=
             data.session.user?.email||"";
-
 
         try{
 
@@ -4652,10 +4235,14 @@ window.openPtyAdmin=function(){
                     )
                     .maybeSingle();
 
+            if(
+                error ||
+                !row
+            ){
 
-            if(error || !row){
-
-                await supabaseClient.auth.signOut();
+                await supabaseClient
+                    .auth
+                    .signOut();
 
                 login.style.display="block";
                 dash.style.display="none";
@@ -4668,11 +4255,10 @@ window.openPtyAdmin=function(){
                     "ADMIN ACCESS DENIED";
 
                 return;
-
             }
 
-
-            adminUser=data.session.user;
+            adminUser=
+                data.session.user;
 
             login.style.display="none";
             dash.style.display="block";
@@ -4683,9 +4269,7 @@ window.openPtyAdmin=function(){
                 )
                 .textContent=email;
 
-
-            await loadPtyAdminProducts();
-            await loadPtyAdminProfiles();
+            loadPtyAdminProfiles();
 
         }catch(e){
 
@@ -4698,854 +4282,142 @@ window.openPtyAdmin=function(){
                 )
                 .textContent=
                 "ADMIN TABLE IS NOT CONFIGURED";
-
         }
-
     }
 
+    window.ptyAdminLogin=
+        async function(){
 
-    /* ================= LOGIN ================= */
+            const email=
+                document
+                    .getElementById(
+                        "ptyAdminEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-    window.ptyAdminLogin=async function(){
+            const pass=
+                document
+                    .getElementById(
+                        "ptyAdminPassword"
+                    )
+                    .value;
 
-        const email=
+            const msg=
+                document.getElementById(
+                    "ptyAdminLoginMsg"
+                );
+
+            msg.textContent="";
+
+            if(!email||!pass){
+
+                msg.textContent=
+                    "EMAIL AND PASSWORD ARE REQUIRED";
+
+                return;
+            }
+
+            msg.textContent="CHECKING...";
+
+            const {data,error}=
+                await supabaseClient
+                    .auth
+                    .signInWithPassword({
+                        email,
+                        password:pass
+                    });
+
+            if(error){
+
+                msg.textContent=
+                    error.message||
+                    "LOGIN FAILED";
+
+                return;
+            }
+
+            const {
+                data:row,
+                error:adminErr
+            }=
+                await supabaseClient
+                    .from("admin_emails")
+                    .select("email")
+                    .eq(
+                        "email",
+                        email
+                    )
+                    .maybeSingle();
+
+            if(
+                adminErr ||
+                !row
+            ){
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+                msg.textContent=
+                    "ADMIN ACCESS DENIED";
+
+                return;
+            }
+
+            adminUser=data.user;
+
             document
                 .getElementById(
-                    "ptyAdminEmail"
+                    "ptyAdminLogin"
                 )
-                .value
-                .trim()
-                .toLowerCase();
+                .style.display="none";
 
-
-        const pass=
             document
                 .getElementById(
-                    "ptyAdminPassword"
+                    "ptyAdminDashboard"
                 )
-                .value;
+                .style.display="block";
 
-
-        const msg=
-            document.getElementById(
-                "ptyAdminLoginMsg"
-            );
-
-
-        msg.textContent="";
-
-
-        if(!email || !pass){
-
-            msg.textContent=
-                "EMAIL AND PASSWORD ARE REQUIRED";
-
-            return;
-
-        }
-
-
-        msg.textContent="CHECKING...";
-
-
-        const {data,error}=
-            await supabaseClient.auth
-                .signInWithPassword({
-                    email,
-                    password:pass
-                });
-
-
-        if(error){
-
-            msg.textContent=
-                error.message||
-                "LOGIN FAILED";
-
-            return;
-
-        }
-
-
-        const {
-            data:row,
-            error:adminErr
-        }=
-            await supabaseClient
-                .from("admin_emails")
-                .select("email")
-                .eq(
-                    "email",
-                    email
+            document
+                .getElementById(
+                    "ptyAdminCurrentEmail"
                 )
-                .maybeSingle();
+                .textContent=email;
 
+            loadPtyAdminProfiles();
 
-        if(adminErr || !row){
+        };
+
+    window.ptyAdminLogout=
+        async function(){
 
             await supabaseClient
                 .auth
                 .signOut();
 
-            msg.textContent=
-                "ADMIN ACCESS DENIED";
-
-            return;
-
-        }
-
-
-        adminUser=data.user;
-
-
-        document
-            .getElementById(
-                "ptyAdminLogin"
-            )
-            .style.display="none";
-
-
-        document
-            .getElementById(
-                "ptyAdminDashboard"
-            )
-            .style.display="block";
-
-
-        document
-            .getElementById(
-                "ptyAdminCurrentEmail"
-            )
-            .textContent=email;
-
-
-        await loadPtyAdminProducts();
-        await loadPtyAdminProfiles();
-
-    };
-
-
-    /* ================= LOGOUT ================= */
-
-    window.ptyAdminLogout=async function(){
-
-        await supabaseClient.auth.signOut();
-
-        adminUser=null;
-
-        document
-            .getElementById(
-                "ptyAdminDashboard"
-            )
-            .style.display="none";
-
-
-        document
-            .getElementById(
-                "ptyAdminLogin"
-            )
-            .style.display="block";
-
-
-        document
-            .getElementById(
-                "ptyAdminPassword"
-            )
-            .value="";
-
-    };
-
-
-    /* ================= NEW PRODUCT ================= */
-
-    window.ptyNewProduct=function(){
-
-        document
-            .getElementById(
-                "ptyProductForm"
-            )
-            .style.display="grid";
-
-
-        document
-            .getElementById(
-                "ptyProductId"
-            )
-            .value="";
-
-
-        document
-            .getElementById(
-                "ptyProductName"
-            )
-            .value="";
-
-
-        document
-            .getElementById(
-                "ptyProductPrice"
-            )
-            .value="";
-
-
-        document
-            .getElementById(
-                "ptyProductWear"
-            )
-            .value="Factory New";
-
-
-        document
-            .getElementById(
-                "ptyProductCategory"
-            )
-            .value="Rifle";
-
-
-        document
-            .getElementById(
-                "ptyProductImage"
-            )
-            .value="";
-
-
-        document
-            .getElementById(
-                "ptyProductName"
-            )
-            .focus();
-
-    };
-
-
-    /* ================= CANCEL ================= */
-
-    window.ptyCancelProduct=function(){
-
-        document
-            .getElementById(
-                "ptyProductForm"
-            )
-            .style.display="none";
-
-    };
-
-
-    /* ================= EDIT PRODUCT ================= */
-
-    window.ptyEditProduct=function(id){
-
-        const product=
-            window.ptyAdminProductsData
-                .find(
-                    p=>Number(p.id)===Number(id)
-                );
-
-
-        if(!product){
-            return;
-        }
-
-
-        document
-            .getElementById(
-                "ptyProductForm"
-            )
-            .style.display="grid";
-
-
-        document
-            .getElementById(
-                "ptyProductId"
-            )
-            .value=product.id;
-
-
-        document
-            .getElementById(
-                "ptyProductName"
-            )
-            .value=product.name||"";
-
-
-        document
-            .getElementById(
-                "ptyProductPrice"
-            )
-            .value=product.price||0;
-
-
-        document
-            .getElementById(
-                "ptyProductWear"
-            )
-            .value=product.wear||"Factory New";
-
-
-        document
-            .getElementById(
-                "ptyProductCategory"
-            )
-            .value=product.category||"Rifle";
-
-
-        document
-            .getElementById(
-                "ptyProductImage"
-            )
-            .value=product.image_url||"";
-
-
-        document
-            .getElementById(
-                "ptyProductName"
-            )
-            .focus();
-
-    };
-
-
-    /* ================= SAVE PRODUCT ================= */
-
-    window.ptySaveProduct=async function(){
-
-        const id=
-            document
-                .getElementById(
-                    "ptyProductId"
-                )
-                .value;
-
-
-        const name=
-            document
-                .getElementById(
-                    "ptyProductName"
-                )
-                .value
-                .trim();
-
-
-        const price=
-            Number(
-                document
-                    .getElementById(
-                        "ptyProductPrice"
-                    )
-                    .value
-            );
-
-
-        const wear=
-            document
-                .getElementById(
-                    "ptyProductWear"
-                )
-                .value;
-
-
-        const category=
-            document
-                .getElementById(
-                    "ptyProductCategory"
-                )
-                .value;
-
-
-        const image_url=
-            document
-                .getElementById(
-                    "ptyProductImage"
-                )
-                .value
-                .trim();
-
-
-        if(!name){
-
-            alert("اسم گان را وارد کن.");
-
-            return;
-
-        }
-
-
-        if(!Number.isFinite(price) || price<0){
-
-            alert("قیمت معتبر نیست.");
-
-            return;
-
-        }
-
-
-        const payload={
-
-            name:name,
-
-            wear:wear,
-
-            price:Math.round(price),
-
-            category:category,
-
-            image_url:image_url||null,
-
-            updated_at:
-                new Date().toISOString()
-
-        };
-
-
-        try{
-
-            let result;
-
-
-            if(id){
-
-                result=
-                    await supabaseClient
-                        .from("products")
-                        .update(payload)
-                        .eq("id",id)
-                        .select()
-                        .single();
-
-            }else{
-
-                result=
-                    await supabaseClient
-                        .from("products")
-                        .insert(payload)
-                        .select()
-                        .single();
-
-            }
-
-
-            if(result.error){
-
-                throw result.error;
-
-            }
-
-
-            toast("ITEM SAVED ✓");
-
+            adminUser=null;
 
             document
                 .getElementById(
-                    "ptyProductForm"
+                    "ptyAdminDashboard"
                 )
                 .style.display="none";
 
-
-            await loadPtyAdminProducts();
-
-            await loadProductsFromSupabase();
-
-        }catch(error){
-
-            console.error(
-                "PRODUCT SAVE ERROR:",
-                error
-            );
-
-
-            alert(
-                "ذخیره گان انجام نشد:\n"+
-                (error.message||"Unknown error")
-            );
-
-        }
-
-    };
-
-
-    /* ================= DELETE PRODUCT ================= */
-
-    window.ptyDeleteProduct=async function(id){
-
-        const product=
-            window.ptyAdminProductsData
-                .find(
-                    p=>Number(p.id)===Number(id)
-                );
-
-
-        if(!product){
-            return;
-        }
-
-
-        const ok=
-            confirm(
-                `آیا مطمئنی «${product.name}» حذف شود؟`
-            );
-
-
-        if(!ok){
-            return;
-        }
-
-
-        try{
-
-            const {error}=
-                await supabaseClient
-                    .from("products")
-                    .delete()
-                    .eq("id",id);
-
-
-            if(error){
-                throw error;
-            }
-
-
-            toast("ITEM DELETED ✓");
-
-
-            await loadPtyAdminProducts();
-
-            await loadProductsFromSupabase();
-
-        }catch(error){
-
-            console.error(error);
-
-            alert(
-                "حذف گان انجام نشد:\n"+
-                (error.message||"Unknown error")
-            );
-
-        }
-
-    };
-
-
-    /* ================= LOAD PRODUCTS ADMIN ================= */
-
-    window.loadPtyAdminProducts=
-        async function(){
-
-            const container=
-                document.getElementById(
-                    "ptyAdminProducts"
-                );
-
-
-            container.innerHTML=
-                '<div class="pty-admin-empty">Loading products...</div>';
-
-
-            try{
-
-                const {data,error}=
-                    await supabaseClient
-                        .from("products")
-                        .select(
-                            "id,name,wear,price,category,image_url,created_at,updated_at"
-                        )
-                        .order(
-                            "id",
-                            {ascending:false}
-                        );
-
-
-                if(error){
-                    throw error;
-                }
-
-
-                window.ptyAdminProductsData=
-                    data||[];
-
-
-                document
-                    .getElementById(
-                        "ptyAdminProductCount"
-                    )
-                    .textContent=
-                    window.ptyAdminProductsData.length;
-
-
-                if(!data?.length){
-
-                    container.innerHTML=
-                        '<div class="pty-admin-empty">No products found. Click + ADD PRODUCT.</div>';
-
-                    return;
-
-                }
-
-
-                container.innerHTML="";
-
-
-                data.forEach(product=>{
-
-                    const card=
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className=
-                        "pty-product-admin-card";
-
-
-                    const top=
-                        document.createElement(
-                            "div"
-                        );
-
-                    top.className=
-                        "pty-product-admin-top";
-
-
-                    const image=
-                        document.createElement(
-                            "div"
-                        );
-
-                    image.className=
-                        "pty-product-admin-image";
-
-
-                    const img=
-                        document.createElement(
-                            "img"
-                        );
-
-
-                    if(product.image_url){
-
-                        img.src=
-                            product.image_url;
-
-                    }
-
-
-                    img.alt=
-                        product.name||"Product";
-
-
-                    img.onerror=()=>{
-
-                        img.style.display="none";
-
-                    };
-
-
-                    image.appendChild(img);
-
-
-                    const info=
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    const name=
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    name.className=
-                        "pty-product-admin-name";
-
-
-                    name.textContent=
-                        product.name||"Unnamed";
-
-
-                    const meta=
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    meta.className=
-                        "pty-product-admin-meta";
-
-
-                    meta.textContent=
-                        `${product.category||"-"} • ${product.wear||"-"} • ${faNum(product.price||0)} تومان`;
-
-
-                    info.append(
-                        name,
-                        meta
-                    );
-
-
-                    top.append(
-                        image,
-                        info
-                    );
-
-
-                    const actions=
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    actions.className=
-                        "pty-product-admin-actions";
-
-
-                    const edit=
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    edit.className=
-                        "pty-edit-btn";
-
-
-                    edit.textContent=
-                        "EDIT";
-
-
-                    edit.onclick=
-                        ()=>{
-                            ptyEditProduct(product.id);
-                        };
-
-
-                    const del=
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    del.className=
-                        "pty-delete-btn";
-
-
-                    del.textContent=
-                        "DELETE";
-
-
-                    del.onclick=
-                        ()=>{
-                            ptyDeleteProduct(product.id);
-                        };
-
-
-                    actions.append(
-                        edit,
-                        del
-                    );
-
-
-                    card.append(
-                        top,
-                        actions
-                    );
-
-
-                    container.appendChild(card);
-
-                });
-
-            }catch(error){
-
-                console.error(error);
-
-                container.innerHTML=
-                    '<div class="pty-admin-empty">'+
-                    esc(
-                        error.message||
-                        "Could not load products"
-                    )+
-                    '</div>';
-
-            }
+            document
+                .getElementById(
+                    "ptyAdminLogin"
+                )
+                .style.display="block";
+
+            document
+                .getElementById(
+                    "ptyAdminPassword"
+                )
+                .value="";
 
         };
-
-
-    /* ================= LOAD PRODUCTS FOR SHOP ================= */
-
-    window.loadProductsFromSupabase=
-        async function(){
-
-            try{
-
-                const {data,error}=
-                    await supabaseClient
-                        .from("products")
-                        .select(
-                            "id,name,wear,price,category,image_url"
-                        )
-                        .order(
-                            "id",
-                            {ascending:true}
-                        );
-
-
-                if(error){
-
-                    console.error(
-                        "SHOP PRODUCT LOAD ERROR:",
-                        error
-                    );
-
-                    return;
-
-                }
-
-
-                if(!data){
-
-                    return;
-
-                }
-
-
-                products.length=0;
-
-
-                data.forEach(p=>{
-
-                    products.push({
-
-                        id:Number(p.id),
-
-                        name:p.name,
-
-                        category:p.category||"Other",
-
-                        wear:p.wear||"",
-
-                        price:Number(p.price)||0,
-
-                        img:p.image_url||""
-
-                    });
-
-                });
-
-
-                renderProducts();
-
-                renderCartPage();
-
-            }catch(error){
-
-                console.error(error);
-
-            }
-
-        };
-
-
-    /* ================= PROFILES ================= */
 
     window.loadPtyAdminProfiles=
         async function(){
@@ -5555,10 +4427,8 @@ window.openPtyAdmin=function(){
                     "ptyAdminProfiles"
                 );
 
-
             c.innerHTML=
                 '<div class="pty-admin-empty">Loading...</div>';
-
 
             try{
 
@@ -5573,11 +4443,9 @@ window.openPtyAdmin=function(){
                             {ascending:false}
                         );
 
-
                 if(error){
                     throw error;
                 }
-
 
                 document
                     .getElementById(
@@ -5586,19 +4454,15 @@ window.openPtyAdmin=function(){
                     .textContent=
                     (data||[]).length;
 
-
                 if(!data?.length){
 
                     c.innerHTML=
                         '<div class="pty-admin-empty">No customer profiles found.</div>';
 
                     return;
-
                 }
 
-
                 c.innerHTML="";
-
 
                 data.forEach(p=>{
 
@@ -5610,44 +4474,38 @@ window.openPtyAdmin=function(){
                     card.className=
                         "pty-admin-profile";
 
-
                     const img=
                         document.createElement(
                             "img"
                         );
-
 
                     img.src=
                         localStorage.getItem(
                             "pty_avatar_"+p.id
                         )||"";
 
-
-                    img.onerror=()=>{
-
-                        img.style.display="none";
-
-                    };
-
+                    img.onerror=
+                        ()=>{
+                            img.style.display=
+                                "none";
+                        };
 
                     const info=
                         document.createElement(
                             "div"
                         );
 
-
                     info.className=
                         "pty-admin-profile-info";
-
 
                     const name=
                         (
                             (p.first_name||"")+
                             " "+
                             (p.last_name||"")
-                        ).trim()||
+                        )
+                        .trim()||
                         "Unnamed";
-
 
                     info.innerHTML=
                         '<div class="pty-admin-profile-name"></div>'+
@@ -5656,41 +4514,38 @@ window.openPtyAdmin=function(){
                         '<div class="pty-admin-line"><b>TELEGRAM:</b> '+esc(p.telegram_id||"-")+'</div>'+
                         '<div class="pty-admin-line"><b>TRADE:</b> '+esc(p.trade_link||"-")+'</div>';
 
-
                     info
                         .querySelector(
                             ".pty-admin-profile-name"
                         )
                         .textContent=name;
 
-
                     card.append(
                         img,
                         info
                     );
 
-
                     c.appendChild(card);
 
                 });
 
+            }catch(e){
 
-            }catch(error){
+                document
+                    .getElementById(
+                        "ptyAdminProfileCount"
+                    )
+                    .textContent="0";
 
                 c.innerHTML=
-                    '<div class="pty-admin-empty">'+
+                    '<div class="pty-admin-empty">Could not load profiles: '+
                     esc(
-                        error.message||
-                        "Could not load profiles"
+                        e?.message||
+                        "Unknown error"
                     )+
-                    '</div>';
-
+                    "</div>";
             }
-
         };
-
-
-    /* ================= ESC ================= */
 
     function esc(v){
 
@@ -5705,27 +4560,25 @@ window.openPtyAdmin=function(){
                     "'":"&#039;"
                 }[m])
             );
-
     }
 
-
-    /* ================= 5 CLICKS ================= */
+    /* 5 CLICKS ON LOGO */
 
     document.addEventListener(
         "DOMContentLoaded",
         function(){
 
             const logo=
-                document.querySelector(".logo");
+                document.querySelector(
+                    ".logo"
+                );
 
             if(!logo){
                 return;
             }
 
-
             let clicks=0;
             let timer=null;
-
 
             logo.addEventListener(
                 "click",
@@ -5735,7 +4588,6 @@ window.openPtyAdmin=function(){
 
                     clearTimeout(timer);
 
-
                     timer=
                         setTimeout(
                             ()=>{
@@ -5743,7 +4595,6 @@ window.openPtyAdmin=function(){
                             },
                             1800
                         );
-
 
                     if(clicks>=5){
 
@@ -5759,1663 +4610,9 @@ window.openPtyAdmin=function(){
         }
     );
 
-
-})();
-<!-- =========================================================
-     PTY STORE - SAFE ADMIN PANEL
-========================================================= -->
-
-<div id="ptySafeAdmin" style="display:none;">
-
-    <div id="ptySafeAdminBg"></div>
-
-    <div id="ptySafeAdminBox">
-
-        <button id="ptySafeClose" type="button">×</button>
-
-        <!-- LOGIN -->
-        <div id="ptySafeLogin">
-
-            <div class="ptySafeLogo">
-                PTY <span>ADMIN</span>
-            </div>
-
-            <div class="ptySafeSub">
-                Administrator Login
-            </div>
-
-            <input
-                id="ptySafeEmail"
-                type="email"
-                placeholder="Admin Email"
-                autocomplete="email"
-            >
-
-            <input
-                id="ptySafePassword"
-                type="password"
-                placeholder="Password"
-                autocomplete="current-password"
-            >
-
-            <button id="ptySafeLoginBtn" type="button">
-                LOGIN
-            </button>
-
-            <div id="ptySafeError"></div>
-
-        </div>
-
-
-        <!-- DASHBOARD -->
-        <div id="ptySafeDashboard" style="display:none;">
-
-            <div class="ptySafeTop">
-
-                <div>
-                    <div class="ptySafeLogo">
-                        PTY <span>ADMIN</span>
-                    </div>
-
-                    <div class="ptySafeSub">
-                        Product Management
-                    </div>
-                </div>
-
-                <button id="ptySafeLogout" type="button">
-                    LOGOUT
-                </button>
-
-            </div>
-
-
-            <!-- ADD PRODUCT -->
-
-            <div class="ptySafeSection">
-
-                <h2>ADD PRODUCT</h2>
-
-                <input
-                    id="ptyAddName"
-                    type="text"
-                    placeholder="AK-47 | Redline"
-                >
-
-                <input
-                    id="ptyAddWear"
-                    type="text"
-                    placeholder="Field-Tested"
-                >
-
-                <input
-                    id="ptyAddPrice"
-                    type="number"
-                    placeholder="Price"
-                >
-
-                <select id="ptyAddCategory">
-
-                    <option value="Rifle">Rifle</option>
-                    <option value="Pistol">Pistol</option>
-                    <option value="SMG">SMG</option>
-                    <option value="Knife">Knife</option>
-                    <option value="Gloves">Gloves</option>
-                    <option value="Other">Other</option>
-
-                </select>
-
-                <input
-                    id="ptyAddImage"
-                    type="text"
-                    placeholder="Image URL"
-                >
-
-                <button
-                    id="ptyAddBtn"
-                    type="button">
-                    + ADD PRODUCT
-                </button>
-
-            </div>
-
-
-            <!-- PRODUCTS -->
-
-            <div class="ptySafeSection">
-
-                <div class="ptySafeSectionTitle">
-
-                    <h2>PRODUCTS</h2>
-
-                    <button
-                        id="ptyRefreshBtn"
-                        type="button">
-                        REFRESH
-                    </button>
-
-                </div>
-
-                <div id="ptySafeProducts">
-                    Loading...
-                </div>
-
-            </div>
-
-
-            <!-- USERS -->
-
-            <div class="ptySafeSection">
-
-                <div class="ptySafeSectionTitle">
-
-                    <h2>USERS</h2>
-
-                    <button
-                        id="ptyUsersBtn"
-                        type="button">
-                        LOAD USERS
-                    </button>
-
-                </div>
-
-                <div id="ptySafeUsers">
-                    Users are hidden until you click LOAD USERS.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<style>
-
-/* =========================================================
-   PTY SAFE ADMIN
-========================================================= */
-
-#ptySafeAdmin {
-    position: fixed !important;
-    inset: 0 !important;
-    z-index: 2147483647 !important;
-    font-family: Arial, sans-serif !important;
-}
-
-#ptySafeAdmin *,
-#ptySafeAdmin *::before,
-#ptySafeAdmin *::after {
-    box-sizing: border-box !important;
-}
-
-#ptySafeAdminBg {
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(0,0,0,.86) !important;
-    backdrop-filter: blur(8px) !important;
-}
-
-#ptySafeAdminBox {
-    position: relative !important;
-
-    width: min(950px, 92vw) !important;
-    max-height: 88vh !important;
-
-    margin: 6vh auto !important;
-    padding: 28px !important;
-
-    overflow-y: auto !important;
-
-    background: #0e0b14 !important;
-    color: #ffffff !important;
-
-    border: 1px solid #713cff !important;
-    border-radius: 18px !important;
-
-    box-shadow:
-        0 0 40px rgba(113,60,255,.35) !important;
-
-    z-index: 2 !important;
-}
-
-
-/* CLOSE */
-
-#ptySafeClose {
-    position: absolute !important;
-
-    top: 14px !important;
-    right: 14px !important;
-
-    width: 34px !important;
-    height: 34px !important;
-
-    min-width: 34px !important;
-    min-height: 34px !important;
-
-    padding: 0 !important;
-    margin: 0 !important;
-
-    border: 1px solid #332747 !important;
-    border-radius: 50% !important;
-
-    background: #18121f !important;
-    color: #ffffff !important;
-
-    font-size: 22px !important;
-    line-height: 32px !important;
-    text-align: center !important;
-
-    cursor: pointer !important;
-}
-
-#ptySafeClose:hover {
-    background: #713cff !important;
-}
-
-
-/* LOGO */
-
-.ptySafeLogo {
-    font-size: 28px !important;
-    font-weight: 900 !important;
-    color: white !important;
-}
-
-.ptySafeLogo span {
-    color: #8d5cff !important;
-}
-
-.ptySafeSub {
-    color: #777 !important;
-    font-size: 13px !important;
-    margin-top: 5px !important;
-}
-
-
-/* LOGIN */
-
-#ptySafeLogin {
-    width: min(400px, 100%) !important;
-    margin: 35px auto !important;
-    text-align: center !important;
-}
-
-#ptySafeLogin input {
-    display: block !important;
-
-    width: 100% !important;
-
-    height: 48px !important;
-
-    margin: 12px 0 !important;
-    padding: 0 14px !important;
-
-    background: #18131f !important;
-    color: white !important;
-
-    border: 1px solid #30253e !important;
-    border-radius: 9px !important;
-
-    outline: none !important;
-}
-
-#ptySafeLogin input:focus {
-    border-color: #8d5cff !important;
-}
-
-#ptySafeLoginBtn {
-    width: 100% !important;
-    height: 48px !important;
-
-    margin-top: 5px !important;
-
-    border: 0 !important;
-    border-radius: 9px !important;
-
-    background: #713cff !important;
-    color: white !important;
-
-    font-weight: 900 !important;
-    cursor: pointer !important;
-}
-
-#ptySafeLoginBtn:hover {
-    background: #895dff !important;
-}
-
-#ptySafeError {
-    min-height: 22px !important;
-
-    margin-top: 14px !important;
-
-    color: #ff6078 !important;
-    font-size: 13px !important;
-}
-
-
-/* TOP */
-
-.ptySafeTop {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-
-    padding-bottom: 22px !important;
-    border-bottom: 1px solid #251d31 !important;
-}
-
-#ptySafeLogout {
-    padding: 9px 15px !important;
-
-    background: #18121f !important;
-    color: white !important;
-
-    border: 1px solid #392b4d !important;
-    border-radius: 8px !important;
-
-    cursor: pointer !important;
-}
-
-
-/* SECTION */
-
-.ptySafeSection {
-    margin-top: 20px !important;
-    padding: 20px !important;
-
-    background: #14101a !important;
-
-    border: 1px solid #241c2f !important;
-    border-radius: 13px !important;
-}
-
-.ptySafeSection h2 {
-    margin: 0 0 15px 0 !important;
-
-    font-size: 17px !important;
-    color: white !important;
-}
-
-.ptySafeSection input,
-.ptySafeSection select {
-    width: 100% !important;
-    height: 44px !important;
-
-    margin-bottom: 10px !important;
-    padding: 0 12px !important;
-
-    background: #0e0b14 !important;
-    color: white !important;
-
-    border: 1px solid #30253e !important;
-    border-radius: 8px !important;
-
-    outline: none !important;
-}
-
-.ptySafeSection input:focus,
-.ptySafeSection select:focus {
-    border-color: #713cff !important;
-}
-
-#ptyAddBtn {
-    width: 100% !important;
-    height: 45px !important;
-
-    border: 0 !important;
-    border-radius: 8px !important;
-
-    background: #713cff !important;
-    color: white !important;
-
-    font-weight: 900 !important;
-    cursor: pointer !important;
-}
-
-#ptyAddBtn:hover {
-    background: #895dff !important;
-}
-
-
-/* SECTION TITLE */
-
-.ptySafeSectionTitle {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-}
-
-.ptySafeSectionTitle button {
-    padding: 8px 12px !important;
-
-    background: #18121f !important;
-    color: white !important;
-
-    border: 1px solid #392b4d !important;
-    border-radius: 7px !important;
-
-    cursor: pointer !important;
-}
-
-
-/* PRODUCT */
-
-.ptySafeProduct {
-    padding: 15px !important;
-    margin-top: 10px !important;
-
-    background: #0e0b14 !important;
-
-    border: 1px solid #251d31 !important;
-    border-radius: 10px !important;
-}
-
-.ptySafeProductPreview {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-
-    margin-bottom: 12px !important;
-}
-
-.ptySafeProductPreview img {
-    width: 75px !important;
-    height: 55px !important;
-
-    object-fit: contain !important;
-
-    background: #17111f !important;
-    border-radius: 7px !important;
-}
-
-.ptySafeProductName {
-    font-weight: 900 !important;
-    color: white !important;
-}
-
-.ptySafeProductId {
-    color: #666 !important;
-    font-size: 11px !important;
-}
-
-.ptySafeActions {
-    display: flex !important;
-    gap: 8px !important;
-}
-
-.ptySafeSave {
-    flex: 1 !important;
-
-    height: 40px !important;
-
-    border: 0 !important;
-    border-radius: 7px !important;
-
-    background: #713cff !important;
-    color: white !important;
-
-    font-weight: 900 !important;
-    cursor: pointer !important;
-}
-
-.ptySafeDelete {
-    width: 90px !important;
-
-    border: 0 !important;
-    border-radius: 7px !important;
-
-    background: #321620 !important;
-    color: #ff637c !important;
-
-    cursor: pointer !important;
-}
-
-
-/* USERS */
-
-.ptySafeUser {
-    padding: 13px !important;
-    margin-top: 8px !important;
-
-    background: #0e0b14 !important;
-
-    border: 1px solid #251d31 !important;
-    border-radius: 8px !important;
-
-    color: #aaa !important;
-}
-
-.ptySafeUser strong {
-    color: #a982ff !important;
-}
-
-
-/* MOBILE */
-
-@media(max-width:600px) {
-
-    #ptySafeAdminBox {
-        width: 95vw !important;
-        margin: 3vh auto !important;
-        padding: 18px !important;
-        max-height: 94vh !important;
-    }
-
-    .ptySafeTop {
-        align-items: flex-start !important;
-    }
-
-}
-
-</style>
-
-
-<script>
-
-/* =========================================================
-   PTY SAFE ADMIN JAVASCRIPT
-========================================================= */
-
-(function(){
-
-    "use strict";
-
-
-    /* ---------- ELEMENTS ---------- */
-
-    const modal =
-        document.getElementById("ptySafeAdmin");
-
-    const closeBtn =
-        document.getElementById("ptySafeClose");
-
-    const loginBtn =
-        document.getElementById("ptySafeLoginBtn");
-
-    const logoutBtn =
-        document.getElementById("ptySafeLogout");
-
-    const addBtn =
-        document.getElementById("ptyAddBtn");
-
-    const refreshBtn =
-        document.getElementById("ptyRefreshBtn");
-
-    const usersBtn =
-        document.getElementById("ptyUsersBtn");
-
-
-    /* ---------- OPEN ---------- */
-
-  /* =====================================================
-   PTY ADMIN - FORCE OPEN SYSTEM
-   ===================================================== */
-
-(function(){
-
-    let adminClicks = 0;
-    let adminClickTimer = null;
-
-    function forceOpenAdmin(){
-
-        console.log("PTY ADMIN: opening...");
-
-        const admin =
-            document.getElementById("ptyAdminModal");
-
-        if(!admin){
-
-            console.error(
-                "PTY ADMIN: ptyAdminModal NOT FOUND"
-            );
-
-            alert("ptyAdminModal پیدا نشد!");
-
-            return;
-        }
-
-        /* FORCE VISIBILITY */
-
-        admin.style.display = "flex";
-        admin.style.visibility = "visible";
-        admin.style.opacity = "1";
-        admin.style.pointerEvents = "auto";
-        admin.style.zIndex = "999999";
-
-        admin.classList.add("show");
-        admin.classList.add("active");
-
-        admin.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.style.overflow = "hidden";
-
-
-        /* START LOGIN / SESSION CHECK */
-
-        if(
-            typeof checkPtyAdminSession ===
-            "function"
-        ){
-
-            checkPtyAdminSession();
-
-        }else{
-
-            console.error(
-                "PTY ADMIN: checkPtyAdminSession NOT FOUND"
-            );
-
-        }
-
-    }
-
-
-    /* MAKE FUNCTION AVAILABLE GLOBALLY */
-
-    window.openPtyAdmin = forceOpenAdmin;
-
-
-    /* =================================================
-       5 CLICK ADMIN TRIGGER
-       ================================================= */
-
-    function setupAdminTrigger(){
-
-        const logo =
-            document.querySelector(".logo");
-
-        if(!logo){
-
-            console.error(
-                "PTY ADMIN: .logo NOT FOUND"
-            );
-
-            return;
-        }
-
-
-        /* جلوگیری از چند بار وصل شدن Listener */
-
-        if(logo.dataset.ptyAdminReady === "1"){
-            return;
-        }
-
-        logo.dataset.ptyAdminReady = "1";
-
-
-        logo.addEventListener(
-            "click",
-            function(e){
-
-                adminClicks++;
-
-                console.log(
-                    "PTY ADMIN CLICK:",
-                    adminClicks
-                );
-
-
-                clearTimeout(adminClickTimer);
-
-
-                adminClickTimer =
-                    setTimeout(
-                        function(){
-
-                            adminClicks = 0;
-
-                        },
-                        1500
-                    );
-
-
-                if(adminClicks >= 5){
-
-                    adminClicks = 0;
-
-                    clearTimeout(
-                        adminClickTimer
-                    );
-
-                    forceOpenAdmin();
-
-                }
-
-            },
-            true
-        );
-
-    }
-
-
-    /* =================================================
-       START
-       ================================================= */
-
-    if(
-        document.readyState ===
-        "loading"
-    ){
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            setupAdminTrigger
-        );
-
-    }else{
-
-        setupAdminTrigger();
-
-    }
-
 })();
 
-    /* ---------- LOGIN ---------- */
-
-    loginBtn.addEventListener("click", async function(){
-
-        const email =
-            document.getElementById("ptySafeEmail")
-                .value.trim()
-                .toLowerCase();
-
-        const password =
-            document.getElementById("ptySafePassword")
-                .value;
-
-        const errorBox =
-            document.getElementById("ptySafeError");
-
-
-        errorBox.textContent = "";
-
-
-        if(!email || !password){
-
-            errorBox.textContent =
-                "Email و Password را وارد کن.";
-
-            return;
-        }
-
-
-        loginBtn.disabled = true;
-
-        loginBtn.textContent = "LOGIN...";
-
-
-        try {
-
-            /* SUPABASE CHECK */
-
-            if(
-                typeof supabaseClient === "undefined"
-            ){
-
-                throw new Error(
-                    "Supabase client پیدا نشد."
-                );
-
-            }
-
-
-            const loginResult =
-                await supabaseClient.auth.signInWithPassword({
-
-                    email: email,
-                    password: password
-
-                });
-
-
-            if(loginResult.error){
-
-                errorBox.textContent =
-                    loginResult.error.message;
-
-                return;
-            }
-
-
-            /* ADMIN EMAIL CHECK */
-
-            const adminResult =
-                await supabaseClient
-                    .from("admin_emails")
-                    .select("email")
-                    .eq("email", email)
-                    .maybeSingle();
-
-
-            if(adminResult.error){
-
-                errorBox.textContent =
-                    "خطای جدول admin_emails: " +
-                    adminResult.error.message;
-
-                await supabaseClient.auth.signOut();
-
-                return;
-            }
-
-
-            if(!adminResult.data){
-
-                errorBox.textContent =
-                    "ADMIN ACCESS DENIED";
-
-                await supabaseClient.auth.signOut();
-
-                return;
-            }
-
-
-            /* SUCCESS */
-
-            document.getElementById("ptySafeLogin")
-                .style.display = "none";
-
-            document.getElementById("ptySafeDashboard")
-                .style.display = "block";
-
-
-            await loadProducts();
-
-
-        } catch(error){
-
-            errorBox.textContent =
-                error.message || "Login Error";
-
-        } finally {
-
-            loginBtn.disabled = false;
-            loginBtn.textContent = "LOGIN";
-
-        }
-
-    });
-
-
-    /* ---------- LOGOUT ---------- */
-
-    logoutBtn.addEventListener("click", async function(){
-
-        if(typeof supabaseClient !== "undefined"){
-
-            await supabaseClient.auth.signOut();
-
-        }
-
-        document.getElementById("ptySafeDashboard")
-            .style.display = "none";
-
-        document.getElementById("ptySafeLogin")
-            .style.display = "block";
-
-    });
-
-
-    /* ---------- LOAD PRODUCTS ---------- */
-
-    async function loadProducts(){
-
-        const box =
-            document.getElementById("ptySafeProducts");
-
-        box.innerHTML = "Loading...";
-
-
-        const result =
-            await supabaseClient
-                .from("products")
-                .select("*")
-                .order("id", {ascending:false});
-
-
-        if(result.error){
-
-            box.innerHTML =
-                '<div style="color:#ff637c;">' +
-                escapeHTML(result.error.message) +
-                '</div>';
-
-            return;
-        }
-
-
-        if(!result.data || result.data.length === 0){
-
-            box.innerHTML =
-                '<div style="color:#777;">' +
-                'هنوز محصولی وجود ندارد.' +
-                '</div>';
-
-            return;
-        }
-
-
-        box.innerHTML =
-            result.data.map(product => {
-
-                const image =
-                    product.image_url || "";
-
-                return `
-
-                    <div class="ptySafeProduct"
-                         data-id="${product.id}">
-
-                        <div class="ptySafeProductPreview">
-
-                            <img
-                                src="${escapeAttr(image)}"
-                                onerror="this.style.opacity='.2'"
-                            >
-
-                            <div>
-
-                                <div class="ptySafeProductName">
-                                    ${escapeHTML(product.name || "Unnamed")}
-                                </div>
-
-                                <div class="ptySafeProductId">
-                                    ID: ${product.id}
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <input
-                            class="ptyEditName"
-                            value="${escapeAttr(product.name || "")}"
-                            placeholder="Product Name"
-                        >
-
-                        <input
-                            class="ptyEditWear"
-                            value="${escapeAttr(product.wear || "")}"
-                            placeholder="Wear"
-                        >
-
-                        <input
-                            class="ptyEditPrice"
-                            type="number"
-                            value="${Number(product.price || 0)}"
-                            placeholder="Price"
-                        >
-
-                        <select class="ptyEditCategory">
-
-                            <option value="Rifle"
-                                ${product.category === "Rifle" ? "selected" : ""}>
-                                Rifle
-                            </option>
-
-                            <option value="Pistol"
-                                ${product.category === "Pistol" ? "selected" : ""}>
-                                Pistol
-                            </option>
-
-                            <option value="SMG"
-                                ${product.category === "SMG" ? "selected" : ""}>
-                                SMG
-                            </option>
-
-                            <option value="Knife"
-                                ${product.category === "Knife" ? "selected" : ""}>
-                                Knife
-                            </option>
-
-                            <option value="Gloves"
-                                ${product.category === "Gloves" ? "selected" : ""}>
-                                Gloves
-                            </option>
-
-                            <option value="Other"
-                                ${product.category === "Other" ? "selected" : ""}>
-                                Other
-                            </option>
-
-                        </select>
-
-                        <input
-                            class="ptyEditImage"
-                            value="${escapeAttr(image)}"
-                            placeholder="Image URL"
-                        >
-
-
-                        <div class="ptySafeActions">
-
-                            <button
-                                class="ptySafeSave"
-                                type="button">
-                                SAVE
-                            </button>
-
-                            <button
-                                class="ptySafeDelete"
-                                type="button">
-                                DELETE
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }).join("");
-
-
-        /* SAVE BUTTONS */
-
-        box.querySelectorAll(".ptySafeSave")
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    saveProduct
-                );
-
-            });
-
-
-        /* DELETE BUTTONS */
-
-        box.querySelectorAll(".ptySafeDelete")
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    deleteProduct
-                );
-
-            });
-
-    }
-
-
-    /* ---------- SAVE ---------- */
-
-    async function saveProduct(){
-
-        const button = this;
-
-        const card =
-            button.closest(".ptySafeProduct");
-
-        const id =
-            card.dataset.id;
-
-
-        const name =
-            card.querySelector(".ptyEditName")
-                .value.trim();
-
-        const wear =
-            card.querySelector(".ptyEditWear")
-                .value.trim();
-
-        const price =
-            Number(
-                card.querySelector(".ptyEditPrice")
-                    .value
-            );
-
-        const category =
-            card.querySelector(".ptyEditCategory")
-                .value;
-
-        const image =
-            card.querySelector(".ptyEditImage")
-                .value.trim();
-
-
-        if(!name){
-
-            alert("Product name is required.");
-
-            return;
-        }
-
-
-        button.disabled = true;
-        button.textContent = "SAVING...";
-
-
-        const result =
-            await supabaseClient
-                .from("products")
-                .update({
-
-                    name: name,
-                    wear: wear,
-                    price: price,
-                    category: category,
-                    image_url: image,
-                    updated_at:
-                        new Date().toISOString()
-
-                })
-                .eq("id", id);
-
-
-        if(result.error){
-
-            alert(
-                "SAVE ERROR:\n\n" +
-                result.error.message
-            );
-
-            button.disabled = false;
-            button.textContent = "SAVE";
-
-            return;
-        }
-
-
-        button.textContent = "SAVED ✓";
-
-
-        setTimeout(async function(){
-
-            await loadProducts();
-
-        }, 700);
-
-    }
-
-
-    /* ---------- DELETE ---------- */
-
-    async function deleteProduct(){
-
-        const button = this;
-
-        const card =
-            button.closest(".ptySafeProduct");
-
-        const id =
-            card.dataset.id;
-
-
-        if(
-            !confirm(
-                "واقعاً می‌خواهی این محصول حذف شود؟"
-            )
-        ){
-
-            return;
-
-        }
-
-
-        button.disabled = true;
-
-        button.textContent = "DELETING...";
-
-
-        const result =
-            await supabaseClient
-                .from("products")
-                .delete()
-                .eq("id", id);
-
-
-        if(result.error){
-
-            alert(
-                "DELETE ERROR:\n\n" +
-                result.error.message
-            );
-
-            button.disabled = false;
-            button.textContent = "DELETE";
-
-            return;
-        }
-
-
-        await loadProducts();
-
-    }
-
-
-    /* ---------- ADD ---------- */
-
-    addBtn.addEventListener("click", async function(){
-
-        const name =
-            document.getElementById("ptyAddName")
-                .value.trim();
-
-        const wear =
-            document.getElementById("ptyAddWear")
-                .value.trim();
-
-        const price =
-            Number(
-                document.getElementById("ptyAddPrice")
-                    .value
-            );
-
-        const category =
-            document.getElementById("ptyAddCategory")
-                .value;
-
-        const image =
-            document.getElementById("ptyAddImage")
-                .value.trim();
-
-
-        if(!name){
-
-            alert("Product name را وارد کن.");
-
-            return;
-        }
-
-
-        if(!price || price < 0){
-
-            alert("Price را وارد کن.");
-
-            return;
-        }
-
-
-        addBtn.disabled = true;
-        addBtn.textContent = "ADDING...";
-
-
-        const result =
-            await supabaseClient
-                .from("products")
-                .insert({
-
-                    name: name,
-                    wear: wear,
-                    price: price,
-                    category: category,
-                    image_url: image
-
-                });
-
-
-        if(result.error){
-
-            alert(
-                "ADD ERROR:\n\n" +
-                result.error.message
-            );
-
-            addBtn.disabled = false;
-            addBtn.textContent = "+ ADD PRODUCT";
-
-            return;
-        }
-
-
-        document.getElementById("ptyAddName")
-            .value = "";
-
-        document.getElementById("ptyAddWear")
-            .value = "";
-
-        document.getElementById("ptyAddPrice")
-            .value = "";
-
-        document.getElementById("ptyAddImage")
-            .value = "";
-
-
-        addBtn.textContent = "ADDED ✓";
-
-
-        await loadProducts();
-
-
-        setTimeout(function(){
-
-            addBtn.disabled = false;
-            addBtn.textContent = "+ ADD PRODUCT";
-
-        }, 1000);
-
-    });
-
-
-    /* ---------- REFRESH ---------- */
-
-    refreshBtn.addEventListener(
-        "click",
-        loadProducts
-    );
-
-
-    /* ---------- USERS ---------- */
-
-    usersBtn.addEventListener("click", async function(){
-
-        const box =
-            document.getElementById("ptySafeUsers");
-
-        box.innerHTML = "Loading users...";
-
-
-        const result =
-            await supabaseClient
-                .from("profiles")
-                .select("*")
-                .order(
-                    "created_at",
-                    {ascending:false}
-                );
-
-
-        if(result.error){
-
-            box.innerHTML =
-                '<div style="color:#ff637c;">' +
-                escapeHTML(result.error.message) +
-                '</div>';
-
-            return;
-        }
-
-
-        if(!result.data || result.data.length === 0){
-
-            box.innerHTML = "No users.";
-
-            return;
-        }
-
-
-        box.innerHTML =
-            result.data.map(user => `
-
-                <div class="ptySafeUser">
-
-                    <strong>
-                        ${escapeHTML(
-                            ((user.first_name || "") +
-                            " " +
-                            (user.last_name || "")).trim()
-                            || "Unnamed User"
-                        )}
-                    </strong>
-
-                    <br>
-
-                    Email:
-                    ${escapeHTML(user.email || "-")}
-
-                    <br>
-
-                    Telegram:
-                    ${escapeHTML(user.telegram_id || "-")}
-
-                    <br>
-
-                    Phone:
-                    ${escapeHTML(user.phone || "-")}
-
-                    <br>
-
-                    Trade Link:
-                    ${escapeHTML(user.trade_link || "-")}
-
-                </div>
-
-            `).join("");
-
-    });
-
-
-    /* ---------- ESCAPE ---------- */
-
-    function escapeHTML(value){
-
-        return String(value ?? "")
-            .replace(/&/g,"&amp;")
-            .replace(/</g,"&lt;")
-            .replace(/>/g,"&gt;")
-            .replace(/"/g,"&quot;")
-            .replace(/'/g,"&#039;");
-
-    }
-
-
-    function escapeAttr(value){
-
-        return escapeHTML(value);
-
-    }
-
-
-    /* =====================================================
-       ADMIN OPEN TRIGGER
-
-       5 CLICKS ON PTY LOGO
-    ===================================================== */
-
-    let adminClicks = 0;
-    let adminTimer = null;
-
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function(){
-
-            const logo =
-                document.querySelector(".logo");
-
-
-            if(!logo){
-
-                return;
-
-            }
-
-
-            logo.addEventListener(
-                "click",
-                function(){
-
-                    adminClicks++;
-
-                    clearTimeout(adminTimer);
-
-
-                    adminTimer =
-                        setTimeout(function(){
-
-                            adminClicks = 0;
-
-                        }, 1800);
-
-
-                    if(adminClicks >= 5){
-
-                        adminClicks = 0;
-
-                        window.openPtyAdmin();
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-})();
 </script>
-</script>
-<script>
-document.addEventListener("click", function(e) {
 
-    const logo = e.target.closest(".logo");
-
-    if (!logo) return;
-
-    window.ptyAdminClicks =
-        (window.ptyAdminClicks || 0) + 1;
-
-    clearTimeout(window.ptyAdminTimer);
-
-    window.ptyAdminTimer = setTimeout(function() {
-        window.ptyAdminClicks = 0;
-    }, 2000);
-
-    if (window.ptyAdminClicks >= 5) {
-
-        window.ptyAdminClicks = 0;
-
-        if (typeof window.openPtyAdmin === "function") {
-            window.openPtyAdmin();
-        } else {
-            alert("Admin Panel پیدا نشد!");
-        }
-
-    }
-
-});
-</script><
-             
-document.addEventListener("keydown", function(e) {
-
-    if (e.key === "F8") {
-
-        e.preventDefault();
-
-        if (typeof window.openPtyAdmin === "function") {
-            window.openPtyAdmin();
-        } else {
-            alert("Admin Panel JS پیدا نشد!");
-        }
-
-    }
-
-});
-</script>
-(function(){
-
-    console.log("PTY ADMIN FIX LOADED");
-
-    let clicks = 0;
-    let timer = null;
-
-    function openAdminFix(){
-
-        const panel = document.getElementById("ptySafeAdmin");
-
-        if(!panel){
-
-            alert("PTY SAFE ADMIN پیدا نشد!");
-            return;
-
-        }
-
-
-        panel.style.display = "block";
-        panel.style.visibility = "visible";
-        panel.style.opacity = "1";
-        panel.style.pointerEvents = "auto";
-        panel.style.zIndex = "999999999";
-
-
-        document.body.style.overflow="hidden";
-
-
-        const login =
-            document.getElementById("ptySafeLogin");
-
-        const dash =
-            document.getElementById("ptySafeDashboard");
-
-
-        if(login) login.style.display="block";
-        if(dash) dash.style.display="none";
-
-
-        if(typeof supabaseClient !== "undefined"){
-
-            supabaseClient.auth.getSession()
-            .then(({data})=>{
-
-                if(data.session){
-
-                    if(typeof loadProducts==="function"){
-                        loadProducts();
-                    }
-
-                }
-
-            });
-
-        }
-
-    }
-
-
-    window.openPtyAdmin = openAdminFix;
-
-
-    document.addEventListener("click",function(e){
-
-        if(!e.target.closest(".logo")) return;
-
-
-        clicks++;
-
-        clearTimeout(timer);
-
-
-        timer=setTimeout(()=>{
-
-            clicks=0;
-
-        },1800);
-
-
-        if(clicks>=5){
-
-            clicks=0;
-
-            openAdminFix();
-
-        }
-
-    });
-
-
-    document.addEventListener("keydown",function(e){
-
-        if(e.key==="F8"){
-
-            e.preventDefault();
-
-            openAdminFix();
-
-        }
-
-    });
-
-
-})();
-</script>
 </body>
 </html>
