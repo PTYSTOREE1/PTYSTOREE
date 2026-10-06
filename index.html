@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
 <title>CS2 TOURNAMENT</title>
 
@@ -14,6 +14,7 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
 :root{
@@ -63,7 +64,8 @@ header{
     top:0;
     z-index:50;
     backdrop-filter:blur(18px);
-    background:rgba(3,5,10,.78);
+    -webkit-backdrop-filter:blur(18px);
+    background:rgba(3,5,10,.82);
     border-bottom:1px solid var(--border);
 }
 
@@ -119,6 +121,7 @@ header{
     border-radius:12px;
     cursor:pointer;
     transition:.25s;
+    min-height:42px;
 }
 
 .admin-btn:hover{
@@ -165,6 +168,9 @@ header{
     margin:auto;
     padding:20px 25px 80px;
     overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
 }
 
 .bracket{
@@ -200,6 +206,7 @@ header{
     border-radius:15px;
     padding:7px;
     backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     box-shadow:0 15px 40px rgba(0,0,0,.25);
     transition:.3s;
     cursor:pointer;
@@ -241,6 +248,7 @@ header{
     text-overflow:ellipsis;
     direction:ltr;
     text-align:left;
+    min-width:0;
 }
 
 .score{
@@ -248,6 +256,7 @@ header{
     text-align:center;
     font-weight:900;
     color:var(--muted);
+    flex-shrink:0;
 }
 
 .winner .score{
@@ -327,6 +336,8 @@ header{
     font-size:23px;
     font-weight:1000;
     margin-top:8px;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 /* ================= MODAL ================= */
@@ -341,6 +352,7 @@ header{
     padding:20px;
     background:rgba(0,0,0,.76);
     backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
 }
 
 .modal.show{
@@ -361,6 +373,7 @@ header{
         0 0 60px rgba(255,49,93,.08);
     animation:teamIn .42s cubic-bezier(.16,1,.3,1);
     position:relative;
+    -webkit-overflow-scrolling:touch;
 }
 
 @keyframes fadeIn{
@@ -425,6 +438,9 @@ header{
     font-weight:1000;
     direction:ltr;
     text-align:left;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-word;
 }
 
 .modal-sub{
@@ -470,6 +486,7 @@ header{
     background:rgba(255,49,93,.1);
     color:var(--red);
     font-weight:bold;
+    flex-shrink:0;
 }
 
 .player-name{
@@ -477,6 +494,9 @@ header{
     text-align:left;
     font-weight:bold;
     font-size:15px;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .player-name.empty{
@@ -530,6 +550,7 @@ header{
 .vs{
     color:var(--red);
     font-weight:1000;
+    flex-shrink:0;
 }
 
 .match-body{
@@ -558,7 +579,8 @@ header{
 }
 
 .map-select,
-.map-score{
+.map-score,
+.status-select{
     width:100%;
     background:#070b11;
     border:1px solid var(--border);
@@ -566,10 +588,12 @@ header{
     padding:11px 9px;
     border-radius:10px;
     outline:none;
+    font-family:inherit;
 }
 
 .map-select:focus,
-.map-score:focus{
+.map-score:focus,
+.status-select:focus{
     border-color:var(--red);
 }
 
@@ -578,13 +602,8 @@ header{
 }
 
 .status-select{
-    width:100%;
-    background:#070b11;
-    border:1px solid var(--border);
-    color:#fff;
     padding:12px;
     border-radius:11px;
-    outline:none;
 }
 
 .map-select:disabled,
@@ -621,6 +640,8 @@ header{
     margin-top:7px;
     color:var(--green);
     font-weight:bold;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .match-edit{
@@ -641,6 +662,41 @@ header{
 
 .match-actions button{
     flex:1;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary,
+.secondary,
+.admin-btn{
+    touch-action:manipulation;
+}
+
+.primary{
+    width:100%;
+    border:0;
+    background:linear-gradient(135deg,#ff315d,#ff1749);
+    color:#fff;
+    padding:14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+    min-height:46px;
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+}
+
+.secondary{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    color:#fff;
+    padding:11px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    min-height:46px;
 }
 
 /* ================= ADMIN ================= */
@@ -666,6 +722,7 @@ header{
     border-radius:11px;
     outline:none;
     margin-top:7px;
+    min-height:46px;
 }
 
 .input:focus{
@@ -679,31 +736,6 @@ header{
 .field label{
     color:var(--muted);
     font-size:12px;
-}
-
-.primary{
-    width:100%;
-    border:0;
-    background:linear-gradient(135deg,#ff315d,#ff1749);
-    color:#fff;
-    padding:14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.primary:hover{
-    transform:translateY(-2px);
-}
-
-.secondary{
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.04);
-    color:#fff;
-    padding:11px 15px;
-    border-radius:10px;
-    cursor:pointer;
 }
 
 .admin-grid{
@@ -775,49 +807,425 @@ footer strong{
     color:#fff;
 }
 
-/* ================= MOBILE ================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:700px){
 
+    body{
+        min-width:0;
+    }
+
+    /* HEADER */
+
     .header-inner{
-        padding:12px 15px;
+        min-height:64px;
+        padding:10px 13px;
+        gap:10px;
     }
 
     .logo{
-        font-size:18px;
+        font-size:16px;
+        letter-spacing:1px;
+        line-height:1.1;
+        white-space:nowrap;
+    }
+
+    .logo small{
+        font-size:8px;
+        letter-spacing:2px;
+        margin-top:3px;
+    }
+
+    .header-info{
+        gap:7px;
+        flex-shrink:0;
     }
 
     .prize{
         display:none;
     }
 
-    .hero{
-        padding:40px 18px 20px;
+    .admin-btn{
+        padding:9px 12px;
+        min-height:40px;
+        font-size:12px;
     }
 
+    /* HERO */
+
+    .hero{
+        padding:34px 15px 18px;
+    }
+
+    .hero-label{
+        font-size:10px;
+        letter-spacing:3px;
+        margin-bottom:10px;
+    }
+
+    .hero h1{
+        font-size:32px;
+        line-height:1.1;
+        letter-spacing:1px;
+    }
+
+    .hero p{
+        font-size:12px;
+        line-height:1.7;
+        margin-top:10px;
+    }
+
+    /* BRACKET */
+
     .bracket-wrap{
-        padding-left:15px;
-        padding-right:15px;
+        width:100%;
+        padding:12px 10px 55px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        scroll-behavior:smooth;
+        scrollbar-width:none;
+    }
+
+    .bracket-wrap::-webkit-scrollbar{
+        display:none;
+    }
+
+    .bracket{
+        min-width:900px;
+        grid-template-columns:250px 45px 250px 45px 250px;
+        gap:8px;
+        align-items:center;
+        padding:5px 4px 15px;
+    }
+
+    .round{
+        min-height:650px;
+        gap:15px;
+    }
+
+    .round-title{
+        font-size:10px;
+        letter-spacing:1.5px;
+        margin-bottom:3px;
+    }
+
+    .match{
+        border-radius:12px;
+        padding:5px;
+    }
+
+    .team{
+        min-height:38px;
+        padding:7px 8px;
+        gap:6px;
+    }
+
+    .team-name{
+        font-size:12px;
+    }
+
+    .score{
+        min-width:21px;
+        font-size:12px;
+    }
+
+    .match-status{
+        font-size:9px;
+        padding:4px 5px;
+        margin:4px 2px 2px;
+    }
+
+    .connector{
+        width:100%;
+    }
+
+    .champion{
+        width:100%;
+        margin-top:15px;
+        padding:18px 12px;
+        border-radius:15px;
+    }
+
+    .champion-icon{
+        font-size:28px;
+    }
+
+    .champion-label{
+        font-size:9px;
+        letter-spacing:2px;
+    }
+
+    .champion-name{
+        font-size:18px;
+    }
+
+    /* GENERAL MODAL */
+
+    .modal{
+        padding:8px;
+        align-items:flex-end;
+    }
+
+    .modal-card{
+        width:100%;
+        max-height:94vh;
+        border-radius:22px 22px 12px 12px;
+    }
+
+    .modal-top{
+        padding:22px 18px 18px;
+    }
+
+    .modal-close{
+        top:12px;
+        left:12px;
+        width:40px;
+        height:40px;
+        font-size:20px;
+    }
+
+    .team-badge{
+        width:56px;
+        height:56px;
+        border-radius:15px;
+        font-size:20px;
+        margin-bottom:11px;
+    }
+
+    .modal-team-name{
+        font-size:23px;
+        padding-left:35px;
+    }
+
+    .modal-sub{
+        font-size:10px;
+    }
+
+    .players{
+        padding:14px;
+        gap:8px;
+    }
+
+    .player{
+        padding:12px;
+        gap:10px;
+        border-radius:12px;
+    }
+
+    .player-number{
+        width:34px;
+        height:34px;
+    }
+
+    .player-name{
+        font-size:14px;
+    }
+
+    /* MATCH MODAL */
+
+    .match-modal-card{
+        width:100%;
+        max-height:94vh;
+    }
+
+    .match-head{
+        padding:20px 15px 17px;
+    }
+
+    .match-number{
+        font-size:9px;
+        letter-spacing:2px;
+        margin-bottom:6px;
+    }
+
+    .match-title{
+        font-size:20px;
+    }
+
+    .match-teams{
+        gap:7px;
+        margin-top:12px;
+    }
+
+    .match-team-name{
+        max-width:calc(50vw - 35px);
+        font-size:13px;
+    }
+
+    .vs{
+        font-size:12px;
+    }
+
+    .match-body{
+        padding:14px;
+    }
+
+    .status-display{
+        margin-bottom:14px;
+        padding:10px 7px;
+        font-size:12px;
+    }
+
+    .match-edit{
+        margin-top:14px;
+    }
+
+    .match-edit-title{
+        font-size:11px;
+        margin-bottom:8px;
+    }
+
+    .status-select{
+        min-height:46px;
+        font-size:13px;
+    }
+
+    /*
+       موبایل:
+       MAP / SELECT / SCORE
+       به جای فشرده شدن،
+       به شکل دو ستونه مرتب می‌شوند.
+    */
+
+    .map-row{
+        grid-template-columns:62px 1fr 78px;
+        gap:7px;
+        margin-bottom:9px;
+        align-items:start;
+    }
+
+    .map-label{
+        font-size:10px;
+        padding-top:14px;
+        white-space:nowrap;
+    }
+
+    .map-select,
+    .map-score{
+        min-height:45px;
+        padding:10px 7px;
+        font-size:12px;
+        border-radius:9px;
+    }
+
+    .map-score{
+        text-align:center;
+    }
+
+    .match-result{
+        margin-top:15px;
+        padding:15px 10px;
+    }
+
+    .result-label{
+        font-size:9px;
+    }
+
+    .result-score{
+        font-size:28px;
+    }
+
+    .result-winner{
+        font-size:12px;
+    }
+
+    .match-actions{
+        flex-direction:column;
+        gap:8px;
+        margin-top:14px;
+    }
+
+    .match-actions button{
+        width:100%;
+    }
+
+    /* ADMIN */
+
+    .admin-modal .modal-card{
+        width:100%;
+        max-height:95vh;
+    }
+
+    .login-box,
+    .admin-body{
+        padding:15px;
     }
 
     .admin-grid{
         grid-template-columns:1fr;
+        gap:10px;
     }
 
-    .modal{
+    .admin-team{
         padding:12px;
+        border-radius:13px;
     }
 
-    .map-row{
-        grid-template-columns:1fr 75px 75px;
+    .admin-team-title{
+        font-size:14px;
+        margin-bottom:9px;
     }
 
-    .match-teams{
+    .input{
+        min-height:46px;
+        font-size:13px;
+        padding:11px 12px;
+    }
+
+    .admin-actions{
+        flex-direction:column;
         gap:8px;
     }
 
-    .match-team-name{
-        max-width:130px;
+    .admin-actions button{
+        width:100%;
+    }
+
+    /* FOOTER */
+
+    footer{
+        padding:20px 12px;
+        font-size:10px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:380px){
+
+    .logo{
+        font-size:14px;
+    }
+
+    .logo small{
+        font-size:7px;
+    }
+
+    .admin-btn{
+        font-size:10px;
+        padding:8px 10px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .map-row{
+        grid-template-columns:55px 1fr 70px;
+        gap:5px;
+    }
+
+    .map-select,
+    .map-score{
+        font-size:11px;
+        padding-left:5px;
+        padding-right:5px;
     }
 
 }
@@ -1653,11 +2061,6 @@ const db =
    ADMIN SECURITY
 ========================================================= */
 
-/*
-   فقط این ایمیل اجازه مدیریت دارد.
-   اگر ایمیل ادمینت همین است، دست نزن.
-*/
-
 const ADMIN_EMAIL =
     "partyarena00@gmail.com";
 
@@ -1772,7 +2175,6 @@ function getMatchData(key){
         data = {};
 
     }
-
 
     return {
 
@@ -2704,12 +3106,6 @@ async function openMatch(key){
     updateMatchPreview();
 
 
-    /*
-       مهم:
-       قبلاً فقط وجود session چک می‌شد.
-       الان فقط ایمیل ADMIN_EMAIL اجازه ویرایش دارد.
-    */
-
     const {data} =
         await db.auth.getSession();
 
@@ -3103,11 +3499,6 @@ async function saveMatchDetails(){
         await db.auth.getSession();
 
 
-    /*
-       SECURITY CHECK
-       فقط ادمین اصلی اجازه ذخیره دارد.
-    */
-
     if(
         !isAdminSession(
             sessionData.session
@@ -3297,7 +3688,6 @@ async function saveMatchDetails(){
 
     await loadTournament();
 
-
     closeMatchModal();
 
 }
@@ -3322,10 +3712,6 @@ async function openAdmin(){
     const {data} =
         await db.auth.getSession();
 
-
-    /*
-       فقط ادمین واقعی اجازه ورود مستقیم دارد.
-    */
 
     if(
         isAdminSession(
@@ -3400,11 +3786,6 @@ async function loginAdmin(){
         "در حال ورود...";
 
 
-    /*
-       اگر ایمیل حتی قبل از Supabase
-       ادمین نباشد، اجازه ورود نمی‌دهیم.
-    */
-
     if(
         email.toLowerCase() !==
         ADMIN_EMAIL.toLowerCase()
@@ -3447,10 +3828,6 @@ async function loginAdmin(){
 
     }
 
-
-    /*
-       دوباره بعد از ورود بررسی می‌کنیم.
-    */
 
     if(
         !isAdminSession(
@@ -3500,10 +3877,6 @@ async function showAdminPanel(){
     } =
         await db.auth.getSession();
 
-
-    /*
-       محافظ دوم پنل.
-    */
 
     if(
         !isAdminSession(
@@ -3748,10 +4121,6 @@ async function saveTournament(){
         await db.auth.getSession();
 
 
-    /*
-       فقط ادمین اصلی اجازه ذخیره دارد.
-    */
-
     if(
         !isAdminSession(
             sessionData.session
@@ -3779,8 +4148,6 @@ async function saveTournament(){
 
         const updateData = {};
 
-
-        /* ================= TEAMS ================= */
 
         document
             .querySelectorAll(".team-input")
@@ -3884,8 +4251,6 @@ async function saveTournament(){
         if(updateError)
             throw updateError;
 
-
-        /* ================= PLAYERS ================= */
 
         const inputs =
             document.querySelectorAll(
@@ -4008,10 +4373,6 @@ async function logoutAdmin(){
         "block";
 
 
-    /*
-       بعد از خروج، Match Editor هم قفل می‌شود.
-    */
-
     setMatchEditorAccess(false);
 
 }
@@ -4107,11 +4468,6 @@ db
 db.auth.onAuthStateChange(
 
     async (event,session) => {
-
-        /*
-           اگر کسی غیر از ادمین وارد شود،
-           فوراً خارجش می‌کنیم.
-        */
 
         if(
             event === "SIGNED_IN" &&
