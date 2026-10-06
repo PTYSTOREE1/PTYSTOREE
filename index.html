@@ -1,1475 +1,393 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS2 Tournament</title>
 
-<title>PTY Store | CS2 Skins</title>
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23702AD7'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial' font-size='25' font-weight='900' fill='white'%3EPTY%3C/text%3E%3C/svg%3E">
-
-<!-- CLASSIC FONT -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-}
-
-:root{
-    --purple:#702AD7;
-    --purple-dark:#5219a8;
-    --bg:#0b0810;
-    --card:#15101c;
-    --border:rgba(112,42,215,.35);
-    --text:#fff;
-    --muted:#aaa3b4;
-}
-
-html{
-    scroll-behavior:smooth;
 }
 
 body{
+    font-family:Arial,Tahoma,sans-serif;
     background:
-        radial-gradient(circle at top right,rgba(112,42,215,.16),transparent 35%),
-        radial-gradient(circle at bottom left,rgba(112,42,215,.10),transparent 30%),
-        var(--bg);
-    color:var(--text);
+        radial-gradient(circle at 50% -10%,#263247 0,#11151d 38%,#07090d 80%);
+    color:#fff;
     min-height:100vh;
-    font-family:"Cinzel",serif;
 }
-
-/* ================= HEADER ================= */
 
 header{
-    width:100%;
-    height:72px;
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(11,8,16,.92);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
-}
-
-.nav{
-    max-width:1150px;
-    height:100%;
-    margin:auto;
-    padding:0 20px;
+    height:78px;
+    padding:0 5%;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    background:rgba(5,7,11,.86);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
+    position:sticky;
+    top:0;
+    z-index:50;
 }
 
 .logo{
-    font-family:"Cinzel",serif;
-    font-size:25px;
+    font-size:24px;
     font-weight:900;
-    color:white;
     letter-spacing:2px;
-    cursor:pointer;
-    user-select:none;
-    transition:.2s;
-}
-
-.logo:hover{
-    transform:scale(1.03);
 }
 
 .logo span{
-    color:var(--purple);
+    color:#ff3b30;
 }
 
-nav{
-    display:flex;
-    gap:8px;
-}
-
-nav button{
-    font-family:"Cinzel",serif;
+.admin-btn{
+    border:1px solid #ff3b30;
     background:transparent;
-    border:none;
-    color:#ddd;
-    padding:11px 16px;
-    border-radius:9px;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:8px;
     cursor:pointer;
-    font-size:13px;
     transition:.2s;
 }
 
-nav button:hover,
-nav button.active{
-    background:rgba(112,42,215,.16);
-    color:white;
+.admin-btn:hover{
+    background:#ff3b30;
 }
-
-/* ================= TOP LEFT CART ================= */
-
-.top-cart-btn{
-    position:fixed;
-    top:88px;
-    left:20px;
-    z-index:9000;
-
-    width:52px;
-    height:52px;
-
-    border:1px solid rgba(112,42,215,.55);
-    border-radius:15px;
-
-    background:rgba(20,12,30,.94);
-    color:white;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 0 20px rgba(112,42,215,.22);
-
-    transition:.22s;
-}
-
-.top-cart-btn:hover{
-    transform:translateY(-2px) scale(1.06);
-    background:#21122f;
-    border-color:var(--purple);
-    box-shadow:
-        0 0 28px rgba(112,42,215,.45);
-}
-
-.top-cart-btn svg{
-    width:24px;
-    height:24px;
-    fill:currentColor;
-}
-
-.top-cart-count{
-    position:absolute;
-    top:-7px;
-    right:-7px;
-
-    min-width:21px;
-    height:21px;
-
-    padding:0 5px;
-
-    border-radius:50px;
-
-    background:var(--purple);
-    color:white;
-
-    font-family:Arial,sans-serif;
-    font-size:11px;
-    font-weight:900;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border:2px solid #0b0810;
-}
-
-/* ================= PAGES ================= */
-
-.page{
-    display:none;
-    max-width:1050px;
-    margin:auto;
-    padding:55px 20px 100px;
-}
-
-.page.active{
-    display:block;
-}
-
-/* ================= HOME ================= */
 
 .hero{
-    min-height:65vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
     text-align:center;
+    padding:55px 20px 35px;
 }
 
 .hero h1{
-    font-family:"Cinzel",serif;
-    font-size:clamp(42px,7vw,75px);
-    margin-bottom:18px;
+    font-size:43px;
     font-weight:900;
 }
 
 .hero h1 span{
-    color:var(--purple);
+    color:#ff3b30;
 }
 
 .hero p{
-    color:var(--muted);
-    max-width:650px;
-    line-height:2;
-    font-size:14px;
+    margin-top:12px;
+    color:#9da6b5;
 }
 
-.brand-mini{
-    font-size:12px;
-    color:#a987e8;
-    letter-spacing:3px;
-    margin-bottom:8px;
-    text-transform:uppercase;
+.info{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:26px;
 }
 
-.slogan{
-    font-size:17px!important;
-    color:#d8c7f5!important;
-    margin-top:5px;
+.info-box{
+    min-width:150px;
+    padding:13px 22px;
+    border-radius:12px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);
 }
 
-.hero-button{
-    margin-top:30px;
-    border:none;
-    background:var(--purple);
-    color:white;
-    padding:14px 28px;
-    border-radius:10px;
-    cursor:pointer;
-    font-family:"Cinzel",serif;
-    font-size:13px;
-    transition:.2s;
-    box-shadow:0 8px 30px rgba(112,42,215,.25);
-}
-
-.hero-button:hover{
-    background:var(--purple-dark);
-    transform:translateY(-2px);
-}
-
-/* ================= TITLES ================= */
-
-.page-title{
-    font-size:30px;
-    font-weight:800;
-    margin-bottom:10px;
-}
-
-.page-description{
-    color:var(--muted);
-    margin-bottom:30px;
-    line-height:1.8;
-    font-size:13px;
-}
-
-/* ================= CARDS ================= */
-
-.card{
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:28px;
-    box-shadow:0 15px 50px rgba(0,0,0,.25);
-}
-
-/* ================= FORMS ================= */
-
-.form-group{
-    margin-bottom:20px;
-}
-
-.form-group label{
+.info-box small{
     display:block;
-    margin-bottom:8px;
+    color:#7f8998;
+    margin-bottom:5px;
+}
+
+.info-box b{
+    font-size:17px;
+}
+
+.live{
+    color:#45ff78!important;
+}
+
+.bracket-wrapper{
+    width:100%;
+    overflow-x:auto;
+    padding:25px 25px 70px;
+}
+
+.bracket{
+    min-width:1100px;
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:65px;
+}
+
+.round{
+    display:flex;
+    flex-direction:column;
+}
+
+.round-title{
+    text-align:center;
+    color:#ff3b30;
+    font-weight:900;
+    font-size:16px;
+    margin-bottom:25px;
+}
+
+.matches{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+}
+
+.match{
+    width:260px;
+    margin:0 auto;
+}
+
+.team{
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 13px;
+    background:linear-gradient(90deg,#171c26,#10141b);
+    border:1px solid #29303b;
+}
+
+.team:first-child{
+    border-radius:9px 9px 0 0;
+}
+
+.team:last-child{
+    border-radius:0 0 9px 9px;
+    border-top:0;
+}
+
+.team-name{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    min-width:0;
+}
+
+.team-name span{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:180px;
+}
+
+.team-logo{
+    width:27px;
+    height:27px;
+    min-width:27px;
+    border-radius:7px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#272e3a;
+    color:#aab2bf;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.score{
+    font-weight:900;
+    font-size:17px;
+}
+
+.winner{
+    border-color:#45ff78!important;
+}
+
+.winner .score{
+    color:#45ff78;
+}
+
+.final-match{
+    margin-top:120px;
+}
+
+.champion{
+    width:290px;
+    margin:22px auto 0;
+    text-align:center;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #ffb000;
+    background:linear-gradient(145deg,#211b0a,#0e1015);
+    box-shadow:0 0 35px rgba(255,176,0,.12);
+}
+
+.cup{
+    font-size:44px;
+}
+
+.champion h2{
+    color:#ffb000;
+    margin-top:8px;
+}
+
+.champion p{
+    margin-top:7px;
+    color:#aaa;
     font-size:12px;
-    color:#eee;
 }
 
-.required{
-    color:#caa6ff;
+/* ADMIN */
+
+#adminPanel{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    overflow:auto;
+    padding:30px 15px;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(10px);
 }
 
-.optional{
-    color:#9f95a9;
-    font-size:10px;
+.admin-box{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    padding:25px;
+    border-radius:18px;
+    background:#10141c;
+    border:1px solid #303744;
+}
+
+.admin-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.close{
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:8px;
+    background:#292f39;
+    color:#fff;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.admin-section{
+    margin-bottom:20px;
+    padding:18px;
+    border-radius:12px;
+    background:#0b0e14;
+    border:1px solid #202631;
+}
+
+.admin-section h3{
+    margin-bottom:15px;
+    color:#ff3b30;
+}
+
+.inputs{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
 }
 
 input{
     width:100%;
-    padding:14px 15px;
-    border-radius:9px;
-    border:1px solid #30243d;
-    background:#0e0a13;
-    color:white;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #303744;
+    background:#171c25;
+    color:#fff;
     outline:none;
-    font-family:"Cinzel",serif;
-    font-size:12px;
-    transition:.2s;
 }
 
 input:focus{
-    border-color:var(--purple);
-    box-shadow:0 0 0 3px rgba(112,42,215,.12);
+    border-color:#ff3b30;
 }
 
-input:disabled{
-    opacity:.65;
-    cursor:not-allowed;
-}
-
-button{
-    font-family:"Cinzel",serif;
-}
-
-.purple-button{
-    border:none;
-    background:var(--purple);
-    color:white;
-    padding:13px 17px;
-    border-radius:9px;
-    cursor:pointer;
-    transition:.2s;
-    white-space:nowrap;
-    font-size:11px;
-}
-
-.purple-button:hover{
-    background:var(--purple-dark);
-}
-
-.purple-button:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-}
-
-.secondary-button{
-    margin-top:9px;
-    background:transparent;
-    color:#c9a9ff;
-    border:1px solid var(--border);
-    padding:10px 14px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.2s;
-    font-size:10px;
-}
-
-.secondary-button:hover{
-    background:rgba(112,42,215,.12);
-}
-
-/* ================= EMAIL / OTP ================= */
-
-.email-row,
-.otp-row{
-    display:flex;
-    gap:10px;
-}
-
-.email-row input,
-.otp-row input{
-    flex:1;
-}
-
-#otpArea{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    border-radius:10px;
-    background:rgba(112,42,215,.07);
-    border:1px solid var(--border);
-}
-
-#otpArea.show{
-    display:block;
-}
-
-#otp{
-    direction:ltr;
-    text-align:center;
-    letter-spacing:5px;
-    font-size:20px;
-    font-weight:bold;
-}
-
-.verified{
-    display:none;
-    margin-top:10px;
-    color:#c9a9ff;
-    font-size:12px;
-}
-
-.verified.show{
-    display:block;
-}
-
-/* ================= PROFILE ================= */
-
-.profile-status{
-    margin-bottom:20px;
-    padding:13px 15px;
-    border-radius:9px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.025);
-    color:#bbb;
-    font-size:12px;
-}
-
-.profile-status.complete{
-    color:#d7c0ff;
-    border-color:rgba(112,42,215,.5);
-    background:rgba(112,42,215,.09);
-}
-
-.profile-top{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin-bottom:22px;
-    padding-bottom:20px;
-    border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.avatar{
-    width:88px;
-    height:88px;
-    border-radius:50%;
-    border:2px solid var(--purple);
-    background:#100b16;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    flex:0 0 auto;
-}
-
-.avatar img{
+.save{
     width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.avatar-fallback{
-    font-weight:900;
-    font-family:"Cinzel",serif;
-}
-
-.upload-label{
-    display:inline-flex;
-    background:#111;
-    color:#fff;
-    padding:10px 13px;
-    border-radius:9px;
-    cursor:pointer;
-    font-size:10px;
-}
-
-.upload-label input{
-    display:none;
-}
-
-.captcha-box{
-    padding:15px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:rgba(112,42,215,.06);
-    margin:20px 0;
-}
-
-.captcha-line{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.captcha-question{
-    font-weight:900;
-    color:#e7d9ff;
-    min-width:100px;
-}
-
-.captcha-refresh{
-    border:1px solid var(--border);
-    background:transparent;
-    color:#cdb6ef;
-    padding:10px 12px;
-    border-radius:9px;
-    cursor:pointer;
-    font-size:10px;
-}
-
-.trade-help{
-    color:var(--muted);
-    font-size:10px;
-    margin-top:7px;
-    line-height:1.8;
-}
-
-.logout-button{
-    margin-top:15px;
-    width:100%;
-    background:transparent;
-    border:1px solid rgba(255,70,70,.3);
-    color:#ffaaaa;
-    padding:12px;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-/* ================= MESSAGE ================= */
-
-.message{
-    display:none;
-    margin-bottom:18px;
-    padding:12px 14px;
-    border-radius:9px;
-    font-size:11px;
-    line-height:1.8;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.error{
-    color:#ffb5b5;
-    background:rgba(255,70,70,.08);
-    border:1px solid rgba(255,70,70,.2);
-}
-
-.message.success{
-    color:#d7c0ff;
-    background:rgba(112,42,215,.09);
-    border:1px solid rgba(112,42,215,.3);
-}
-
-/* ================= SHOP ================= */
-
-.store-wrap{
-    width:100%;
-    margin-top:35px;
-}
-
-.shop-toolbar{
-    display:block;
-    margin:30px 0 18px;
-}
-
-.filter-card{
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:16px;
-}
-
-.price-filter{
-    background:#0b0b0b!important;
-    border-color:#2a2a2a!important;
-}
-
-.filter-title{
-    font-size:12px;
-    color:#eee;
-    margin-bottom:10px;
-}
-
-.price-value{
-    color:#702AD7!important;
-    font-weight:bold;
-}
-
-.range-container{
-    position:relative!important;
-    width:100%!important;
-    height:32px!important;
-    margin-top:12px!important;
-    touch-action:none!important;
-}
-
-.range-track,
-.range-progress{
-    position:absolute!important;
-    left:0!important;
-    top:14px!important;
-    width:100%!important;
-    height:6px!important;
-    border-radius:999px!important;
-    pointer-events:none!important;
-}
-
-.range-track{
-    background:#303030!important;
-}
-
-.range-progress{
-    width:100%;
-    background:linear-gradient(90deg,#5219a8,#702AD7)!important;
-    box-shadow:0 0 9px rgba(112,42,215,.5)!important;
-}
-
-.range-container input[type=range]{
-    position:absolute!important;
-    left:0!important;
-    top:14px!important;
-    width:100%!important;
-    height:6px!important;
-    margin:0!important;
-    padding:0!important;
-    appearance:none!important;
-    -webkit-appearance:none!important;
-    background:transparent!important;
-    border:0!important;
-    outline:0!important;
-    pointer-events:none!important;
-    z-index:4!important;
-}
-
-.range-container input[type=range]::-webkit-slider-runnable-track{
-    height:6px!important;
-    background:transparent!important;
-    border:0!important;
-}
-
-.range-container input[type=range]::-moz-range-track{
-    height:6px!important;
-    background:transparent!important;
-    border:0!important;
-}
-
-.range-container input[type=range]::-webkit-slider-thumb{
-    appearance:none!important;
-    -webkit-appearance:none!important;
-    width:24px!important;
-    height:24px!important;
-    margin-top:-9px!important;
-    border:0!important;
-    background:transparent!important;
-    box-shadow:none!important;
-    pointer-events:auto!important;
-}
-
-.range-container input[type=range]::-moz-range-thumb{
-    width:24px!important;
-    height:24px!important;
-    border:0!important;
-    background:transparent!important;
-    box-shadow:none!important;
-    pointer-events:auto!important;
-}
-
-.pty-slider-knob{
-    position:absolute!important;
-    top:5px!important;
-    left:100%;
-    width:24px!important;
-    height:24px!important;
-    border-radius:50%!important;
-    background:#702AD7!important;
-    border:3px solid #111!important;
-    box-shadow:
-        0 0 0 1px #702AD7,
-        0 0 12px rgba(112,42,215,.6)!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    color:#fff!important;
-    font:900 7px Tahoma,Arial,sans-serif!important;
-    z-index:6!important;
-    pointer-events:auto!important;
-    user-select:none!important;
-    touch-action:none!important;
-    cursor:grab!important;
-    transform:translateX(-50%)!important;
-}
-
-.pty-slider-knob.dragging{
-    cursor:grabbing!important;
-    transform:translateX(-50%) scale(1.03)!important;
-}
-
-.products-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin:25px 0 14px;
-}
-
-.products-head h2{
-    font-size:20px;
-}
-
-.result-count{
-    color:#9f95a9;
-    font-size:11px;
-}
-
-.products-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.product-card{
-    overflow:hidden;
-    background:linear-gradient(145deg,rgba(25,18,34,.96),rgba(13,9,19,.96));
-    border:1px solid rgba(112,42,215,.25);
-    border-radius:18px;
     padding:14px;
-    transition:.25s;
-}
-
-.product-card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(112,42,215,.65);
-}
-
-.product-img{
-    height:175px;
-    border-radius:13px;
-    background:radial-gradient(circle,rgba(112,42,215,.14),transparent 65%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.product-img img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    filter:drop-shadow(0 12px 20px rgba(0,0,0,.45));
-}
-
-.product-name{
-    font-weight:bold;
-    margin-top:13px;
-    font-size:13px;
-}
-
-.product-meta{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin:9px 0;
-}
-
-.product-tag{
-    font-size:9px;
-    color:#cdb6ef;
-    background:rgba(112,42,215,.12);
-    border:1px solid rgba(112,42,215,.25);
-    padding:5px 8px;
-    border-radius:999px;
-}
-
-.product-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    margin-top:12px;
-}
-
-.product-price{
-    font-weight:800;
-    font-size:11px;
-}
-
-.add-cart{
     border:0;
-    background:#111;
+    border-radius:9px;
+    background:#ff3b30;
     color:#fff;
-    padding:10px 12px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:9px;
-}
-
-.add-cart:hover{
-    background:#21132f;
-}
-
-.add-cart.in-cart{
-    background:#24143b;
-    color:#cdb6ef;
-    border:1px solid rgba(112,42,215,.45);
-    cursor:not-allowed;
-}
-
-.empty-results{
-    grid-column:1/-1;
-    text-align:center;
-    padding:45px;
-    color:#999;
-    border:1px dashed rgba(112,42,215,.3);
-    border-radius:16px;
-}
-
-/* ================= CART BAR ================= */
-
-.cart-bar{
-    position:sticky;
-    bottom:15px;
-    z-index:500;
-    margin:25px auto 0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background:rgba(20,13,28,.94);
-    backdrop-filter:blur(14px);
-    border:1px solid rgba(112,42,215,.5);
-    border-radius:16px;
-    padding:13px 16px;
-}
-
-.cart-items{
-    color:#cdaeff;
     font-weight:bold;
-    font-size:11px;
-}
-
-.clear-cart{
-    border:1px solid rgba(255,255,255,.1);
-    background:transparent;
-    color:#bbb;
-    padding:9px 12px;
-    border-radius:9px;
     cursor:pointer;
-    font-size:9px;
 }
 
-/* ================= CART PAGE ================= */
-
-.cart-page-card{
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:20px;
+.save:hover{
+    background:#ff5147;
 }
 
-.cart-page-items{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.cart-item{
-    display:grid;
-    grid-template-columns:100px 1fr auto;
-    align-items:center;
-    gap:15px;
-    background:#100c15;
-    border:1px solid rgba(112,42,215,.22);
-    border-radius:14px;
+.reset{
+    width:100%;
+    margin-top:10px;
     padding:12px;
-}
-
-.cart-item-image{
-    width:100px;
-    height:75px;
-    border-radius:10px;
-    background:radial-gradient(circle,rgba(112,42,215,.14),transparent 70%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.cart-item-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.cart-item-name{
-    font-weight:800;
-    font-size:14px;
-    margin-bottom:7px;
-}
-
-.cart-item-meta{
-    color:#a99caf;
-    font-size:10px;
-}
-
-.cart-item-price{
-    color:#d8c1ff;
-    font-weight:800;
-    margin-top:7px;
-    font-size:11px;
-}
-
-.remove-cart-item{
-    border:1px solid rgba(255,70,70,.25);
-    background:transparent;
-    color:#ff9d9d;
-    padding:9px 11px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:9px;
-}
-
-.remove-cart-item:hover{
-    background:rgba(255,70,70,.08);
-}
-
-.cart-summary{
-    margin-top:18px;
-    padding-top:18px;
-    border-top:1px solid rgba(255,255,255,.07);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-}
-
-.cart-total-label{
-    color:#aaa3b4;
-    font-size:11px;
-}
-
-.cart-total{
-    color:#fff;
-    font-size:20px;
-    font-weight:900;
-}
-
-.cart-actions{
-    display:flex;
-    gap:10px;
-}
-
-.cart-empty{
-    text-align:center;
-    padding:65px 20px;
-    color:#999;
-}
-
-.cart-empty-icon{
-    width:70px;
-    height:70px;
-    margin:0 auto 18px;
-    border-radius:20px;
-    background:rgba(112,42,215,.09);
-    border:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.cart-empty-icon svg{
-    width:32px;
-    height:32px;
-    fill:#702AD7;
-}
-
-/* ================= CONTACT ================= */
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.contact-box{
-    padding:25px;
-    background:rgba(21,16,28,.88);
-    border:1px solid var(--border);
-    border-radius:14px;
-}
-
-.contact-box h3{
-    margin-bottom:10px;
-    font-size:15px;
-}
-
-.contact-box a{
-    color:#c6a1ff;
-    text-decoration:none;
-    word-break:break-word;
-    font-size:11px;
-}
-
-.contact-box a:hover{
-    color:white;
-}
-
-.contact-loadout-wrap{
-    margin:35px auto 10px;
-    min-height:470px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
-    border-radius:24px;
-    background:
-        radial-gradient(circle at 50% 50%,rgba(112,42,215,.20),transparent 58%),
-        #15101c;
-}
-
-.contact-loadout-wrap::before{
-    content:"";
-    position:absolute;
-    width:560px;
-    height:360px;
-    border-radius:50%;
-    background:rgba(112,42,215,.13);
-    filter:blur(75px);
-}
-
-.contact-item{
-    position:relative;
-    z-index:1;
-    width:min(62%,560px);
-    height:500px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.contact-item img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    filter:drop-shadow(0 18px 32px rgba(0,0,0,.42));
-}
-
-.contact-knife{
-    margin:0!important;
-}
-
-.contact-knife img{
-    max-width:500px;
-    mix-blend-mode:multiply;
-    filter:
-        brightness(1.12)
-        saturate(1.08)
-        drop-shadow(0 16px 30px rgba(0,0,0,.38));
-    animation:contactKnifeFloat 4.5s ease-in-out infinite;
-}
-
-@keyframes contactKnifeFloat{
-    0%,100%{
-        transform:translateY(0) rotate(-1deg);
-    }
-    50%{
-        transform:translateY(-14px) rotate(1deg);
-    }
-}
-
-/* ================= SOCIAL ================= */
-
-.pty-socials{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:14px;
-    margin:24px auto 8px;
-}
-
-.pty-socials a{
-    width:42px;
-    height:42px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#702AD7;
-    text-decoration:none;
-    background:rgba(112,42,215,.08);
-    box-shadow:0 0 12px rgba(112,42,215,.12);
-    transition:.2s;
-}
-
-.pty-socials a:hover{
-    transform:translateY(-3px);
-    background:#702AD7;
-    color:#fff;
-    box-shadow:0 0 18px rgba(112,42,215,.5);
-}
-
-.pty-socials svg{
-    width:20px;
-    height:20px;
-    fill:currentColor;
-}
-
-/* ================= TELEGRAM ================= */
-
-.telegram-float{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:var(--purple);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    color:white;
-    z-index:2000;
-    box-shadow:0 8px 30px rgba(112,42,215,.4);
-    transition:.2s;
-}
-
-.telegram-float:hover{
-    transform:scale(1.08);
-    background:var(--purple-dark);
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    color:#777;
-    padding:30px 20px;
-    border-top:1px solid rgba(255,255,255,.05);
-    font-size:10px;
-}
-
-/* ================= ADMIN ================= */
-
-#ptyAdminModal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.82);
-    backdrop-filter:blur(8px);
-    z-index:100000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-}
-
-#ptyAdminModal.show{
-    display:flex;
-}
-
-.pty-admin-box{
-    width:min(1000px,96vw);
-    max-height:92vh;
-    overflow:auto;
-    background:#0d0d10;
-    border:1px solid #702AD7;
-    border-radius:18px;
-    box-shadow:0 0 45px rgba(112,42,215,.3);
-    padding:22px;
-    color:#fff;
-}
-
-.pty-admin-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.pty-admin-head h2{
-    margin:0;
-    color:#fff;
-    font-size:18px;
-}
-
-.pty-admin-close{
-    border:1px solid #333;
-    background:#151515;
-    color:#aaa;
     border-radius:9px;
-    padding:8px 12px;
+    border:1px solid #444;
+    background:#171c25;
+    color:#fff;
     cursor:pointer;
 }
 
-.pty-admin-close:hover{
-    color:#fff;
-    border-color:#702AD7;
+.notice{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+    color:#45ff78;
 }
 
-.pty-admin-login{
+.error{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+    color:#ff5555;
+}
+
+.login-box{
     max-width:430px;
-    margin:35px auto;
+    margin:70px auto;
 }
 
-.pty-admin-login h2{
-    text-align:center;
-    color:#702AD7;
-    margin-bottom:8px;
-}
-
-.pty-admin-sub{
-    text-align:center;
-    color:#777;
-    font-size:10px;
+.login-box h2{
     margin-bottom:20px;
 }
 
-.pty-admin-field{
-    margin-bottom:12px;
+.login-box input{
+    margin-bottom:10px;
 }
 
-.pty-admin-field label{
-    display:block;
-    font-size:10px;
-    color:#999;
-    margin-bottom:6px;
-}
-
-.pty-admin-field input{
-    width:100%;
-    box-sizing:border-box;
-    background:#111;
-    border:1px solid #303030;
-    border-radius:9px;
-    padding:12px;
-    color:#fff;
-    outline:none;
-}
-
-.pty-admin-btn{
-    width:100%;
+.logout{
+    background:#292f39;
     border:0;
-    border-radius:9px;
-    padding:12px;
-    background:#702AD7;
     color:#fff;
-    font-weight:900;
+    padding:10px 15px;
+    border-radius:8px;
     cursor:pointer;
-}
-
-.pty-admin-msg{
-    text-align:center;
-    min-height:20px;
-    color:#ff6b6b;
-    font-size:10px;
-    margin-top:10px;
-}
-
-.pty-admin-dashboard{
-    display:none;
-}
-
-.pty-admin-stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.pty-admin-stat{
-    background:#121217;
-    border:1px solid #28282f;
-    border-radius:12px;
-    padding:16px;
-}
-
-.pty-admin-stat small{
-    color:#777;
-    font-size:9px;
-}
-
-.pty-admin-stat strong{
-    display:block;
-    font-size:24px;
-    margin-top:7px;
-    color:#702AD7;
-}
-
-.pty-admin-section{
-    background:#101014;
-    border:1px solid #28282f;
-    border-radius:12px;
-    padding:15px;
-    margin-top:14px;
-}
-
-.pty-admin-section h3{
-    margin:0 0 12px;
-    font-size:12px;
-    color:#ddd;
-}
-
-.pty-admin-profile-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-    gap:10px;
-}
-
-.pty-admin-profile{
-    display:flex;
-    gap:12px;
-    background:#15151a;
-    border:1px solid #292932;
-    border-radius:10px;
-    padding:12px;
-}
-
-.pty-admin-profile img{
-    width:52px;
-    height:52px;
-    border-radius:50%;
-    object-fit:cover;
-    background:#080808;
-    border:1px solid #444;
-}
-
-.pty-admin-profile-info{
-    min-width:0;
-}
-
-.pty-admin-profile-name{
-    font-weight:900;
-    margin-bottom:5px;
-}
-
-.pty-admin-line{
-    font-size:9px;
-    color:#999;
-    line-height:1.8;
-    word-break:break-word;
-}
-
-.pty-admin-line b{
-    color:#666;
-}
-
-.pty-admin-empty{
-    color:#666;
-    font-size:10px;
-    padding:15px;
-    text-align:center;
-}
-
-.pty-admin-refresh{
-    width:auto;
-    padding:8px 13px;
-    margin-top:12px;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:850px){
-    .products-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
 }
 
 @media(max-width:700px){
 
+    .hero h1{
+        font-size:30px;
+    }
+
+    .inputs{
+        grid-template-columns:1fr;
+    }
+
     header{
-        height:auto;
-    }
-
-    .nav{
-        flex-direction:column;
-        padding:15px;
-        gap:12px;
-    }
-
-    nav{
-        width:100%;
-        justify-content:center;
-    }
-
-    nav button{
-        padding:9px 10px;
-        font-size:11px;
-    }
-
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .email-row,
-    .otp-row{
-        flex-direction:column;
-    }
-
-    .email-row .purple-button,
-    .otp-row .purple-button{
-        width:100%;
-    }
-
-    .hero{
-        min-height:60vh;
-    }
-
-    .top-cart-btn{
-        top:12px;
-        left:12px;
-        width:46px;
-        height:46px;
-    }
-
-    .top-cart-btn svg{
-        width:21px;
-        height:21px;
-    }
-
-    .cart-item{
-        grid-template-columns:75px 1fr;
-    }
-
-    .cart-item-image{
-        width:75px;
-        height:65px;
-    }
-
-    .cart-item .remove-cart-item{
-        grid-column:1/-1;
-        width:100%;
-    }
-
-    .cart-summary{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .cart-actions{
-        flex-direction:column;
-    }
-
-    .contact-item{
-        width:94%;
-        height:300px;
-    }
-
-    .pty-admin-stats{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:560px){
-
-    .products-grid{
-        grid-template-columns:1fr;
-    }
-
-    .profile-top{
-        align-items:flex-start;
-    }
-
-    .captcha-line{
-        flex-wrap:wrap;
-    }
-
-    .cart-bar{
-        bottom:8px;
-    }
-
-    .page{
-        padding-left:14px;
-        padding-right:14px;
+        padding:0 15px;
     }
 }
 </style>
@@ -1477,2664 +395,145 @@ footer{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
-    <div class="nav">
 
-        <div class="logo" onclick="showPage('home')" title="صفحه اصلی">
-            PTY <span>Store</span>
-        </div>
-
-        <nav>
-            <button class="nav-btn active" data-page="home">
-                صفحه نخست
-            </button>
-
-            <button class="nav-btn" data-page="profile">
-                پروفایل
-            </button>
-
-            <button class="nav-btn" data-page="contact">
-                تماس با ما
-            </button>
-        </nav>
-
+    <div class="logo">
+        CS2 <span>TOURNAMENT</span>
     </div>
+
+    <button class="admin-btn" onclick="openAdmin()">
+        ADMIN
+    </button>
+
 </header>
 
-<!-- ================= TOP LEFT CART ================= -->
 
-<button class="top-cart-btn" onclick="showPage('cart')" title="سبد خرید" aria-label="سبد خرید">
+<section class="hero">
 
-    <svg viewBox="0 0 24 24">
-        <path d="M7 4h-2l-1 2h2l2.6 10.4A2 2 0 0 0 10.5 18H18v-2h-7.1a.5.5 0 0 1-.48-.38L10.2 15H18a2 2 0 0 0 1.9-1.37L22 7H7.42l-.4-1.6A2 2 0 0 0 5.08 4H4V2h1.08a4 4 0 0 1 3.88 3.03L9.04 6H22a2 2 0 0 1 1.9 2.63l-2.1 6.3A4 4 0 0 1 18 17H11l.2.8a2.5 2.5 0 0 0 2.43 1.9H18v2h-4.37a4.5 4.5 0 0 1-4.36-3.48L6.2 8H3V6h3.7l-.5-2zM10 21a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm11 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-    </svg>
+    <h1>
+        CS2 <span>TOURNAMENT</span>
+    </h1>
 
-    <span id="topCartCount" class="top-cart-count">0</span>
-
-</button>
-
-<!-- ================= HOME ================= -->
-
-<section id="home" class="page active">
-
-    <div class="hero">
-
-        <h1>
-            PTY <span>Store</span>
-        </h1>
-
-        <div class="brand-mini">
-            CS2 ITEM MARKET
-        </div>
-
-        <p class="slogan">
-            فروش امن و سریع آیتم‌ها و اسکین‌های CS2
-        </p>
-
-        <p>
-            به PTY Store خوش آمدید.
-            برای خرید و ثبت سفارش، ابتدا اطلاعات پروفایل خود را تکمیل کنید.
-        </p>
-
-        <button
-            class="hero-button"
-            onclick="showPage('profile')"
-        >
-            تکمیل پروفایل
-        </button>
-
-        <div class="store-wrap">
-
-            <div class="shop-toolbar">
-
-                <div class="filter-card price-filter">
-
-                    <div class="filter-title">
-                        فیلتر قیمت:
-                        <span id="priceValue" class="price-value">
-                            ۰ تا ۲۵,۰۰۰,۰۰۰ تومان
-                        </span>
-                    </div>
-
-                    <div class="range-container">
-
-                        <div class="range-track"></div>
-
-                        <div
-                            id="rangeProgress"
-                            class="range-progress"
-                        ></div>
-
-                        <input
-                            id="priceRange"
-                            type="range"
-                            min="0"
-                            max="25000000"
-                            step="1000"
-                            value="25000000"
-                        >
-
-                        <div
-                            id="ptySliderKnob"
-                            class="pty-slider-knob"
-                        >
-                            PTY
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="products-head">
-
-                <h2>
-                    آیتم‌های موجود
-                </h2>
-
-                <span
-                    id="resultCount"
-                    class="result-count"
-                ></span>
-
-            </div>
-
-            <div
-                id="productsGrid"
-                class="products-grid"
-            ></div>
-
-            <div class="pty-socials">
-
-                <a
-                    href="https://t.me/ptystoresup"
-                    target="_blank"
-                    rel="noopener"
-                    title="Telegram"
-                >
-                    <svg viewBox="0 0 24 24">
-                        <path d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6z"/>
-                    </svg>
-                </a>
-
-                <a href="#" title="YouTube">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.7V8.3l6.4 3.7-6.4 3.7z"/>
-                    </svg>
-                </a>
-
-                <a href="#" title="Instagram">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 12 16.5 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 12 14.5 2.5 2.5 0 0 0 12 9.5zM17.7 6.3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </svg>
-                </a>
-
-                <a href="#" title="Discord">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19.5 4.5A16.3 16.3 0 0 0 15.6 3l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.3 16.3 0 0 0-3.9 1.5C2 8.1 1.3 11.6 1.6 15.1a16.2 16.2 0 0 0 4.8 2.4l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.1.4-.3.6-.4 3.7 1.7 7.7 1.7 11.3 0 .2.1.4.3.6.4-.6.4-1.2.7-1.9 1l1.2 1.7a16.2 16.2 0 0 0 4.8-2.4c.4-4.1-.7-7.5-2.8-10.6zM8.5 14.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm7 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
-                    </svg>
-                </a>
-
-            </div>
-
-            <div class="cart-bar">
-
-                <div>
-                    🛒 سبد خرید:
-                    <span
-                        id="cartBarCount"
-                        class="cart-items"
-                    >
-                        ۰ آیتم
-                    </span>
-                </div>
-
-                <button
-                    class="clear-cart"
-                    onclick="clearCart()"
-                >
-                    خالی کردن سبد
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ================= CART PAGE ================= -->
-
-<section id="cart" class="page">
-
-    <h2 class="page-title">
-        سبد خرید
-    </h2>
-
-    <p class="page-description">
-        آیتم‌هایی که برای خرید انتخاب کرده‌اید در این قسمت نمایش داده می‌شوند.
+    <p>
+        8 Teams • Single Elimination
     </p>
 
-    <div class="cart-page-card">
+    <div class="info">
 
-        <div
-            id="cartPageItems"
-            class="cart-page-items"
-        ></div>
+        <div class="info-box">
+            <small>وضعیت</small>
+            <b class="live">● LIVE</b>
+        </div>
 
-        <div
-            id="cartSummary"
-            class="cart-summary"
-        >
+        <div class="info-box">
+            <small>تعداد تیم‌ها</small>
+            <b>8 TEAMS</b>
+        </div>
 
-            <div>
-                <div class="cart-total-label">
-                    مجموع سبد
-                </div>
-
-                <div
-                    id="cartTotal"
-                    class="cart-total"
-                >
-                    ۰ تومان
-                </div>
-            </div>
-
-            <div class="cart-actions">
-
-                <button
-                    class="secondary-button"
-                    onclick="clearCart()"
-                >
-                    خالی کردن سبد
-                </button>
-
-                <button
-                    class="purple-button"
-                    onclick="showPage('profile')"
-                >
-                    ادامه و تکمیل پروفایل
-                </button>
-
-            </div>
-
+        <div class="info-box">
+            <small>جایزه</small>
+            <b id="prize">600,000 تومان</b>
         </div>
 
     </div>
 
 </section>
 
-<!-- ================= PROFILE ================= -->
 
-<section id="profile" class="page">
+<div class="bracket-wrapper">
 
-    <h2 class="page-title">
-        پروفایل
-    </h2>
+<div class="bracket">
 
-    <p class="page-description">
-        ابتدا ایمیل خود را تأیید کنید، سپس نام، نام خانوادگی و Steam Trade Link را وارد کنید.
-    </p>
+<!-- QUARTER -->
 
-    <div class="card">
+<div class="round">
 
-        <div class="profile-top">
-
-            <div class="avatar">
-
-                <img
-                    id="avatarImage"
-                    alt="تصویر پروفایل"
-                    style="display:none"
-                >
-
-                <div
-                    id="avatarFallback"
-                    class="avatar-fallback"
-                >
-                    PTY
-                </div>
-
-            </div>
-
-            <div>
-
-                <h3>
-                    حساب کاربری
-                </h3>
-
-                <div class="optional">
-                    تصویر پروفایل اختیاری است و روی همین دستگاه ذخیره می‌شود.
-                </div>
-
-                <label
-                    class="upload-label"
-                    style="margin-top:10px"
-                >
-                    آپلود / تغییر تصویر
-
-                    <input
-                        id="avatarInput"
-                        type="file"
-                        accept="image/png,image/jpeg,image/webp"
-                    >
-                </label>
-
-                <button
-                    class="secondary-button"
-                    style="margin:10px 0 0 7px"
-                    onclick="removeAvatar()"
-                >
-                    حذف تصویر
-                </button>
-
-            </div>
-
-        </div>
-
-        <div
-            id="profileStatus"
-            class="profile-status"
-        >
-            پروفایل شما هنوز تکمیل نشده است.
-        </div>
-
-        <div
-            id="message"
-            class="message"
-        ></div>
-
-        <div class="form-group">
-
-            <label>
-                ایمیل
-                <span class="required">*</span>
-            </label>
-
-            <div class="email-row">
-
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    autocomplete="email"
-                >
-
-                <button
-                    id="sendOtpButton"
-                    class="purple-button"
-                    onclick="sendOTP()"
-                >
-                    ارسال کد
-                </button>
-
-            </div>
-
-        </div>
-
-        <div id="otpArea">
-
-            <label>
-                کد تأیید ایمیل
-            </label>
-
-            <div class="otp-row">
-
-                <input
-                    id="otp"
-                    type="text"
-                    inputmode="numeric"
-                    autocomplete="one-time-code"
-                    maxlength="8"
-                    placeholder="کد ۸ رقمی"
-                >
-
-                <button
-                    class="purple-button"
-                    onclick="verifyOTP()"
-                >
-                    تأیید کد
-                </button>
-
-            </div>
-
-        </div>
-
-        <div
-            id="verifiedText"
-            class="verified"
-        >
-            ✓ ایمیل با موفقیت تأیید شد
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                نام
-                <span class="required">*</span>
-            </label>
-
-            <input
-                id="firstName"
-                type="text"
-                placeholder="نام خود را وارد کنید"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                نام خانوادگی
-                <span class="required">*</span>
-            </label>
-
-            <input
-                id="lastName"
-                type="text"
-                placeholder="نام خانوادگی خود را وارد کنید"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                آیدی تلگرام
-                <span class="optional">(اختیاری)</span>
-            </label>
-
-            <input
-                id="telegramId"
-                type="text"
-                placeholder="@username"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                شماره موبایل
-                <span class="optional">(اختیاری)</span>
-            </label>
-
-            <input
-                id="phone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="11"
-                placeholder="09123456789"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                Steam Trade Link
-                <span class="required">*</span>
-            </label>
-
-            <input
-                id="tradeLink"
-                type="url"
-                placeholder="https://steamcommunity.com/tradeoffer/new/?partner=..."
-            >
-
-            <div class="trade-help">
-                لینک Trade خود را از Steam دریافت و در کادر بالا وارد کنید.
-            </div>
-
-            <button
-                class="secondary-button"
-                onclick="openTradePage()"
-            >
-                دریافت لینک ترید از Steam
-            </button>
-
-        </div>
-
-        <div class="captcha-box">
-
-            <div class="filter-title">
-                تأیید امنیتی
-            </div>
-
-            <div class="captcha-line">
-
-                <span
-                    id="captchaQuestion"
-                    class="captcha-question"
-                ></span>
-
-                <input
-                    id="captchaAnswer"
-                    type="text"
-                    inputmode="numeric"
-                    placeholder="جواب را وارد کنید"
-                >
-
-                <button
-                    class="captcha-refresh"
-                    onclick="generateCaptcha()"
-                >
-                    تغییر
-                </button>
-
-            </div>
-
-        </div>
-
-        <button
-            class="purple-button"
-            style="width:100%;margin-top:10px;"
-            onclick="saveProfile()"
-        >
-            ذخیره پروفایل
-        </button>
-
-        <button
-            id="logoutButton"
-            class="logout-button"
-            onclick="logout()"
-            style="display:none;"
-        >
-            خروج از حساب
-        </button>
-
+    <div class="round-title">
+        QUARTER FINALS
     </div>
 
-</section>
+    <div class="matches">
 
-<!-- ================= CONTACT ================= -->
+        <div class="match">
 
-<section id="contact" class="page">
-
-    <h2 class="page-title">
-        تماس با ما
-    </h2>
-
-    <p class="page-description">
-        برای ارتباط با PTY Store می‌توانید از روش‌های زیر استفاده کنید.
-    </p>
-
-    <div class="contact-grid">
-
-        <div class="contact-box">
-            <h3>ایمیل</h3>
-
-            <a href="mailto:jfazel75@gmail.com">
-                jfazel75@gmail.com
-            </a>
-        </div>
-
-        <div class="contact-box">
-            <h3>تلگرام</h3>
-
-            <a
-                href="https://t.me/ptystoresup"
-                target="_blank"
-                rel="noopener"
-            >
-                @ptystoresup
-            </a>
-        </div>
-
-        <div class="contact-box">
-            <h3>کانال تلگرام</h3>
-
-            <a
-                href="https://t.me/ptystoresup"
-                target="_blank"
-                rel="noopener"
-            >
-                @ptystoresup
-            </a>
-        </div>
-
-    </div>
-
-    <div
-        class="contact-loadout-wrap"
-        aria-label="Karambit Tiger Tooth"
-    >
-
-        <div class="contact-item contact-knife">
-
-            <img
-                src="https://csgoskin.ir/assets/images/d0e2e57e4ed0bfc5bcefb7ba9e7932a419ed0825_256.png"
-                alt="Karambit | Tiger Tooth"
-                loading="eager"
-                decoding="async"
-            >
-
-        </div>
-
-    </div>
-
-    <div class="pty-socials">
-
-        <a
-            href="https://t.me/ptystoresup"
-            target="_blank"
-            rel="noopener"
-            title="Telegram"
-        >
-            <svg viewBox="0 0 24 24">
-                <path d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6z"/>
-            </svg>
-        </a>
-
-        <a href="#" title="YouTube">
-            <svg viewBox="0 0 24 24">
-                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.7V8.3l6.4 3.7-6.4 3.7z"/>
-            </svg>
-        </a>
-
-        <a href="#" title="Instagram">
-            <svg viewBox="0 0 24 24">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 12 16.5 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 12 14.5 2.5 2.5 0 0 0 12 9.5zM17.7 6.3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-        </a>
-
-        <a href="#" title="Discord">
-            <svg viewBox="0 0 24 24">
-                <path d="M19.5 4.5A16.3 16.3 0 0 0 15.6 3l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.3 16.3 0 0 0-3.9 1.5C2 8.1 1.3 11.6 1.6 15.1a16.2 16.2 0 0 0 4.8 2.4l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.1.4-.3.6-.4 3.7 1.7 7.7 1.7 11.3 0 .2.1.4.3.6.4-.6.4-1.2.7-1.9 1l1.2 1.7a16.2 16.2 0 0 0 4.8-2.4c.4-4.1-.7-7.5-2.8-10.6zM8.5 14.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm7 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
-            </svg>
-        </a>
-
-    </div>
-
-</section>
-
-<!-- ================= TELEGRAM ================= -->
-
-<a
-    class="telegram-float"
-    href="https://t.me/ptystoresup"
-    target="_blank"
-    rel="noopener"
-    aria-label="پشتیبانی تلگرام"
-    title="پشتیبانی تلگرام"
->
-    <svg
-        viewBox="0 0 24 24"
-        width="28"
-        height="28"
-    >
-        <path
-            fill="currentColor"
-            d="M21.4 3.6 18.2 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.6 13.5l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.2 3c.9-.3 1.7.2 1.2.6z"
-        />
-    </svg>
-</a>
-
-<footer>
-    PTY Store © 2026
-</footer>
-
-<!-- ================= SUPABASE ================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-const SUPABASE_URL =
-    "https://vsogwimdladgagjoqdst.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_AOwyJvQdNhY0m_dcwGpiPw_DK0LHqjv";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
-/* ================= PAGE NAVIGATION ================= */
-
-function showPage(pageName){
-
-    document
-        .querySelectorAll(".page")
-        .forEach(page=>{
-            page.classList.remove("active");
-        });
-
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(button=>{
-            button.classList.remove("active");
-        });
-
-    const page =
-        document.getElementById(pageName);
-
-    if(page){
-        page.classList.add("active");
-    }
-
-    const button =
-        document.querySelector(
-            `[data-page="${pageName}"]`
-        );
-
-    if(button){
-        button.classList.add("active");
-    }
-
-    if(pageName==="cart"){
-        renderCartPage();
-    }
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-document
-    .querySelectorAll(".nav-btn")
-    .forEach(button=>{
-
-        button.addEventListener(
-            "click",
-            ()=>{
-                showPage(
-                    button.dataset.page
-                );
-            }
-        );
-
-    });
-
-/* ================= MESSAGE ================= */
-
-function showMessage(text,type="error"){
-
-    const box =
-        document.getElementById("message");
-
-    box.textContent=text;
-
-    box.className =
-        "message show "+type;
-}
-
-function clearMessage(){
-
-    const box =
-        document.getElementById("message");
-
-    box.className="message";
-    box.textContent="";
-}
-
-/* ================= STEAM ================= */
-
-function openTradePage(){
-
-    window.open(
-        "https://steamcommunity.com/my/tradeoffers/privacy/#trade_offer_access_url",
-        "_blank"
-    );
-
-}
-
-/* ================= OTP ================= */
-
-async function sendOTP(){
-
-    clearMessage();
-
-    const email =
-        document
-            .getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
-
-    if(!email){
-        showMessage("ایمیل را وارد کنید.");
-        return;
-    }
-
-    if(!email.includes("@")){
-        showMessage("ایمیل واردشده معتبر نیست.");
-        return;
-    }
-
-    const button =
-        document.getElementById(
-            "sendOtpButton"
-        );
-
-    button.disabled=true;
-    button.textContent="در حال ارسال...";
-
-    try{
-
-        const {error} =
-            await supabaseClient.auth
-                .signInWithOtp({
-                    email:email,
-                    options:{
-                        shouldCreateUser:true
-                    }
-                });
-
-        if(error){
-            throw error;
-        }
-
-        document
-            .getElementById("otpArea")
-            .classList.add("show");
-
-        showMessage(
-            "کد تأیید به ایمیل شما ارسال شد.",
-            "success"
-        );
-
-        document
-            .getElementById("otp")
-            .focus();
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            "ارسال کد انجام نشد: "+
-            (error.message||"خطای نامشخص")
-        );
-
-    }finally{
-
-        button.disabled=false;
-        button.textContent="ارسال کد";
-
-    }
-}
-
-/* ================= VERIFY OTP ================= */
-
-async function verifyOTP(){
-
-    clearMessage();
-
-    const email =
-        document
-            .getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
-
-    const token =
-        document
-            .getElementById("otp")
-            .value
-            .trim();
-
-    if(!email){
-        showMessage("ایمیل وارد نشده است.");
-        return;
-    }
-
-    if(!/^\d{8}$/.test(token)){
-        showMessage("کد باید دقیقاً ۸ رقم باشد.");
-        return;
-    }
-
-    try{
-
-        const {data,error} =
-            await supabaseClient.auth
-                .verifyOtp({
-                    email:email,
-                    token:token,
-                    type:"email"
-                });
-
-        if(error){
-            throw error;
-        }
-
-        if(!data.session){
-            throw new Error(
-                "ورود انجام نشد."
-            );
-        }
-
-        document
-            .getElementById("otpArea")
-            .classList.remove("show");
-
-        document
-            .getElementById("verifiedText")
-            .classList.add("show");
-
-        document
-            .getElementById("email")
-            .disabled=true;
-
-        document
-            .getElementById("sendOtpButton")
-            .disabled=true;
-
-        document
-            .getElementById("logoutButton")
-            .style.display="block";
-
-        showMessage(
-            "ایمیل با موفقیت تأیید شد.",
-            "success"
-        );
-
-        await loadProfile();
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            "کد تأیید اشتباه یا منقضی شده است."
-        );
-
-    }
-}
-
-/* ================= USER ================= */
-
-async function getCurrentUser(){
-
-    const {data,error} =
-        await supabaseClient.auth.getUser();
-
-    if(error){
-        return null;
-    }
-
-    return data.user||null;
-}
-
-/* ================= LOAD PROFILE ================= */
-
-async function loadProfile(){
-
-    const user =
-        await getCurrentUser();
-
-    if(!user){
-        return;
-    }
-
-    window._currentUserId=user.id;
-
-    document
-        .getElementById("email")
-        .value=user.email||"";
-
-    document
-        .getElementById("email")
-        .disabled=true;
-
-    document
-        .getElementById("sendOtpButton")
-        .disabled=true;
-
-    document
-        .getElementById("logoutButton")
-        .style.display="block";
-
-    document
-        .getElementById("verifiedText")
-        .classList.add("show");
-
-    const {data,error} =
-        await supabaseClient
-            .from("profiles")
-            .select(
-                "email,first_name,last_name,phone,telegram_id,trade_link"
-            )
-            .eq("id",user.id)
-            .maybeSingle();
-
-    if(error){
-        console.error(
-            "PROFILE LOAD ERROR:",
-            error
-        );
-        return;
-    }
-
-    if(!data){
-        updateProfileStatus();
-        loadAvatar(user.id);
-        return;
-    }
-
-    document
-        .getElementById("firstName")
-        .value=data.first_name||"";
-
-    document
-        .getElementById("lastName")
-        .value=data.last_name||"";
-
-    document
-        .getElementById("tradeLink")
-        .value=data.trade_link||"";
-
-    document
-        .getElementById("phone")
-        .value=data.phone||"";
-
-    document
-        .getElementById("telegramId")
-        .value=data.telegram_id||"";
-
-    loadAvatar(user.id);
-    updateProfileStatus();
-}
-
-/* ================= SAVE PROFILE ================= */
-
-async function saveProfile(){
-
-    clearMessage();
-
-    const user =
-        await getCurrentUser();
-
-    if(!user){
-        showMessage(
-            "ابتدا باید ایمیل خود را تأیید کنید."
-        );
-        return;
-    }
-
-    const firstName =
-        document
-            .getElementById("firstName")
-            .value.trim();
-
-    const lastName =
-        document
-            .getElementById("lastName")
-            .value.trim();
-
-    const tradeLink =
-        document
-            .getElementById("tradeLink")
-            .value.trim();
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value.trim();
-
-    const telegramId =
-        document
-            .getElementById("telegramId")
-            .value.trim();
-
-    if(
-        phone &&
-        !/^09\d{9}$/.test(
-            normalizeDigits(phone)
-        )
-    ){
-        showMessage(
-            "شماره موبایل باید ۱۱ رقم و با 09 شروع شود."
-        );
-        return;
-    }
-
-    if(
-        telegramId &&
-        !/^@?[A-Za-z0-9_]{3,32}$/.test(
-            telegramId
-        )
-    ){
-        showMessage(
-            "آیدی تلگرام معتبر نیست."
-        );
-        return;
-    }
-
-    if(
-        String(
-            document
-                .getElementById("captchaAnswer")
-                .value
-        ).trim() !==
-        String(window._captchaAnswer)
-    ){
-        showMessage(
-            "کپچا صحیح نیست."
-        );
-        generateCaptcha();
-        return;
-    }
-
-    if(!firstName){
-        showMessage("نام را وارد کنید.");
-        return;
-    }
-
-    if(!lastName){
-        showMessage(
-            "نام خانوادگی را وارد کنید."
-        );
-        return;
-    }
-
-    if(!tradeLink){
-        showMessage(
-            "Steam Trade Link را وارد کنید."
-        );
-        return;
-    }
-
-    if(
-        !tradeLink.includes(
-            "steamcommunity.com"
-        )
-    ){
-        showMessage(
-            "لینک Steam Trade معتبر نیست."
-        );
-        return;
-    }
-
-    try{
-
-        const {error} =
-            await supabaseClient
-                .from("profiles")
-                .upsert({
-
-                    id:user.id,
-
-                    email:user.email,
-
-                    first_name:firstName,
-
-                    last_name:lastName,
-
-                    phone:phone||null,
-
-                    telegram_id:
-                        telegramId||null,
-
-                    trade_link:tradeLink,
-
-                    updated_at:
-                        new Date().toISOString()
-
-                },{
-                    onConflict:"id"
-                });
-
-        if(error){
-            throw error;
-        }
-
-        showMessage(
-            "پروفایل با موفقیت ذخیره شد.",
-            "success"
-        );
-
-        updateProfileStatus();
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            "ذخیره پروفایل انجام نشد: "+
-            error.message
-        );
-    }
-}
-
-/* ================= STATUS ================= */
-
-function updateProfileStatus(){
-
-    const status =
-        document.getElementById(
-            "profileStatus"
-        );
-
-    if(!status){
-        return;
-    }
-
-    const email =
-        document
-            .getElementById("email")
-            .value.trim();
-
-    const firstName =
-        document
-            .getElementById("firstName")
-            .value.trim();
-
-    const lastName =
-        document
-            .getElementById("lastName")
-            .value.trim();
-
-    const tradeLink =
-        document
-            .getElementById("tradeLink")
-            .value.trim();
-
-    const verified =
-        document
-            .getElementById("verifiedText")
-            .classList
-            .contains("show");
-
-    if(
-        email &&
-        verified &&
-        firstName &&
-        lastName &&
-        tradeLink
-    ){
-
-        status.textContent=
-            "✓ پروفایل شما کامل است.";
-
-        status.classList.add("complete");
-
-    }else{
-
-        status.textContent=
-            "پروفایل شما هنوز تکمیل نشده است.";
-
-        status.classList.remove("complete");
-
-    }
-}
-
-/* ================= LOGOUT ================= */
-
-async function logout(){
-
-    await supabaseClient.auth.signOut();
-
-    document
-        .getElementById("email")
-        .disabled=false;
-
-    document
-        .getElementById("email")
-        .value="";
-
-    document
-        .getElementById("otp")
-        .value="";
-
-    document
-        .getElementById("firstName")
-        .value="";
-
-    document
-        .getElementById("lastName")
-        .value="";
-
-    document
-        .getElementById("tradeLink")
-        .value="";
-
-    document
-        .getElementById("phone")
-        .value="";
-
-    document
-        .getElementById("telegramId")
-        .value="";
-
-    document
-        .getElementById("captchaAnswer")
-        .value="";
-
-    removeAvatar();
-
-    document
-        .getElementById("otpArea")
-        .classList.remove("show");
-
-    document
-        .getElementById("verifiedText")
-        .classList.remove("show");
-
-    document
-        .getElementById("sendOtpButton")
-        .disabled=false;
-
-    document
-        .getElementById("logoutButton")
-        .style.display="none";
-
-    clearMessage();
-
-    updateProfileStatus();
-
-    showPage("home");
-}
-
-/* ================= AUTH STATE ================= */
-
-supabaseClient.auth
-    .onAuthStateChange(
-        async(event,session)=>{
-
-            if(
-                session &&
-                session.user
-            ){
-                window._currentUserId=
-                    session.user.id;
-
-                await loadProfile();
-            }
-
-        }
-    );
-
-/* ================= INPUT ================= */
-
-document
-    .getElementById("otp")
-    .addEventListener(
-        "input",
-        function(){
-
-            this.value =
-                this.value
-                    .replace(/\D/g,"")
-                    .slice(0,8);
-
-        }
-    );
-
-document
-    .getElementById("firstName")
-    .addEventListener(
-        "input",
-        updateProfileStatus
-    );
-
-document
-    .getElementById("lastName")
-    .addEventListener(
-        "input",
-        updateProfileStatus
-    );
-
-document
-    .getElementById("tradeLink")
-    .addEventListener(
-        "input",
-        updateProfileStatus
-    );
-
-/* ================= PRODUCTS ================= */
-
-const products=[
-
-{
-    id:1,
-    name:"AK-47 | Redline",
-    category:"Rifle",
-    wear:"Field-Tested",
-    price:153000,
-    img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Redline.png"
-},
-
-{
-    id:2,
-    name:"AK-47 | Slate",
-    category:"Rifle",
-    wear:"Field-Tested",
-    price:60000,
-    img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Slate.png"
-},
-
-{
-    id:3,
-    name:"AK-47 | Neon Rider",
-    category:"Rifle",
-    wear:"Minimal Wear",
-    price:210000,
-    img:"https://www.csgodatabase.com/images/skins/webp/AK-47_Neon_Rider.png"
-},
-
-{
-    id:4,
-    name:"M4A4 | Temukau",
-    category:"Rifle",
-    wear:"Minimal Wear",
-    price:180000,
-    img:"https://www.csgodatabase.com/images/skins/webp/M4A4_Temukau.png"
-},
-
-{
-    id:5,
-    name:"M4A1-S | Printstream",
-    category:"Rifle",
-    wear:"Field-Tested",
-    price:420000,
-    img:"https://www.csgodatabase.com/images/skins/webp/M4A1-S_Printstream.png"
-},
-
-{
-    id:6,
-    name:"Desert Eagle | Printstream",
-    category:"Pistol",
-    wear:"Minimal Wear",
-    price:250000,
-    img:"https://www.csgodatabase.com/images/skins/webp/Desert_Eagle_Printstream.png"
-},
-
-{
-    id:7,
-    name:"USP-S | Printstream",
-    category:"Pistol",
-    wear:"Factory New",
-    price:1450000,
-    img:"https://www.csgodatabase.com/images/skins/webp/USP-S_Printstream.png"
-},
-
-{
-    id:8,
-    name:"Glock-18 | Water Elemental",
-    category:"Pistol",
-    wear:"Well-Worn",
-    price:390000,
-    img:"https://www.csgodatabase.com/images/skins/webp/Glock-18_Water_Elemental.png"
-},
-
-{
-    id:9,
-    name:"AWP | Asiimov",
-    category:"Sniper",
-    wear:"Field-Tested",
-    price:5200000,
-    img:"https://www.csgodatabase.com/images/skins/webp/AWP_Asiimov.png"
-},
-
-{
-    id:10,
-    name:"AWP | Wildfire",
-    category:"Sniper",
-    wear:"Minimal Wear",
-    price:25000000,
-    img:"https://www.csgodatabase.com/images/skins/webp/AWP_Wildfire.png"
-},
-
-{
-    id:11,
-    name:"MP9 | Starlight Protector",
-    category:"SMG",
-    wear:"Factory New",
-    price:520000,
-    img:"https://www.csgodatabase.com/images/skins/webp/MP9_Starlight_Protector.png"
-},
-
-{
-    id:12,
-    name:"Karambit | Tiger Tooth",
-    category:"Knife",
-    wear:"Factory New",
-    price:18500000,
-    img:"https://csgoskin.ir/assets/images/d0e2e57e4ed0bfc5bcefb7ba9e7932a419ed0825_256.png"
-}
-
-];
-
-let selectedMaxPrice=25000000;
-
-let cart=
-    JSON.parse(
-        localStorage.getItem("pty_cart")||"[]"
-    );
-
-/* ================= NUMBERS ================= */
-
-function faNum(n){
-    return Number(n).toLocaleString("fa-IR");
-}
-
-function normalizeDigits(v){
-
-    return String(v)
-        .replace(
-            /[۰-۹]/g,
-            d=>String(
-                d.charCodeAt(0)-1776
-            )
-        )
-        .replace(
-            /[٠-٩]/g,
-            d=>String(
-                d.charCodeAt(0)-1632
-            )
-        );
-}
-
-/* ================= SHOP ================= */
-
-function renderProducts(){
-
-    const g =
-        document.getElementById(
-            "productsGrid"
-        );
-
-    if(!g){
-        return;
-    }
-
-    const list =
-        products.filter(
-            p=>p.price<=selectedMaxPrice
-        );
-
-    document
-        .getElementById("resultCount")
-        .textContent=
-        faNum(list.length)+" آیتم";
-
-    g.innerHTML=
-        list.length
-        ?
-        list.map(p=>{
-
-            const inCart=
-                cart.includes(p.id);
-
-            return `
-
-            <article class="product-card">
-
-                <div class="product-img">
-
-                    <img
-                        src="${p.img}"
-                        alt="${p.name}"
-                        loading="lazy"
-                    >
-
+            <div class="team" id="q1t1">
+                <div class="team-name">
+                    <div class="team-logo">1</div>
+                    <span id="q1name1">TEAM 1</span>
                 </div>
-
-                <div class="product-name">
-                    ${p.name}
-                </div>
-
-                <div class="product-meta">
-
-                    <span class="product-tag">
-                        ${p.category}
-                    </span>
-
-                    <span class="product-tag">
-                        ${p.wear}
-                    </span>
-
-                </div>
-
-                <div class="product-bottom">
-
-                    <span class="product-price">
-                        ${faNum(p.price)} تومان
-                    </span>
-
-                    <button
-                        class="add-cart ${inCart?"in-cart":""}"
-                        ${inCart?"disabled":""}
-                        onclick="addToCart(${p.id})"
-                    >
-                        ${
-                            inCart
-                            ?"✓ داخل سبد"
-                            :"افزودن به سبد"
-                        }
-                    </button>
-
-                </div>
-
-            </article>
-
-            `;
-
-        }).join("")
-
-        :
-
-        `
-        <div class="empty-results">
-            آیتمی با این قیمت پیدا نشد.
-        </div>
-        `;
-
-    updateCart();
-}
-
-/* ================= ADD CART ================= */
-
-function addToCart(id){
-
-    if(cart.includes(id)){
-        return;
-    }
-
-    cart.push(id);
-
-    localStorage.setItem(
-        "pty_cart",
-        JSON.stringify(cart)
-    );
-
-    renderProducts();
-}
-
-/* ================= REMOVE CART ================= */
-
-function removeFromCart(id){
-
-    cart=
-        cart.filter(
-            item=>item!==id
-        );
-
-    localStorage.setItem(
-        "pty_cart",
-        JSON.stringify(cart)
-    );
-
-    renderProducts();
-    renderCartPage();
-}
-
-/* ================= CLEAR CART ================= */
-
-function clearCart(){
-
-    cart=[];
-
-    localStorage.setItem(
-        "pty_cart",
-        "[]"
-    );
-
-    renderProducts();
-    renderCartPage();
-}
-
-/* ================= CART COUNTER ================= */
-
-function updateCart(){
-
-    const count=cart.length;
-
-    const top =
-        document.getElementById(
-            "topCartCount"
-        );
-
-    const bar =
-        document.getElementById(
-            "cartBarCount"
-        );
-
-    if(top){
-        top.textContent=
-            faNum(count);
-    }
-
-    if(bar){
-        bar.textContent=
-            faNum(count)+" آیتم";
-    }
-}
-
-/* ================= CART PAGE ================= */
-
-function renderCartPage(){
-
-    const container =
-        document.getElementById(
-            "cartPageItems"
-        );
-
-    const totalElement =
-        document.getElementById(
-            "cartTotal"
-        );
-
-    if(!container){
-        return;
-    }
-
-    const selectedProducts=
-        cart
-            .map(id=>
-                products.find(
-                    p=>p.id===id
-                )
-            )
-            .filter(Boolean);
-
-    if(!selectedProducts.length){
-
-        container.innerHTML=`
-
-            <div class="cart-empty">
-
-                <div class="cart-empty-icon">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 4h-2l-1 2h2l2.6 10.4A2 2 0 0 0 10.5 18H18v-2h-7.1a.5.5 0 0 1-.48-.38L10.2 15H18a2 2 0 0 0 1.9-1.37L22 7H7.42l-.4-1.6A2 2 0 0 0 5.08 4H4V2h1.08a4 4 0 0 1 3.88 3.03L9.04 6H22a2 2 0 0 1 1.9 2.63l-2.1 6.3A4 4 0 0 1 18 17H11l.2.8a2.5 2.5 0 0 0 2.43 1.9H18v2h-4.37a4.5 4.5 0 0 1-4.36-3.48L6.2 8H3V6h3.7l-.5-2z"/>
-                    </svg>
-
-                </div>
-
-                <h3>
-                    سبد خرید خالی است
-                </h3>
-
-                <p style="margin-top:8px">
-                    از صفحه اصلی یک آیتم به سبد اضافه کنید.
-                </p>
-
-                <button
-                    class="purple-button"
-                    style="margin-top:20px"
-                    onclick="showPage('home')"
-                >
-                    مشاهده آیتم‌ها
-                </button>
-
+                <span class="score" id="q1score1">0</span>
             </div>
 
-        `;
-
-        if(totalElement){
-            totalElement.textContent=
-                "۰ تومان";
-        }
-
-        return;
-    }
-
-    let total=0;
-
-    container.innerHTML=
-        selectedProducts
-            .map(p=>{
-
-                total+=p.price;
-
-                return `
-
-                <div class="cart-item">
-
-                    <div class="cart-item-image">
-
-                        <img
-                            src="${p.img}"
-                            alt="${p.name}"
-                        >
-
-                    </div>
-
-                    <div>
-
-                        <div class="cart-item-name">
-                            ${p.name}
-                        </div>
-
-                        <div class="cart-item-meta">
-                            ${p.category}
-                            —
-                            ${p.wear}
-                        </div>
-
-                        <div class="cart-item-price">
-                            ${faNum(p.price)} تومان
-                        </div>
-
-                    </div>
-
-                    <button
-                        class="remove-cart-item"
-                        onclick="removeFromCart(${p.id})"
-                    >
-                        حذف
-                    </button>
-
+            <div class="team" id="q1t2">
+                <div class="team-name">
+                    <div class="team-logo">2</div>
+                    <span id="q1name2">TEAM 2</span>
                 </div>
-
-                `;
-
-            }).join("");
-
-    if(totalElement){
-        totalElement.textContent=
-            faNum(total)+" تومان";
-    }
-}
-
-/* ================= SLIDER ================= */
-
-function movePTYKnob(){
-
-    const r =
-        document.getElementById(
-            "priceRange"
-        );
-
-    const k =
-        document.getElementById(
-            "ptySliderKnob"
-        );
-
-    const p =
-        document.getElementById(
-            "rangeProgress"
-        );
-
-    if(!r||!k){
-        return;
-    }
-
-    const min=
-        Number(r.min)||0;
-
-    const max=
-        Number(r.max)||1;
-
-    const value=
-        Number(r.value)||0;
-
-    const percent=
-        Math.max(
-            0,
-            Math.min(
-                100,
-                ((value-min)/(max-min))*100
-            )
-        );
-
-    k.style.left=
-        percent+"%";
-
-    if(p){
-        p.style.width=
-            percent+"%";
-    }
-}
-
-function bindPTYSlider(){
-
-    const r =
-        document.getElementById(
-            "priceRange"
-        );
-
-    const c =
-        document.querySelector(
-            ".range-container"
-        );
-
-    const k =
-        document.getElementById(
-            "ptySliderKnob"
-        );
-
-    if(!r||!c||!k){
-        return;
-    }
-
-    function setFromX(x){
-
-        const rect=
-            c.getBoundingClientRect();
-
-        let percent=
-            (x-rect.left)/
-            rect.width;
-
-        percent=
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    percent
-                )
-            );
-
-        const min=
-            Number(r.min)||0;
-
-        const max=
-            Number(r.max)||1;
-
-        const step=
-            Number(r.step)||1;
-
-        let value=
-            min+
-            percent*(max-min);
-
-        value=
-            Math.round(
-                (value-min)/step
-            )*step+min;
-
-        value=
-            Math.max(
-                min,
-                Math.min(
-                    max,
-                    value
-                )
-            );
-
-        r.value=String(value);
-
-        r.dispatchEvent(
-            new Event(
-                "input",
-                {bubbles:true}
-            )
-        );
-
-        movePTYKnob();
-    }
-
-    let dragging=false;
-
-    function start(e){
-
-        e.preventDefault();
-
-        dragging=true;
-
-        k.classList.add(
-            "dragging"
-        );
-
-        setFromX(e.clientX);
-    }
-
-    function move(e){
-
-        if(!dragging){
-            return;
-        }
-
-        e.preventDefault();
-
-        setFromX(e.clientX);
-    }
-
-    function end(){
-
-        dragging=false;
-
-        k.classList.remove(
-            "dragging"
-        );
-    }
-
-    k.addEventListener(
-        "pointerdown",
-        start
-    );
-
-    document.addEventListener(
-        "pointermove",
-        move,
-        {passive:false}
-    );
-
-    document.addEventListener(
-        "pointerup",
-        end
-    );
-
-    c.addEventListener(
-        "pointerdown",
-        e=>{
-            if(!k.contains(e.target)){
-                start(e);
-            }
-        }
-    );
-
-    r.addEventListener(
-        "input",
-        movePTYKnob
-    );
-
-    r.addEventListener(
-        "input",
-        ()=>{
-            selectedMaxPrice=
-                Number(r.value);
-
-            document
-                .getElementById(
-                    "priceValue"
-                )
-                .textContent=
-                "۰ تا "+
-                faNum(selectedMaxPrice)+
-                " تومان";
-
-            renderProducts();
-        }
-    );
-
-    window.addEventListener(
-        "resize",
-        movePTYKnob
-    );
-
-    movePTYKnob();
-}
-
-/* ================= CAPTCHA ================= */
-
-function generateCaptcha(){
-
-    const a=
-        Math.floor(
-            Math.random()*8
-        )+2;
-
-    const b=
-        Math.floor(
-            Math.random()*8
-        )+2;
-
-    window._captchaAnswer=
-        a+b;
-
-    const q=
-        document.getElementById(
-            "captchaQuestion"
-        );
-
-    if(q){
-        q.textContent=
-            `${a} + ${b} = ؟`;
-    }
-
-    const x=
-        document.getElementById(
-            "captchaAnswer"
-        );
-
-    if(x){
-        x.value="";
-    }
-}
-
-/* ================= AVATAR ================= */
-
-function avatarKey(id){
-    return "pty_avatar_"+id;
-}
-
-function loadAvatar(id){
-
-    const data=
-        localStorage.getItem(
-            avatarKey(id)
-        );
-
-    const img=
-        document.getElementById(
-            "avatarImage"
-        );
-
-    const fallback=
-        document.getElementById(
-            "avatarFallback"
-        );
-
-    if(!img){
-        return;
-    }
-
-    if(data){
-
-        img.src=data;
-        img.style.display="block";
-
-        if(fallback){
-            fallback.style.display="none";
-        }
-
-    }else{
-
-        img.removeAttribute("src");
-        img.style.display="none";
-
-        if(fallback){
-            fallback.style.display="block";
-        }
-
-    }
-}
-
-function removeAvatar(){
-
-    const id=
-        window._currentUserId;
-
-    if(id){
-        localStorage.removeItem(
-            avatarKey(id)
-        );
-    }
-
-    const img=
-        document.getElementById(
-            "avatarImage"
-        );
-
-    const fallback=
-        document.getElementById(
-            "avatarFallback"
-        );
-
-    if(img){
-        img.removeAttribute("src");
-        img.style.display="none";
-    }
-
-    if(fallback){
-        fallback.style.display="block";
-    }
-}
-
-function bindAvatar(){
-
-    const input=
-        document.getElementById(
-            "avatarInput"
-        );
-
-    if(!input){
-        return;
-    }
-
-    input.onchange=
-        e=>{
-
-            const file=
-                e.target.files &&
-                e.target.files[0];
-
-            if(!file){
-                return;
-            }
-
-            if(file.size>2097152){
-
-                showMessage(
-                    "حجم تصویر باید کمتر از ۲ مگابایت باشد."
-                );
-
-                return;
-            }
-
-            const reader=
-                new FileReader();
-
-            reader.onload=()=>{
-
-                if(window._currentUserId){
-
-                    localStorage.setItem(
-                        avatarKey(
-                            window._currentUserId
-                        ),
-                        reader.result
-                    );
-
-                    loadAvatar(
-                        window._currentUserId
-                    );
-                }
-            };
-
-            reader.readAsDataURL(file);
-        };
-}
-
-/* ================= INITIAL LOAD ================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async()=>{
-
-        const {data}=
-            await supabaseClient.auth
-                .getSession();
-
-        if(
-            data &&
-            data.session
-        ){
-
-            window._currentUserId=
-                data.session.user.id;
-
-            await loadProfile();
-        }
-
-        updateProfileStatus();
-
-        renderProducts();
-
-        renderCartPage();
-
-        bindPTYSlider();
-
-        bindAvatar();
-
-        generateCaptcha();
-
-    }
-);
-
-</script>
-
-<!-- ================= ADMIN CSS ================= -->
-
-<style>
-
-#ptyAdminModal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.82);
-    backdrop-filter:blur(8px);
-    z-index:100000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-}
-
-#ptyAdminModal.show{
-    display:flex;
-}
-
-.pty-admin-box{
-    width:min(1000px,96vw);
-    max-height:92vh;
-    overflow:auto;
-    background:#0d0d10;
-    border:1px solid #702AD7;
-    border-radius:18px;
-    box-shadow:0 0 45px rgba(112,42,215,.3);
-    padding:22px;
-    color:#fff;
-    font-family:"Cinzel",serif;
-}
-
-.pty-admin-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.pty-admin-head h2{
-    margin:0;
-    color:#fff;
-    font-size:17px;
-}
-
-.pty-admin-close{
-    border:1px solid #333;
-    background:#151515;
-    color:#aaa;
-    border-radius:9px;
-    padding:8px 12px;
-    cursor:pointer;
-}
-
-.pty-admin-close:hover{
-    color:#fff;
-    border-color:#702AD7;
-}
-
-.pty-admin-login{
-    max-width:430px;
-    margin:35px auto;
-}
-
-.pty-admin-login h2{
-    text-align:center;
-    color:#702AD7;
-    margin-bottom:8px;
-}
-
-.pty-admin-sub{
-    text-align:center;
-    color:#777;
-    font-size:10px;
-    margin-bottom:20px;
-}
-
-.pty-admin-field{
-    margin-bottom:12px;
-}
-
-.pty-admin-field label{
-    display:block;
-    font-size:9px;
-    color:#999;
-    margin-bottom:6px;
-}
-
-.pty-admin-field input{
-    width:100%;
-    background:#111;
-    border:1px solid #303030;
-    border-radius:9px;
-    padding:12px;
-    color:#fff;
-    outline:none;
-}
-
-.pty-admin-btn{
-    width:100%;
-    border:0;
-    border-radius:9px;
-    padding:12px;
-    background:#702AD7;
-    color:#fff;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.pty-admin-btn:hover{
-    background:#7d39e2;
-}
-
-.pty-admin-msg{
-    text-align:center;
-    min-height:20px;
-    color:#ff6b6b;
-    font-size:10px;
-    margin-top:10px;
-}
-
-.pty-admin-dashboard{
-    display:none;
-}
-
-.pty-admin-stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.pty-admin-stat{
-    background:#121217;
-    border:1px solid #28282f;
-    border-radius:12px;
-    padding:16px;
-}
-
-.pty-admin-stat small{
-    color:#777;
-    font-size:9px;
-}
-
-.pty-admin-stat strong{
-    display:block;
-    font-size:24px;
-    margin-top:7px;
-    color:#702AD7;
-}
-
-.pty-admin-section{
-    background:#101014;
-    border:1px solid #28282f;
-    border-radius:12px;
-    padding:15px;
-    margin-top:14px;
-}
-
-.pty-admin-section h3{
-    margin:0 0 12px;
-    font-size:11px;
-    color:#ddd;
-}
-
-.pty-admin-profile-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-    gap:10px;
-}
-
-.pty-admin-profile{
-    display:flex;
-    gap:12px;
-    background:#15151a;
-    border:1px solid #292932;
-    border-radius:10px;
-    padding:12px;
-}
-
-.pty-admin-profile img{
-    width:52px;
-    height:52px;
-    border-radius:50%;
-    object-fit:cover;
-    background:#080808;
-    border:1px solid #444;
-}
-
-.pty-admin-profile-info{
-    min-width:0;
-}
-
-.pty-admin-profile-name{
-    font-weight:900;
-    margin-bottom:5px;
-}
-
-.pty-admin-line{
-    font-size:9px;
-    color:#999;
-    line-height:1.8;
-    word-break:break-word;
-}
-
-.pty-admin-line b{
-    color:#666;
-}
-
-.pty-admin-empty{
-    color:#666;
-    font-size:10px;
-    padding:15px;
-    text-align:center;
-}
-
-.pty-admin-refresh{
-    width:auto;
-    padding:8px 13px;
-    margin-top:12px;
-}
-
-@media(max-width:650px){
-
-    .pty-admin-stats{
-        grid-template-columns:1fr;
-    }
-
-    .pty-admin-box{
-        padding:15px;
-    }
-
-    .pty-admin-profile-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-</style>
-
-<!-- ================= ADMIN HTML ================= -->
-
-<div
-    id="ptyAdminModal"
-    aria-hidden="true"
->
-
-    <div class="pty-admin-box">
-
-        <div class="pty-admin-head">
-
-            <h2>
-                PTY STORE — ADMIN PANEL
-            </h2>
-
-            <button
-                class="pty-admin-close"
-                type="button"
-                onclick="closePtyAdmin()"
-            >
-                CLOSE
-            </button>
+                <span class="score" id="q1score2">0</span>
+            </div>
 
         </div>
 
-        <div
-            id="ptyAdminLogin"
-            class="pty-admin-login"
-        >
 
-            <h2>
-                ADMIN LOGIN
-            </h2>
+        <div class="match">
 
-            <div class="pty-admin-sub">
-                Only authorized PTY STORE administrators can enter.
+            <div class="team" id="q2t1">
+                <div class="team-name">
+                    <div class="team-logo">3</div>
+                    <span id="q2name1">TEAM 3</span>
+                </div>
+                <span class="score" id="q2score1">0</span>
             </div>
 
-            <div class="pty-admin-field">
-
-                <label>
-                    ADMIN EMAIL
-                </label>
-
-                <input
-                    id="ptyAdminEmail"
-                    type="email"
-                    autocomplete="username"
-                    placeholder="admin@email.com"
-                >
-
+            <div class="team" id="q2t2">
+                <div class="team-name">
+                    <div class="team-logo">4</div>
+                    <span id="q2name2">TEAM 4</span>
+                </div>
+                <span class="score" id="q2score2">0</span>
             </div>
-
-            <div class="pty-admin-field">
-
-                <label>
-                    PASSWORD
-                </label>
-
-                <input
-                    id="ptyAdminPassword"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="••••••••"
-                >
-
-            </div>
-
-            <button
-                class="pty-admin-btn"
-                type="button"
-                onclick="ptyAdminLogin()"
-            >
-                LOGIN
-            </button>
-
-            <div
-                id="ptyAdminLoginMsg"
-                class="pty-admin-msg"
-            ></div>
 
         </div>
 
-        <div
-            id="ptyAdminDashboard"
-            class="pty-admin-dashboard"
-        >
 
-            <div class="pty-admin-stats">
+        <div class="match">
 
-                <div class="pty-admin-stat">
-
-                    <small>
-                        REGISTERED PROFILES
-                    </small>
-
-                    <strong
-                        id="ptyAdminProfileCount"
-                    >
-                        0
-                    </strong>
-
+            <div class="team" id="q3t1">
+                <div class="team-name">
+                    <div class="team-logo">5</div>
+                    <span id="q3name1">TEAM 5</span>
                 </div>
-
-                <div class="pty-admin-stat">
-
-                    <small>
-                        ADMIN EMAIL
-                    </small>
-
-                    <strong
-                        id="ptyAdminCurrentEmail"
-                        style="font-size:13px;word-break:break-all"
-                    >
-                        -
-                    </strong>
-
-                </div>
-
-                <div class="pty-admin-stat">
-
-                    <small>
-                        STATUS
-                    </small>
-
-                    <strong
-                        style="font-size:15px"
-                    >
-                        ONLINE
-                    </strong>
-
-                </div>
-
+                <span class="score" id="q3score1">0</span>
             </div>
 
-            <div class="pty-admin-section">
-
-                <h3>
-                    CUSTOMER PROFILES
-                </h3>
-
-                <div
-                    id="ptyAdminProfiles"
-                    class="pty-admin-profile-grid"
-                >
-                    <div class="pty-admin-empty">
-                        Loading...
-                    </div>
+            <div class="team" id="q3t2">
+                <div class="team-name">
+                    <div class="team-logo">6</div>
+                    <span id="q3name2">TEAM 6</span>
                 </div>
-
-                <button
-                    class="pty-admin-btn pty-admin-refresh"
-                    type="button"
-                    onclick="loadPtyAdminProfiles()"
-                >
-                    REFRESH
-                </button>
-
+                <span class="score" id="q3score2">0</span>
             </div>
 
-            <button
-                class="pty-admin-btn"
-                style="margin-top:14px;background:#222"
-                type="button"
-                onclick="ptyAdminLogout()"
-            >
-                LOG OUT
-            </button>
+        </div>
+
+
+        <div class="match">
+
+            <div class="team" id="q4t1">
+                <div class="team-name">
+                    <div class="team-logo">7</div>
+                    <span id="q4name1">TEAM 7</span>
+                </div>
+                <span class="score" id="q4score1">0</span>
+            </div>
+
+            <div class="team" id="q4t2">
+                <div class="team-name">
+                    <div class="team-logo">8</div>
+                    <span id="q4name2">TEAM 8</span>
+                </div>
+                <span class="score" id="q4score2">0</span>
+            </div>
 
         </div>
 
@@ -4142,477 +541,1170 @@ document.addEventListener(
 
 </div>
 
-<!-- ================= ADMIN JS ================= -->
+
+<!-- SEMI -->
+
+<div class="round">
+
+    <div class="round-title">
+        SEMI FINALS
+    </div>
+
+    <div class="matches">
+
+        <div class="match">
+
+            <div class="team" id="s1t1">
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="s1name1">TBD</span>
+                </div>
+                <span class="score" id="s1score1">-</span>
+            </div>
+
+            <div class="team" id="s1t2">
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="s1name2">TBD</span>
+                </div>
+                <span class="score" id="s1score2">-</span>
+            </div>
+
+        </div>
+
+
+        <div class="match">
+
+            <div class="team" id="s2t1">
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="s2name1">TBD</span>
+                </div>
+                <span class="score" id="s2score1">-</span>
+            </div>
+
+            <div class="team" id="s2t2">
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="s2name2">TBD</span>
+                </div>
+                <span class="score" id="s2score2">-</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FINAL -->
+
+<div class="round">
+
+    <div class="round-title">
+        GRAND FINAL
+    </div>
+
+    <div class="matches">
+
+        <div class="match final-match">
+
+            <div class="team" id="ft1">
+
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="fname1">TBD</span>
+                </div>
+
+                <span class="score" id="fscore1">-</span>
+
+            </div>
+
+
+            <div class="team" id="ft2">
+
+                <div class="team-name">
+                    <div class="team-logo">?</div>
+                    <span id="fname2">TBD</span>
+                </div>
+
+                <span class="score" id="fscore2">-</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="champion">
+
+            <div class="cup">
+                🏆
+            </div>
+
+            <h2 id="championName">
+                TBD
+            </h2>
+
+            <p>
+                TOURNAMENT CHAMPION
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+    <div class="admin-box" id="loginBox">
+
+        <div class="admin-head">
+            <h2>ADMIN LOGIN</h2>
+
+            <button class="close" onclick="closeAdmin()">
+                ×
+            </button>
+        </div>
+
+        <div class="login-box">
+
+            <input
+                id="adminEmail"
+                type="email"
+                placeholder="Admin Email"
+            >
+
+            <input
+                id="adminPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="save"
+                onclick="loginAdmin()"
+            >
+                LOGIN
+            </button>
+
+            <div
+                class="error"
+                id="loginError"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REAL ADMIN -->
+
+    <div
+        class="admin-box"
+        id="realAdmin"
+        style="display:none"
+    >
+
+        <div class="admin-head">
+
+            <h2>
+                ⚙ TOURNAMENT ADMIN
+            </h2>
+
+            <div>
+
+                <button
+                    class="logout"
+                    onclick="logoutAdmin()"
+                >
+                    Logout
+                </button>
+
+                <button
+                    class="close"
+                    onclick="closeAdmin()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-section">
+
+            <h3>
+                اسم تیم‌ها
+            </h3>
+
+            <div class="inputs">
+
+                <input id="team1" placeholder="Team 1">
+                <input id="team2" placeholder="Team 2">
+
+                <input id="team3" placeholder="Team 3">
+                <input id="team4" placeholder="Team 4">
+
+                <input id="team5" placeholder="Team 5">
+                <input id="team6" placeholder="Team 6">
+
+                <input id="team7" placeholder="Team 7">
+                <input id="team8" placeholder="Team 8">
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-section">
+
+            <h3>
+                Quarter Finals
+            </h3>
+
+            <div class="inputs">
+
+                <input id="q1s1" type="number" min="0" placeholder="Match 1 Team 1">
+                <input id="q1s2" type="number" min="0" placeholder="Match 1 Team 2">
+
+                <input id="q2s1" type="number" min="0" placeholder="Match 2 Team 1">
+                <input id="q2s2" type="number" min="0" placeholder="Match 2 Team 2">
+
+                <input id="q3s1" type="number" min="0" placeholder="Match 3 Team 1">
+                <input id="q3s2" type="number" min="0" placeholder="Match 3 Team 2">
+
+                <input id="q4s1" type="number" min="0" placeholder="Match 4 Team 1">
+                <input id="q4s2" type="number" min="0" placeholder="Match 4 Team 2">
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-section">
+
+            <h3>
+                Semi Finals
+            </h3>
+
+            <div class="inputs">
+
+                <input id="s1s1" type="number" min="0" placeholder="Semi 1 Team 1">
+                <input id="s1s2" type="number" min="0" placeholder="Semi 1 Team 2">
+
+                <input id="s2s1" type="number" min="0" placeholder="Semi 2 Team 1">
+                <input id="s2s2" type="number" min="0" placeholder="Semi 2 Team 2">
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-section">
+
+            <h3>
+                Grand Final
+            </h3>
+
+            <div class="inputs">
+
+                <input id="fs1" type="number" min="0" placeholder="Final Team 1">
+                <input id="fs2" type="number" min="0" placeholder="Final Team 2">
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="save"
+            onclick="saveTournament()"
+        >
+            ذخیره تغییرات
+        </button>
+
+        <button
+            class="reset"
+            onclick="resetTournament()"
+        >
+            Reset Tournament
+        </button>
+
+        <div
+            class="notice"
+            id="notice"
+        >
+            ✓ تغییرات با موفقیت ذخیره شد
+        </div>
+
+        <div
+            class="error"
+            id="saveError"
+        ></div>
+
+    </div>
+
+</div>
+
 
 <script>
 
-(function(){
+/* ==========================================
+   SUPABASE CONFIG
+========================================== */
 
-    let adminUser=null;
+const SUPABASE_URL =
+    "https://gsslpnuhbztmlthrgqnd.supabase.co";
 
-    const modal=
-        ()=>document.getElementById(
-            "ptyAdminModal"
+const SUPABASE_KEY =
+    "sb_publishable_vcuAxttLoSEzJyeC0LsZMA_LO2gwUp9";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ==========================================
+   LOCAL DATA
+========================================== */
+
+let data = null;
+
+
+/* ==========================================
+   GET TOURNAMENT
+========================================== */
+
+async function loadTournament(){
+
+    const {
+        data: rows,
+        error
+    } = await supabaseClient
+        .from("cs2_tournament")
+        .select("*")
+        .limit(1);
+
+    if(error){
+
+        console.error(error);
+
+        return;
+    }
+
+    if(rows && rows.length){
+
+        data = rows[0];
+
+        renderTournament();
+    }
+}
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function renderTournament(){
+
+    if(!data) return;
+
+    document.getElementById("prize").textContent =
+        data.prize || "600,000 تومان";
+
+
+    const teams = [
+        data.team1,
+        data.team2,
+        data.team3,
+        data.team4,
+        data.team5,
+        data.team6,
+        data.team7,
+        data.team8
+    ];
+
+
+    setText("q1name1",teams[0]);
+    setText("q1name2",teams[1]);
+
+    setText("q2name1",teams[2]);
+    setText("q2name2",teams[3]);
+
+    setText("q3name1",teams[4]);
+    setText("q3name2",teams[5]);
+
+    setText("q4name1",teams[6]);
+    setText("q4name2",teams[7]);
+
+
+    setText("q1score1",data.q1_score1);
+    setText("q1score2",data.q1_score2);
+
+    setText("q2score1",data.q2_score1);
+    setText("q2score2",data.q2_score2);
+
+    setText("q3score1",data.q3_score1);
+    setText("q3score2",data.q3_score2);
+
+    setText("q4score1",data.q4_score1);
+    setText("q4score2",data.q4_score2);
+
+
+    const quarterWinners = [
+
+        data.q1_score1 > data.q1_score2
+            ? teams[0]
+            : data.q1_score2 > data.q1_score1
+            ? teams[1]
+            : "TBD",
+
+        data.q2_score1 > data.q2_score2
+            ? teams[2]
+            : data.q2_score2 > data.q2_score1
+            ? teams[3]
+            : "TBD",
+
+        data.q3_score1 > data.q3_score2
+            ? teams[4]
+            : data.q3_score2 > data.q3_score1
+            ? teams[5]
+            : "TBD",
+
+        data.q4_score1 > data.q4_score2
+            ? teams[6]
+            : data.q4_score2 > data.q4_score1
+            ? teams[7]
+            : "TBD"
+    ];
+
+
+    setText(
+        "s1name1",
+        quarterWinners[0]
+    );
+
+    setText(
+        "s1name2",
+        quarterWinners[1]
+    );
+
+    setText(
+        "s2name1",
+        quarterWinners[2]
+    );
+
+    setText(
+        "s2name2",
+        quarterWinners[3]
+    );
+
+
+    setText("s1score1",data.s1_score1);
+    setText("s1score2",data.s1_score2);
+
+    setText("s2score1",data.s2_score1);
+    setText("s2score2",data.s2_score2);
+
+
+    const semiWinners = [
+
+        data.s1_score1 > data.s1_score2
+            ? quarterWinners[0]
+            : data.s1_score2 > data.s1_score1
+            ? quarterWinners[1]
+            : "TBD",
+
+        data.s2_score1 > data.s2_score2
+            ? quarterWinners[2]
+            : data.s2_score2 > data.s2_score1
+            ? quarterWinners[3]
+            : "TBD"
+    ];
+
+
+    setText(
+        "fname1",
+        semiWinners[0]
+    );
+
+    setText(
+        "fname2",
+        semiWinners[1]
+    );
+
+
+    setText(
+        "fscore1",
+        data.final_score1
+    );
+
+    setText(
+        "fscore2",
+        data.final_score2
+    );
+
+
+    const champion =
+        data.final_score1 > data.final_score2
+            ? semiWinners[0]
+            : data.final_score2 > data.final_score1
+            ? semiWinners[1]
+            : "TBD";
+
+
+    setText(
+        "championName",
+        champion
+    );
+
+
+    highlightWinners();
+}
+
+
+function setText(id,value){
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+        element.textContent =
+            value ?? "";
+    }
+}
+
+
+/* ==========================================
+   HIGHLIGHT WINNERS
+========================================== */
+
+function highlightWinners(){
+
+    const q = [
+        [data.q1_score1,data.q1_score2],
+        [data.q2_score1,data.q2_score2],
+        [data.q3_score1,data.q3_score2],
+        [data.q4_score1,data.q4_score2]
+    ];
+
+
+    q.forEach((match,index)=>{
+
+        const number = index + 1;
+
+        document
+            .getElementById("q"+number+"t1")
+            .classList.toggle(
+                "winner",
+                match[0] > match[1]
+            );
+
+        document
+            .getElementById("q"+number+"t2")
+            .classList.toggle(
+                "winner",
+                match[1] > match[0]
+            );
+
+    });
+
+
+    document
+        .getElementById("s1t1")
+        .classList.toggle(
+            "winner",
+            data.s1_score1 > data.s1_score2
         );
 
-    function showAdmin(){
+    document
+        .getElementById("s1t2")
+        .classList.toggle(
+            "winner",
+            data.s1_score2 > data.s1_score1
+        );
 
-        modal()
-            .classList
-            .add("show");
 
-        modal()
-            .setAttribute(
-                "aria-hidden",
-                "false"
-            );
+    document
+        .getElementById("s2t1")
+        .classList.toggle(
+            "winner",
+            data.s2_score1 > data.s2_score2
+        );
 
-        document.body.style.overflow=
-            "hidden";
+    document
+        .getElementById("s2t2")
+        .classList.toggle(
+            "winner",
+            data.s2_score2 > data.s2_score1
+        );
+
+
+    document
+        .getElementById("ft1")
+        .classList.toggle(
+            "winner",
+            data.final_score1 > data.final_score2
+        );
+
+    document
+        .getElementById("ft2")
+        .classList.toggle(
+            "winner",
+            data.final_score2 > data.final_score1
+        );
+}
+
+
+/* ==========================================
+   ADMIN
+========================================== */
+
+async function openAdmin(){
+
+    document
+        .getElementById("adminPanel")
+        .style.display = "block";
+
+
+    const {
+        data:{
+            session
+        }
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+    if(session){
+
+        showRealAdmin();
+
+    }else{
+
+        showLogin();
+
+    }
+}
+
+
+function closeAdmin(){
+
+    document
+        .getElementById("adminPanel")
+        .style.display = "none";
+}
+
+
+function showLogin(){
+
+    document
+        .getElementById("loginBox")
+        .style.display = "block";
+
+    document
+        .getElementById("realAdmin")
+        .style.display = "none";
+}
+
+
+function showRealAdmin(){
+
+    document
+        .getElementById("loginBox")
+        .style.display = "none";
+
+    document
+        .getElementById("realAdmin")
+        .style.display = "block";
+
+    loadAdminInputs();
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+async function loginAdmin(){
+
+    const email =
+        document
+            .getElementById("adminEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("adminPassword")
+            .value;
+
+
+    const errorBox =
+        document.getElementById("loginError");
+
+
+    errorBox.style.display = "none";
+
+
+    const {
+        data:userData,
+        error
+    } =
+        await supabaseClient
+            .auth
+            .signInWithPassword({
+                email,
+                password
+            });
+
+
+    if(error){
+
+        errorBox.textContent =
+            error.message;
+
+        errorBox.style.display =
+            "block";
+
+        return;
     }
 
-    window.closePtyAdmin=
-        function(){
 
-            modal()
-                .classList
-                .remove("show");
+    if(userData.session){
 
-            modal()
-                .setAttribute(
-                    "aria-hidden",
-                    "true"
-                );
+        showRealAdmin();
 
-            document.body.style.overflow="";
-        };
+    }
+}
 
-    window.openPtyAdmin=
-        function(){
 
-            showAdmin();
+/* ==========================================
+   LOGOUT
+========================================== */
 
-            checkPtyAdminSession();
+async function logoutAdmin(){
 
-        };
+    await supabaseClient
+        .auth
+        .signOut();
 
-    async function checkPtyAdminSession(){
+    showLogin();
+}
 
-        const login=
-            document.getElementById(
-                "ptyAdminLogin"
-            );
 
-        const dash=
-            document.getElementById(
-                "ptyAdminDashboard"
-            );
+/* ==========================================
+   LOAD ADMIN INPUTS
+========================================== */
 
-        const {data}=
-            await supabaseClient.auth
-                .getSession();
+function loadAdminInputs(){
 
-        if(!data?.session){
+    if(!data) return;
 
-            login.style.display="block";
-            dash.style.display="none";
 
-            return;
+    document.getElementById("team1").value =
+        data.team1;
+
+    document.getElementById("team2").value =
+        data.team2;
+
+    document.getElementById("team3").value =
+        data.team3;
+
+    document.getElementById("team4").value =
+        data.team4;
+
+    document.getElementById("team5").value =
+        data.team5;
+
+    document.getElementById("team6").value =
+        data.team6;
+
+    document.getElementById("team7").value =
+        data.team7;
+
+    document.getElementById("team8").value =
+        data.team8;
+
+
+    document.getElementById("q1s1").value =
+        data.q1_score1;
+
+    document.getElementById("q1s2").value =
+        data.q1_score2;
+
+
+    document.getElementById("q2s1").value =
+        data.q2_score1;
+
+    document.getElementById("q2s2").value =
+        data.q2_score2;
+
+
+    document.getElementById("q3s1").value =
+        data.q3_score1;
+
+    document.getElementById("q3s2").value =
+        data.q3_score2;
+
+
+    document.getElementById("q4s1").value =
+        data.q4_score1;
+
+    document.getElementById("q4s2").value =
+        data.q4_score2;
+
+
+    document.getElementById("s1s1").value =
+        data.s1_score1;
+
+    document.getElementById("s1s2").value =
+        data.s1_score2;
+
+
+    document.getElementById("s2s1").value =
+        data.s2_score1;
+
+    document.getElementById("s2s2").value =
+        data.s2_score2;
+
+
+    document.getElementById("fs1").value =
+        data.final_score1;
+
+    document.getElementById("fs2").value =
+        data.final_score2;
+}
+
+
+/* ==========================================
+   SAVE
+========================================== */
+
+async function saveTournament(){
+
+    const errorBox =
+        document.getElementById("saveError");
+
+    const notice =
+        document.getElementById("notice");
+
+
+    errorBox.style.display =
+        "none";
+
+    notice.style.display =
+        "none";
+
+
+    const {
+        data:{
+            session
         }
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
 
-        const email=
-            data.session.user?.email||"";
 
-        try{
+    if(!session){
 
-            const {data:row,error}=
-                await supabaseClient
-                    .from("admin_emails")
-                    .select("email")
-                    .eq(
-                        "email",
-                        email.toLowerCase()
-                    )
-                    .maybeSingle();
+        errorBox.textContent =
+            "Admin login required.";
+
+        errorBox.style.display =
+            "block";
+
+        return;
+    }
+
+
+    const updateData = {
+
+        team1:
+            document.getElementById("team1").value
+            || "TEAM 1",
+
+        team2:
+            document.getElementById("team2").value
+            || "TEAM 2",
+
+        team3:
+            document.getElementById("team3").value
+            || "TEAM 3",
+
+        team4:
+            document.getElementById("team4").value
+            || "TEAM 4",
+
+        team5:
+            document.getElementById("team5").value
+            || "TEAM 5",
+
+        team6:
+            document.getElementById("team6").value
+            || "TEAM 6",
+
+        team7:
+            document.getElementById("team7").value
+            || "TEAM 7",
+
+        team8:
+            document.getElementById("team8").value
+            || "TEAM 8",
+
+
+        q1_score1:
+            Number(document.getElementById("q1s1").value) || 0,
+
+        q1_score2:
+            Number(document.getElementById("q1s2").value) || 0,
+
+
+        q2_score1:
+            Number(document.getElementById("q2s1").value) || 0,
+
+        q2_score2:
+            Number(document.getElementById("q2s2").value) || 0,
+
+
+        q3_score1:
+            Number(document.getElementById("q3s1").value) || 0,
+
+        q3_score2:
+            Number(document.getElementById("q3s2").value) || 0,
+
+
+        q4_score1:
+            Number(document.getElementById("q4s1").value) || 0,
+
+        q4_score2:
+            Number(document.getElementById("q4s2").value) || 0,
+
+
+        s1_score1:
+            Number(document.getElementById("s1s1").value) || 0,
+
+        s1_score2:
+            Number(document.getElementById("s1s2").value) || 0,
+
+
+        s2_score1:
+            Number(document.getElementById("s2s1").value) || 0,
+
+        s2_score2:
+            Number(document.getElementById("s2s2").value) || 0,
+
+
+        final_score1:
+            Number(document.getElementById("fs1").value) || 0,
+
+        final_score2:
+            Number(document.getElementById("fs2").value) || 0,
+
+
+        updated_at:
+            new Date().toISOString()
+    };
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("cs2_tournament")
+            .update(updateData)
+            .eq("id",data.id);
+
+
+    if(error){
+
+        console.error(error);
+
+        errorBox.textContent =
+            error.message;
+
+        errorBox.style.display =
+            "block";
+
+        return;
+    }
+
+
+    notice.textContent =
+        "✓ تغییرات با موفقیت ذخیره شد";
+
+    notice.style.display =
+        "block";
+
+
+    await loadTournament();
+
+
+    setTimeout(()=>{
+
+        notice.style.display =
+            "none";
+
+    },3000);
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+async function resetTournament(){
+
+    if(
+        !confirm(
+            "همه نتایج به صفر برگردد؟"
+        )
+    ){
+
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("cs2_tournament")
+            .update({
+
+                q1_score1:0,
+                q1_score2:0,
+
+                q2_score1:0,
+                q2_score2:0,
+
+                q3_score1:0,
+                q3_score2:0,
+
+                q4_score1:0,
+                q4_score2:0,
+
+                s1_score1:0,
+                s1_score2:0,
+
+                s2_score1:0,
+                s2_score2:0,
+
+                final_score1:0,
+                final_score2:0,
+
+                updated_at:
+                    new Date().toISOString()
+
+            })
+            .eq("id",data.id);
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+    }
+
+
+    await loadTournament();
+
+    loadAdminInputs();
+}
+
+
+/* ==========================================
+   REALTIME
+========================================== */
+
+supabaseClient
+    .channel("cs2-tournament-live")
+
+    .on(
+        "postgres_changes",
+        {
+            event:"UPDATE",
+            schema:"public",
+            table:"cs2_tournament"
+        },
+
+        payload=>{
+
+            console.log(
+                "Tournament updated:",
+                payload.new
+            );
+
+            data =
+                payload.new;
+
+            renderTournament();
 
             if(
-                error ||
-                !row
+                document
+                    .getElementById("realAdmin")
+                    .style.display !== "none"
             ){
 
-                await supabaseClient
-                    .auth
-                    .signOut();
+                loadAdminInputs();
 
-                login.style.display="block";
-                dash.style.display="none";
-
-                document
-                    .getElementById(
-                        "ptyAdminLoginMsg"
-                    )
-                    .textContent=
-                    "ADMIN ACCESS DENIED";
-
-                return;
             }
 
-            adminUser=
-                data.session.user;
-
-            login.style.display="none";
-            dash.style.display="block";
-
-            document
-                .getElementById(
-                    "ptyAdminCurrentEmail"
-                )
-                .textContent=email;
-
-            loadPtyAdminProfiles();
-
-        }catch(e){
-
-            login.style.display="block";
-            dash.style.display="none";
-
-            document
-                .getElementById(
-                    "ptyAdminLoginMsg"
-                )
-                .textContent=
-                "ADMIN TABLE IS NOT CONFIGURED";
         }
-    }
+    )
 
-    window.ptyAdminLogin=
-        async function(){
+    .subscribe();
 
-            const email=
-                document
-                    .getElementById(
-                        "ptyAdminEmail"
-                    )
-                    .value
-                    .trim()
-                    .toLowerCase();
 
-            const pass=
-                document
-                    .getElementById(
-                        "ptyAdminPassword"
-                    )
-                    .value;
+/* ==========================================
+   AUTH STATE
+========================================== */
 
-            const msg=
-                document.getElementById(
-                    "ptyAdminLoginMsg"
-                );
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        (event,session)=>{
 
-            msg.textContent="";
+            if(session){
 
-            if(!email||!pass){
+                if(
+                    document
+                        .getElementById("adminPanel")
+                        .style.display !== "none"
+                ){
 
-                msg.textContent=
-                    "EMAIL AND PASSWORD ARE REQUIRED";
+                    showRealAdmin();
 
-                return;
-            }
-
-            msg.textContent="CHECKING...";
-
-            const {data,error}=
-                await supabaseClient
-                    .auth
-                    .signInWithPassword({
-                        email,
-                        password:pass
-                    });
-
-            if(error){
-
-                msg.textContent=
-                    error.message||
-                    "LOGIN FAILED";
-
-                return;
-            }
-
-            const {
-                data:row,
-                error:adminErr
-            }=
-                await supabaseClient
-                    .from("admin_emails")
-                    .select("email")
-                    .eq(
-                        "email",
-                        email
-                    )
-                    .maybeSingle();
-
-            if(
-                adminErr ||
-                !row
-            ){
-
-                await supabaseClient
-                    .auth
-                    .signOut();
-
-                msg.textContent=
-                    "ADMIN ACCESS DENIED";
-
-                return;
-            }
-
-            adminUser=data.user;
-
-            document
-                .getElementById(
-                    "ptyAdminLogin"
-                )
-                .style.display="none";
-
-            document
-                .getElementById(
-                    "ptyAdminDashboard"
-                )
-                .style.display="block";
-
-            document
-                .getElementById(
-                    "ptyAdminCurrentEmail"
-                )
-                .textContent=email;
-
-            loadPtyAdminProfiles();
-
-        };
-
-    window.ptyAdminLogout=
-        async function(){
-
-            await supabaseClient
-                .auth
-                .signOut();
-
-            adminUser=null;
-
-            document
-                .getElementById(
-                    "ptyAdminDashboard"
-                )
-                .style.display="none";
-
-            document
-                .getElementById(
-                    "ptyAdminLogin"
-                )
-                .style.display="block";
-
-            document
-                .getElementById(
-                    "ptyAdminPassword"
-                )
-                .value="";
-
-        };
-
-    window.loadPtyAdminProfiles=
-        async function(){
-
-            const c=
-                document.getElementById(
-                    "ptyAdminProfiles"
-                );
-
-            c.innerHTML=
-                '<div class="pty-admin-empty">Loading...</div>';
-
-            try{
-
-                const {data,error}=
-                    await supabaseClient
-                        .from("profiles")
-                        .select(
-                            "id,email,first_name,last_name,phone,telegram_id,trade_link,created_at,updated_at"
-                        )
-                        .order(
-                            "created_at",
-                            {ascending:false}
-                        );
-
-                if(error){
-                    throw error;
                 }
 
-                document
-                    .getElementById(
-                        "ptyAdminProfileCount"
-                    )
-                    .textContent=
-                    (data||[]).length;
-
-                if(!data?.length){
-
-                    c.innerHTML=
-                        '<div class="pty-admin-empty">No customer profiles found.</div>';
-
-                    return;
-                }
-
-                c.innerHTML="";
-
-                data.forEach(p=>{
-
-                    const card=
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className=
-                        "pty-admin-profile";
-
-                    const img=
-                        document.createElement(
-                            "img"
-                        );
-
-                    img.src=
-                        localStorage.getItem(
-                            "pty_avatar_"+p.id
-                        )||"";
-
-                    img.onerror=
-                        ()=>{
-                            img.style.display=
-                                "none";
-                        };
-
-                    const info=
-                        document.createElement(
-                            "div"
-                        );
-
-                    info.className=
-                        "pty-admin-profile-info";
-
-                    const name=
-                        (
-                            (p.first_name||"")+
-                            " "+
-                            (p.last_name||"")
-                        )
-                        .trim()||
-                        "Unnamed";
-
-                    info.innerHTML=
-                        '<div class="pty-admin-profile-name"></div>'+
-                        '<div class="pty-admin-line"><b>EMAIL:</b> '+esc(p.email)+'</div>'+
-                        '<div class="pty-admin-line"><b>PHONE:</b> '+esc(p.phone||"-")+'</div>'+
-                        '<div class="pty-admin-line"><b>TELEGRAM:</b> '+esc(p.telegram_id||"-")+'</div>'+
-                        '<div class="pty-admin-line"><b>TRADE:</b> '+esc(p.trade_link||"-")+'</div>';
-
-                    info
-                        .querySelector(
-                            ".pty-admin-profile-name"
-                        )
-                        .textContent=name;
-
-                    card.append(
-                        img,
-                        info
-                    );
-
-                    c.appendChild(card);
-
-                });
-
-            }catch(e){
-
-                document
-                    .getElementById(
-                        "ptyAdminProfileCount"
-                    )
-                    .textContent="0";
-
-                c.innerHTML=
-                    '<div class="pty-admin-empty">Could not load profiles: '+
-                    esc(
-                        e?.message||
-                        "Unknown error"
-                    )+
-                    "</div>";
             }
-        };
-
-    function esc(v){
-
-        return String(v??"")
-            .replace(
-                /[&<>"']/g,
-                m=>({
-                    "&":"&amp;",
-                    "<":"&lt;",
-                    ">":"&gt;",
-                    '"':"&quot;",
-                    "'":"&#039;"
-                }[m])
-            );
-    }
-
-    /* 5 CLICKS ON LOGO */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function(){
-
-            const logo=
-                document.querySelector(
-                    ".logo"
-                );
-
-            if(!logo){
-                return;
-            }
-
-            let clicks=0;
-            let timer=null;
-
-            logo.addEventListener(
-                "click",
-                function(){
-
-                    clicks++;
-
-                    clearTimeout(timer);
-
-                    timer=
-                        setTimeout(
-                            ()=>{
-                                clicks=0;
-                            },
-                            1800
-                        );
-
-                    if(clicks>=5){
-
-                        clicks=0;
-
-                        openPtyAdmin();
-
-                    }
-
-                }
-            );
 
         }
     );
 
-})();
+
+/* ==========================================
+   START
+========================================== */
+
+loadTournament();
 
 </script>
 
 </body>
 </html>
+```
