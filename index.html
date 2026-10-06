@@ -44,8 +44,6 @@ body{
     overflow-x:hidden;
 }
 
-/* ================= BACKGROUND ================= */
-
 body::before{
     content:"";
     position:fixed;
@@ -204,11 +202,15 @@ header{
     backdrop-filter:blur(10px);
     box-shadow:0 15px 40px rgba(0,0,0,.25);
     transition:.3s;
+    cursor:pointer;
 }
 
 .match:hover{
-    border-color:rgba(255,49,93,.35);
+    border-color:rgba(255,49,93,.45);
     transform:translateY(-3px);
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.35),
+        0 0 25px rgba(255,49,93,.08);
 }
 
 .team{
@@ -250,6 +252,39 @@ header{
 
 .winner .score{
     color:var(--green);
+}
+
+.match-status{
+    text-align:center;
+    font-size:10px;
+    margin:5px 3px 2px;
+    padding:5px 7px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+.status-not-started{
+    color:#aab3c1;
+    background:rgba(255,255,255,.05);
+}
+
+.status-live{
+    color:#ff6c83;
+    background:rgba(255,49,93,.10);
+    border:1px solid rgba(255,49,93,.18);
+    animation:pulseStatus 1.5s infinite;
+}
+
+.status-finished{
+    color:var(--green);
+    background:rgba(56,229,140,.08);
+    border:1px solid rgba(56,229,140,.15);
+}
+
+@keyframes pulseStatus{
+    50%{
+        box-shadow:0 0 15px rgba(255,49,93,.18);
+    }
 }
 
 .connector{
@@ -294,7 +329,7 @@ header{
     margin-top:8px;
 }
 
-/* ================= TEAM MODAL ================= */
+/* ================= MODAL ================= */
 
 .modal{
     position:fixed;
@@ -447,6 +482,156 @@ header{
 .player-name.empty{
     color:var(--muted);
     font-weight:normal;
+}
+
+/* ================= MATCH MODAL ================= */
+
+.match-modal-card{
+    width:min(650px,100%);
+}
+
+.match-head{
+    padding:25px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+}
+
+.match-number{
+    color:var(--red);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:3px;
+    margin-bottom:8px;
+}
+
+.match-title{
+    font-size:25px;
+    font-weight:1000;
+}
+
+.match-teams{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin-top:15px;
+    direction:ltr;
+}
+
+.match-team-name{
+    max-width:210px;
+    font-weight:bold;
+    font-size:16px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.vs{
+    color:var(--red);
+    font-weight:1000;
+}
+
+.match-body{
+    padding:20px;
+}
+
+.status-display{
+    text-align:center;
+    margin-bottom:18px;
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.map-row{
+    display:grid;
+    grid-template-columns:1fr 95px 95px;
+    gap:10px;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.map-label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.map-select,
+.map-score{
+    width:100%;
+    background:#070b11;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:11px 9px;
+    border-radius:10px;
+    outline:none;
+}
+
+.map-select:focus,
+.map-score:focus{
+    border-color:var(--red);
+}
+
+.map-score{
+    text-align:center;
+}
+
+.match-result{
+    margin-top:18px;
+    padding:18px;
+    border-radius:15px;
+    background:rgba(255,255,255,.035);
+    border:1px solid var(--border);
+    text-align:center;
+}
+
+.result-label{
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.result-score{
+    font-size:32px;
+    font-weight:1000;
+    direction:ltr;
+}
+
+.result-winner{
+    margin-top:7px;
+    color:var(--green);
+    font-weight:bold;
+}
+
+.match-edit{
+    margin-top:18px;
+}
+
+.match-edit-title{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.status-select{
+    width:100%;
+    background:#070b11;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:12px;
+    border-radius:11px;
+    outline:none;
+}
+
+.match-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.match-actions button{
+    flex:1;
 }
 
 /* ================= ADMIN ================= */
@@ -614,6 +799,18 @@ footer strong{
         padding:12px;
     }
 
+    .map-row{
+        grid-template-columns:1fr 75px 75px;
+    }
+
+    .match-teams{
+        gap:8px;
+    }
+
+    .match-team-name{
+        max-width:130px;
+    }
+
 }
 
 </style>
@@ -622,6 +819,7 @@ footer strong{
 <body>
 
 <header>
+
     <div class="header-inner">
 
         <div class="logo">
@@ -630,6 +828,7 @@ footer strong{
         </div>
 
         <div class="header-info">
+
             <div class="prize">
                 🏆 600,000 تومان
             </div>
@@ -637,10 +836,13 @@ footer strong{
             <button class="admin-btn" onclick="openAdmin()">
                 ADMIN
             </button>
+
         </div>
 
     </div>
+
 </header>
+
 
 <section class="hero">
 
@@ -653,10 +855,11 @@ footer strong{
     </h1>
 
     <p>
-        برای مشاهده بازیکنان روی نام هر تیم کلیک کنید
+        برای مشاهده جزئیات هر بازی روی Match کلیک کنید
     </p>
 
 </section>
+
 
 <main class="bracket-wrap">
 
@@ -672,31 +875,52 @@ footer strong{
 
             <div class="round">
 
-                <div class="match">
+                <div class="match" onclick="openMatch('q1')">
+
                     <div class="team" id="team1A"></div>
                     <div class="team" id="team2A"></div>
+
+                    <div id="q1Status"></div>
+
                 </div>
 
-                <div class="match">
+
+                <div class="match" onclick="openMatch('q2')">
+
                     <div class="team" id="team3A"></div>
                     <div class="team" id="team4A"></div>
+
+                    <div id="q2Status"></div>
+
                 </div>
 
-                <div class="match">
+
+                <div class="match" onclick="openMatch('q3')">
+
                     <div class="team" id="team5A"></div>
                     <div class="team" id="team6A"></div>
+
+                    <div id="q3Status"></div>
+
                 </div>
 
-                <div class="match">
+
+                <div class="match" onclick="openMatch('q4')">
+
                     <div class="team" id="team7A"></div>
                     <div class="team" id="team8A"></div>
+
+                    <div id="q4Status"></div>
+
                 </div>
 
             </div>
 
         </div>
 
+
         <div class="connector"></div>
+
 
         <!-- ================= SEMI ================= -->
 
@@ -708,21 +932,32 @@ footer strong{
 
             <div class="round">
 
-                <div class="match">
+                <div class="match" onclick="openMatch('s1')">
+
                     <div class="team" id="semi1A"></div>
                     <div class="team" id="semi1B"></div>
+
+                    <div id="s1Status"></div>
+
                 </div>
 
-                <div class="match">
+
+                <div class="match" onclick="openMatch('s2')">
+
                     <div class="team" id="semi2A"></div>
                     <div class="team" id="semi2B"></div>
+
+                    <div id="s2Status"></div>
+
                 </div>
 
             </div>
 
         </div>
 
+
         <div class="connector"></div>
+
 
         <!-- ================= FINAL ================= -->
 
@@ -734,13 +969,18 @@ footer strong{
 
             <div class="final-wrap">
 
-                <div class="match final-match">
+                <div
+                    class="match final-match"
+                    onclick="openMatch('final')"
+                >
 
                     <div class="team" id="finalA"></div>
-
                     <div class="team" id="finalB"></div>
 
+                    <div id="finalStatus"></div>
+
                 </div>
+
 
                 <div class="champion">
 
@@ -752,7 +992,10 @@ footer strong{
                         CHAMPION
                     </div>
 
-                    <div class="champion-name" id="champion">
+                    <div
+                        class="champion-name"
+                        id="champion"
+                    >
                         TBD
                     </div>
 
@@ -766,28 +1009,44 @@ footer strong{
 
 </main>
 
+
 <footer>
     CS2 TOURNAMENT • Powered by <strong>WIZZY</strong>
 </footer>
 
 
-<!-- ================= TEAM MODAL ================= -->
+<!-- =========================================================
+     TEAM MODAL
+========================================================= -->
 
-<div class="modal" id="teamModal" onclick="modalOutside(event)">
+<div
+    class="modal"
+    id="teamModal"
+    onclick="modalOutside(event)"
+>
 
     <div class="modal-card">
 
         <div class="modal-top">
 
-            <button class="modal-close" onclick="closeTeamModal()">
+            <button
+                class="modal-close"
+                onclick="closeTeamModal()"
+            >
                 ×
             </button>
 
-            <div class="team-badge" id="modalBadge">
+            <div
+                class="team-badge"
+                id="modalBadge"
+            >
                 T
             </div>
 
-            <div class="modal-team-name" id="modalTeamName">
+            <div
+                class="modal-team-name"
+                id="modalTeamName"
+            >
                 TEAM
             </div>
 
@@ -797,22 +1056,296 @@ footer strong{
 
         </div>
 
-        <div class="players" id="playersList"></div>
+        <div
+            class="players"
+            id="playersList"
+        ></div>
 
     </div>
 
 </div>
 
 
-<!-- ================= ADMIN MODAL ================= -->
+<!-- =========================================================
+     MATCH MODAL
+========================================================= -->
 
-<div class="modal admin-modal" id="adminModal">
+<div
+    class="modal"
+    id="matchModal"
+    onclick="matchModalOutside(event)"
+>
+
+    <div class="modal-card match-modal-card">
+
+        <div class="match-head">
+
+            <button
+                class="modal-close"
+                onclick="closeMatchModal()"
+            >
+                ×
+            </button>
+
+            <div
+                class="match-number"
+                id="matchNumber"
+            >
+                MATCH 1
+            </div>
+
+            <div
+                class="match-title"
+                id="matchTitle"
+            >
+                MATCH
+            </div>
+
+            <div class="match-teams">
+
+                <div
+                    class="match-team-name"
+                    id="matchTeamA"
+                >
+                    TBD
+                </div>
+
+                <div class="vs">
+                    VS
+                </div>
+
+                <div
+                    class="match-team-name"
+                    id="matchTeamB"
+                >
+                    TBD
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="match-body">
+
+            <div
+                class="status-display status-not-started"
+                id="matchStatusDisplay"
+            >
+                هنوز بازی انجام نشده
+            </div>
+
+
+            <div class="match-edit">
+
+                <div class="match-edit-title">
+                    وضعیت بازی
+                </div>
+
+                <select
+                    class="status-select"
+                    id="matchStatusSelect"
+                >
+
+                    <option value="not_started">
+                        هنوز بازی انجام نشده
+                    </option>
+
+                    <option value="live">
+                        در حال برگزاری
+                    </option>
+
+                    <option value="finished">
+                        تمام شده
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div style="margin-top:20px">
+
+                <div class="match-edit-title">
+                    نتایج مپ‌ها
+                </div>
+
+
+                <div class="map-row">
+
+                    <div class="map-label">
+                        MAP 1
+                    </div>
+
+                    <select
+                        class="map-select"
+                        id="map1Select"
+                    ></select>
+
+                    <div>
+                        <input
+                            class="map-score"
+                            id="map1a"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="A"
+                        >
+
+                        <input
+                            class="map-score"
+                            id="map1b"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="B"
+                            style="margin-top:5px"
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="map-row">
+
+                    <div class="map-label">
+                        MAP 2
+                    </div>
+
+                    <select
+                        class="map-select"
+                        id="map2Select"
+                    ></select>
+
+                    <div>
+                        <input
+                            class="map-score"
+                            id="map2a"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="A"
+                        >
+
+                        <input
+                            class="map-score"
+                            id="map2b"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="B"
+                            style="margin-top:5px"
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="map-row">
+
+                    <div class="map-label">
+                        MAP 3
+                    </div>
+
+                    <select
+                        class="map-select"
+                        id="map3Select"
+                    ></select>
+
+                    <div>
+                        <input
+                            class="map-score"
+                            id="map3a"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="A"
+                        >
+
+                        <input
+                            class="map-score"
+                            id="map3b"
+                            type="number"
+                            min="0"
+                            max="30"
+                            placeholder="B"
+                            style="margin-top:5px"
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="match-result">
+
+                <div class="result-label">
+                    MATCH RESULT
+                </div>
+
+                <div
+                    class="result-score"
+                    id="matchResultScore"
+                >
+                    0 - 0
+                </div>
+
+                <div
+                    class="result-winner"
+                    id="matchResultWinner"
+                >
+                    TBD
+                </div>
+
+            </div>
+
+
+            <div
+                class="match-actions"
+                id="matchAdminActions"
+            >
+
+                <button
+                    class="primary"
+                    onclick="saveMatchDetails()"
+                >
+                    ذخیره مچ
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="closeMatchModal()"
+                >
+                    بستن
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ADMIN MODAL
+========================================================= -->
+
+<div
+    class="modal admin-modal"
+    id="adminModal"
+>
 
     <div class="modal-card">
 
         <div class="modal-top">
 
-            <button class="modal-close" onclick="closeAdmin()">
+            <button
+                class="modal-close"
+                onclick="closeAdmin()"
+            >
                 ×
             </button>
 
@@ -826,9 +1359,13 @@ footer strong{
 
         </div>
 
+
         <!-- LOGIN -->
 
-        <div class="login-box" id="loginSection">
+        <div
+            class="login-box"
+            id="loginSection"
+        >
 
             <div class="field">
 
@@ -845,6 +1382,7 @@ footer strong{
 
             </div>
 
+
             <div class="field">
 
                 <label>
@@ -860,28 +1398,46 @@ footer strong{
 
             </div>
 
-            <button class="primary" onclick="loginAdmin()">
+
+            <button
+                class="primary"
+                onclick="loginAdmin()"
+            >
                 ورود به پنل
             </button>
 
-            <div class="message" id="loginMessage"></div>
+
+            <div
+                class="message"
+                id="loginMessage"
+            ></div>
 
         </div>
 
 
         <!-- ADMIN PANEL -->
 
-        <div class="admin-body" id="adminSection" style="display:none">
+        <div
+            class="admin-body"
+            id="adminSection"
+            style="display:none"
+        >
 
             <h3 style="margin-bottom:15px">
                 تیم‌ها و بازیکنان
             </h3>
 
-            <div class="admin-grid" id="adminTeams"></div>
+
+            <div
+                class="admin-grid"
+                id="adminTeams"
+            ></div>
+
 
             <h3 style="margin:25px 0 15px">
                 نتایج مرحله یک‌چهارم
             </h3>
+
 
             <div class="admin-grid">
 
@@ -991,6 +1547,7 @@ footer strong{
                 Semi Finals
             </h3>
 
+
             <div class="admin-grid">
 
                 <div class="admin-team">
@@ -1045,6 +1602,7 @@ footer strong{
                 Grand Final
             </h3>
 
+
             <div class="admin-team">
 
                 <input
@@ -1082,7 +1640,11 @@ footer strong{
 
             </div>
 
-            <div class="message" id="saveMessage"></div>
+
+            <div
+                class="message"
+                id="saveMessage"
+            ></div>
 
         </div>
 
@@ -1117,6 +1679,128 @@ const db =
 let tournament = null;
 let players = [];
 
+let currentMatchKey = null;
+
+
+/* =========================================================
+   MAPS
+========================================================= */
+
+const MAPS = [
+    "Mirage",
+    "Inferno",
+    "Nuke",
+    "Ancient",
+    "Anubis",
+    "Dust 2",
+    "Vertigo",
+    "Overpass",
+    "Train"
+];
+
+
+const STATUS_NAMES = {
+
+    not_started:
+        "هنوز بازی انجام نشده",
+
+    live:
+        "در حال برگزاری",
+
+    finished:
+        "تمام شده"
+
+};
+
+
+/* =========================================================
+   MATCH DEFAULT
+========================================================= */
+
+function defaultMatch(){
+
+    return {
+
+        status:"not_started",
+
+        map1:"Mirage",
+        map2:"Inferno",
+        map3:"Nuke",
+
+        map1a:null,
+        map1b:null,
+
+        map2a:null,
+        map2b:null,
+
+        map3a:null,
+        map3b:null
+
+    };
+
+}
+
+
+/* =========================================================
+   GET MATCH DATA
+========================================================= */
+
+function getMatchData(key){
+
+    let data = {};
+
+    try{
+
+        data =
+            tournament &&
+            tournament.match_data
+            ? tournament.match_data
+            : {};
+
+    }catch(e){
+
+        data = {};
+
+    }
+
+
+    return {
+
+        ...defaultMatch(),
+
+        ...(data[key] || {})
+
+    };
+
+}
+
+
+/* =========================================================
+   ALL MATCH DATA
+========================================================= */
+
+function getAllMatchData(){
+
+    try{
+
+        if(
+            tournament &&
+            tournament.match_data &&
+            typeof tournament.match_data === "object"
+        ){
+
+            return {
+                ...tournament.match_data
+            };
+
+        }
+
+    }catch(e){}
+
+    return {};
+
+}
+
 
 /* =========================================================
    LOAD EVERYTHING
@@ -1138,6 +1822,7 @@ async function loadTournament(){
 
         tournament = data;
 
+
         const {data:playerData,error:playerError} =
             await db
             .from("cs2_team_players")
@@ -1149,6 +1834,7 @@ async function loadTournament(){
         if(playerError) throw playerError;
 
         players = playerData || [];
+
 
         renderTournament();
 
@@ -1170,7 +1856,8 @@ async function loadTournament(){
 
 function getTeamName(number){
 
-    if(!tournament) return "TBD";
+    if(!tournament)
+        return "TBD";
 
     return tournament["team"+number] || "TBD";
 
@@ -1184,8 +1871,12 @@ function getTeamName(number){
 function getPlayers(teamNumber){
 
     return players
-        .filter(p => Number(p.team_number) === Number(teamNumber))
-        .sort((a,b) =>
+        .filter(
+            p =>
+            Number(p.team_number) === Number(teamNumber)
+        )
+        .sort(
+            (a,b) =>
             Number(a.player_number) -
             Number(b.player_number)
         );
@@ -1194,10 +1885,106 @@ function getPlayers(teamNumber){
 
 
 /* =========================================================
+   MATCH MAP RESULT
+========================================================= */
+
+function getMapWinner(a,b){
+
+    if(
+        a === null ||
+        b === null ||
+        a === undefined ||
+        b === undefined ||
+        a === "" ||
+        b === ""
+    ){
+
+        return 0;
+
+    }
+
+    const aa = Number(a);
+    const bb = Number(b);
+
+    if(aa > bb) return 1;
+    if(bb > aa) return 2;
+
+    return 0;
+
+}
+
+
+/* =========================================================
+   GET BO3 RESULT
+========================================================= */
+
+function getMatchResult(match){
+
+    let winsA = 0;
+    let winsB = 0;
+
+    const maps = [
+        [match.map1a,match.map1b],
+        [match.map2a,match.map2b],
+        [match.map3a,match.map3b]
+    ];
+
+
+    maps.forEach(pair => {
+
+        const winner =
+            getMapWinner(
+                pair[0],
+                pair[1]
+            );
+
+        if(winner === 1)
+            winsA++;
+
+        if(winner === 2)
+            winsB++;
+
+    });
+
+
+    return {
+
+        a:winsA,
+        b:winsB,
+
+        winner:
+            winsA > winsB
+            ? 1
+            : winsB > winsA
+                ? 2
+                : 0
+
+    };
+
+}
+
+
+/* =========================================================
    WINNER
 ========================================================= */
 
-function winner(teamA,teamB,scoreA,scoreB){
+function winner(
+    teamA,
+    teamB,
+    scoreA,
+    scoreB,
+    status
+){
+
+    if(status !== "finished"){
+
+        return {
+            team:"TBD",
+            score:0
+        };
+
+    }
+
 
     if(
         scoreA === null ||
@@ -1207,11 +1994,12 @@ function winner(teamA,teamB,scoreA,scoreB){
     ){
 
         return {
-            team:teamA,
-            score:scoreA
+            team:"TBD",
+            score:0
         };
 
     }
+
 
     if(Number(scoreA) > Number(scoreB)){
 
@@ -1222,6 +2010,7 @@ function winner(teamA,teamB,scoreA,scoreB){
 
     }
 
+
     if(Number(scoreB) > Number(scoreA)){
 
         return {
@@ -1230,6 +2019,7 @@ function winner(teamA,teamB,scoreA,scoreB){
         };
 
     }
+
 
     return {
         team:"TBD",
@@ -1243,19 +2033,29 @@ function winner(teamA,teamB,scoreA,scoreB){
    TEAM HTML
 ========================================================= */
 
-function teamHTML(teamName,score,teamNumber){
+function teamHTML(
+    teamName,
+    score,
+    teamNumber
+){
 
     const safeName =
         teamName || "TBD";
+
 
     const clickable =
         teamNumber &&
         safeName !== "TBD";
 
+
     return `
+
         <div
-            class="team ${clickable ? "" : "disabled"}"
-            ${clickable ? `onclick="openTeam(${teamNumber})"` : ""}
+            class="team"
+            ${clickable
+                ? `onclick="event.stopPropagation();openTeam(${teamNumber})"`
+                : ""
+            }
         >
 
             <div class="team-name">
@@ -1267,6 +2067,32 @@ function teamHTML(teamName,score,teamNumber){
             </div>
 
         </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   STATUS HTML
+========================================================= */
+
+function statusHTML(status){
+
+    const safeStatus =
+        STATUS_NAMES[status]
+        ? status
+        : "not_started";
+
+
+    return `
+
+        <div
+            class="match-status status-${safeStatus}"
+        >
+            ${STATUS_NAMES[safeStatus]}
+        </div>
+
     `;
 
 }
@@ -1281,19 +2107,44 @@ function renderTournament(){
     if(!tournament) return;
 
 
-    /* QUARTER */
+    const q1Data = getMatchData("q1");
+    const q2Data = getMatchData("q2");
+    const q3Data = getMatchData("q3");
+    const q4Data = getMatchData("q4");
+
+    const s1Data = getMatchData("s1");
+    const s2Data = getMatchData("s2");
+
+    const finalData =
+        getMatchData("final");
+
+
+    /* ================= QUARTER ================= */
+
+    const q1Result =
+        getMatchResult(q1Data);
+
+    const q2Result =
+        getMatchResult(q2Data);
+
+    const q3Result =
+        getMatchResult(q3Data);
+
+    const q4Result =
+        getMatchResult(q4Data);
+
 
     document.getElementById("team1A").innerHTML =
         teamHTML(
             getTeamName(1),
-            tournament.q1_score1,
+            q1Result.a,
             1
         );
 
     document.getElementById("team2A").innerHTML =
         teamHTML(
             getTeamName(2),
-            tournament.q1_score2,
+            q1Result.b,
             2
         );
 
@@ -1301,14 +2152,14 @@ function renderTournament(){
     document.getElementById("team3A").innerHTML =
         teamHTML(
             getTeamName(3),
-            tournament.q2_score1,
+            q2Result.a,
             3
         );
 
     document.getElementById("team4A").innerHTML =
         teamHTML(
             getTeamName(4),
-            tournament.q2_score2,
+            q2Result.b,
             4
         );
 
@@ -1316,14 +2167,14 @@ function renderTournament(){
     document.getElementById("team5A").innerHTML =
         teamHTML(
             getTeamName(5),
-            tournament.q3_score1,
+            q3Result.a,
             5
         );
 
     document.getElementById("team6A").innerHTML =
         teamHTML(
             getTeamName(6),
-            tournament.q3_score2,
+            q3Result.b,
             6
         );
 
@@ -1331,129 +2182,176 @@ function renderTournament(){
     document.getElementById("team7A").innerHTML =
         teamHTML(
             getTeamName(7),
-            tournament.q4_score1,
+            q4Result.a,
             7
         );
 
     document.getElementById("team8A").innerHTML =
         teamHTML(
             getTeamName(8),
-            tournament.q4_score2,
+            q4Result.b,
             8
         );
 
 
-    /* SEMI 1 */
+    document.getElementById("q1Status").innerHTML =
+        statusHTML(q1Data.status);
+
+    document.getElementById("q2Status").innerHTML =
+        statusHTML(q2Data.status);
+
+    document.getElementById("q3Status").innerHTML =
+        statusHTML(q3Data.status);
+
+    document.getElementById("q4Status").innerHTML =
+        statusHTML(q4Data.status);
+
+
+    /* ================= SEMI ================= */
 
     const q1 =
         winner(
             getTeamName(1),
             getTeamName(2),
-            tournament.q1_score1,
-            tournament.q1_score2
+            q1Result.a,
+            q1Result.b,
+            q1Data.status
         );
+
 
     const q2 =
         winner(
             getTeamName(3),
             getTeamName(4),
-            tournament.q2_score1,
-            tournament.q2_score2
+            q2Result.a,
+            q2Result.b,
+            q2Data.status
         );
 
-
-    document.getElementById("semi1A").innerHTML =
-        teamHTML(
-            q1.team,
-            tournament.s1_score1,
-            findTeamNumber(q1.team)
-        );
-
-    document.getElementById("semi1B").innerHTML =
-        teamHTML(
-            q2.team,
-            tournament.s1_score2,
-            findTeamNumber(q2.team)
-        );
-
-
-    /* SEMI 2 */
 
     const q3 =
         winner(
             getTeamName(5),
             getTeamName(6),
-            tournament.q3_score1,
-            tournament.q3_score2
+            q3Result.a,
+            q3Result.b,
+            q3Data.status
         );
+
 
     const q4 =
         winner(
             getTeamName(7),
             getTeamName(8),
-            tournament.q4_score1,
-            tournament.q4_score2
+            q4Result.a,
+            q4Result.b,
+            q4Data.status
+        );
+
+
+    const s1Result =
+        getMatchResult(s1Data);
+
+    const s2Result =
+        getMatchResult(s2Data);
+
+
+    document.getElementById("semi1A").innerHTML =
+        teamHTML(
+            q1.team,
+            s1Result.a,
+            findTeamNumber(q1.team)
+        );
+
+
+    document.getElementById("semi1B").innerHTML =
+        teamHTML(
+            q2.team,
+            s1Result.b,
+            findTeamNumber(q2.team)
         );
 
 
     document.getElementById("semi2A").innerHTML =
         teamHTML(
             q3.team,
-            tournament.s2_score1,
+            s2Result.a,
             findTeamNumber(q3.team)
         );
+
 
     document.getElementById("semi2B").innerHTML =
         teamHTML(
             q4.team,
-            tournament.s2_score2,
+            s2Result.b,
             findTeamNumber(q4.team)
         );
 
 
-    /* FINAL */
+    document.getElementById("s1Status").innerHTML =
+        statusHTML(s1Data.status);
+
+    document.getElementById("s2Status").innerHTML =
+        statusHTML(s2Data.status);
+
+
+    /* ================= FINAL ================= */
 
     const s1 =
         winner(
             q1.team,
             q2.team,
-            tournament.s1_score1,
-            tournament.s1_score2
+            s1Result.a,
+            s1Result.b,
+            s1Data.status
         );
+
 
     const s2 =
         winner(
             q3.team,
             q4.team,
-            tournament.s2_score1,
-            tournament.s2_score2
+            s2Result.a,
+            s2Result.b,
+            s2Data.status
         );
+
+
+    const finalResult =
+        getMatchResult(finalData);
 
 
     document.getElementById("finalA").innerHTML =
         teamHTML(
             s1.team,
-            tournament.final_score1,
+            finalResult.a,
             findTeamNumber(s1.team)
         );
+
 
     document.getElementById("finalB").innerHTML =
         teamHTML(
             s2.team,
-            tournament.final_score2,
+            finalResult.b,
             findTeamNumber(s2.team)
         );
 
 
-    /* CHAMPION */
+    document.getElementById("finalStatus").innerHTML =
+        statusHTML(finalData.status);
+
+
+    /* ================= CHAMPION ================= */
 
     const finalWinner =
         winner(
             s1.team,
             s2.team,
-            tournament.final_score1,
-            tournament.final_score2
+            finalResult.a,
+            finalResult.b,
+            finalData.status
         );
+
 
     document.getElementById("champion").innerText =
         finalWinner.team || "TBD";
@@ -1467,14 +2365,22 @@ function renderTournament(){
 
 function findTeamNumber(name){
 
-    if(!name || name === "TBD") return null;
+    if(
+        !name ||
+        name === "TBD"
+    )
+        return null;
+
 
     for(let i=1;i<=8;i++){
 
-        if(getTeamName(i) === name)
+        if(
+            getTeamName(i) === name
+        )
             return i;
 
     }
+
 
     return null;
 
@@ -1490,22 +2396,33 @@ function openTeam(teamNumber){
     const name =
         getTeamName(teamNumber);
 
-    if(!name || name === "TBD") return;
+
+    if(
+        !name ||
+        name === "TBD"
+    )
+        return;
+
 
     document.getElementById("modalTeamName")
         .innerText = name;
+
 
     document.getElementById("modalBadge")
         .innerText =
         name.substring(0,2).toUpperCase();
 
+
     const list =
         document.getElementById("playersList");
+
 
     const teamPlayers =
         getPlayers(teamNumber);
 
+
     list.innerHTML = "";
+
 
     for(let i=1;i<=5;i++){
 
@@ -1515,16 +2432,22 @@ function openTeam(teamNumber){
                 Number(p.player_number) === i
             );
 
+
         const nickname =
             player?.nickname?.trim() || "";
+
 
         const div =
             document.createElement("div");
 
-        div.className = "player";
+
+        div.className =
+            "player";
+
 
         div.style.animationDelay =
             `${(i-1)*70}ms`;
+
 
         div.innerHTML = `
 
@@ -1546,15 +2469,19 @@ function openTeam(teamNumber){
 
         `;
 
+
         list.appendChild(div);
 
     }
+
 
     document
         .getElementById("teamModal")
         .classList.add("show");
 
-    document.body.style.overflow = "hidden";
+
+    document.body.style.overflow =
+        "hidden";
 
 }
 
@@ -1565,7 +2492,9 @@ function closeTeamModal(){
         .getElementById("teamModal")
         .classList.remove("show");
 
-    document.body.style.overflow = "";
+
+    document.body.style.overflow =
+        "";
 
 }
 
@@ -1584,6 +2513,676 @@ function modalOutside(event){
 
 
 /* =========================================================
+   MAP SELECTS
+========================================================= */
+
+function fillMapSelect(id){
+
+    const select =
+        document.getElementById(id);
+
+
+    select.innerHTML =
+        `<option value="">انتخاب مپ</option>`;
+
+
+    MAPS.forEach(map => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = map;
+        option.textContent = map;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+fillMapSelect("map1Select");
+fillMapSelect("map2Select");
+fillMapSelect("map3Select");
+
+
+/* =========================================================
+   OPEN MATCH
+========================================================= */
+
+async function openMatch(key){
+
+    if(!tournament)
+        return;
+
+
+    currentMatchKey = key;
+
+
+    const match =
+        getMatchData(key);
+
+
+    const info =
+        getMatchTeams(key);
+
+
+    document.getElementById("matchNumber")
+        .innerText =
+        info.number;
+
+
+    document.getElementById("matchTitle")
+        .innerText =
+        info.title;
+
+
+    document.getElementById("matchTeamA")
+        .innerText =
+        info.teamA;
+
+
+    document.getElementById("matchTeamB")
+        .innerText =
+        info.teamB;
+
+
+    document.getElementById("matchStatusSelect")
+        .value =
+        match.status;
+
+
+    document.getElementById("map1Select")
+        .value =
+        match.map1 || "";
+
+
+    document.getElementById("map2Select")
+        .value =
+        match.map2 || "";
+
+
+    document.getElementById("map3Select")
+        .value =
+        match.map3 || "";
+
+
+    document.getElementById("map1a")
+        .value =
+        match.map1a ?? "";
+
+
+    document.getElementById("map1b")
+        .value =
+        match.map1b ?? "";
+
+
+    document.getElementById("map2a")
+        .value =
+        match.map2a ?? "";
+
+
+    document.getElementById("map2b")
+        .value =
+        match.map2b ?? "";
+
+
+    document.getElementById("map3a")
+        .value =
+        match.map3a ?? "";
+
+
+    document.getElementById("map3b")
+        .value =
+        match.map3b ?? "";
+
+
+    updateMatchPreview();
+
+
+    const {data} =
+        await db.auth.getSession();
+
+
+    const isAdmin =
+        !!data.session;
+
+
+    document.getElementById(
+        "matchAdminActions"
+    ).style.display =
+        isAdmin
+        ? "flex"
+        : "none";
+
+
+    document.getElementById(
+        "matchStatusSelect"
+    ).disabled =
+        !isAdmin;
+
+
+    document.querySelectorAll(
+        "#matchModal .map-select, #matchModal .map-score"
+    ).forEach(el => {
+
+        el.disabled =
+            !isAdmin;
+
+    });
+
+
+    document
+        .getElementById("matchModal")
+        .classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   MATCH INFO
+========================================================= */
+
+function getMatchTeams(key){
+
+    const q1 =
+        getMatchData("q1");
+
+    const q2 =
+        getMatchData("q2");
+
+    const q3 =
+        getMatchData("q3");
+
+    const q4 =
+        getMatchData("q4");
+
+
+    const q1r =
+        getMatchResult(q1);
+
+    const q2r =
+        getMatchResult(q2);
+
+    const q3r =
+        getMatchResult(q3);
+
+    const q4r =
+        getMatchResult(q4);
+
+
+    const q1w =
+        winner(
+            getTeamName(1),
+            getTeamName(2),
+            q1r.a,
+            q1r.b,
+            q1.status
+        ).team;
+
+
+    const q2w =
+        winner(
+            getTeamName(3),
+            getTeamName(4),
+            q2r.a,
+            q2r.b,
+            q2.status
+        ).team;
+
+
+    const q3w =
+        winner(
+            getTeamName(5),
+            getTeamName(6),
+            q3r.a,
+            q3r.b,
+            q3.status
+        ).team;
+
+
+    const q4w =
+        winner(
+            getTeamName(7),
+            getTeamName(8),
+            q4r.a,
+            q4r.b,
+            q4.status
+        ).team;
+
+
+    const s1 =
+        getMatchData("s1");
+
+    const s2 =
+        getMatchData("s2");
+
+
+    const s1r =
+        getMatchResult(s1);
+
+    const s2r =
+        getMatchResult(s2);
+
+
+    const s1w =
+        winner(
+            q1w,
+            q2w,
+            s1r.a,
+            s1r.b,
+            s1.status
+        ).team;
+
+
+    const s2w =
+        winner(
+            q3w,
+            q4w,
+            s2r.a,
+            s2r.b,
+            s2.status
+        ).team;
+
+
+    const info = {
+
+        q1:{
+            number:"MATCH 1",
+            title:"QUARTER FINAL",
+            teamA:getTeamName(1),
+            teamB:getTeamName(2)
+        },
+
+        q2:{
+            number:"MATCH 2",
+            title:"QUARTER FINAL",
+            teamA:getTeamName(3),
+            teamB:getTeamName(4)
+        },
+
+        q3:{
+            number:"MATCH 3",
+            title:"QUARTER FINAL",
+            teamA:getTeamName(5),
+            teamB:getTeamName(6)
+        },
+
+        q4:{
+            number:"MATCH 4",
+            title:"QUARTER FINAL",
+            teamA:getTeamName(7),
+            teamB:getTeamName(8)
+        },
+
+        s1:{
+            number:"MATCH 5",
+            title:"SEMI FINAL",
+            teamA:q1w,
+            teamB:q2w
+        },
+
+        s2:{
+            number:"MATCH 6",
+            title:"SEMI FINAL",
+            teamA:q3w,
+            teamB:q4w
+        },
+
+        final:{
+            number:"MATCH 7",
+            title:"GRAND FINAL",
+            teamA:s1w,
+            teamB:s2w
+        }
+
+    };
+
+
+    return info[key];
+
+}
+
+
+/* =========================================================
+   MATCH PREVIEW
+========================================================= */
+
+function updateMatchPreview(){
+
+    const a =
+        Number(
+            document.getElementById("map1a").value
+        ) > Number(
+            document.getElementById("map1b").value
+        )
+        ? 1
+        : Number(
+            document.getElementById("map1b").value
+        ) > Number(
+            document.getElementById("map1a").value
+        )
+        ? 2
+        : 0;
+
+
+    const b =
+        Number(
+            document.getElementById("map2a").value
+        ) > Number(
+            document.getElementById("map2b").value
+        )
+        ? 1
+        : Number(
+            document.getElementById("map2b").value
+        ) > Number(
+            document.getElementById("map2a").value
+        )
+        ? 2
+        : 0;
+
+
+    const c =
+        Number(
+            document.getElementById("map3a").value
+        ) > Number(
+            document.getElementById("map3b").value
+        )
+        ? 1
+        : Number(
+            document.getElementById("map3b").value
+        ) > Number(
+            document.getElementById("map3a").value
+        )
+        ? 2
+        : 0;
+
+
+    let scoreA = 0;
+    let scoreB = 0;
+
+
+    if(
+        document.getElementById("map1a").value !== "" &&
+        document.getElementById("map1b").value !== ""
+    ){
+
+        if(a === 1) scoreA++;
+        if(a === 2) scoreB++;
+
+    }
+
+
+    if(
+        document.getElementById("map2a").value !== "" &&
+        document.getElementById("map2b").value !== ""
+    ){
+
+        if(b === 1) scoreA++;
+        if(b === 2) scoreB++;
+
+    }
+
+
+    if(
+        document.getElementById("map3a").value !== "" &&
+        document.getElementById("map3b").value !== ""
+    ){
+
+        if(c === 1) scoreA++;
+        if(c === 2) scoreB++;
+
+    }
+
+
+    document.getElementById(
+        "matchResultScore"
+    ).innerText =
+        `${scoreA} - ${scoreB}`;
+
+
+    const info =
+        getMatchTeams(currentMatchKey);
+
+
+    let winnerName =
+        "TBD";
+
+
+    if(scoreA > scoreB)
+        winnerName = info.teamA;
+
+    if(scoreB > scoreA)
+        winnerName = info.teamB;
+
+
+    document.getElementById(
+        "matchResultWinner"
+    ).innerText =
+        winnerName || "TBD";
+
+
+    const status =
+        document.getElementById(
+            "matchStatusSelect"
+        ).value;
+
+
+    const display =
+        document.getElementById(
+            "matchStatusDisplay"
+        );
+
+
+    display.className =
+        "status-display status-"+status;
+
+
+    display.innerText =
+        STATUS_NAMES[status] ||
+        STATUS_NAMES.not_started;
+
+}
+
+
+[
+    "map1a",
+    "map1b",
+    "map2a",
+    "map2b",
+    "map3a",
+    "map3b",
+    "matchStatusSelect"
+].forEach(id => {
+
+    document
+        .getElementById(id)
+        .addEventListener(
+            "input",
+            updateMatchPreview
+        );
+
+    document
+        .getElementById(id)
+        .addEventListener(
+            "change",
+            updateMatchPreview
+        );
+
+});
+
+
+/* =========================================================
+   SAVE MATCH
+========================================================= */
+
+async function saveMatchDetails(){
+
+    if(!currentMatchKey)
+        return;
+
+
+    const {
+        data:sessionData
+    } =
+        await db.auth.getSession();
+
+
+    if(!sessionData.session){
+
+        alert("ابتدا وارد ADMIN شوید.");
+
+        return;
+
+    }
+
+
+    const allData =
+        getAllMatchData();
+
+
+    allData[currentMatchKey] = {
+
+        status:
+            document.getElementById(
+                "matchStatusSelect"
+            ).value,
+
+        map1:
+            document.getElementById(
+                "map1Select"
+            ).value,
+
+        map2:
+            document.getElementById(
+                "map2Select"
+            ).value,
+
+        map3:
+            document.getElementById(
+                "map3Select"
+            ).value,
+
+
+        map1a:
+            getNullableNumber("map1a"),
+
+        map1b:
+            getNullableNumber("map1b"),
+
+        map2a:
+            getNullableNumber("map2a"),
+
+        map2b:
+            getNullableNumber("map2b"),
+
+        map3a:
+            getNullableNumber("map3a"),
+
+        map3b:
+            getNullableNumber("map3b")
+
+    };
+
+
+    const result =
+        getMatchResult(
+            allData[currentMatchKey]
+        );
+
+
+    const scoreMap = {
+
+        q1_score1:0,
+        q1_score2:0,
+        q2_score1:0,
+        q2_score2:0,
+        q3_score1:0,
+        q3_score2:0,
+        q4_score1:0,
+        q4_score2:0,
+        s1_score1:0,
+        s1_score2:0,
+        s2_score1:0,
+        s2_score2:0,
+        final_score1:0,
+        final_score2:0
+
+    };
+
+
+    const keyMap = {
+
+        q1:["q1_score1","q1_score2"],
+        q2:["q2_score1","q2_score2"],
+        q3:["q3_score1","q3_score2"],
+        q4:["q4_score1","q4_score2"],
+        s1:["s1_score1","s1_score2"],
+        s2:["s2_score1","s2_score2"],
+        final:["final_score1","final_score2"]
+
+    };
+
+
+    if(keyMap[currentMatchKey]){
+
+        scoreMap[
+            keyMap[currentMatchKey][0]
+        ] = result.a;
+
+        scoreMap[
+            keyMap[currentMatchKey][1]
+        ] = result.b;
+
+    }
+
+
+    const updateData = {
+
+        match_data:allData,
+
+        ...scoreMap,
+
+        updated_at:
+            new Date().toISOString()
+
+    };
+
+
+    const {error} =
+        await db
+        .from("cs2_tournament")
+        .update(updateData)
+        .eq("id",tournament.id);
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "خطا در ذخیره: "+
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadTournament();
+
+
+    closeMatchModal();
+
+}
+
+
+/* =========================================================
    ADMIN
 ========================================================= */
 
@@ -1593,10 +3192,14 @@ async function openAdmin(){
         .getElementById("adminModal")
         .classList.add("show");
 
-    document.body.style.overflow = "hidden";
+
+    document.body.style.overflow =
+        "hidden";
+
 
     const {data} =
         await db.auth.getSession();
+
 
     if(data.session){
 
@@ -1607,6 +3210,7 @@ async function openAdmin(){
         document
             .getElementById("loginSection")
             .style.display = "block";
+
 
         document
             .getElementById("adminSection")
@@ -1623,7 +3227,9 @@ function closeAdmin(){
         .getElementById("adminModal")
         .classList.remove("show");
 
-    document.body.style.overflow = "";
+
+    document.body.style.overflow =
+        "";
 
 }
 
@@ -1640,40 +3246,58 @@ async function loginAdmin(){
         .value
         .trim();
 
+
     const password =
         document
         .getElementById("loginPassword")
         .value;
 
-    const msg =
-        document.getElementById("loginMessage");
 
-    msg.className = "message show";
-    msg.innerText = "در حال ورود...";
+    const msg =
+        document.getElementById(
+            "loginMessage"
+        );
+
+
+    msg.className =
+        "message show";
+
+
+    msg.innerText =
+        "در حال ورود...";
+
 
     const {error} =
         await db.auth.signInWithPassword({
+
             email,
             password
+
         });
+
 
     if(error){
 
         msg.className =
             "message show error";
 
+
         msg.innerText =
             error.message;
+
 
         return;
 
     }
 
+
     msg.className =
         "message show ok";
 
+
     msg.innerText =
         "ورود موفق بود";
+
 
     setTimeout(
         showAdminPanel,
@@ -1693,9 +3317,11 @@ function showAdminPanel(){
         .getElementById("loginSection")
         .style.display = "none";
 
+
     document
         .getElementById("adminSection")
         .style.display = "block";
+
 
     renderAdmin();
 
@@ -1708,25 +3334,35 @@ function showAdminPanel(){
 
 function renderAdmin(){
 
-    if(!tournament) return;
+    if(!tournament)
+        return;
+
 
     const box =
-        document.getElementById("adminTeams");
+        document.getElementById(
+            "adminTeams"
+        );
+
 
     box.innerHTML = "";
+
 
     for(let i=1;i<=8;i++){
 
         const teamBox =
             document.createElement("div");
 
+
         teamBox.className =
             "admin-team";
 
+
         let playersHTML = "";
+
 
         const teamPlayers =
             getPlayers(i);
+
 
         for(let p=1;p<=5;p++){
 
@@ -1735,6 +3371,7 @@ function renderAdmin(){
                     x =>
                     Number(x.player_number) === p
                 );
+
 
             playersHTML += `
 
@@ -1751,6 +3388,7 @@ function renderAdmin(){
             `;
 
         }
+
 
         teamBox.innerHTML = `
 
@@ -1773,52 +3411,94 @@ function renderAdmin(){
 
         `;
 
+
         box.appendChild(teamBox);
 
     }
 
 
     document.getElementById("q1score1").value =
-        tournament.q1_score1 ?? 0;
+        getMatchResult(
+            getMatchData("q1")
+        ).a;
+
 
     document.getElementById("q1score2").value =
-        tournament.q1_score2 ?? 0;
+        getMatchResult(
+            getMatchData("q1")
+        ).b;
+
 
     document.getElementById("q2score1").value =
-        tournament.q2_score1 ?? 0;
+        getMatchResult(
+            getMatchData("q2")
+        ).a;
+
 
     document.getElementById("q2score2").value =
-        tournament.q2_score2 ?? 0;
+        getMatchResult(
+            getMatchData("q2")
+        ).b;
+
 
     document.getElementById("q3score1").value =
-        tournament.q3_score1 ?? 0;
+        getMatchResult(
+            getMatchData("q3")
+        ).a;
+
 
     document.getElementById("q3score2").value =
-        tournament.q3_score2 ?? 0;
+        getMatchResult(
+            getMatchData("q3")
+        ).b;
+
 
     document.getElementById("q4score1").value =
-        tournament.q4_score1 ?? 0;
+        getMatchResult(
+            getMatchData("q4")
+        ).a;
+
 
     document.getElementById("q4score2").value =
-        tournament.q4_score2 ?? 0;
+        getMatchResult(
+            getMatchData("q4")
+        ).b;
+
 
     document.getElementById("s1score1").value =
-        tournament.s1_score1 ?? 0;
+        getMatchResult(
+            getMatchData("s1")
+        ).a;
+
 
     document.getElementById("s1score2").value =
-        tournament.s1_score2 ?? 0;
+        getMatchResult(
+            getMatchData("s1")
+        ).b;
+
 
     document.getElementById("s2score1").value =
-        tournament.s2_score1 ?? 0;
+        getMatchResult(
+            getMatchData("s2")
+        ).a;
+
 
     document.getElementById("s2score2").value =
-        tournament.s2_score2 ?? 0;
+        getMatchResult(
+            getMatchData("s2")
+        ).b;
+
 
     document.getElementById("fscore1").value =
-        tournament.final_score1 ?? 0;
+        getMatchResult(
+            getMatchData("final")
+        ).a;
+
 
     document.getElementById("fscore2").value =
-        tournament.final_score2 ?? 0;
+        getMatchResult(
+            getMatchData("final")
+        ).b;
 
 }
 
@@ -1830,10 +3510,14 @@ function renderAdmin(){
 async function saveTournament(){
 
     const msg =
-        document.getElementById("saveMessage");
+        document.getElementById(
+            "saveMessage"
+        );
+
 
     msg.className =
         "message show";
+
 
     msg.innerText =
         "در حال ذخیره...";
@@ -1850,8 +3534,10 @@ async function saveTournament(){
         msg.className =
             "message show error";
 
+
         msg.innerText =
             "ابتدا وارد ادمین شوید.";
+
 
         return;
 
@@ -1860,9 +3546,10 @@ async function saveTournament(){
 
     try{
 
-        /* ================= TEAMS ================= */
-
         const updateData = {};
+
+
+        /* ================= TEAMS ================= */
 
         document
             .querySelectorAll(".team-input")
@@ -1870,6 +3557,7 @@ async function saveTournament(){
 
                 const team =
                     input.dataset.team;
+
 
                 updateData[
                     "team"+team
@@ -1880,47 +3568,77 @@ async function saveTournament(){
             });
 
 
+        /*
+           Scores are automatically generated
+           from Match / Map results.
+        */
+
+
+        const matches = {
+
+            q1:getMatchData("q1"),
+            q2:getMatchData("q2"),
+            q3:getMatchData("q3"),
+            q4:getMatchData("q4"),
+            s1:getMatchData("s1"),
+            s2:getMatchData("s2"),
+            final:getMatchData("final")
+
+        };
+
+
         updateData.q1_score1 =
-            getNumber("q1score1");
+            getMatchResult(matches.q1).a;
 
         updateData.q1_score2 =
-            getNumber("q1score2");
+            getMatchResult(matches.q1).b;
+
 
         updateData.q2_score1 =
-            getNumber("q2score1");
+            getMatchResult(matches.q2).a;
 
         updateData.q2_score2 =
-            getNumber("q2score2");
+            getMatchResult(matches.q2).b;
+
 
         updateData.q3_score1 =
-            getNumber("q3score1");
+            getMatchResult(matches.q3).a;
 
         updateData.q3_score2 =
-            getNumber("q3score2");
+            getMatchResult(matches.q3).b;
+
 
         updateData.q4_score1 =
-            getNumber("q4score1");
+            getMatchResult(matches.q4).a;
 
         updateData.q4_score2 =
-            getNumber("q4score2");
+            getMatchResult(matches.q4).b;
+
 
         updateData.s1_score1 =
-            getNumber("s1score1");
+            getMatchResult(matches.s1).a;
 
         updateData.s1_score2 =
-            getNumber("s1score2");
+            getMatchResult(matches.s1).b;
+
 
         updateData.s2_score1 =
-            getNumber("s2score1");
+            getMatchResult(matches.s2).a;
 
         updateData.s2_score2 =
-            getNumber("s2score2");
+            getMatchResult(matches.s2).b;
+
 
         updateData.final_score1 =
-            getNumber("fscore1");
+            getMatchResult(matches.final).a;
 
         updateData.final_score2 =
-            getNumber("fscore2");
+            getMatchResult(matches.final).b;
+
+
+        updateData.match_data =
+            getAllMatchData();
+
 
         updateData.updated_at =
             new Date().toISOString();
@@ -1934,6 +3652,7 @@ async function saveTournament(){
             .update(updateData)
             .eq("id",tournament.id);
 
+
         if(updateError)
             throw updateError;
 
@@ -1945,34 +3664,58 @@ async function saveTournament(){
                 ".player-input"
             );
 
+
         for(const input of inputs){
 
             const teamNumber =
-                Number(input.dataset.team);
+                Number(
+                    input.dataset.team
+                );
+
 
             const playerNumber =
-                Number(input.dataset.player);
+                Number(
+                    input.dataset.player
+                );
+
 
             const nickname =
                 input.value.trim();
+
 
             const {error} =
                 await db
                 .from("cs2_team_players")
                 .upsert(
+
                     {
-                        tournament_id:tournament.id,
-                        team_number:teamNumber,
-                        player_number:playerNumber,
-                        nickname:nickname,
+
+                        tournament_id:
+                            tournament.id,
+
+                        team_number:
+                            teamNumber,
+
+                        player_number:
+                            playerNumber,
+
+                        nickname:
+                            nickname,
+
                         updated_at:
                             new Date().toISOString()
+
                     },
+
                     {
+
                         onConflict:
                             "tournament_id,team_number,player_number"
+
                     }
+
                 );
+
 
             if(error)
                 throw error;
@@ -1982,6 +3725,7 @@ async function saveTournament(){
 
         msg.className =
             "message show ok";
+
 
         msg.innerText =
             "✓ تغییرات با موفقیت ذخیره شد";
@@ -2002,8 +3746,10 @@ async function saveTournament(){
 
         console.error(error);
 
+
         msg.className =
             "message show error";
+
 
         msg.innerText =
             "خطا: "+error.message;
@@ -2021,13 +3767,47 @@ async function logoutAdmin(){
 
     await db.auth.signOut();
 
+
     document
         .getElementById("adminSection")
         .style.display = "none";
 
+
     document
         .getElementById("loginSection")
         .style.display = "block";
+
+}
+
+
+/* =========================================================
+   MATCH MODAL CLOSE
+========================================================= */
+
+function closeMatchModal(){
+
+    document
+        .getElementById("matchModal")
+        .classList.remove("show");
+
+
+    document.body.style.overflow =
+        "";
+
+    currentMatchKey = null;
+
+}
+
+
+function matchModalOutside(event){
+
+    if(
+        event.target.id === "matchModal"
+    ){
+
+        closeMatchModal();
+
+    }
 
 }
 
@@ -2038,32 +3818,47 @@ async function logoutAdmin(){
 
 db
 .channel("cs2-tournament-live")
+
 .on(
+
     "postgres_changes",
+
     {
+
         event:"*",
         schema:"public",
         table:"cs2_tournament"
+
     },
+
     async () => {
 
         await loadTournament();
 
     }
+
 )
+
 .on(
+
     "postgres_changes",
+
     {
+
         event:"*",
         schema:"public",
         table:"cs2_team_players"
+
     },
+
     async () => {
 
         await loadTournament();
 
     }
+
 )
+
 .subscribe();
 
 
@@ -2072,13 +3867,18 @@ db
 ========================================================= */
 
 db.auth.onAuthStateChange(
+
     (event,session) => {
 
         if(
+
             event === "SIGNED_IN" &&
+
             document
             .getElementById("adminModal")
-            .classList.contains("show")
+            .classList
+            .contains("show")
+
         ){
 
             showAdminPanel();
@@ -2086,6 +3886,7 @@ db.auth.onAuthStateChange(
         }
 
     }
+
 );
 
 
@@ -2102,6 +3903,7 @@ function getNumber(id){
             .value
         );
 
+
     if(
         !Number.isFinite(value) ||
         value < 0
@@ -2111,7 +3913,36 @@ function getNumber(id){
 
     }
 
+
     return Math.floor(value);
+
+}
+
+
+function getNullableNumber(id){
+
+    const value =
+        document
+        .getElementById(id)
+        .value;
+
+
+    if(value === "")
+        return null;
+
+
+    const number =
+        Number(value);
+
+
+    if(
+        !Number.isFinite(number) ||
+        number < 0
+    )
+        return null;
+
+
+    return Math.floor(number);
 
 }
 
@@ -2119,6 +3950,7 @@ function getNumber(id){
 function escapeHTML(value){
 
     return String(value ?? "")
+
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -2146,6 +3978,9 @@ document.addEventListener(
         if(event.key === "Escape"){
 
             closeTeamModal();
+
+            closeMatchModal();
+
             closeAdmin();
 
         }
