@@ -4,197 +4,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PTY STORE | Access Notice</title>
+<title>PTY</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
+  background: #111318;
+  color: white;
+  font-family: Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  background: #101318;
-  color: #f4f6fa;
-  font-family: Arial, sans-serif;
+  text-align: center;
 }
 
-.card {
-  width: 100%;
-  max-width: 540px;
-  padding: 36px;
-  background: #171b23;
-  border: 1px solid #343943;
-  border-radius: 18px;
-  box-shadow: 0 20px 70px #0008;
-}
-
-.brand {
-  color: #aeb5c2;
-  font-size: 13px;
-  letter-spacing: 2px;
-}
-
-.warning {
-  margin-top: 35px;
-  color: #f0b429;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 2px;
+.box {
+  padding: 25px;
 }
 
 h1 {
-  font-size: 32px;
-  margin: 12px 0;
+  font-size: 42px;
+  letter-spacing: 5px;
 }
 
-.description {
-  color: #c4c9d4;
-  line-height: 1.8;
-}
-
-.fee {
-  margin-top: 25px;
-  padding: 20px;
-  background: #101318;
-  border: 1px solid #343943;
-  border-radius: 12px;
-}
-
-.label {
-  color: #aeb5c2;
-  font-size: 13px;
-}
-
-.amount {
-  margin-top: 8px;
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.note {
-  margin-top: 10px;
-  color: #929aaa;
-  font-size: 12px;
-  line-height: 1.6;
+p {
+  color: #bfc3cc;
+  font-size: 17px;
 }
 
 button {
-  width: 100%;
-  margin-top: 24px;
-  padding: 15px;
+  background: #e53935;
+  color: white;
   border: none;
-  border-radius: 10px;
-  background: #f0f2f7;
-  color: #151821;
-  font-size: 15px;
-  font-weight: bold;
+  padding: 13px 35px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-button:hover {
-  background: white;
-}
-
-.footer {
-  margin-top: 25px;
-  color: #858d9c;
-  font-size: 12px;
-  text-align: center;
-}
-
-#reveal {
+#joke {
   display: none;
-  text-align: center;
-}
-
-.emoji {
-  font-size: 60px;
-}
-
-.pink {
-  color: #f05a9d;
-}
-
-#reveal p {
-  color: #c4c9d4;
-  line-height: 1.8;
-}
-
-@media (max-width: 480px) {
-  .card {
-    padding: 25px;
-  }
-
-  h1 {
-    font-size: 27px;
-  }
+  font-size: 25px;
+  color: white;
+  line-height: 1.6;
 }
 </style>
 </head>
 
 <body>
-<div class="card">
 
-  <div id="notice">
-    <div class="brand">PTY STORE · WEBSITE NOTICE</div>
+<div class="box" id="notice">
+  <h1>PTY</h1>
+  <p>This page is temporarily unavailable.</p>
+  <button onclick="showJoke()">Continue</button>
+</div>
 
-    <div class="warning">TEMPORARY ACCESS RESTRICTION</div>
-
-    <h1>Website Access Notice</h1>
-
-    <p class="description">
-      Access to this website appears to be temporarily restricted.
-      Review the notice below to continue.
-    </p>
-
-    <div class="fee">
-      <div class="label">Displayed restoration amount</div>
-      <div class="amount">$2.49 USD</div>
-      <div class="note">
-        Demo screen only. No payment is available or required.
-      </div>
-    </div>
-
-    <button onclick="showPrank()">Continue</button>
-
-    <div class="footer">PTY STORE · Demo experience</div>
-  </div>
-
-  <div id="reveal">
-    <div class="emoji">😂</div>
-
-    <h1 class="pink">GOT YOU!</h1>
-
-    <p>
-      This was just a prank! Nothing is blocked,
-      no payment is due, and GitHub has not requested
-      any money.
-    </p>
-
-    <button onclick="showNotice()">Back</button>
-
-    <div class="footer">
-      Just a joke from PTY STORE ❤️
-    </div>
-  </div>
-
+<div class="box" id="joke">
+  😂 GOT YOU!<br>
+  You really thought you had to pay $2.49! 💀
 </div>
 
 <script>
-function showPrank() {
+function showJoke() {
   document.getElementById("notice").style.display = "none";
-  document.getElementById("reveal").style.display = "block";
-}
-
-function showNotice() {
-  document.getElementById("reveal").style.display = "none";
-  document.getElementById("notice").style.display = "block";
+  document.getElementById("joke").style.display = "block";
 }
 </script>
+
 </body>
 </html>
