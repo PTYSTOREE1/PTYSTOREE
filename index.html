@@ -1849,8 +1849,8 @@ footer{
                     type="text"
                     inputmode="numeric"
                     autocomplete="one-time-code"
-                    maxlength="6"
-                    placeholder="کد ۶ رقمی"
+                    maxlength="8"
+                    placeholder="کد ۸ رقمی"
                 >
 
                 <button
@@ -2346,8 +2346,8 @@ async function verifyOTP(){
         return;
     }
 
-    if(!/^\d{6}$/.test(token)){
-        showMessage("کد باید دقیقاً ۶ رقم باشد.");
+    if(!/^\d{8}$/.test(token)){
+        showMessage("کد باید دقیقاً ۸ رقم باشد.");
         return;
     }
 
