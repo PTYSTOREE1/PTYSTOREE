@@ -1620,19 +1620,19 @@ footer{
                     </svg>
                 </a>
 
-                <a href="#" title="YouTube">
+                <a href="#" title="YouTube" aria-disabled="true" onclick="return false">
                     <svg viewBox="0 0 24 24">
                         <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.7V8.3l6.4 3.7-6.4 3.7z"/>
                     </svg>
                 </a>
 
-                <a href="#" title="Instagram">
+                <a href="#" title="Instagram" aria-disabled="true" onclick="return false">
                     <svg viewBox="0 0 24 24">
                         <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 12 16.5 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 12 14.5 2.5 2.5 0 0 0 12 9.5zM17.7 6.3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                     </svg>
                 </a>
 
-                <a href="#" title="Discord">
+                <a href="#" title="Discord" aria-disabled="true" onclick="return false">
                     <svg viewBox="0 0 24 24">
                         <path d="M19.5 4.5A16.3 16.3 0 0 0 15.6 3l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.3 16.3 0 0 0-3.9 1.5C2 8.1 1.3 11.6 1.6 15.1a16.2 16.2 0 0 0 4.8 2.4l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.1.4-.3.6-.4 3.7 1.7 7.7 1.7 11.3 0 .2.1.4.3.6.4-.6.4-1.2.7-1.9 1l1.2 1.7a16.2 16.2 0 0 0 4.8-2.4c.4-4.1-.7-7.5-2.8-10.6zM8.5 14.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm7 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
                     </svg>
@@ -1849,8 +1849,9 @@ footer{
                     type="text"
                     inputmode="numeric"
                     autocomplete="one-time-code"
-                    maxlength="8"
-                    placeholder="کد ۸ رقمی"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    placeholder="کد ۶ رقمی"
                 >
 
                 <button
@@ -2090,19 +2091,19 @@ footer{
             </svg>
         </a>
 
-        <a href="#" title="YouTube">
+        <a href="#" title="YouTube" aria-disabled="true" onclick="return false">
             <svg viewBox="0 0 24 24">
                 <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.7V8.3l6.4 3.7-6.4 3.7z"/>
             </svg>
         </a>
 
-        <a href="#" title="Instagram">
+        <a href="#" title="Instagram" aria-disabled="true" onclick="return false">
             <svg viewBox="0 0 24 24">
                 <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 12 16.5 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 12 14.5 2.5 2.5 0 0 0 12 9.5zM17.7 6.3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
             </svg>
         </a>
 
-        <a href="#" title="Discord">
+        <a href="#" title="Discord" aria-disabled="true" onclick="return false">
             <svg viewBox="0 0 24 24">
                 <path d="M19.5 4.5A16.3 16.3 0 0 0 15.6 3l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.3 16.3 0 0 0-3.9 1.5C2 8.1 1.3 11.6 1.6 15.1a16.2 16.2 0 0 0 4.8 2.4l1.2-1.7c-.7-.3-1.3-.6-1.9-1 .2-.1.4-.3.6-.4 3.7 1.7 7.7 1.7 11.3 0 .2.1.4.3.6.4-.6.4-1.2.7-1.9 1l1.2 1.7a16.2 16.2 0 0 0 4.8-2.4c.4-4.1-.7-7.5-2.8-10.6zM8.5 14.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm7 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
             </svg>
@@ -2241,7 +2242,8 @@ function openTradePage(){
 
     window.open(
         "https://steamcommunity.com/my/tradeoffers/privacy/#trade_offer_access_url",
-        "_blank"
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
@@ -2264,7 +2266,7 @@ async function sendOTP(){
         return;
     }
 
-    if(!email.includes("@")){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
         showMessage("ایمیل واردشده معتبر نیست.");
         return;
     }
@@ -2346,8 +2348,8 @@ async function verifyOTP(){
         return;
     }
 
-    if(!/^\d{8}$/.test(token)){
-        showMessage("کد باید دقیقاً ۸ رقم باشد.");
+    if(!/^\d{6}$/.test(token)){
+        showMessage("کد باید دقیقاً ۶ رقم باشد.");
         return;
     }
 
@@ -2535,9 +2537,11 @@ async function saveProfile(){
             .value.trim();
 
     const phone =
-        document
-            .getElementById("phone")
-            .value.trim();
+        normalizeDigits(
+            document
+                .getElementById("phone")
+                .value.trim()
+        );
 
     const telegramId =
         document
@@ -2569,7 +2573,7 @@ async function saveProfile(){
     }
 
     if(
-        String(
+        normalizeDigits(
             document
                 .getElementById("captchaAnswer")
                 .value
@@ -2602,13 +2606,23 @@ async function saveProfile(){
         return;
     }
 
+    let parsedTradeUrl;
+    try{
+        parsedTradeUrl=new URL(tradeLink);
+    }catch(_error){
+        showMessage("لینک Steam Trade معتبر نیست.");
+        return;
+    }
+
     if(
-        !tradeLink.includes(
-            "steamcommunity.com"
-        )
+        parsedTradeUrl.protocol!=="https:" ||
+        parsedTradeUrl.hostname!=="steamcommunity.com" ||
+        !parsedTradeUrl.pathname.startsWith("/tradeoffer/new") ||
+        !parsedTradeUrl.searchParams.get("partner") ||
+        !parsedTradeUrl.searchParams.get("token")
     ){
         showMessage(
-            "لینک Steam Trade معتبر نیست."
+            "لینک باید آدرس کامل Steam Trade Offer با partner و token باشد."
         );
         return;
     }
@@ -2769,6 +2783,7 @@ async function logout(){
         .value="";
 
     removeAvatar();
+    window._currentUserId=null;
 
     document
         .getElementById("otpArea")
@@ -2797,18 +2812,14 @@ async function logout(){
 
 supabaseClient.auth
     .onAuthStateChange(
-        async(event,session)=>{
-
-            if(
-                session &&
-                session.user
-            ){
-                window._currentUserId=
-                    session.user.id;
-
-                await loadProfile();
+        (event,session)=>{
+            if(session?.user){
+                window._currentUserId=session.user.id;
+                // Run profile loading after the auth callback has returned.
+                setTimeout(()=>loadProfile(),0);
+            }else if(event==="SIGNED_OUT"){
+                window._currentUserId=null;
             }
-
         }
     );
 
@@ -2823,7 +2834,7 @@ document
             this.value =
                 this.value
                     .replace(/\D/g,"")
-                    .slice(0,8);
+                    .slice(0,6);
 
         }
     );
@@ -2965,10 +2976,20 @@ const products=[
 
 let selectedMaxPrice=25000000;
 
-let cart=
-    JSON.parse(
+let cart=[];
+try{
+    const savedCart=JSON.parse(
         localStorage.getItem("pty_cart")||"[]"
     );
+    if(Array.isArray(savedCart)){
+        cart=[...new Set(savedCart.map(Number))]
+            .filter(id=>Number.isInteger(id)&&products.some(p=>p.id===id));
+    }
+}catch(error){
+    console.warn("Saved cart data was invalid; starting with an empty cart.");
+    cart=[];
+}
+localStorage.setItem("pty_cart",JSON.stringify(cart));
 
 /* ================= NUMBERS ================= */
 
@@ -3654,17 +3675,20 @@ function bindAvatar(){
                 return;
             }
 
-            if(file.size>2097152){
-
-                showMessage(
-                    "حجم تصویر باید کمتر از ۲ مگابایت باشد."
-                );
-
+            if(!["image/png","image/jpeg","image/webp"].includes(file.type)){
+                showMessage("فقط تصویر PNG، JPG یا WEBP قابل قبول است.");
+                input.value="";
                 return;
             }
 
-            const reader=
-                new FileReader();
+            if(file.size>2097152){
+                showMessage("حجم تصویر باید کمتر از ۲ مگابایت باشد.");
+                input.value="";
+                return;
+            }
+
+            const reader=new FileReader();
+            reader.onerror=()=>showMessage("خواندن فایل تصویر ناموفق بود.");
 
             reader.onload=()=>{
 
