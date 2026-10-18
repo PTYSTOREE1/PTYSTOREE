@@ -254,15 +254,26 @@
 /* PTY STOREE demo admin dashboard */
 .admin-footer-trigger{border:1px solid #6f3e9b;background:linear-gradient(135deg,#20102e,#09080d);color:#d8b9ff;border-radius:10px;padding:9px 13px;font:inherit;font-size:12px;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s}
 .admin-footer-trigger:hover{transform:translateY(-2px);border-color:#b77aff;box-shadow:0 0 22px #a85cff35}
-.admin-dashboard{position:fixed;z-index:100;inset:3vh 3vw;overflow:auto;padding:clamp(18px,3vw,34px);border:1px solid #7545a0;border-radius:24px;background:radial-gradient(ellipse at 85% 0%,#3a1b5540,transparent 38%),#0c0912;color:#f5efff;box-shadow:0 30px 100px #000c;opacity:0;visibility:hidden;transform:translateY(18px) scale(.985);transition:opacity .24s,transform .24s,visibility .24s}
+.admin-dashboard{position:fixed;z-index:100;inset:1vh 1vw;overflow:auto;padding:clamp(22px,3vw,42px);border:1px solid #7545a0;border-radius:24px;background:radial-gradient(ellipse at 85% 0%,#3a1b5540,transparent 38%),#0c0912;color:#f5efff;box-shadow:0 30px 100px #000c;opacity:0;visibility:hidden;transform:translateY(18px) scale(.985);transition:opacity .24s,transform .24s,visibility .24s}
 .admin-dashboard.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
 .admin-dashboard-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:20px}.admin-dashboard-header h2{font-size:clamp(24px,3vw,36px);margin:7px 0}.admin-dashboard-header p{color:#b6a9c5;font-size:13px;margin:0;line-height:1.8}.admin-dashboard-header .close-button{position:sticky;top:0;flex:0 0 auto}
 .admin-warning{border:1px solid #8c622d;background:#3a271b70;color:#f5d5a0;padding:13px 16px;border-radius:13px;font-size:12px;line-height:1.9;margin:15px 0 20px}
 .admin-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:28px}.admin-stat{border:1px solid #332440;background:linear-gradient(145deg,#1b1226,#100d16);padding:17px;border-radius:15px;min-width:0}.admin-stat small,.admin-detail-grid small,.admin-items>small{display:block;color:#a99bb8;font-size:11px;margin-bottom:7px}.admin-stat strong{font-size:clamp(14px,2vw,22px);overflow-wrap:anywhere;color:#e7d4ff}
 .admin-section{margin-top:26px}.admin-section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.admin-section-heading h3{font-size:19px;margin:0}.admin-record-list{display:grid;gap:13px}.admin-record{border:1px solid #382749;background:linear-gradient(135deg,#17101f,#100d15);border-radius:17px;padding:17px;min-width:0}.admin-record-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #382749;margin-bottom:15px}.admin-record-kicker{display:block;font-size:10px;color:#a99bb8;margin-bottom:4px}.admin-tracking-code{font-family:ui-monospace,Consolas,monospace;color:#d8b4ff;font-size:15px;direction:ltr;display:inline-block}.admin-status{border:1px solid #9b743e;background:#4c321c66;color:#f4d6a4;border-radius:999px;padding:6px 10px;font-size:10px;white-space:nowrap}.admin-status.is-paid{border-color:#397b60;background:#123b2b70;color:#9cf1c7}
 .admin-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 18px}.admin-detail-grid>div{min-width:0}.admin-detail-grid strong,.admin-detail-grid a{display:block;font-size:12px;line-height:1.8;overflow-wrap:anywhere;color:#f0e7fa}.admin-detail-grid a{color:#c9a0ff;text-decoration:underline}.admin-detail-grid .wide{grid-column:1/-1}.admin-items{display:grid;gap:7px;margin-top:16px;padding-top:13px;border-top:1px solid #382749}.admin-items span{font-size:12px;color:#ded0eb}.admin-empty{padding:25px;text-align:center;color:#a99bb8;border:1px dashed #4a3659;border-radius:15px;font-size:13px}.admin-receipt{margin-top:15px;padding-top:14px;border-top:1px solid #382749}.admin-receipt>a{display:inline-block;color:#d4b2ff;font-size:12px;margin-bottom:10px}.admin-receipt img{display:block;max-width:min(100%,560px);max-height:420px;object-fit:contain;object-position:right;border:1px solid #463054;border-radius:12px;background:#08070b}.admin-no-receipt{font-size:11px;color:#c8a6a6}.admin-record-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.admin-record-actions .button{font-size:11px;min-height:38px}.admin-record-actions .button:disabled{opacity:.4;cursor:not-allowed}.admin-footnote{color:#9f92ac;font-size:11px;line-height:1.9;margin-top:22px}
-@media(max-width:650px){.admin-dashboard{inset:8px;padding:17px 13px;border-radius:17px}.admin-stats{grid-template-columns:1fr}.admin-stat{padding:12px}.admin-detail-grid{grid-template-columns:1fr}.admin-detail-grid .wide{grid-column:auto}.admin-record{padding:13px}.admin-record-top{align-items:flex-start;flex-direction:column}.admin-dashboard-header h2{font-size:23px}.admin-footer-trigger{margin-top:8px}}
+@media(max-width:650px){.admin-dashboard{inset:5px;padding:15px 11px;border-radius:15px}.admin-stats{grid-template-columns:1fr}.admin-stat{padding:12px}.admin-detail-grid{grid-template-columns:1fr}.admin-detail-grid .wide{grid-column:auto}.admin-record{padding:13px}.admin-record-top{align-items:flex-start;flex-direction:column}.admin-dashboard-header h2{font-size:23px}.admin-footer-trigger{margin-top:8px}}
 @media(prefers-reduced-motion:reduce){.admin-dashboard,.admin-footer-trigger{transition:none}}
+
+/* Admin product management */
+.admin-product-form{display:grid;grid-template-columns:minmax(0,2fr) minmax(140px,1fr) auto;gap:14px;align-items:end;padding:20px;border:1px solid #4a3260;border-radius:17px;background:linear-gradient(145deg,#1b1226,#100d16);margin-bottom:18px}
+.admin-product-form label{display:block;color:#cdb9e5;font-size:12px;margin-bottom:7px}
+.admin-product-form input,.admin-product-form select{width:100%;min-width:0;height:46px;padding:0 12px;border:1px solid #49345a;border-radius:10px;background:#0b0911;color:#fff;outline:none}
+.admin-product-form input:focus{border-color:#a56bff;box-shadow:0 0 0 3px #a56bff20}
+.admin-product-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.admin-product-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:15px;border:1px solid #382749;background:#17101f;border-radius:14px}
+.admin-product-row>div:first-child{min-width:0}.admin-product-row strong{display:block;overflow-wrap:anywhere;font-size:14px}.admin-product-row small{display:block;color:#a99bb8;margin-top:4px;font-size:11px}.admin-product-row .admin-record-actions{margin:0;flex-shrink:0}
+.admin-product-state{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;margin-top:6px;background:#123b2b;color:#9cf1c7}.admin-product-state.off{background:#40232a;color:#ffb0b8}
+@media(max-width:760px){.admin-product-form{grid-template-columns:1fr}.admin-product-list{grid-template-columns:1fr}.admin-product-row{align-items:flex-start;flex-direction:column}.admin-product-row .admin-record-actions{width:100%}}
 
 /* Admin access is intentionally hidden; open by clicking the header logo five times. */
 .admin-footer-trigger{display:none!important}
@@ -352,7 +363,7 @@
   <div class="overlay" id="overlay"></div>
   <aside class="cart-drawer" id="cartDrawer" aria-label="سبد خرید" aria-hidden="true"><div class="drawer-header"><div><small>YOUR SELECTION</small><h2>سبد خرید <span id="drawerCount">(۰)</span></h2></div><button class="close-button" id="cartClose" aria-label="بستن">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-empty" id="cartEmpty"><div class="empty-bag">⌑</div><strong>سبدت هنوز خالیه</strong><p>از بازار آیتم‌های مورد علاقه‌ات را اضافه کن.</p><button class="button button-primary" id="continueShopping">رفتن به بازار</button></div><div class="cart-summary hidden" id="cartSummary"><div><span>جمع جزء</span><strong id="cartSubtotal">۰ تومان</strong></div><div><span>هزینه ارسال</span><strong>رایگان</strong></div><div class="summary-total"><span>مجموع نمایشی</span><strong id="cartTotal">۰ تومان</strong></div><button class="button button-primary button-wide" id="checkoutButton">ادامه سفارش <span>←</span></button><small>هزینه سفارش از موجودی کیف پول کسر می‌شود.</small></div></aside>
 
-  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button modal-close" id="loginClose" aria-label="بستن">×</button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div><div class="eyebrow centered">WELCOME TO PTY</div><h2 id="loginTitle">ورود به <span class="gradient-text">دنیای PTY</span></h2><p class="modal-description">برای شروع، اطلاعات حساب خود را وارد کن.</p><div class="auth-tabs"><button class="auth-tab active" data-auth="login">ورود</button><button class="auth-tab" data-auth="signup">ساخت حساب</button></div><form id="authForm"><label for="authEmail">ایمیل</label><input id="authEmail" type="email" placeholder="you@example.com" required><label for="authPassword">رمز عبور</label><input id="authPassword" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" required><button class="button button-primary button-wide" type="submit" id="authSubmit">ورود <span>←</span></button><p class="form-message" id="authMessage" role="status">ورود و ثبت‌نام امن با Supabase انجام می‌شود.</p></form><div class="modal-security"><span>◇</span> از حساب Supabase برای ورود امن استفاده می‌شود.</div></div>
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button modal-close" id="loginClose" aria-label="بستن">×</button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div><div class="eyebrow centered">WELCOME TO PTY</div><h2 id="loginTitle">ورود به <span class="gradient-text">دنیای PTY</span></h2><p class="modal-description">برای شروع، اطلاعات حساب خود را وارد کن.</p><div class="auth-tabs"><button class="auth-tab active" data-auth="login">ورود</button><button class="auth-tab" data-auth="signup">ساخت حساب</button></div><form id="authForm"><label for="authEmail">ایمیل</label><input id="authEmail" type="email" placeholder="you@example.com" required><label for="authPassword">رمز عبور</label><input id="authPassword" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" required><button type="button" id="forgotPasswordButton" class="button button-text" style="width:100%;margin-top:5px;font-size:11px;justify-content:center">رمزت رو فراموش کردی؟ بازیابی رمز</button><button class="button button-primary button-wide" type="submit" id="authSubmit">ورود <span>←</span></button><p class="form-message" id="authMessage" role="status">ورود و ثبت‌نام امن با Supabase انجام می‌شود.</p></form><div class="modal-security"><span>◇</span> از حساب Supabase برای ورود امن استفاده می‌شود.</div></div>
 
   <div class="modal checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
     <button class="close-button modal-close" id="checkoutClose" aria-label="بستن">×</button>
@@ -414,6 +425,16 @@
     <div class="admin-dashboard-header"><div><div class="eyebrow">PTY STOREE · ADMIN</div><h2 id="adminDashboardTitle">پنل <span class="gradient-text">مدیریت سفارش‌ها</span></h2><p>جزئیات سفارش، کد پیگیری، اطلاعات مشتری و رسیدهای شارژ کیف پول</p></div><button class="close-button" id="adminDashboardClose" aria-label="بستن پنل">×</button></div>
     <div class="admin-warning">پنل آنلاین Supabase؛ فقط حساب‌هایی که در جدول admin_users مجوز دارند می‌توانند این اطلاعات را ببینند.</div>
     <div class="admin-stats" id="adminStats"></div>
+    <div class="admin-section" id="adminProductsSection"><div class="admin-section-heading"><h3>مدیریت محصولات</h3><span class="admin-status">ذخیره آنلاین در Supabase</span></div>
+      <form class="admin-product-form" id="adminProductForm">
+        <input type="hidden" id="adminProductId">
+        <div><label for="adminProductName">نام محصول</label><input id="adminProductName" maxlength="120" required placeholder="مثلاً Violet Phantom"></div>
+        <div><label for="adminProductPrice">قیمت (تومان)</label><input id="adminProductPrice" type="number" min="0" step="1" required placeholder="249000"></div>
+        <div class="admin-record-actions"><button class="button button-primary" id="adminProductSave" type="submit">ذخیره محصول</button><button class="button button-secondary" id="adminProductCancel" type="button">پاک‌کردن فرم</button></div>
+        <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">محصولات را اینجا اضافه یا ویرایش کن. برای نمایش در فروشگاه، وضعیت محصول باید فعال باشد.</p>
+      </form>
+      <div id="adminProductsList" class="admin-product-list"><div class="admin-empty">در حال دریافت محصولات...</div></div>
+    </div>
     <div class="admin-section"><div class="admin-section-heading"><h3>سفارش‌ها</h3><button class="button button-secondary" id="adminRefresh" type="button">به‌روزرسانی ↻</button></div><div id="adminOrdersList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>درخواست‌های شارژ و رسیدها</h3></div><div id="adminTopupsList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>نظرات کاربران</h3></div><div id="adminReviewsList" class="admin-record-list"></div></div>
@@ -836,10 +857,85 @@
 
   function safeText(value) { return String(value ?? "—").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
   function formatDate(value) { if (!value) return "—"; const d = new Date(value); return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString("fa-IR"); }
+  function adminProductMessage(message, isError = false) {
+    const el = $("#adminProductMessage"); if (!el) return;
+    el.textContent = message; el.style.color = isError ? "#ff9da9" : "#9cf1c7";
+  }
+  function renderAdminProducts(rows) {
+    const list = $("#adminProductsList");
+    if (!rows?.length) { list.innerHTML = '<div class="admin-empty">محصولی در دیتابیس نیست.</div>'; return; }
+    list.innerHTML = rows.map(p => `<article class="admin-product-row"><div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
+  }
+  async function loadAdminProducts() {
+    const list = $("#adminProductsList");
+    const { data, error } = await sb.from("products").select("id,name,price,active").order("id", { ascending: true });
+    if (error) { list.innerHTML = `<div class="admin-empty">خطای دریافت محصولات: ${safeText(error.message)}. مطمئن شو جدول products ستون‌های id، name، price و active را دارد.</div>`; return; }
+    renderAdminProducts(data || []);
+  }
+  function resetAdminProductForm() {
+    $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductSave").textContent = "ذخیره محصول";
+    adminProductMessage("برای افزودن محصول جدید، نام و قیمت را وارد کن.");
+  }
+  $("#adminProductForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!state.isAdmin || !sb) return;
+    const id = $("#adminProductId").value.trim();
+    const name = $("#adminProductName").value.trim();
+    const price = Number($("#adminProductPrice").value);
+    if (!name || !Number.isSafeInteger(price) || price < 0) { adminProductMessage("نام و قیمت معتبر وارد کن.", true); return; }
+    const button = $("#adminProductSave"); button.disabled = true;
+    try {
+      let result;
+      if (id) result = await sb.from("products").update({name, price}).eq("id", Number(id)).select("id").single();
+      else {
+        const { data: maxRow, error: maxError } = await sb.from("products").select("id").order("id", {ascending:false}).limit(1).maybeSingle();
+        if (maxError) throw maxError;
+        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true}).select("id").single();
+      }
+      if (result.error) throw result.error;
+      adminProductMessage(id ? "محصول با موفقیت ویرایش شد." : "محصول جدید ذخیره شد.");
+      resetAdminProductForm(); await loadAdminProducts(); await syncProductsFromDatabase();
+    } catch (error) { adminProductMessage("ذخیره انجام نشد: " + (error?.message || "خطای ناشناخته"), true); }
+    finally { button.disabled = false; }
+  });
+  $("#adminProductCancel").addEventListener("click", resetAdminProductForm);
+  $("#adminProductsList").addEventListener("click", async event => {
+    const edit = event.target.closest("[data-product-edit]");
+    const toggle = event.target.closest("[data-product-toggle]");
+    if (!state.isAdmin || !sb) return;
+    if (edit) {
+      const {data, error} = await sb.from("products").select("id,name,price,active").eq("id", Number(edit.dataset.productEdit)).single();
+      if (error || !data) { adminProductMessage("خواندن محصول انجام نشد: " + (error?.message || "پیدا نشد"), true); return; }
+      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price;
+      $("#adminProductSave").textContent = "ذخیره ویرایش"; adminProductMessage("در حال ویرایش محصول شماره " + data.id); $("#adminProductName").focus();
+    }
+    if (toggle) {
+      const nextActive = toggle.dataset.active !== "true";
+      const {error} = await sb.from("products").update({active:nextActive}).eq("id", Number(toggle.dataset.productToggle));
+      if (error) { adminProductMessage("تغییر وضعیت انجام نشد: " + error.message, true); return; }
+      await loadAdminProducts(); await syncProductsFromDatabase();
+    }
+  });
+  async function syncProductsFromDatabase() {
+    if (!sb) return;
+    const {data, error} = await sb.from("products").select("id,name,price,active").order("id", {ascending:true});
+    if (error || !data) return;
+    const byId = new Map(data.map(p => [Number(p.id), p]));
+    for (let i = products.length - 1; i >= 0; i--) {
+      const row = byId.get(Number(products[i].id));
+      if (!row || row.active === false) { products.splice(i, 1); continue; }
+      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR");
+      byId.delete(Number(row.id));
+    }
+    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:"آیتم منتخب PTY",category:"rifle",type:"ITEM",price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1});
+    renderProducts();
+  }
+
   async function renderAdminDashboard() {
     if (!sb || !state.authUser || !state.isAdmin) return;
     $("#adminOrdersList").innerHTML = '<div class="admin-empty">در حال دریافت سفارش‌ها...</div>';
     $("#adminTopupsList").innerHTML = '<div class="admin-empty">در حال دریافت رسیدها...</div>';
+    await loadAdminProducts();
     const [{ data: orders, error: oe }, { data: topups, error: te }, { data: reviews, error: re }] = await Promise.all([
       sb.from("orders").select("*").order("created_at", { ascending: false }).limit(100),
       sb.from("topup_requests").select("*").order("created_at", { ascending: false }).limit(100),
@@ -859,7 +955,7 @@
     if (!sb || !state.authUser) { toast("برای پنل ادمین ابتدا با حساب ادمین وارد شو."); openLogin("login"); return; }
     await refreshAccountData();
     if (!state.isAdmin) { toast("این حساب دسترسی ادمین ندارد. ابتدا user_id حساب را در جدول admin_users ثبت کن."); return; }
-    await renderAdminDashboard(); closePanels(); $("#adminDashboard").classList.add("open"); $("#adminDashboard").setAttribute("aria-hidden", "false"); document.body.classList.add("no-scroll");
+    await syncProductsFromDatabase(); await renderAdminDashboard(); closePanels(); $("#adminDashboard").classList.add("open"); $("#adminDashboard").setAttribute("aria-hidden", "false"); document.body.classList.add("no-scroll");
   }
   // Hidden admin shortcut: click the main header logo five times.
   const headerLogo = document.querySelector(".site-header .brand");
@@ -912,6 +1008,23 @@
   $("#footerLogin").addEventListener("click", () => openLogin("login"));
   $("#loginClose").addEventListener("click", closePanels);
   $$(".auth-tab").forEach(tab => tab.addEventListener("click", () => setAuthMode(tab.dataset.auth)));
+  $("#forgotPasswordButton").addEventListener("click", async () => {
+    const email = $("#authEmail").value.trim();
+    const message = $("#authMessage");
+    if (!sb) { message.textContent = "اتصال Supabase برقرار نیست؛ اتصال اینترنت را بررسی کن."; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      message.textContent = "اول ایمیلی را که با آن ثبت‌نام کردی وارد کن.";
+      $("#authEmail").focus(); return;
+    }
+    const button = $("#forgotPasswordButton"); button.disabled = true; button.textContent = "در حال ارسال ایمیل بازیابی...";
+    try {
+      const redirectTo = window.location.href.split("#")[0].split("?")[0];
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      message.textContent = "اگر این ایمیل در سایت ثبت شده باشد، ایمیل بازیابی رمز برایت ارسال می‌شود. پوشه Spam را هم بررسی کن.";
+    } catch (error) { message.textContent = "ارسال ایمیل بازیابی ناموفق بود: " + (error.message || error); }
+    finally { button.disabled = false; button.textContent = "رمزت رو فراموش کردی؟ بازیابی رمز"; }
+  });
   $("#authForm").addEventListener("submit", async event => {
     event.preventDefault(); const email = $("#authEmail").value.trim(), password = $("#authPassword").value, message = $("#authMessage");
     if (!sb) { message.textContent = "کتابخانه Supabase بارگذاری نشده؛ اتصال اینترنت را بررسی کن."; return; }
@@ -947,7 +1060,15 @@
     const { data: { session } } = await sb.auth.getSession();
     state.authUser = session?.user || null; state.user = session?.user?.email || "";
     await refreshAccountData(); syncAccountControls(); await loadReviews();
-    sb.auth.onAuthStateChange(async (_event, sessionNow) => {
+    sb.auth.onAuthStateChange(async (eventName, sessionNow) => {
+      if (eventName === "PASSWORD_RECOVERY" && sessionNow?.user) {
+        const newPassword = window.prompt("رمز جدیدت را وارد کن (حداقل ۶ کاراکتر):");
+        if (newPassword && newPassword.length >= 6) {
+          const { error: passwordError } = await sb.auth.updateUser({ password: newPassword });
+          if (passwordError) window.alert("تغییر رمز انجام نشد: " + passwordError.message);
+          else window.alert("رمز با موفقیت تغییر کرد. حالا می‌توانی وارد حساب شوی.");
+        } else if (newPassword !== null) window.alert("رمز باید حداقل ۶ کاراکتر باشد. دوباره از گزینه بازیابی رمز استفاده کن.");
+      }
       state.authUser = sessionNow?.user || null; state.user = sessionNow?.user?.email || "";
       await refreshAccountData(); syncAccountControls();
     });
@@ -1015,7 +1136,7 @@
   syncAccountControls();
   renderProducts();
   renderCart();
-  initSupabase().catch(error => console.error("Supabase init failed", error));
+  initSupabase().then(() => syncProductsFromDatabase()).catch(error => console.error("Supabase init failed", error));
 })();
 
   </script>
