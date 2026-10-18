@@ -280,7 +280,7 @@
 /* Admin access is intentionally hidden; open by clicking the header logo five times. */
 .admin-footer-trigger{display:none!important}
 
-/* Supabase community reviews */
+/* PTY community reviews */
 .reviews-section{padding-top:70px;padding-bottom:86px}.reviews-layout{display:grid;grid-template-columns:minmax(260px,.78fr) minmax(0,1.4fr);gap:24px;align-items:start}.review-form,.review-card{background:linear-gradient(145deg,rgba(27,17,40,.96),rgba(12,10,19,.96));border:1px solid rgba(178,124,255,.2);border-radius:20px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.18)}.review-form h3{margin:0 0 18px}.review-form label{display:block;margin:14px 0 8px;color:#d7c8e8;font-size:.9rem}.review-form input,.review-form select,.review-form textarea{width:100%;border:1px solid rgba(184,139,255,.22);border-radius:12px;background:#100b18;color:#f7efff;padding:12px 14px;font:inherit;outline:none}.review-form textarea{resize:vertical;min-height:100px}.review-form input:focus,.review-form select:focus,.review-form textarea:focus{border-color:#a56bff;box-shadow:0 0 0 3px rgba(165,107,255,.12)}.reviews-list{display:grid;gap:14px}.review-card{padding:20px 22px}.review-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.review-card-head strong{color:#f6eaff}.review-stars{letter-spacing:2px;color:#c28bff;white-space:nowrap}.review-card p{line-height:1.9;color:#d2c5df;white-space:pre-wrap;overflow-wrap:anywhere}.review-card small{color:#9385a3}.review-summary{border:1px solid rgba(172,117,255,.25);border-radius:999px;padding:9px 14px;color:#d8baff;background:rgba(107,53,165,.12);font-size:.85rem}.reviews-layout .form-message{line-height:1.7}.admin-record-actions button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:760px){.reviews-layout{grid-template-columns:1fr}.reviews-section .section-heading{align-items:flex-start;flex-direction:column}.review-card-head{align-items:flex-start;flex-direction:column}}
 
   
@@ -307,6 +307,34 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
 ::selection{background:#a66bff;color:#fff}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
+
+/* PTY STOREE My Orders premium motion */
+#myOrdersModal{width:min(760px,calc(100% - 24px));background:radial-gradient(ellipse at 85% 0%,rgba(155,92,255,.16),transparent 42%),radial-gradient(ellipse at 0% 100%,rgba(232,121,249,.08),transparent 42%),#100d16}
+#myOrdersModal .my-orders-hero{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid rgba(183,139,255,.2);border-radius:17px;background:linear-gradient(110deg,rgba(155,92,255,.12),rgba(255,255,255,.025));margin:14px 0 18px;animation:ordersHeroIn .45s ease both}
+#myOrdersModal .my-orders-icon{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#a855f7,#6d28d9);box-shadow:0 8px 28px #8b5cf644;color:white;font-size:23px;animation:ordersIconFloat 3.2s ease-in-out infinite}
+#myOrdersModal .my-orders-hero strong{display:block;font-size:12px;color:#f2eaff;margin-bottom:4px}
+#myOrdersModal .my-orders-hero p{font-size:10px;line-height:1.8;color:#a99bb8;margin:0}
+#myOrdersModal .admin-record{animation:orderCardIn .38s both;transition:border-color .25s,transform .25s,box-shadow .25s}
+#myOrdersModal .admin-record:hover{border-color:#9b5cff70;transform:translateY(-2px);box-shadow:0 14px 35px #0004}
+#myOrdersModal .admin-status{white-space:nowrap}
+#myOrdersModal .order-timeline{display:flex;gap:6px;margin:13px 0 3px}
+#myOrdersModal .order-timeline span{height:3px;flex:1;border-radius:9px;background:#ffffff12;overflow:hidden;position:relative}
+#myOrdersModal .order-timeline span.active{background:#8b5cf644}
+#myOrdersModal .order-timeline span.active:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#a78bfa,#e879f9);transform-origin:right;animation:orderProgress .65s ease both}
+#myOrdersModal .order-items-detail{display:grid;gap:7px;margin-top:8px}
+#myOrdersModal .order-items-detail span{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 10px;border-radius:9px;background:#ffffff04;border:1px solid #ffffff09;font-size:10px}
+#myOrdersModal .order-items-detail span b{color:#d8b4ff;font-weight:600;white-space:nowrap}
+#myOrdersModal .orders-empty{padding:28px 18px;text-align:center;border:1px dashed #6d527e70;border-radius:16px;color:#a99bb8;animation:ordersHeroIn .35s ease both}
+#myOrdersModal .orders-empty-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:17px;margin:0 auto 12px;background:#9b5cff12;border:1px solid #9b5cff35;color:#c4a5fd;font-size:25px}
+#myOrdersRefresh{transition:transform .2s,border-color .2s}
+#myOrdersRefresh.is-loading{pointer-events:none;opacity:.75}
+#myOrdersRefresh.is-loading span{display:inline-block;animation:ordersSpin .8s linear infinite}
+@keyframes ordersHeroIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orderCardIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ordersIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes ordersSpin{to{transform:rotate(360deg)}}
+@keyframes orderProgress{from{transform:scaleX(.1);opacity:.3}to{transform:scaleX(1);opacity:1}}
+@media(max-width:520px){#myOrdersModal{padding:24px 16px}#myOrdersModal .admin-record{padding:13px}#myOrdersModal .admin-tracking-code{font-size:12px}#myOrdersModal .order-items-detail span{align-items:flex-start;flex-direction:column;gap:4px}}
 </style>
 </head>
 <body>
@@ -384,12 +412,12 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
     </div>
   </section>
 
-  <footer class="site-footer"><div class="footer-main section-wrap"><div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><span></span><span></span><span></span></span><span class="brand-word">PTY <b>STOREE</b><small>THE GAMING MARKET</small></span></a><p>جایی برای کشف آیتم‌های خاص و ساختن استایل مخصوص خودت.</p></div><div class="footer-column"><strong>دسترسی سریع</strong><a href="#home">خانه</a><a href="#market">بازار</a><a href="#collections">کالکشن‌ها</a></div><div class="footer-column"><strong>راهنما</strong><a href="#how">چطور کار می‌کند؟</a><button id="footerLogin">حساب کاربری</button><a href="mailto:support@example.com">ارتباط با ما</a></div><div class="footer-status"><span class="status-pill"><i class="pulse-dot"></i> COMMUNITY LIVE</span><p>نظرات و حساب کاربری متصل به Supabase</p><small>© 2026 PTY STOREE. All rights reserved.</small></div></div><div class="footer-bottom section-wrap"><span>DESIGNED FOR GAMERS</span><span>PTY STOREE <b>✳</b> 2026</span><a href="#home">بازگشت به بالا ↑</a><button class="admin-footer-trigger" id="adminPanelOpen" type="button" aria-hidden="true" tabindex="-1">پنل مدیریت</button></div></footer>
+  <footer class="site-footer"><div class="footer-main section-wrap"><div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><span></span><span></span><span></span></span><span class="brand-word">PTY <b>STOREE</b><small>THE GAMING MARKET</small></span></a><p>جایی برای کشف آیتم‌های خاص و ساختن استایل مخصوص خودت.</p></div><div class="footer-column"><strong>دسترسی سریع</strong><a href="#home">خانه</a><a href="#market">بازار</a><a href="#collections">کالکشن‌ها</a></div><div class="footer-column"><strong>راهنما</strong><a href="#how">چطور کار می‌کند؟</a><button id="footerLogin">حساب کاربری</button><a href="mailto:support@example.com">ارتباط با ما</a></div><div class="footer-status"><span class="status-pill"><i class="pulse-dot"></i> COMMUNITY LIVE</span><p>نظرات و حساب کاربری متصل به سامانه آنلاین PTY</p><small>© 2026 PTY STOREE. All rights reserved.</small></div></div><div class="footer-bottom section-wrap"><span>DESIGNED FOR GAMERS</span><span>PTY STOREE <b>✳</b> 2026</span><a href="#home">بازگشت به بالا ↑</a><button class="admin-footer-trigger" id="adminPanelOpen" type="button" aria-hidden="true" tabindex="-1">پنل مدیریت</button></div></footer>
 
   <div class="overlay" id="overlay"></div>
   <aside class="cart-drawer" id="cartDrawer" aria-label="سبد خرید" aria-hidden="true"><div class="drawer-header"><div><small>YOUR SELECTION</small><h2>سبد خرید <span id="drawerCount">(۰)</span></h2></div><button class="close-button" id="cartClose" aria-label="بستن">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-empty" id="cartEmpty"><div class="empty-bag">⌑</div><strong>سبدت هنوز خالیه</strong><p>از بازار آیتم‌های مورد علاقه‌ات را اضافه کن.</p><button class="button button-primary" id="continueShopping">رفتن به بازار</button></div><div class="cart-summary hidden" id="cartSummary"><div><span>جمع جزء</span><strong id="cartSubtotal">۰ تومان</strong></div><div><span>هزینه ارسال</span><strong>رایگان</strong></div><div class="summary-total"><span>مجموع نمایشی</span><strong id="cartTotal">۰ تومان</strong></div><button class="button button-primary button-wide" id="checkoutButton">ادامه سفارش <span>←</span></button><small>هزینه سفارش از موجودی کیف پول کسر می‌شود.</small></div></aside>
 
-  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button modal-close" id="loginClose" aria-label="بستن">×</button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div><div class="eyebrow centered">WELCOME TO PTY</div><h2 id="loginTitle">ورود به <span class="gradient-text">دنیای PTY</span></h2><p class="modal-description">برای شروع، اطلاعات حساب خود را وارد کن.</p><div class="login-only-note"><span>✦</span><span>ورود امن اعضای PTY STOREE</span><i class="pulse-dot"></i></div><form id="authForm"><label for="authEmail">ایمیل</label><input id="authEmail" type="email" placeholder="you@example.com" required><label for="authPassword">رمز عبور</label><input id="authPassword" type="password" placeholder="رمز عبور" minlength="6" required><div id="ptyPasswordRules" class="pty-password-rules" hidden><div data-rule="length">○ حداقل ۸ کاراکتر</div><div data-rule="upper">○ یک حرف بزرگ انگلیسی (A–Z)</div><div data-rule="number">○ یک عدد (0–9)</div></div><button class="button button-primary button-wide" type="submit" id="authSubmit">ورود امن <span>←</span></button><button type="button" id="authModeToggle" class="button button-text" style="width:100%;margin-top:8px;font-size:12px;justify-content:center">حساب نداری؟ ثبت‌نام کن</button><p class="form-message" id="authMessage" role="status">برای ورود، ایمیل و رمز حساب خودت را وارد کن.</p></form><div class="modal-security"><span>◇</span> اتصال امن و محافظت‌شده با Supabase</div></div>
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button modal-close" id="loginClose" aria-label="بستن">×</button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div><div class="eyebrow centered">WELCOME TO PTY</div><h2 id="loginTitle">ورود به <span class="gradient-text">دنیای PTY</span></h2><p class="modal-description">برای شروع، اطلاعات حساب خود را وارد کن.</p><div class="login-only-note"><span>✦</span><span>ورود امن اعضای PTY STOREE</span><i class="pulse-dot"></i></div><form id="authForm"><label for="authEmail">ایمیل</label><input id="authEmail" type="email" placeholder="you@example.com" required><label for="authPassword">رمز عبور</label><input id="authPassword" type="password" placeholder="رمز عبور" minlength="6" required><div id="ptyPasswordRules" class="pty-password-rules" hidden><div data-rule="length">○ حداقل ۸ کاراکتر</div><div data-rule="upper">○ یک حرف بزرگ انگلیسی (A–Z)</div><div data-rule="number">○ یک عدد (0–9)</div></div><button class="button button-primary button-wide" type="submit" id="authSubmit">ورود امن <span>←</span></button><button type="button" id="authModeToggle" class="button button-text" style="width:100%;margin-top:8px;font-size:12px;justify-content:center">حساب نداری؟ ثبت‌نام کن</button><p class="form-message" id="authMessage" role="status">برای ورود، ایمیل و رمز حساب خودت را وارد کن.</p></form><div class="modal-security"><span>◇</span> اتصال امن و محافظت‌شده</div></div>
 
   <div class="modal checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
     <button class="close-button modal-close" id="checkoutClose" aria-label="بستن">×</button>
@@ -402,7 +430,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
       <div class="trade-link-actions"><button class="button button-secondary trade-view-button" id="getTradeLinkButton" type="button">دریافت لینک ترید از Steam <span>↗</span></button><span class="trade-view-hint" id="tradeLinkHint" aria-live="polite">در Steam Community لینک تریدت را پیدا کن و اینجا وارد کن.</span></div>
       <label for="telegramId">آیدی تلگرام <span class="required-mark">*</span></label><input id="telegramId" type="text" placeholder="مثلاً @username" autocomplete="off" required>
       <label for="phoneNumber">شماره تلفن (اختیاری)</label><input id="phoneNumber" type="tel" inputmode="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
-      <p class="form-message" id="checkoutMessage" role="status">سفارش پس از تأیید موجودی کیف پول در Supabase ثبت می‌شود.</p>
+      <p class="form-message" id="checkoutMessage" role="status">سفارش پس از تأیید موجودی کیف پول ثبت می‌شود.</p>
       <button class="button button-primary button-wide" type="submit">تأیید اطلاعات سفارش <span>←</span></button>
     </form>
   </div>
@@ -426,11 +454,22 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
       <label for="settingsName">نام نمایشی</label><input id="settingsName" type="text" maxlength="40" placeholder="نامی که نمایش داده می‌شود" required>
       <label for="settingsEmail">ایمیل حساب</label><input id="settingsEmail" type="email" readonly aria-readonly="true">
       <button class="button button-primary button-wide" type="submit">ذخیره تنظیمات <span>✓</span></button>
-      <p class="form-message" id="settingsMessage" role="status">اطلاعات پروفایل در Supabase ذخیره می‌شوند.</p>
+      <p class="form-message" id="settingsMessage" role="status">اطلاعات پروفایل ذخیره می‌شوند.</p>
     </form>
+    <button class="button button-secondary button-wide" id="myOrdersOpen" type="button" style="margin-top:10px">▤ سفارش‌های من <span>←</span></button>
     <button class="button button-ghost button-wide settings-logout" id="settingsLogout" type="button">خروج از حساب</button>
-    <div class="modal-security"><span>◇</span> موجودی و پروفایل از پایگاه داده Supabase دریافت می‌شوند.</div>
+    <div class="modal-security"><span>◇</span> موجودی و پروفایل حساب تو به‌صورت امن دریافت می‌شوند.</div>
   </div>
+
+  <div class="modal" id="myOrdersModal" role="dialog" aria-modal="true" aria-labelledby="myOrdersTitle" style="width:min(680px,calc(100% - 24px));z-index:45">
+    <button class="close-button modal-close" id="myOrdersClose" aria-label="بستن">×</button>
+    <div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div>
+    <div class="eyebrow centered">PTY ORDER CENTER</div><h2 id="myOrdersTitle">سفارش‌های <span class="gradient-text">من</span></h2>
+    <div class="my-orders-hero"><div class="my-orders-icon">▤</div><div><strong>همه سفارش‌ها، یک‌جا و دقیق</strong><p>کد پیگیری، وضعیت سفارش، زمان ثبت، مبلغ نهایی و جزئیات محصولات را مشاهده کن.</p></div></div>
+    <div id="myOrdersList" class="admin-record-list"><div class="admin-empty">در حال دریافت سفارش‌ها...</div></div>
+    <button class="button button-secondary button-wide" id="myOrdersRefresh" type="button" style="margin-top:16px">به‌روزرسانی سفارش‌ها ↻</button>
+  </div>
+
 
   <div class="modal topup-modal" id="topupModal" role="dialog" aria-modal="true" aria-labelledby="topupTitle">
     <button class="close-button modal-close" id="topupClose" aria-label="بستن">×</button>
@@ -444,14 +483,14 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
       <p class="form-message" id="topupMessage" role="status">پس از ارسال، درخواست در انتظار بررسی ادمین می‌ماند. موجودی قبل از تأیید افزایش نمی‌یابد.</p>
       <button class="button button-primary button-wide topup-finalize" id="topupFinalize" type="submit">Finalize · ارسال به بررسی ادمین <span>←</span></button>
     </form>
-    <section id="adminNoticePanel" class="admin-notice-panel hidden" aria-live="polite"><div class="admin-notice-icon">✓</div><h3>درخواست برای بررسی آماده شد</h3><p id="adminNoticeText">درخواست شارژ در Supabase ثبت شد و تا تأیید ادمین، موجودی تغییر نمی‌کند.</p><div class="admin-request-reference" id="adminRequestReference"></div><p class="form-message">درخواست در پنل آنلاین ادمین نمایش داده می‌شود؛ افزایش موجودی فقط پس از تأیید انجام می‌شود.</p><button class="button button-ghost button-wide" id="topupDone" type="button">بازگشت به کیف پول</button></section>
+    <section id="adminNoticePanel" class="admin-notice-panel hidden" aria-live="polite"><div class="admin-notice-icon">✓</div><h3>درخواست برای بررسی آماده شد</h3><p id="adminNoticeText">درخواست شارژ ثبت شد و تا تأیید ادمین، موجودی تغییر نمی‌کند.</p><div class="admin-request-reference" id="adminRequestReference"></div><p class="form-message">درخواست در پنل آنلاین ادمین نمایش داده می‌شود؛ افزایش موجودی فقط پس از تأیید انجام می‌شود.</p><button class="button button-ghost button-wide" id="topupDone" type="button">بازگشت به کیف پول</button></section>
   </div>
 
   <div class="admin-dashboard" id="adminDashboard" role="dialog" aria-modal="true" aria-labelledby="adminDashboardTitle" aria-hidden="true">
     <div class="admin-dashboard-header"><div><div class="eyebrow">PTY STOREE · ADMIN</div><h2 id="adminDashboardTitle">پنل <span class="gradient-text">مدیریت سفارش‌ها</span></h2><p>جزئیات سفارش، کد پیگیری، اطلاعات مشتری و رسیدهای شارژ کیف پول</p></div><button class="close-button" id="adminDashboardClose" aria-label="بستن پنل">×</button></div>
-    <div class="admin-warning">پنل آنلاین Supabase؛ فقط حساب‌هایی که در جدول admin_users مجوز دارند می‌توانند این اطلاعات را ببینند.</div>
+    <div class="admin-warning">پنل مدیریت آنلاین؛ فقط حساب‌های دارای مجوز می‌توانند این اطلاعات را ببینند.</div>
     <div class="admin-stats" id="adminStats"></div>
-    <div class="admin-section" id="adminProductsSection"><div class="admin-section-heading"><h3>مدیریت محصولات</h3><span class="admin-status">ذخیره آنلاین در Supabase</span></div>
+    <div class="admin-section" id="adminProductsSection"><div class="admin-section-heading"><h3>مدیریت محصولات</h3><span class="admin-status">ذخیره آنلاین</span></div>
       <form class="admin-product-form" id="adminProductForm">
         <input type="hidden" id="adminProductId">
         <div><label for="adminProductName">نام محصول</label><input id="adminProductName" maxlength="120" required placeholder="مثلاً Violet Phantom"></div>
@@ -464,13 +503,13 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
     <div class="admin-section"><div class="admin-section-heading"><h3>سفارش‌ها</h3><button class="button button-secondary" id="adminRefresh" type="button">به‌روزرسانی ↻</button></div><div id="adminOrdersList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>درخواست‌های شارژ و رسیدها</h3></div><div id="adminTopupsList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>نظرات کاربران</h3></div><div id="adminReviewsList" class="admin-record-list"></div></div>
-    <p class="admin-footnote">سفارش‌ها و رسیدها از پایگاه داده خوانده می‌شوند. دسترسی پنل با نقش ادمین در Supabase کنترل می‌شود.</p>
+    <p class="admin-footnote">سفارش‌ها و رسیدها از پایگاه داده خوانده می‌شوند. دسترسی پنل با نقش ادمین کنترل می‌شود.</p>
   </div>
   <div class="toast-region" id="toastRegion" aria-live="polite"></div>
   <button class="back-to-top" id="backToTop" aria-label="بازگشت به بالا">↑</button>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-/* PTY STOREE — Supabase-connected frontend. Real payments are not processed by this static site. */
+/* PTY STOREE — connected frontend. Real payments are not processed by this static site. */
 (() => {
   "use strict";
 
@@ -511,9 +550,9 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
   }
   async function loadReviews() {
     const list = $("#reviewsList");
-    if (!sb) { list.innerHTML = '<div class="admin-empty">اتصال Supabase در دسترس نیست.</div>'; return; }
+    if (!sb) { list.innerHTML = '<div class="admin-empty">سامانه نظرات در حال حاضر در دسترس نیست.</div>'; return; }
     const { data, error } = await sb.from("reviews").select("id,display_name,rating,body,created_at").eq("published", true).order("created_at", { ascending: false }).limit(30);
-    if (error) { list.innerHTML = '<div class="admin-empty">برای فعال شدن نظرات، فایل supabase-setup.sql را در SQL Editor اجرا کن.</div>'; return; }
+    if (error) { list.innerHTML = '<div class="admin-empty">بخش نظرات موقتاً در دسترس نیست؛ بعداً دوباره تلاش کن.</div>'; return; }
     if (!data?.length) { list.innerHTML = '<div class="admin-empty">هنوز نظری ثبت نشده؛ اولین نفر باش!</div>'; $("#reviewSummary").textContent = "هنوز نظری ثبت نشده"; return; }
     const avg = data.reduce((n, r) => n + Number(r.rating), 0) / data.length;
     $("#reviewSummary").textContent = `میانگین ${avg.toLocaleString("fa-IR", {maximumFractionDigits:1})} از ۵ · ${data.length.toLocaleString("fa-IR")} نظر`;
@@ -654,13 +693,43 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
     closePanels();
     $("#settingsName").value = state.profile?.display_name || state.authUser?.user_metadata?.display_name || state.user.split("@")[0];
     $("#settingsEmail").value = state.user;
-    $("#settingsMessage").textContent = "اطلاعات حساب و کیف پول از Supabase خوانده می‌شوند.";
+    $("#settingsMessage").textContent = "اطلاعات حساب و کیف پول به‌صورت امن خوانده می‌شوند.";
     $("#couponMessage").textContent = "کدهای تخفیف تا زمان راه‌اندازی سامانه امن کدها غیرفعال هستند.";
     $("#couponMessage").classList.remove("coupon-success", "coupon-error");
     $("#couponCode").value = "";
     renderWallet();
     openOverlayPanel($("#settingsModal"));
   }
+
+  function orderStatusLabel(status) {
+    const labels = { paid: "ثبت و پرداخت شده", fulfilled: "تکمیل شده", cancelled: "لغو شده", pending: "در انتظار بررسی", processing: "در حال پردازش", completed: "تکمیل شده", refunded: "بازپرداخت شده" };
+    return labels[String(status || "paid").toLowerCase()] || String(status || "ثبت شده");
+  }
+
+  async function loadMyOrders() {
+    const list = $("#myOrdersList");
+    if (!sb || !state.authUser) { list.innerHTML = '<div class="orders-empty"><div class="orders-empty-icon">♙</div>برای مشاهده سفارش‌ها ابتدا وارد حساب کاربری شو.</div>'; return; }
+    list.innerHTML = '<div class="orders-empty"><div class="orders-empty-icon">◌</div>در حال دریافت سفارش‌ها…</div>';
+    const { data: orders, error } = await sb.from("orders").select("id,tracking_code,items,total,status,created_at").eq("user_id", state.authUser.id).order("created_at", { ascending: false }).limit(100);
+    if (error) { list.innerHTML = `<div class="admin-empty">دریافت سفارش‌ها ناموفق بود: ${safeText(error.message)}</div>`; return; }
+    if (!orders || !orders.length) { list.innerHTML = '<div class="orders-empty"><div class="orders-empty-icon">▤</div><strong>هنوز سفارشی ثبت نکرده‌ای</strong><p>بعد از ثبت سفارش، کد پیگیری و تمام جزئیات آن اینجا نمایش داده می‌شود.</p></div>'; return; }
+    list.innerHTML = orders.map(o => {
+      const status = String(o.status || "paid").toLowerCase();
+      const statusClass = ["fulfilled", "completed", "paid"].includes(status) ? "is-paid" : "";
+      const items = Array.isArray(o.items) ? o.items : [];
+      const step = /cancel|refund/i.test(status) ? 0 : /complete|fulfilled/i.test(status) ? 3 : /processing/i.test(status) ? 2 : 1;
+      const timeline = `<div class="order-timeline" aria-label="مراحل سفارش"><span class="${step>=1?'active':''}"></span><span class="${step>=2?'active':''}"></span><span class="${step>=3?'active':''}"></span></div>`;
+      return `<article class="admin-record"><div class="admin-record-top"><div><span class="admin-record-kicker">کد پیگیری سفارش</span><strong class="admin-tracking-code">${safeText(o.tracking_code || o.id)}</strong></div><span class="admin-status ${statusClass}">${safeText(orderStatusLabel(status))}</span></div>${timeline}<div class="admin-detail-grid"><div><small>مبلغ نهایی سفارش</small><strong>${money(o.total || 0)}</strong></div><div><small>تاریخ ثبت سفارش</small><strong>${formatDate(o.created_at)}</strong></div><div><small>تعداد اقلام</small><strong>${items.reduce((n,i)=>n+Number(i.quantity||1),0).toLocaleString('fa-IR')} عدد</strong></div><div><small>شناسه سفارش</small><strong dir="ltr" style="font-size:9px">${safeText(String(o.id||'').slice(0,8))}</strong></div></div><div class="admin-items"><small>جزئیات محصولات</small><div class="order-items-detail">${items.map(i => `<span><span>${safeText(i.name || ("محصول #" + (i.product_id || "نامشخص")))} × ${Number(i.quantity || 1).toLocaleString("fa-IR")}</span><b>${money(Number(i.unit_price || i.unitPrice || 0) * Number(i.quantity || 1))}</b></span>`).join("") || "<span>جزئیات محصول ثبت نشده است</span>"}</div></div><div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="button button-ghost" type="button" data-copy-order="${safeText(o.tracking_code || o.id)}" style="font-size:10px;padding:8px 12px">کپی کد پیگیری ⧉</button></div></article>`;
+    }).join("");
+  }
+
+  async function openMyOrders() {
+    if (!state.user || !state.authUser) { openLogin("login"); return; }
+    closePanels();
+    openOverlayPanel($("#myOrdersModal"));
+    await loadMyOrders();
+  }
+
 
   function openTopup() {
     if (!state.user) { openLogin("login"); return; }
@@ -823,7 +892,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
       state.profile = { ...(state.profile || {}), steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null };
       $("#checkoutMessage").classList.remove("coupon-error");
       $("#checkoutMessage").textContent = `سفارش ${order?.tracking_code || order?.trackingCode || "ثبت شد"} با موفقیت پرداخت شد. موجودی جدید: ${money(newBalance)}.`;
-      toast("سفارش در Supabase ثبت شد.");
+      toast("سفارش با موفقیت ثبت شد.");
       setTimeout(() => { closePanels(); button.disabled = false; button.innerHTML = 'تأیید اطلاعات سفارش <span>←</span>'; }, 2400);
     } catch (error) {
       const msg = String(error?.message || error || "خطای نامشخص");
@@ -844,6 +913,11 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
   $("#loginOpen").addEventListener("click", () => openLogin("login"));
   $("#accountSettingsOpen").addEventListener("click", openSettings);
   $("#settingsClose").addEventListener("click", closePanels);
+  $("#myOrdersOpen").addEventListener("click", openMyOrders);
+  $("#myOrdersClose").addEventListener("click", closePanels);
+  $("#myOrdersRefresh").addEventListener("click", loadMyOrders);
+  $("#myOrdersList").addEventListener("click", (event) => { const btn = event.target.closest("[data-copy-order]"); if (!btn) return; const code = btn.getAttribute("data-copy-order") || ""; if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(code).then(() => toast("کد پیگیری کپی شد.")).catch(() => toast("کد پیگیری: " + code)); else { const area = document.createElement("textarea"); area.value = code; area.style.position="fixed"; area.style.opacity="0"; document.body.appendChild(area); area.select(); try { document.execCommand("copy"); toast("کد پیگیری کپی شد."); } catch (_) { toast("کد پیگیری: " + code); } area.remove(); } });
+
   $("#settingsLogout").addEventListener("click", logoutDemo);
   $("#walletTopupOpen").addEventListener("click", openTopup);
   $("#topupClose").addEventListener("click", closePanels);
@@ -896,7 +970,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
       $("#topupForm").classList.add("hidden"); $("#adminNoticePanel").classList.remove("hidden");
       $("#adminNoticeText").textContent = `درخواست شارژ ${money(amount)} ثبت شد و پس از بررسی ادمین به کیف پول اضافه می‌شود.`;
       $("#adminRequestReference").textContent = `شماره پیگیری: ${requestId}`;
-      toast("رسید و درخواست در Supabase ثبت شد.");
+      toast("رسید و درخواست با موفقیت ثبت شد.");
     } catch (error) { message.textContent = `ارسال رسید ناموفق بود: ${error.message || error}`; message.classList.add("coupon-error"); }
     finally { button.disabled = false; button.innerHTML = 'Finalize · ارسال به بررسی ادمین <span>←</span>'; }
   });
@@ -1049,13 +1123,13 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
     const name = $("#settingsName").value.trim(); if (!name) { $("#settingsMessage").textContent = "لطفاً نام نمایشی را وارد کن."; return; }
     const { error } = await sb.from("profiles").upsert({ id: state.authUser.id, display_name: name }, { onConflict: "id" });
     if (error) { $("#settingsMessage").textContent = `ذخیره انجام نشد: ${error.message}`; return; }
-    state.profile = { ...(state.profile || {}), display_name: name }; $("#settingsMessage").textContent = "اطلاعات حساب در Supabase ذخیره شد."; toast("پروفایل ذخیره شد.");
+    state.profile = { ...(state.profile || {}), display_name: name }; $("#settingsMessage").textContent = "اطلاعات حساب ذخیره شد."; toast("پروفایل ذخیره شد.");
   });
   $("#footerLogin").addEventListener("click", () => openLogin("login"));
   $("#loginClose").addEventListener("click", closePanels);
   $("#authForm").addEventListener("submit", async event => {
     event.preventDefault(); const email = $("#authEmail").value.trim(), password = $("#authPassword").value, message = $("#authMessage");
-    if (!sb) { message.textContent = "کتابخانه Supabase بارگذاری نشده؛ اتصال اینترنت را بررسی کن."; return; }
+    if (!sb) { message.textContent = "سامانه ورود بارگذاری نشده؛ اتصال اینترنت را بررسی کن."; return; }
     const signingUp = state.authMode === "signup";
     if (!email || !$("#authEmail").checkValidity()) { message.textContent = "لطفاً ایمیل معتبر وارد کن."; $("#authEmail").focus(); return; }
     if (signingUp && !updatePasswordRules()) { message.textContent = "رمز باید حداقل ۸ کاراکتر، یک حرف بزرگ انگلیسی و یک عدد داشته باشد."; $("#authPassword").focus(); return; }
@@ -1071,18 +1145,34 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
           await refreshAccountData(); syncAccountControls(); message.textContent = "حساب با موفقیت ساخته شد و وارد سایت شدی."; toast("حساب PTY ساخته شد.");
           setTimeout(() => closePanels(), 500);
         } else {
-          message.textContent = "درخواست ثبت‌نام انجام شد. اگر تأیید ایمیل در Supabase فعال است، صندوق ورودی و Spam را برای تأیید حساب بررسی کن؛ سپس وارد شو.";
+          message.textContent = "درخواست ثبت‌نام ارسال شد. اگر تأیید ایمیل فعال است، صندوق ورودی و Spam را بررسی کن؛ سپس وارد شو.";
         }
       } else {
         const result = await sb.auth.signInWithPassword({ email, password });
         if (result.error) throw result.error;
         if (!result.data.session) { message.textContent = "ورود کامل نشد؛ ایمیل و رمز را بررسی کن."; return; }
         state.authUser = result.data.user; state.user = result.data.user.email || email;
-        await refreshAccountData(); syncAccountControls(); message.textContent = "ورود امن با Supabase موفق بود."; toast("وارد حساب شدی.");
+        await refreshAccountData(); syncAccountControls(); message.textContent = "ورود امن موفق بود."; toast("وارد حساب شدی.");
         const pendingId = state.pendingProductId; state.pendingProductId = null;
         setTimeout(() => { closePanels(); if (pendingId) addToCart(pendingId); }, 500);
       }
-    } catch (error) { message.textContent = `${signingUp ? "ثبت‌نام" : "ورود"} ناموفق بود: ${error.message || error}`; }
+    } catch (error) {
+      const raw = String(error?.message || error || "خطای ناشناخته");
+      console.error("PTY STOREE auth error:", error);
+      let friendly = raw;
+      if (/Database error saving new user/i.test(raw)) {
+        friendly = "ثبت‌نام انجام نشد. دوباره تلاش کن؛ اگر مشکل ادامه داشت، با پشتیبانی تماس بگیر.";
+      } else if (/already registered|user already exists/i.test(raw)) {
+        friendly = "این ایمیل قبلاً حساب دارد؛ از گزینه ورود استفاده کن.";
+      } else if (/password.*(weak|short)|weak password/i.test(raw)) {
+        friendly = "رمز عبور قوی‌تری انتخاب کن: حداقل ۸ کاراکتر، یک حرف بزرگ انگلیسی و یک عدد.";
+      } else if (/rate limit|too many requests/i.test(raw)) {
+        friendly = "تعداد تلاش‌ها زیاد شده؛ کمی صبر کن و دوباره امتحان کن.";
+      } else if (/email.*not enabled|email logins are disabled/i.test(raw)) {
+        friendly = "ورود ایمیلی در حال حاضر فعال نیست؛ بعداً دوباره تلاش کن یا با پشتیبانی تماس بگیر.";
+      }
+      message.textContent = `${signingUp ? "ثبت‌نام" : "ورود"} ناموفق بود: ${friendly}`;
+    }
     finally { submit.disabled = false; submit.innerHTML = state.authMode === "signup" ? 'ساخت حساب <span>←</span>' : 'ورود امن <span>←</span>'; }
   });
 
@@ -1097,8 +1187,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
     $("#reviewBody").value = ""; message.textContent = "نظرت ثبت شد؛ ممنون از بازخوردت!"; await loadReviews(); toast("نظر با موفقیت ثبت شد.");
   });
 
-  async function initSupabase() {
-    if (!sb) { $("#authMessage").textContent = "اتصال Supabase برقرار نشد."; return; }
+  async function initAccountServices() {
+    if (!sb) { $("#authMessage").textContent = "اتصال سامانه حساب برقرار نشد."; return; }
     const { data: { session } } = await sb.auth.getSession();
     state.authUser = session?.user || null; state.user = session?.user?.email || "";
     await refreshAccountData(); syncAccountControls(); await loadReviews();
@@ -1170,7 +1260,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
   syncAccountControls();
   renderProducts();
   renderCart();
-  initSupabase().then(() => syncProductsFromDatabase()).catch(error => console.error("Supabase init failed", error));
+  initAccountServices().then(() => syncProductsFromDatabase()).catch(error => console.error("PTY initialization failed", error));
 })();
 
   </script>
