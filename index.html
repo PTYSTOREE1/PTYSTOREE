@@ -335,6 +335,36 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;bac
 @keyframes ordersSpin{to{transform:rotate(360deg)}}
 @keyframes orderProgress{from{transform:scaleX(.1);opacity:.3}to{transform:scaleX(1);opacity:1}}
 @media(max-width:520px){#myOrdersModal{padding:24px 16px}#myOrdersModal .admin-record{padding:13px}#myOrdersModal .admin-tracking-code{font-size:12px}#myOrdersModal .order-items-detail span{align-items:flex-start;flex-direction:column;gap:4px}}
+
+/* PTY STOREE UI FIX: visible, readable buttons across account, admin and dynamic lists */
+button, input[type="button"], input[type="submit"] { font-family: inherit; cursor: pointer; }
+button { color: #f7f1ff; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #b98aff; outline-offset: 3px; }
+.button-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 40px; padding: 10px 16px; border: 1px solid #694a86;
+  border-radius: 12px; background: linear-gradient(135deg,#292035,#191421);
+  color: #eadcff !important; font: inherit; font-size: 12px; font-weight: 700;
+  line-height: 1.5; white-space: normal; text-align: center;
+  box-shadow: 0 4px 14px #0003; transition: background .2s,border-color .2s,transform .2s;
+}
+.button-secondary:hover:not(:disabled) { background: linear-gradient(135deg,#3a2a4b,#21182c); border-color: #b98aff; transform: translateY(-1px); }
+.button-primary, .button-ghost, .button-text { line-height: 1.5; }
+.button:disabled, button:disabled { opacity: .48; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.admin-dashboard button { min-height: 38px; }
+.admin-record-actions { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.admin-record-actions .button { min-width: 92px; }
+.admin-product-row, .admin-record-card, .admin-topup-card, .admin-review-card { min-width:0; }
+.admin-dashboard input, .admin-dashboard select, .admin-dashboard textarea { color:#f7f1ff; background:#15101e; border:1px solid #443451; border-radius:10px; }
+.admin-dashboard input::placeholder, .admin-dashboard textarea::placeholder { color:#a99bb8; }
+.admin-dashboard label { color:#e8ddf5; }
+.admin-dashboard .close-button { display:grid; place-items:center; color:#f7f1ff; background:#21172c; border:1px solid #694a86; }
+.admin-dashboard .close-button:hover { background:#382447; border-color:#b98aff; }
+@media (max-width:600px) {
+  .admin-record-actions .button { flex:1 1 110px; min-width:0; }
+  .admin-dashboard { inset:0; border-radius:0; padding:18px 14px; }
+}
+
 </style>
 </head>
 <body>
