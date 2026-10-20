@@ -1436,19 +1436,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const score=Math.max(0,Math.min(3000,Math.floor(Number(ptyGame.score)||0)));
     if(state.authUser && sb){
       try {
+        // Read the authoritative balance before claiming, because the in-memory cache
+        // can be empty/stale after navigation or a failed background refresh.
+        const uid=state.authUser.id;
+        const {data:beforeWallet,error:beforeError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',uid).maybeSingle();
+        if(beforeError) throw beforeError;
+        const baseCoins=Number(beforeWallet?.coins ?? ptyCloudSave?.coins ?? save.coins)||0;
         const {data,error}=await sb.rpc('pty_claim_rift_reward',{p_score:score});
         if(error) throw error;
         earned=Number(data)||0;
-        // Once the reward RPC succeeds, the server transaction has committed.
-        // A later refresh/history read failure must not falsely report that the reward failed.
         rewardSaved=true;
-        const previousCoins=Number(ptyCloudSave?.coins ?? save.coins)||0;
         ptyCloudRevision++;
-        ptyCloudSave={...(ptyCloudSave||{}),coins:previousCoins+earned,best:Math.max(Number(ptyCloudSave?.best)||0,score),owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
-        // Do not immediately replace the confirmed reward balance with a potentially stale read.
-        // The next normal wallet refresh will reconcile it with Supabase.
+        // Prefer the post-RPC database balance. If the read fails, use the pre-RPC
+        // database balance plus the confirmed RPC reward rather than a stale cache.
+        let confirmedCoins=baseCoins+earned;
+        let confirmedBest=Math.max(Number(beforeWallet?.best_score)||0,score);
+        try {
+          const {data:afterWallet,error:afterError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',uid).maybeSingle();
+          if(!afterError && afterWallet){confirmedCoins=Number(afterWallet.coins)||0;confirmedBest=Number(afterWallet.best_score)||confirmedBest;}
+        } catch(walletRefreshError) { console.warn('Reward saved; wallet refresh failed:',walletRefreshError); }
+        ptyCloudSave={...(ptyCloudSave||{}),coins:confirmedCoins,best:confirmedBest,owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
         try { await ptyLoadScoreHistory(); } catch(historyError) { console.warn('Reward saved; score history refresh failed:',historyError); }
-        // Repaint every visible coin counter after the server confirms the reward.
         ptyRenderVault();
         save=ptyReadSave();
         $('#ptyVaultMessage').classList.remove('coupon-error');
