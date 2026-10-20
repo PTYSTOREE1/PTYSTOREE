@@ -367,6 +367,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 
 
+
+/* Checkout information notice */
+.checkout-info-notice{margin:0 0 18px;padding:13px 15px;border:1px solid #8c63bd66;border-radius:12px;background:linear-gradient(120deg,#9b5cff17,#21152e);color:#e8d8fb;font-size:12px;line-height:1.9}.checkout-info-notice strong{display:block;margin-bottom:4px;color:#e4caff;font-size:12px}.checkout-info-notice p{margin:0;color:#c6b6d8}
+.checkout-modal #phoneNumber:required:invalid{border-color:#49345a}
 </style>
 </head>
 <body>
@@ -457,11 +461,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <div class="eyebrow centered">ORDER DETAILS</div><h2 id="checkoutTitle">اطلاعات <span class="gradient-text">دریافت آیتم</span></h2>
     <p class="modal-description">برای ادامه سفارش، لینک ترید استیم و آیدی تلگرام را وارد کن.</p>
     <div class="checkout-total"><span>مبلغ نهایی سفارش</span><strong id="checkoutTotal">۰ تومان</strong></div>
+    <div class="checkout-info-notice" role="note" aria-label="توضیح درباره اطلاعات خرید"><strong>چرا این اطلاعات را دریافت می‌کنیم؟</strong><p>اطلاعاتی که در این بخش دریافت می‌کنیم، برای بهبود عملکرد تیم PTY Store و پیگیری بهتر سفارش شماست تا از بروز مشکل در روند سفارش جلوگیری کنیم. اطلاعات را با دقت وارد کنید.</p></div>
     <form id="checkoutForm">
       <label for="steamTradeUrl">لینک ترید استیم <span class="required-mark">*</span></label><input id="steamTradeUrl" type="url" placeholder="https://steamcommunity.com/tradeoffer/new/?partner=..." autocomplete="url" required>
       <div class="trade-link-actions"><button class="button button-secondary trade-view-button" id="getTradeLinkButton" type="button">دریافت لینک ترید از Steam <span>↗</span></button><span class="trade-view-hint" id="tradeLinkHint" aria-live="polite">در Steam Community لینک تریدت را پیدا کن و اینجا وارد کن.</span></div>
       <label for="telegramId">آیدی تلگرام <span class="required-mark">*</span></label><input id="telegramId" type="text" placeholder="مثلاً @username" autocomplete="off" required>
-      <label for="phoneNumber">شماره تلفن (اختیاری)</label><input id="phoneNumber" type="tel" inputmode="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
+      <label for="phoneNumber">شماره تلفن <span class="required-mark">*</span></label><input id="phoneNumber" type="tel" inputmode="tel" placeholder="09xxxxxxxxx" autocomplete="tel" required aria-required="true">
       <p class="form-message" id="checkoutMessage" role="status">سفارش پس از تأیید موجودی کیف پول ثبت می‌شود.</p>
       <button class="button button-primary button-wide" type="submit">تأیید اطلاعات سفارش <span>←</span></button>
     </form>
@@ -901,7 +906,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     $("#steamTradeUrl").value = state.profile?.steam_trade_url || "";
     $("#telegramId").value = state.profile?.telegram_id || "";
     $("#phoneNumber").value = state.profile?.phone || "";
-    $("#checkoutMessage").textContent = "لینک ترید استیم و آیدی تلگرام الزامی هستند؛ شماره تلفن اختیاری است.";
+    $("#checkoutMessage").textContent = "لینک ترید استیم، آیدی تلگرام و شماره تلفن همگی الزامی هستند.";
     openOverlayPanel($("#checkoutModal"));
   });
   $("#checkoutClose").addEventListener("click", closePanels);
@@ -916,6 +921,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const tradeUrl = $("#steamTradeUrl").value.trim();
     const telegramId = $("#telegramId").value.trim();
     const phone = $("#phoneNumber").value.trim();
+    if (!phone) { $("#checkoutMessage").textContent = "وارد کردن شماره تلفن الزامی است."; $("#phoneNumber").focus(); return; }
     if (!/^https:\/\/(www\.)?steamcommunity\.com\/tradeoffer\/new\/\?/.test(tradeUrl)) { $("#checkoutMessage").textContent = "لطفاً لینک معتبر Steam Trade Offer را وارد کن."; $("#steamTradeUrl").focus(); return; }
     if (!telegramId) { $("#checkoutMessage").textContent = "وارد کردن آیدی تلگرام الزامی است."; $("#telegramId").focus(); return; }
     if (!state.cart.size) { $("#checkoutMessage").textContent = "سبد خرید خالی است."; return; }
