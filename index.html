@@ -708,7 +708,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     $("#settingsModal").classList.remove("open");
     $("#topupModal").classList.remove("open");
     $("#checkoutModal").classList.remove("open");
-    $("#checkoutModal").classList.remove("open");
+    $("#myOrdersModal").classList.remove("open");
     document.body.classList.remove("no-scroll");
   }
 
@@ -864,6 +864,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   $("#cartOpen").addEventListener("click", openCart);
   $("#cartClose").addEventListener("click", closePanels);
   $("#overlay").addEventListener("click", closePanels);
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closePanels();
+  });
   $("#continueShopping").addEventListener("click", () => {
     closePanels();
     $("#market").scrollIntoView({ behavior: "smooth" });
