@@ -465,8 +465,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <form id="checkoutForm">
       <label for="steamTradeUrl">لینک ترید استیم <span class="required-mark">*</span></label><input id="steamTradeUrl" type="url" placeholder="https://steamcommunity.com/tradeoffer/new/?partner=..." autocomplete="url" required>
       <div class="trade-link-actions"><button class="button button-secondary trade-view-button" id="getTradeLinkButton" type="button">دریافت لینک ترید از Steam <span>↗</span></button><span class="trade-view-hint" id="tradeLinkHint" aria-live="polite">در Steam Community لینک تریدت را پیدا کن و اینجا وارد کن.</span></div>
-      <label for="telegramId">آیدی تلگرام <span class="required-mark">*</span></label><input id="telegramId" type="text" placeholder="مثلاً @username" autocomplete="off" required>
-      <label for="phoneNumber">شماره تلفن <span class="required-mark">*</span></label><input id="phoneNumber" type="tel" inputmode="tel" placeholder="09xxxxxxxxx" autocomplete="tel" required aria-required="true">
+      <label for="telegramId">آیدی تلگرام <span class="required-mark">*</span></label><input id="telegramId" type="text" placeholder="مثلاً @username" autocomplete="off" required maxlength="33">
+      <label for="phoneNumber">شماره تلفن <span class="required-mark">*</span></label><input id="phoneNumber" type="tel" inputmode="tel" placeholder="09xxxxxxxxx" autocomplete="tel" required aria-required="true" maxlength="16">
       <p class="form-message" id="checkoutMessage" role="status">سفارش پس از تأیید موجودی کیف پول ثبت می‌شود.</p>
       <button class="button button-primary button-wide" type="submit">تأیید اطلاعات سفارش <span>←</span></button>
     </form>
@@ -919,11 +919,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     event.preventDefault();
     if (!sb || !state.authUser) { $("#checkoutMessage").textContent = "ابتدا وارد حساب کاربری شو."; openLogin("login"); return; }
     const tradeUrl = $("#steamTradeUrl").value.trim();
-    const telegramId = $("#telegramId").value.trim();
-    const phone = $("#phoneNumber").value.trim();
+    const telegramRaw = $("#telegramId").value.trim().replace(/^@+/, "");
+    const telegramId = telegramRaw ? "@" + telegramRaw : "";
+    const toEnglishDigits = value => value.replace(/[۰-۹٠-٩]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit) >= 0 ? String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)) : String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
+    let phone = toEnglishDigits($("#phoneNumber").value.trim()).replace(/[\s()\-]/g, "");
+    if (phone.startsWith("+98")) phone = "0" + phone.slice(3);
+    else if (phone.startsWith("0098")) phone = "0" + phone.slice(4);
+    else if (phone.startsWith("98") && phone.length === 12) phone = "0" + phone.slice(2);
     if (!phone) { $("#checkoutMessage").textContent = "وارد کردن شماره تلفن الزامی است."; $("#phoneNumber").focus(); return; }
+    if (!/^09[0-9]{9}$/.test(phone)) { $("#checkoutMessage").textContent = "شماره تلفن معتبر نیست؛ شماره موبایل ایران را به شکل 09xxxxxxxxx وارد کن."; $("#phoneNumber").focus(); return; }
     if (!/^https:\/\/(www\.)?steamcommunity\.com\/tradeoffer\/new\/\?/.test(tradeUrl)) { $("#checkoutMessage").textContent = "لطفاً لینک معتبر Steam Trade Offer را وارد کن."; $("#steamTradeUrl").focus(); return; }
-    if (!telegramId) { $("#checkoutMessage").textContent = "وارد کردن آیدی تلگرام الزامی است."; $("#telegramId").focus(); return; }
+    if (!telegramRaw) { $("#checkoutMessage").textContent = "وارد کردن آیدی تلگرام الزامی است."; $("#telegramId").focus(); return; }
+    if (!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(telegramRaw)) { $("#checkoutMessage").textContent = "آیدی تلگرام معتبر نیست؛ باید 5 تا 32 کاراکتر انگلیسی باشد و فقط حروف، عدد و زیرخط داشته باشد."; $("#telegramId").focus(); return; }
     if (!state.cart.size) { $("#checkoutMessage").textContent = "سبد خرید خالی است."; return; }
     const items = [...state.cart.entries()].map(([id, quantity]) => ({ product_id: id, quantity }));
     const button = $("#checkoutForm button[type=submit]"); button.disabled = true; button.textContent = "در حال ثبت سفارش...";
@@ -934,8 +941,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       const newBalance = Number(data?.new_balance ?? order?.new_balance ?? 0);
       state.walletBalance = newBalance;
       state.cart.clear(); renderCart(); renderWallet();
-      await sb.from("profiles").update({ steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null }).eq("id", state.authUser.id);
-      state.profile = { ...(state.profile || {}), steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null };
+      await sb.from("profiles").update({ steam_trade_url: tradeUrl, telegram_id: telegramId, phone }).eq("id", state.authUser.id);
+      state.profile = { ...(state.profile || {}), steam_trade_url: tradeUrl, telegram_id: telegramId, phone };
       $("#checkoutMessage").classList.remove("coupon-error");
       $("#checkoutMessage").textContent = `سفارش ${order?.tracking_code || order?.trackingCode || "ثبت شد"} با موفقیت پرداخت شد. موجودی جدید: ${money(newBalance)}.`;
       toast("سفارش ثبت شد؛ وضعیت فعلی: در حال انتظار.");
