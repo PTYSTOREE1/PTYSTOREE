@@ -1421,20 +1421,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         const {data,error}=await sb.rpc('pty_claim_rift_reward',{p_score:score});
         if(error) throw error;
         earned=Number(data)||0;
-        // Read the authoritative wallet after the reward RPC; never rely on stale UI state.
-        const {data:wallet,error:walletError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',state.authUser.id).single();
-        if(walletError) throw walletError;
-        ptyCloudSave={...(ptyCloudSave||{}),coins:Number(wallet.coins)||0,best:Number(wallet.best_score)||0,owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
+        // Once the reward RPC succeeds, the server transaction has committed.
+        // A later refresh/history read failure must not falsely report that the reward failed.
         rewardSaved=true;
-        await ptyLoadCloud();
-        await ptyLoadScoreHistory();
+        const previousCoins=Number(ptyCloudSave?.coins ?? save.coins)||0;
+        ptyCloudSave={...(ptyCloudSave||{}),coins:previousCoins+earned,best:Math.max(Number(ptyCloudSave?.best)||0,score),owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
+        try {
+          const {data:wallet,error:walletError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',state.authUser.id).single();
+          if(!walletError && wallet){ptyCloudSave.coins=Number(wallet.coins)||0;ptyCloudSave.best=Number(wallet.best_score)||0;}
+        } catch(refreshError) { console.warn('Reward saved; wallet refresh failed:',refreshError); }
+        try { await ptyLoadScoreHistory(); } catch(historyError) { console.warn('Reward saved; score history refresh failed:',historyError); }
         save=ptyReadSave();
         $('#ptyVaultMessage').classList.remove('coupon-error');
-        $('#ptyVaultMessage').textContent=`بازی تمام شد! ${ptyNum(earned)} کوین به موجودی حسابت اضافه شد.`;
+        $('#ptyVaultMessage').textContent=`بازی تمام شد! ${ptyNum(earned)} کوین پاداش سرور ثبت شد. موجودی حساب: ${ptyNum(save.coins)} کوین.`;
       } catch(err) {
         console.error('NEON RIFT reward save failed:',err);
         const em=String(err?.message||err||'خطای ناشناخته');
-        $('#ptyVaultMessage').textContent=/wait before claiming/i.test(em)?'برای جلوگیری از تقلب، ۲۵ ثانیه بین دریافت پاداش‌ها فاصله بگذار.':'کوین‌ها ذخیره نشدند. تنظیمات SQL و اتصال Supabase را بررسی کن. خطا: '+em;
+        $('#ptyVaultMessage').textContent=/wait before claiming/i.test(em)?'برای جلوگیری از تقلب، ۲۵ ثانیه بین دریافت پاداش‌ها فاصله بگذار.':/Invalid score/i.test(em)?'امتیاز بازی نامعتبر تشخیص داده شد. صفحه را تازه‌سازی کن و دوباره بازی کن.':('پاداش از سرور ثبت نشد. خطای دقیق: '+em+' — فایل SQL تعمیر NEON RIFT را یک‌بار در Supabase اجرا کن.');
         $('#ptyVaultMessage').classList.add('coupon-error');
       }
     } else {
