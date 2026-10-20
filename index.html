@@ -1332,32 +1332,73 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     {id:'cosmic',name:'خدای کیهانی',art:'🪐',price:650,rarity:'فوق‌العاده کمیاب · GOD',bg:'linear-gradient(120deg,#6d28d9,#0e7490,#111827)'}
   ];
   let ptyGame = {running:false,score:0,combo:0,time:30,timer:null,spawn:null,coins:0,targets:0};
+  let ptyCloudSave = null;
   function ptyStoreKey(){ return 'pty_arcade_vault_v1_' + (state.authUser?.id || state.user || 'guest'); }
-  function ptyReadSave(){ try { const x=JSON.parse(localStorage.getItem(ptyStoreKey())||'{}'); return {coins:Math.max(0,Number(x.coins)||0),owned:Array.isArray(x.owned)?x.owned:['wanderer'],selected:ptyStyles.some(a=>a.id===x.selected)?x.selected:'wanderer',best:Math.max(0,Number(x.best)||0)}; } catch(_){return {coins:0,owned:['wanderer'],selected:'wanderer',best:0};} }
-  function ptySave(data){ try{localStorage.setItem(ptyStoreKey(),JSON.stringify(data));}catch(_){} }
+  function ptyReadSave(){
+    if (state.authUser && ptyCloudSave) return {...ptyCloudSave, owned:[...ptyCloudSave.owned]};
+    try { const x=JSON.parse(localStorage.getItem(ptyStoreKey())||'{}'); return {coins:Math.max(0,Number(x.coins)||0),owned:Array.isArray(x.owned)?x.owned:['wanderer'],selected:ptyStyles.some(a=>a.id===x.selected)?x.selected:'wanderer',best:Math.max(0,Number(x.best)||0)}; } catch(_){return {coins:0,owned:['wanderer'],selected:'wanderer',best:0};}
+  }
+  function ptySave(data){
+    if (state.authUser) { ptyCloudSave = {...data, owned:[...(data.owned||[])]}; return; }
+    try{localStorage.setItem(ptyStoreKey(),JSON.stringify(data));}catch(_){}
+  }
   function ptyNum(n){return Number(n||0).toLocaleString('fa-IR');}
+  async function ptyLoadCloud(){
+    if(!sb || !state.authUser){ptyCloudSave=null;ptyRenderVault();return;}
+    const {error:initError}=await sb.rpc('pty_init_game_profile');
+    if(initError){console.error('PTY game setup:',initError);$('#ptyVaultMessage').textContent='اتصال گالری به دیتابیس کامل نیست. ابتدا فایل SQL اتصال پروفایل‌ها را در Supabase اجرا کن.';ptyCloudSave=null;ptyRenderVault();return;}
+    const uid=state.authUser.id;
+    const [w,o,e]=await Promise.all([
+      sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',uid).maybeSingle(),
+      sb.from('pty_unlocked_profiles').select('profile_id').eq('user_id',uid),
+      sb.from('pty_equipped_profiles').select('profile_id').eq('user_id',uid).maybeSingle()
+    ]);
+    if(w.error||o.error||e.error){console.error(w.error||o.error||e.error);$('#ptyVaultMessage').textContent='خطا در خواندن گالری از دیتابیس؛ SQL را بررسی کن.';ptyCloudSave=null;ptyRenderVault();return;}
+    ptyCloudSave={coins:Number(w.data?.coins||0),best:Number(w.data?.best_score||0),owned:(o.data||[]).map(x=>x.profile_id),selected:e.data?.profile_id||'wanderer'};
+    if(!ptyCloudSave.owned.includes('wanderer'))ptyCloudSave.owned.unshift('wanderer');
+    ptyRenderVault();
+  }
   function ptyRenderVault(){
     const save=ptyReadSave(); $('#ptyCoinBalance').textContent=ptyNum(save.coins); $('#riftCoinBalance').textContent=ptyNum(save.coins);
     const active=ptyStyles.find(a=>a.id===save.selected)||ptyStyles[0];
     $('#ptyActiveProfile').style.background=active.bg; $('#ptyActiveProfile').style.borderColor='#c084fc66';
     $('#ptyActiveProfile').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><span style="font-size:34px;filter:drop-shadow(0 5px 12px #0008)">${active.art}</span><div><strong style="font-size:12px;color:#fff">${active.name}</strong><p style="font-size:9px;color:#e9d5ff;margin:5px 0 0">پروفایل فعال تو · ${active.rarity}</p></div><span style="margin-right:auto;font-size:10px;color:#fde68a">✦ ACTIVE</span></div>`;
-    $('#ptyAvatarGrid').innerHTML=ptyStyles.map(a=>{const owned=save.owned.includes(a.id),selected=save.selected===a.id;return `<button type="button" class="pty-avatar-card ${selected?'selected':''}" data-pty-style="${a.id}" style="background:${a.bg}" ${(!owned&&save.coins<a.price)?'disabled':''}><span class="avatar-price">${owned?(selected?'✓ فعال':'✓ آزاد'):'◈ '+ptyNum(a.price)}</span><span class="avatar-art">${a.art}</span><strong>${a.name}</strong><small>${a.rarity}${!owned?' · برای خرید کلیک کن':selected?' · انتخاب شده':' · برای انتخاب کلیک کن'}</small></button>`}).join('');
+    $('#ptyAvatarGrid').innerHTML=ptyStyles.map(a=>{const owned=save.owned.includes(a.id),selected=save.selected===a.id;return `<button type="button" class="pty-avatar-card ${selected?'selected':''}" data-pty-style="${a.id}" style="background:${a.bg}"><span class="avatar-price">${owned?(selected?'✓ فعال':'✓ آزاد'):'◈ '+ptyNum(a.price)}</span><span class="avatar-art">${a.art}</span><strong>${a.name}</strong><small>${a.rarity}${!owned?' · برای خرید کلیک کن':selected?' · انتخاب شده':' · برای انتخاب کلیک کن'}</small></button>`}).join('');
+    if(!state.authUser) $('#ptyVaultMessage').textContent='برای ذخیره کوین‌ها و پروفایل‌ها در حساب خودت، ابتدا وارد حساب PTY STOREE شو.';
   }
-  function ptyVaultClick(id){const save=ptyReadSave(),a=ptyStyles.find(x=>x.id===id);if(!a)return;if(save.owned.includes(id)){save.selected=id;ptySave(save);ptyRenderVault();toast('پروفایل '+a.name+' فعال شد.');return;}if(save.coins<a.price){$('#ptyVaultMessage').textContent=`برای ${a.name} به ${ptyNum(a.price-save.coins)} کوین دیگر نیاز داری؛ NEON RIFT را بازی کن.`;$('#ptyVaultMessage').classList.add('coupon-error');return;}save.coins-=a.price;save.owned.push(id);save.selected=id;ptySave(save);ptyRenderVault();$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent=`${a.name} آزاد شد و روی پروفایلت فعال شد!`;toast('استایل ویژه آزاد شد!');}
+  async function ptyVaultClick(id){
+    const a=ptyStyles.find(x=>x.id===id);if(!a)return;
+    if(!state.authUser || !sb){$('#ptyVaultMessage').textContent='برای خرید و ذخیره دائمی پروفایل، ابتدا وارد حساب کاربری شو.';$('#ptyVaultMessage').classList.add('coupon-error');return;}
+    const save=ptyReadSave();
+    if(save.owned.includes(id)){
+      const {error}=await sb.rpc('pty_equip_profile',{p_profile_id:id});
+      if(error){$('#ptyVaultMessage').textContent='انتخاب پروفایل انجام نشد: '+error.message;$('#ptyVaultMessage').classList.add('coupon-error');return;}
+      save.selected=id;ptySave(save);ptyRenderVault();toast('پروفایل '+a.name+' فعال شد.');return;
+    }
+    if(save.coins<a.price){$('#ptyVaultMessage').textContent=`برای ${a.name} به ${ptyNum(a.price-save.coins)} کوین دیگر نیاز داری؛ NEON RIFT را بازی کن.`;$('#ptyVaultMessage').classList.add('coupon-error');return;}
+    const {error}=await sb.rpc('pty_buy_profile',{p_profile_id:id});
+    if(error){$('#ptyVaultMessage').textContent='خرید انجام نشد: '+error.message;$('#ptyVaultMessage').classList.add('coupon-error');return;}
+    await ptyLoadCloud();$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent=`${a.name} خریداری شد و در حساب تو ذخیره شد!`;toast('استایل ویژه آزاد شد!');
+  }
   function ptyCloseGame(){if(ptyGame.running)ptyEndGame(true);$('#neonRiftModal').classList.remove('open');}
   function ptyStartGame(){if(ptyGame.running)return;ptyGame.running=true;ptyGame.score=0;ptyGame.combo=0;ptyGame.time=30;ptyGame.targets=0;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftResult').classList.remove('show');$('#riftIntro').style.display='none';$('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());ptyUpdateHud();ptySpawnTarget();ptyGame.spawn=setInterval(ptySpawnTarget,610);ptyGame.timer=setInterval(()=>{ptyGame.time--;ptyUpdateHud();if(ptyGame.time<=0)ptyEndGame(false);},1000);}
   function ptySpawnTarget(){if(!ptyGame.running)return;const arena=$('#riftArena');if(arena.querySelectorAll('.rift-target').length>5)return;const roll=Math.random(),type=roll>.91?'glitch':roll>.77?'golden':'core';const b=document.createElement('button');b.type='button';b.className='rift-target '+type;b.setAttribute('aria-label',type==='glitch'?'گلیچ خطرناک':'هسته انرژی');b.textContent=type==='glitch'?'×':type==='golden'?'✦':'◆';b.style.left=(8+Math.random()*84)+'%';b.style.top=(12+Math.random()*76)+'%';b.addEventListener('click',()=>{if(!ptyGame.running)return;const points=type==='glitch'?-15:type==='golden'?30:10;if(type==='glitch'){ptyGame.score=Math.max(0,ptyGame.score+points);ptyGame.combo=0;}else{ptyGame.combo++;ptyGame.score+=points+Math.min(ptyGame.combo,10)*2;}const f=document.createElement('span');f.className='rift-float';f.style.left=b.style.left;f.style.top=b.style.top;f.style.color=type==='glitch'?'#fb7185':type==='golden'?'#fbbf24':'#67e8f9';f.textContent=type==='glitch'?'−۱۵':`+${points+(type==='core'?Math.min(ptyGame.combo,10)*2:0)}`;arena.appendChild(f);setTimeout(()=>f.remove(),750);b.remove();ptyUpdateHud();});arena.appendChild(b);setTimeout(()=>{if(b.isConnected)b.remove();},1450);}
   function ptyUpdateHud(){$('#riftScore').textContent=ptyNum(ptyGame.score);$('#riftCombo').textContent='×'+ptyNum(Math.max(1,ptyGame.combo));$('#riftTime').textContent=ptyNum(ptyGame.time)+' ثانیه';}
-  function ptyEndGame(closed){if(!ptyGame.running)return;ptyGame.running=false;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftArena').querySelectorAll('.rift-target').forEach(x=>x.remove());if(closed)return;const earned=Math.max(0,Math.floor(ptyGame.score/12));const save=ptyReadSave();save.coins+=earned;save.best=Math.max(save.best,ptyGame.score);ptySave(save);ptyRenderVault();$('#riftResultTitle').textContent=earned?'مأموریت با موفقیت تمام شد!':'این بار شکاف فرار کرد…';$('#riftResultText').textContent=`امتیاز نهایی: ${ptyNum(ptyGame.score)} · پاداش: ${ptyNum(earned)} کوین · رکورد تو: ${ptyNum(save.best)} امتیاز. کوین‌ها به گالری پروفایل اضافه شدند.`;$('#riftResult').classList.add('show');$('#riftIntro').style.display='grid';$('#riftIntro').innerHTML='<strong>شکاف بسته شد</strong><span>برای رکورد بهتر دوباره تلاش کن.</span>';}
+  async function ptyEndGame(closed){if(!ptyGame.running)return;ptyGame.running=false;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftArena').querySelectorAll('.rift-target').forEach(x=>x.remove());if(closed)return;let earned=0;let save=ptyReadSave();
+    if(!state.authUser||!sb){$('#ptyVaultMessage').textContent='برای دریافت کوین ذخیره‌شده، وارد حساب کاربری شو و بازی را دوباره انجام بده.';}
+    else {const {data,error}=await sb.rpc('pty_claim_rift_reward',{p_score:Math.max(0,Math.min(3000,Math.floor(ptyGame.score)))});if(error){console.error(error);$('#ptyVaultMessage').textContent='ثبت پاداش انجام نشد: '+error.message;}else{earned=Number(data||0);await ptyLoadCloud();save=ptyReadSave();}}
+    if(!state.authUser){earned=Math.max(0,Math.floor(ptyGame.score/12));save.coins+=earned;save.best=Math.max(save.best,ptyGame.score);ptySave(save);ptyRenderVault();}
+    $('#riftResultTitle').textContent=earned?'مأموریت با موفقیت تمام شد!':'این بار شکاف فرار کرد…';$('#riftResultText').textContent=`امتیاز نهایی: ${ptyNum(ptyGame.score)} · پاداش ثبت‌شده: ${ptyNum(earned)} کوین · رکورد تو: ${ptyNum(save.best)} امتیاز.`;$('#riftResult').classList.add('show');$('#riftIntro').style.display='grid';$('#riftIntro').innerHTML='<strong>شکاف بسته شد</strong><span>برای رکورد بهتر دوباره تلاش کن.</span>';}
   $('#ptyAvatarGrid').addEventListener('click',e=>{const b=e.target.closest('[data-pty-style]');if(b)ptyVaultClick(b.dataset.ptyStyle);});
   $('#ptyPlayRift').addEventListener('click',()=>{closePanels();$('#neonRiftModal').classList.add('open');document.body.classList.add('no-scroll');ptyRenderVault();});
-  $('#ptyHowToEarn').addEventListener('click',()=>{$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='در NEON RIFT هسته آبی +۱۰ و طلایی +۳۰ امتیاز می‌دهد؛ گلیچ قرمز −۱۵. هر ۱۲ امتیاز تقریباً ۱ کوین می‌سازد. کوین‌ها فعلاً روی همین مرورگر ذخیره می‌شوند.';});
+  $('#ptyHowToEarn').addEventListener('click',()=>{$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='در NEON RIFT هسته آبی +۱۰ و طلایی +۳۰ امتیاز می‌دهد؛ گلیچ قرمز −۱۵. پاداش در حساب Supabase ذخیره می‌شود؛ برای دریافت کوین باید وارد حساب شده باشی.';});
   $('#riftStart').addEventListener('click',ptyStartGame);$('#riftAgain').addEventListener('click',ptyStartGame);$('#neonRiftClose').addEventListener('click',ptyCloseGame);
   const ptyOriginalClosePanels=closePanels;
   // Re-render after account identity changes so each account gets its own local vault.
   const ptyOriginalSync=syncAccountControls;
-  syncAccountControls=function(){ptyOriginalSync();if($('#ptyAvatarGrid'))ptyRenderVault();};
+  syncAccountControls=function(){ptyOriginalSync();if($('#ptyAvatarGrid')){ptyRenderVault();ptyLoadCloud().catch(console.error);}};
   ptyRenderVault();
+  ptyLoadCloud().catch(console.error);
 
   syncAccountControls();
   renderProducts();
