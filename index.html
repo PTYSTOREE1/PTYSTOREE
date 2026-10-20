@@ -505,7 +505,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <div id="ptyProfileBenefit" class="orders-empty" style="padding:12px;margin-bottom:10px;text-align:right"><strong>تخفیف پروفایل</strong><p style="margin:5px 0 0">با هر پروفایل ویژه، ۲٪ تخفیف می‌گیری؛ حداکثر ۱۰٪.</p></div>
       <div id="ptyScoreHistory" class="orders-empty" style="padding:12px;margin-bottom:10px;text-align:right"><strong>امتیازهای NEON RIFT</strong><p style="margin:5px 0 0">هنوز امتیازی ثبت نشده است.</p></div>
       <div id="ptyAvatarGrid" class="pty-avatar-grid"></div>
-      <div class="pty-vault-actions"><button class="button button-primary" id="ptyPlayRift" type="button">▶ ورود به NEON RIFT</button><button class="button button-secondary" id="ptyHowToEarn" type="button">✧ راهنمای کوین</button></div>
+      <div class="pty-vault-actions"><button class="button button-primary" id="ptyPlayRift" type="button">⚡ بزن بریم کوین بگیریم</button><button class="button button-secondary" id="ptyHowToEarn" type="button">✧ راهنمای کوین</button></div>
       <p class="form-message" id="ptyVaultMessage" role="status">کوین‌های این نسخه در همین مرورگر و برای حساب فعلی ذخیره می‌شوند.</p>
     </section>
 
@@ -1409,11 +1409,47 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   function ptyStartGame(){if(ptyGame.running)return;ptyGame.running=true;ptyGame.score=0;ptyGame.combo=0;ptyGame.time=30;ptyGame.targets=0;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftResult').classList.remove('show');$('#riftIntro').style.display='none';$('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());ptyUpdateHud();ptySpawnTarget();ptyGame.spawn=setInterval(()=>{ptySpawnTarget();if(ptyGame.time<20&&Math.random()>.45)ptySpawnTarget();},ptyGame.time>20?520:390);ptyGame.timer=setInterval(()=>{ptyGame.time--;ptyUpdateHud();if(ptyGame.time<=0)ptyEndGame(false);},1000);}
   function ptySpawnTarget(){if(!ptyGame.running)return;const arena=$('#riftArena');if(arena.querySelectorAll('.rift-target').length>(ptyGame.time<15?8:6))return;const roll=Math.random(),type=roll>.91?'glitch':roll>.77?'golden':'core';const b=document.createElement('button');b.type='button';b.className='rift-target '+type;b.setAttribute('aria-label',type==='glitch'?'گلیچ خطرناک':'هسته انرژی');b.textContent=type==='glitch'?'×':type==='golden'?'✦':'◆';b.style.left=(8+Math.random()*84)+'%';b.style.top=(12+Math.random()*76)+'%';b.addEventListener('click',()=>{if(!ptyGame.running)return;const points=type==='glitch'?-15:type==='golden'?30:10;if(type==='glitch'){ptyGame.score=Math.max(0,ptyGame.score+points);ptyGame.combo=0;}else{ptyGame.combo++;ptyGame.score+=points+Math.min(ptyGame.combo,10)*2;}const f=document.createElement('span');f.className='rift-float';f.style.left=b.style.left;f.style.top=b.style.top;f.style.color=type==='glitch'?'#fb7185':type==='golden'?'#fbbf24':'#67e8f9';f.textContent=type==='glitch'?'−۱۵':`+${points+(type==='core'?Math.min(ptyGame.combo,10)*2:0)}`;arena.appendChild(f);setTimeout(()=>f.remove(),750);b.remove();ptyUpdateHud();});arena.appendChild(b);setTimeout(()=>{if(b.isConnected)b.remove();},ptyGame.time<15?900:1250);}
   function ptyUpdateHud(){$('#riftScore').textContent=ptyNum(ptyGame.score);$('#riftCombo').textContent='×'+ptyNum(Math.max(1,ptyGame.combo));$('#riftTime').textContent=ptyNum(ptyGame.time)+' ثانیه';}
-  async function ptyEndGame(closed){if(!ptyGame.running)return;ptyGame.running=false;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftArena').querySelectorAll('.rift-target').forEach(x=>x.remove());if(closed)return;let earned=0;let save=ptyReadSave();
-    if(!state.authUser||!sb){$('#ptyVaultMessage').textContent='برای دریافت کوین ذخیره‌شده، وارد حساب کاربری شو و بازی را دوباره انجام بده.';}
-    else {const {data,error}=await sb.rpc('pty_claim_rift_reward',{p_score:Math.max(0,Math.min(3000,Math.floor(ptyGame.score)))});if(error){console.error('NEON RIFT reward save failed:',error);const em=String(error.message||'');$('#ptyVaultMessage').textContent=/wait before claiming/i.test(em)?'کمی صبر کن؛ برای جلوگیری از تقلب باید ۲۵ ثانیه بین دریافت پاداش‌ها فاصله باشد.': 'کوین ذخیره نشد؛ اتصال حساب یا تنظیمات پایگاه داده مشکل دارد. جزئیات: '+em;$('#ptyVaultMessage').classList.add('coupon-error');}else{earned=Number(data||0);await ptyLoadCloud();await ptyLoadScoreHistory();save=ptyReadSave();if(!ptyCloudSave){earned=0;$('#ptyVaultMessage').textContent='پاداش از سرور تأیید نشد؛ موجودی به‌روزرسانی نشد. دوباره وارد حساب شو و تلاش کن.';}}}
-    if(!state.authUser){earned=Math.max(0,Math.floor(ptyGame.score/12));save.coins+=earned;save.best=Math.max(save.best,ptyGame.score);ptySave(save);ptyRenderVault();}
-    $('#riftResultTitle').textContent=earned?'مأموریت با موفقیت تمام شد!':'این بار شکاف فرار کرد…';$('#riftResultText').textContent=`🎉 این راند ${ptyNum(earned)} کوین جمع کردی! امتیاز نهایی: ${ptyNum(ptyGame.score)} · رکورد تو: ${ptyNum(save.best)} امتیاز · موجودی فعلی: ${ptyNum(save.coins)} کوین.`;$('#riftResult').classList.add('show');$('#riftIntro').style.display='grid';$('#riftIntro').innerHTML='<strong>شکاف بسته شد</strong><span>برای رکورد بهتر دوباره تلاش کن.</span>';}
+  async function ptyEndGame(closed){
+    if(!ptyGame.running)return;
+    ptyGame.running=false;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);
+    $('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());
+    if(closed)return;
+    let earned=0, save=ptyReadSave(), rewardSaved=false;
+    const score=Math.max(0,Math.min(3000,Math.floor(Number(ptyGame.score)||0)));
+    if(state.authUser && sb){
+      try {
+        const {data,error}=await sb.rpc('pty_claim_rift_reward',{p_score:score});
+        if(error) throw error;
+        earned=Number(data)||0;
+        // Read the authoritative wallet after the reward RPC; never rely on stale UI state.
+        const {data:wallet,error:walletError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',state.authUser.id).single();
+        if(walletError) throw walletError;
+        ptyCloudSave={...(ptyCloudSave||{}),coins:Number(wallet.coins)||0,best:Number(wallet.best_score)||0,owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
+        rewardSaved=true;
+        await ptyLoadCloud();
+        await ptyLoadScoreHistory();
+        save=ptyReadSave();
+        $('#ptyVaultMessage').classList.remove('coupon-error');
+        $('#ptyVaultMessage').textContent=`بازی تمام شد! ${ptyNum(earned)} کوین به موجودی حسابت اضافه شد.`;
+      } catch(err) {
+        console.error('NEON RIFT reward save failed:',err);
+        const em=String(err?.message||err||'خطای ناشناخته');
+        $('#ptyVaultMessage').textContent=/wait before claiming/i.test(em)?'برای جلوگیری از تقلب، ۲۵ ثانیه بین دریافت پاداش‌ها فاصله بگذار.':'کوین‌ها ذخیره نشدند. تنظیمات SQL و اتصال Supabase را بررسی کن. خطا: '+em;
+        $('#ptyVaultMessage').classList.add('coupon-error');
+      }
+    } else {
+      earned=Math.max(0,Math.floor(score/12));
+      save.coins+=earned;save.best=Math.max(save.best,score);ptySave(save);ptyRenderVault();rewardSaved=true;
+      $('#ptyVaultMessage').textContent='کوین‌ها فقط روی همین مرورگر ذخیره شدند؛ برای ذخیره در همه دستگاه‌ها وارد حساب شو.';
+    }
+    save=ptyReadSave();
+    $('#riftResultTitle').textContent=rewardSaved?'مأموریت تمام شد!':'پاداش ثبت نشد';
+    $('#riftResultText').textContent=rewardSaved?`⚡ این بازی ${ptyNum(earned)} کوین گرفتی! امتیاز نهایی: ${ptyNum(score)} · رکورد: ${ptyNum(save.best)} · موجودی فعلی: ${ptyNum(save.coins)} کوین.`:`امتیاز نهایی: ${ptyNum(score)}. این بار پاداش در حساب ذخیره نشد؛ لطفاً پس از بررسی اتصال دوباره تلاش کن.`;
+    $('#riftResult').classList.add('show');
+    $('#riftIntro').style.display='grid';
+    $('#riftIntro').innerHTML='<strong>شکاف بسته شد!</strong><span>کوین‌ها و نتیجه بازی را بررسی کن.</span><button class="button button-primary" id="riftStart" type="button" style="pointer-events:auto;justify-self:center;margin-top:12px">شروع دوباره ↗</button>';
+    $('#riftStart').addEventListener('click',ptyStartGame);
+  }
   $('#ptyAvatarGrid').addEventListener('click',e=>{const b=e.target.closest('[data-pty-style]');if(b)ptyVaultClick(b.dataset.ptyStyle);});
   $('#ptyPlayRift').addEventListener('click',()=>{closePanels();$('#neonRiftModal').classList.add('open');document.body.classList.add('no-scroll');ptyRenderVault();});
   $('#ptyHowToEarn').addEventListener('click',()=>{$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='در NEON RIFT هسته آبی +۱۰ و طلایی +۳۰ امتیاز می‌دهد؛ گلیچ قرمز −۱۵. پاداش در حساب Supabase ذخیره می‌شود؛ برای دریافت کوین باید وارد حساب شده باشی.';});
