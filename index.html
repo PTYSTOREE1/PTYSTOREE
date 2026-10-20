@@ -1405,13 +1405,25 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if(error){$('#ptyVaultMessage').textContent='خرید انجام نشد: '+error.message;$('#ptyVaultMessage').classList.add('coupon-error');return;}
     await ptyLoadCloud();$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent=`${a.name} خریداری شد و در حساب تو ذخیره شد!`;toast('استایل ویژه آزاد شد!');
   }
+  const PTY_RIFT_COOLDOWN_KEY='pty_neon_rift_next_play_at';
+  let ptyRiftCooldownTimer=null;
+  function ptyRiftCooldownRemaining(){try{return Math.max(0,Number(localStorage.getItem(PTY_RIFT_COOLDOWN_KEY)||0)-Date.now());}catch(e){return 0;}}
+  function ptyUpdateRiftCooldownUI(){
+    const remaining=ptyRiftCooldownRemaining(), seconds=Math.ceil(remaining/1000);
+    const buttons=[$('#riftAgain'),$('#riftStart')].filter(Boolean);
+    buttons.forEach(btn=>{btn.disabled=remaining>0;btn.style.opacity=remaining>0?'.55':'';btn.style.cursor=remaining>0?'not-allowed':'';if(btn.id==='riftAgain')btn.textContent=remaining>0?`دوباره بازی کن (${seconds} ثانیه)`:'دوباره بازی کن ↻';else btn.textContent=remaining>0?`${seconds} ثانیه دیگر...`:'شروع دوباره ↗';});
+    if(remaining>0){$('#riftResultText').textContent=(($('#riftResultText').textContent||'').split(' ⏳')[0])+` ⏳ برای دریافت پاداش بعدی، ${seconds} ثانیه دیگر دوباره بازی کن.`;}
+    if(remaining<=0&&ptyRiftCooldownTimer){clearInterval(ptyRiftCooldownTimer);ptyRiftCooldownTimer=null;}
+  }
+  function ptyStartRiftCooldown(){try{localStorage.setItem(PTY_RIFT_COOLDOWN_KEY,String(Date.now()+60000));}catch(e){}if(ptyRiftCooldownTimer)clearInterval(ptyRiftCooldownTimer);ptyUpdateRiftCooldownUI();ptyRiftCooldownTimer=setInterval(ptyUpdateRiftCooldownUI,250);}
   async function ptyCloseGame(){if(ptyGame.running){await ptyEndGame(false);const text=$('#riftResultText')?.textContent||'';$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='از بازی برگشتی؛ '+text;}else if($('#riftResult')?.classList.contains('show')){const text=$('#riftResultText')?.textContent||'';$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='نتیجه آخرین بازی: '+text;}$('#neonRiftModal').classList.remove('open');document.body.classList.remove('no-scroll');}
-  function ptyStartGame(){if(ptyGame.running)return;ptyGame.running=true;ptyGame.score=0;ptyGame.combo=0;ptyGame.time=30;ptyGame.targets=0;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftResult').classList.remove('show');$('#riftIntro').style.display='none';$('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());ptyUpdateHud();ptySpawnTarget();ptyGame.spawn=setInterval(()=>{ptySpawnTarget();if(ptyGame.time<20&&Math.random()>.45)ptySpawnTarget();},ptyGame.time>20?520:390);ptyGame.timer=setInterval(()=>{ptyGame.time--;ptyUpdateHud();if(ptyGame.time<=0)ptyEndGame(false);},1000);}
+  function ptyStartGame(){if(ptyGame.running)return;if(ptyRiftCooldownRemaining()>0){ptyUpdateRiftCooldownUI();return;}ptyGame.running=true;ptyGame.score=0;ptyGame.combo=0;ptyGame.time=30;ptyGame.targets=0;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);$('#riftResult').classList.remove('show');$('#riftIntro').style.display='none';$('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());ptyUpdateHud();ptySpawnTarget();ptyGame.spawn=setInterval(()=>{ptySpawnTarget();if(ptyGame.time<20&&Math.random()>.45)ptySpawnTarget();},ptyGame.time>20?520:390);ptyGame.timer=setInterval(()=>{ptyGame.time--;ptyUpdateHud();if(ptyGame.time<=0)ptyEndGame(false);},1000);}
   function ptySpawnTarget(){if(!ptyGame.running)return;const arena=$('#riftArena');if(arena.querySelectorAll('.rift-target').length>(ptyGame.time<15?8:6))return;const roll=Math.random(),type=roll>.91?'glitch':roll>.77?'golden':'core';const b=document.createElement('button');b.type='button';b.className='rift-target '+type;b.setAttribute('aria-label',type==='glitch'?'گلیچ خطرناک':'هسته انرژی');b.textContent=type==='glitch'?'×':type==='golden'?'✦':'◆';b.style.left=(8+Math.random()*84)+'%';b.style.top=(12+Math.random()*76)+'%';b.addEventListener('click',()=>{if(!ptyGame.running)return;const points=type==='glitch'?-15:type==='golden'?30:10;if(type==='glitch'){ptyGame.score=Math.max(0,ptyGame.score+points);ptyGame.combo=0;}else{ptyGame.combo++;ptyGame.score+=points+Math.min(ptyGame.combo,10)*2;}const f=document.createElement('span');f.className='rift-float';f.style.left=b.style.left;f.style.top=b.style.top;f.style.color=type==='glitch'?'#fb7185':type==='golden'?'#fbbf24':'#67e8f9';f.textContent=type==='glitch'?'−۱۵':`+${points+(type==='core'?Math.min(ptyGame.combo,10)*2:0)}`;arena.appendChild(f);setTimeout(()=>f.remove(),750);b.remove();ptyUpdateHud();});arena.appendChild(b);setTimeout(()=>{if(b.isConnected)b.remove();},ptyGame.time<15?900:1250);}
   function ptyUpdateHud(){$('#riftScore').textContent=ptyNum(ptyGame.score);$('#riftCombo').textContent='×'+ptyNum(Math.max(1,ptyGame.combo));$('#riftTime').textContent=ptyNum(ptyGame.time)+' ثانیه';}
   async function ptyEndGame(closed){
     if(!ptyGame.running)return;
     ptyGame.running=false;clearInterval(ptyGame.timer);clearInterval(ptyGame.spawn);
+    ptyStartRiftCooldown();
     $('#riftArena').querySelectorAll('.rift-target,.rift-float').forEach(x=>x.remove());
     if(closed)return;
     let earned=0, save=ptyReadSave(), rewardSaved=false;
@@ -1454,9 +1466,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     $('#riftIntro').style.display='grid';
     $('#riftIntro').innerHTML='<strong>شکاف بسته شد!</strong><span>کوین‌ها و نتیجه بازی را بررسی کن.</span><button class="button button-primary" id="riftStart" type="button" style="pointer-events:auto;justify-self:center;margin-top:12px">شروع دوباره ↗</button>';
     $('#riftStart').addEventListener('click',ptyStartGame);
+    ptyUpdateRiftCooldownUI();
   }
   $('#ptyAvatarGrid').addEventListener('click',e=>{const b=e.target.closest('[data-pty-style]');if(b)ptyVaultClick(b.dataset.ptyStyle);});
-  $('#ptyPlayRift').addEventListener('click',()=>{closePanels();$('#neonRiftModal').classList.add('open');document.body.classList.add('no-scroll');ptyRenderVault();ptyLoadCloud().catch(err=>console.warn('Could not refresh coin balance on game open:',err));});
+  $('#ptyPlayRift').addEventListener('click',()=>{closePanels();$('#neonRiftModal').classList.add('open');document.body.classList.add('no-scroll');ptyRenderVault();ptyUpdateRiftCooldownUI();ptyLoadCloud().catch(err=>console.warn('Could not refresh coin balance on game open:',err));});
   $('#ptyHowToEarn').addEventListener('click',()=>{$('#ptyVaultMessage').classList.remove('coupon-error');$('#ptyVaultMessage').textContent='در NEON RIFT هسته آبی +۱۰ و طلایی +۳۰ امتیاز می‌دهد؛ گلیچ قرمز −۱۵. پاداش در حساب Supabase ذخیره می‌شود؛ برای دریافت کوین باید وارد حساب شده باشی.';});
   $('#riftStart').addEventListener('click',ptyStartGame);$('#riftAgain').addEventListener('click',ptyStartGame);$('#neonRiftClose').addEventListener('click',ptyCloseGame);$('#riftExit').addEventListener('click',ptyCloseGame);
   const ptyOriginalClosePanels=closePanels;
