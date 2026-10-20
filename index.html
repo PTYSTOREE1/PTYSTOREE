@@ -739,7 +739,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   }
 
   function orderStatusLabel(status) {
-    const labels = { paid: "ثبت و پرداخت شده", fulfilled: "تکمیل شده", cancelled: "لغو شده", pending: "در انتظار بررسی", processing: "در حال پردازش", completed: "تکمیل شده", refunded: "بازپرداخت شده" };
+    const labels = { paid: "در حال انتظار", fulfilled: "تمام‌شده", cancelled: "لغو شده", pending: "در حال انتظار", processing: "در حال انتظار", completed: "تمام‌شده", refunded: "بازپرداخت شده" };
     return labels[String(status || "paid").toLowerCase()] || String(status || "ثبت شده");
   }
 
@@ -752,9 +752,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (!orders || !orders.length) { list.innerHTML = '<div class="orders-empty"><div class="orders-empty-icon">▤</div><strong>هنوز سفارشی ثبت نکرده‌ای</strong><p>بعد از ثبت سفارش، کد پیگیری و تمام جزئیات آن اینجا نمایش داده می‌شود.</p></div>'; return; }
     list.innerHTML = orders.map(o => {
       const status = String(o.status || "paid").toLowerCase();
-      const statusClass = ["fulfilled", "completed", "paid"].includes(status) ? "is-paid" : "";
+      const statusClass = ["fulfilled", "completed"].includes(status) ? "is-paid" : "";
       const items = Array.isArray(o.items) ? o.items : [];
-      const step = /cancel|refund/i.test(status) ? 0 : /complete|fulfilled/i.test(status) ? 3 : /processing/i.test(status) ? 2 : 1;
+      const step = /cancel|refund/i.test(status) ? 0 : /complete|fulfilled/i.test(status) ? 3 : 1;
       const timeline = `<div class="order-timeline" aria-label="مراحل سفارش"><span class="${step>=1?'active':''}"></span><span class="${step>=2?'active':''}"></span><span class="${step>=3?'active':''}"></span></div>`;
       return `<article class="admin-record"><div class="admin-record-top"><div><span class="admin-record-kicker">کد پیگیری سفارش</span><strong class="admin-tracking-code">${safeText(o.tracking_code || o.id)}</strong></div><span class="admin-status ${statusClass}">${safeText(orderStatusLabel(status))}</span></div>${timeline}<div class="admin-detail-grid"><div><small>مبلغ نهایی سفارش</small><strong>${money(o.total || 0)}</strong></div><div><small>تاریخ ثبت سفارش</small><strong>${formatDate(o.created_at)}</strong></div><div><small>تعداد اقلام</small><strong>${items.reduce((n,i)=>n+Number(i.quantity||1),0).toLocaleString('fa-IR')} عدد</strong></div><div><small>شناسه سفارش</small><strong dir="ltr" style="font-size:9px">${safeText(String(o.id||'').slice(0,8))}</strong></div></div><div class="admin-items"><small>جزئیات محصولات</small><div class="order-items-detail">${items.map(i => `<span><span>${safeText(i.name || ("محصول #" + (i.product_id || "نامشخص")))} × ${Number(i.quantity || 1).toLocaleString("fa-IR")}</span><b>${money(Number(i.unit_price || i.unitPrice || 0) * Number(i.quantity || 1))}</b></span>`).join("") || "<span>جزئیات محصول ثبت نشده است</span>"}</div></div><div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="button button-ghost" type="button" data-copy-order="${safeText(o.tracking_code || o.id)}" style="font-size:10px;padding:8px 12px">کپی کد پیگیری ⧉</button></div></article>`;
     }).join("");
@@ -932,8 +932,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       state.profile = { ...(state.profile || {}), steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null };
       $("#checkoutMessage").classList.remove("coupon-error");
       $("#checkoutMessage").textContent = `سفارش ${order?.tracking_code || order?.trackingCode || "ثبت شد"} با موفقیت پرداخت شد. موجودی جدید: ${money(newBalance)}.`;
-      toast("سفارش با موفقیت ثبت شد.");
-      setTimeout(() => { closePanels(); button.disabled = false; button.innerHTML = 'تأیید اطلاعات سفارش <span>←</span>'; }, 2400);
+      toast("سفارش ثبت شد؛ وضعیت فعلی: در حال انتظار.");
+      // Return the customer to the storefront homepage after a successful order.
+      setTimeout(() => {
+        closePanels();
+        button.disabled = false;
+        button.innerHTML = 'تأیید اطلاعات سفارش <span>←</span>';
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+      }, 1200);
     } catch (error) {
       const msg = String(error?.message || error || "خطای نامشخص");
       $("#checkoutMessage").textContent = /insufficient|موجودی|wallet/i.test(msg) ? "موجودی کیف پول کافی نیست؛ ابتدا کیف پول را شارژ کن." : `ثبت سفارش انجام نشد: ${msg}`;
@@ -1124,7 +1131,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (oe || te || re) { $("#adminOrdersList").innerHTML = `<div class="admin-empty">خطای دریافت اطلاعات: ${safeText(oe?.message || te?.message || re?.message)}</div>`; return; }
     const orderRows = orders || [], topupRows = topups || [];
     $("#adminStats").innerHTML = `<div class="admin-stat"><small>تعداد سفارش</small><strong>${orderRows.length.toLocaleString("fa-IR")}</strong></div><div class="admin-stat"><small>مجموع سفارش‌ها</small><strong>${money(orderRows.reduce((sum,o)=>sum+Number(o.total||0),0))}</strong></div><div class="admin-stat"><small>درخواست شارژ در انتظار</small><strong>${topupRows.filter(t=>t.status==="pending_review").length.toLocaleString("fa-IR")}</strong></div>`;
-    $("#adminOrdersList").innerHTML = orderRows.length ? orderRows.map(o => `<article class="admin-record"><div class="admin-record-top"><div><span class="admin-record-kicker">کد پیگیری</span><strong class="admin-tracking-code">${safeText(o.tracking_code)}</strong></div><span class="admin-status is-paid">${safeText(o.status || "paid")}</span></div><div class="admin-detail-grid"><div><small>نام مشتری</small><strong>${safeText(o.customer_name)}</strong></div><div><small>ایمیل</small><strong dir="ltr">${safeText(o.email)}</strong></div><div><small>آیدی تلگرام</small><strong dir="ltr">${safeText(o.telegram_id)}</strong></div><div><small>شماره تلفن</small><strong dir="ltr">${safeText(o.phone || "وارد نشده")}</strong></div><div class="wide"><small>لینک ترید استیم</small><a dir="ltr" href="${/^https:\/\/steamcommunity\.com\//.test(o.trade_url||"")?safeText(o.trade_url):"#"}" target="_blank" rel="noopener">${safeText(o.trade_url)}</a></div><div><small>مبلغ</small><strong>${money(o.total||0)}</strong></div><div><small>تاریخ ثبت</small><strong>${formatDate(o.created_at)}</strong></div></div><div class="admin-items"><small>اقلام سفارش</small>${(o.items||[]).map(i=>`<span>${safeText(i.name)} × ${Number(i.quantity||1).toLocaleString("fa-IR")} — ${money(Number(i.unit_price||i.unitPrice||0)*Number(i.quantity||1))}</span>`).join("")||"—"}</div></article>`).join("") : '<div class="admin-empty">هنوز سفارشی ثبت نشده است.</div>';
+    $("#adminOrdersList").innerHTML = orderRows.length ? orderRows.map(o => { const status = String(o.status || "pending").toLowerCase(); const done = ["completed", "fulfilled"].includes(status); return `<article class="admin-record"><div class="admin-record-top"><div><span class="admin-record-kicker">کد پیگیری</span><strong class="admin-tracking-code">${safeText(o.tracking_code || o.id)}</strong></div><span class="admin-status ${done ? "is-paid" : ""}">${safeText(orderStatusLabel(status))}</span></div><div class="admin-detail-grid"><div><small>نام مشتری</small><strong>${safeText(o.customer_name)}</strong></div><div><small>ایمیل</small><strong dir="ltr">${safeText(o.email)}</strong></div><div><small>آیدی تلگرام</small><strong dir="ltr">${safeText(o.telegram_id)}</strong></div><div><small>شماره تلفن</small><strong dir="ltr">${safeText(o.phone || "وارد نشده")}</strong></div><div class="wide"><small>لینک ترید استیم</small><a dir="ltr" href="${/^https:\/\/steamcommunity\.com\//.test(o.trade_url||"")?safeText(o.trade_url):"#"}" target="_blank" rel="noopener">${safeText(o.trade_url || "—")}</a></div><div><small>مبلغ</small><strong>${money(o.total||0)}</strong></div><div><small>تاریخ ثبت</small><strong>${formatDate(o.created_at)}</strong></div></div><div class="admin-items"><small>اقلام سفارش</small>${(o.items||[]).map(i=>`<span>${safeText(i.name || ("محصول #" + (i.product_id || "؟")))} × ${Number(i.quantity||1).toLocaleString("fa-IR")} — ${money(Number(i.unit_price||i.unitPrice||0)*Number(i.quantity||1))}</span>`).join("")||"—"}</div><div class="admin-record-actions" style="align-items:center;gap:10px"><label for="order-status-${safeText(o.id)}">وضعیت سفارش</label><select id="order-status-${safeText(o.id)}" data-order-status-select="${safeText(o.id)}" style="min-width:150px"><option value="pending" ${["pending","paid","processing"].includes(status)?"selected":""}>در حال انتظار</option><option value="completed" ${["completed","fulfilled"].includes(status)?"selected":""}>تمام‌شده</option></select><button class="button button-primary" type="button" data-order-status-save="${safeText(o.id)}">ذخیره وضعیت</button></div></article>`; }).join("") : '<div class="admin-empty">هنوز سفارشی ثبت نشده است.</div>';
     $("#adminReviewsList").innerHTML = (reviews || []).length ? reviews.map(r => `<article class="admin-record"><div class="admin-record-top"><strong>${safeText(r.display_name)}</strong><span class="review-stars">${"★".repeat(Number(r.rating))}${"☆".repeat(5-Number(r.rating))}</span></div><p>${safeText(r.body)}</p><div class="admin-record-top"><small>${formatDate(r.created_at)}</small><button class="button button-secondary" data-review-delete="${safeText(r.id)}">حذف نظر</button></div></article>`).join("") : '<div class="admin-empty">هنوز نظری ثبت نشده است.</div>';
     $("#adminTopupsList").innerHTML = topupRows.length ? (await Promise.all(topupRows.map(async t => {
       let receipt = ""; if (t.receipt_path) { const { data } = await sb.storage.from("receipts").createSignedUrl(t.receipt_path, 300); receipt = data?.signedUrl || ""; }
@@ -1160,6 +1167,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   function closeAdminDashboard() { $("#adminDashboard").classList.remove("open"); $("#adminDashboard").setAttribute("aria-hidden", "true"); document.body.classList.remove("no-scroll"); }
   $("#adminDashboardClose").addEventListener("click", closeAdminDashboard);
   $("#adminRefresh").addEventListener("click", renderAdminDashboard);
+  $("#adminOrdersList").addEventListener("click", async event => {
+    const button = event.target.closest("[data-order-status-save]");
+    if (!button || !state.isAdmin) return;
+    const orderId = button.getAttribute("data-order-status-save");
+    const select = $(`[data-order-status-select="${CSS.escape(orderId)}"]`);
+    if (!select) return;
+    button.disabled = true;
+    const oldText = button.textContent;
+    button.textContent = "در حال ذخیره…";
+    try {
+      const { error } = await sb.rpc("admin_update_order_status", { p_order_id: String(orderId), p_status: select.value });
+      if (error) throw error;
+      toast(select.value === "completed" ? "وضعیت سفارش: تمام‌شده" : "وضعیت سفارش: در حال انتظار");
+      await renderAdminDashboard();
+    } catch (error) {
+      toast("ذخیره وضعیت ناموفق بود: " + String(error?.message || error));
+      button.disabled = false;
+      button.textContent = oldText;
+    }
+  });
+
   $("#adminTopupsList").addEventListener("click", async event => {
     const button = event.target.closest("[data-cloud-topup-action]"); if (!button || !state.isAdmin) return;
     button.disabled = true;
