@@ -1338,6 +1338,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   ];
   let ptyGame = {running:false,score:0,combo:0,time:30,timer:null,spawn:null,coins:0,targets:0};
   let ptyCloudSave = null;
+  // Prevent an older wallet read from overwriting a newly claimed reward.
+  let ptyCloudRevision = 0;
   function ptyStoreKey(){ return 'pty_arcade_vault_v1_' + (state.authUser?.id || state.user || 'guest'); }
   function ptyReadSave(){
     if (state.authUser && ptyCloudSave) return {...ptyCloudSave, owned:[...ptyCloudSave.owned]};
@@ -1369,14 +1371,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const {error:initError}=await sb.rpc('pty_init_game_profile');
     if(initError){console.error('PTY game setup:',initError);$('#ptyVaultMessage').textContent='اتصال گالری به دیتابیس کامل نیست. ابتدا فایل SQL اتصال پروفایل‌ها را در Supabase اجرا کن.';ptyCloudSave=null;ptyRenderVault();return;}
     const uid=state.authUser.id;
+    const revisionAtReadStart=ptyCloudRevision;
     const [w,o,e]=await Promise.all([
       sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',uid).maybeSingle(),
       sb.from('pty_unlocked_profiles').select('profile_id').eq('user_id',uid),
       sb.from('pty_equipped_profiles').select('profile_id').eq('user_id',uid).maybeSingle()
     ]);
     if(w.error||o.error||e.error){console.error(w.error||o.error||e.error);$('#ptyVaultMessage').textContent='خطا در خواندن گالری از دیتابیس؛ SQL را بررسی کن.';ptyCloudSave=null;ptyRenderVault();return;}
-    ptyCloudSave={coins:Number(w.data?.coins||0),best:Number(w.data?.best_score||0),owned:(o.data||[]).map(x=>x.profile_id),selected:e.data?.profile_id||'wanderer'};
-    if(!ptyCloudSave.owned.includes('wanderer'))ptyCloudSave.owned.unshift('wanderer');
+    const loadedWallet={coins:Number(w.data?.coins||0),best:Number(w.data?.best_score||0),owned:(o.data||[]).map(x=>x.profile_id),selected:e.data?.profile_id||'wanderer'};
+    if(!loadedWallet.owned.includes('wanderer'))loadedWallet.owned.unshift('wanderer');
+    // If a reward was claimed while this request was in flight, preserve the newer balance.
+    if(revisionAtReadStart===ptyCloudRevision || !ptyCloudSave){ptyCloudSave=loadedWallet;}
+    else {ptyCloudSave={...loadedWallet,coins:ptyCloudSave.coins,best:Math.max(loadedWallet.best,ptyCloudSave.best||0)};}
     ptyRenderVault();
     ptyLoadScoreHistory().catch(()=>{});
   }
@@ -1437,11 +1443,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         // A later refresh/history read failure must not falsely report that the reward failed.
         rewardSaved=true;
         const previousCoins=Number(ptyCloudSave?.coins ?? save.coins)||0;
+        ptyCloudRevision++;
         ptyCloudSave={...(ptyCloudSave||{}),coins:previousCoins+earned,best:Math.max(Number(ptyCloudSave?.best)||0,score),owned:ptyCloudSave?.owned||['wanderer'],selected:ptyCloudSave?.selected||'wanderer'};
-        try {
-          const {data:wallet,error:walletError}=await sb.from('pty_game_wallets').select('coins,best_score').eq('user_id',state.authUser.id).single();
-          if(!walletError && wallet){ptyCloudSave.coins=Number(wallet.coins)||0;ptyCloudSave.best=Number(wallet.best_score)||0;}
-        } catch(refreshError) { console.warn('Reward saved; wallet refresh failed:',refreshError); }
+        // Do not immediately replace the confirmed reward balance with a potentially stale read.
+        // The next normal wallet refresh will reconcile it with Supabase.
         try { await ptyLoadScoreHistory(); } catch(historyError) { console.warn('Reward saved; score history refresh failed:',historyError); }
         // Repaint every visible coin counter after the server confirms the reward.
         ptyRenderVault();
