@@ -530,6 +530,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         <input type="hidden" id="adminProductId">
         <div><label for="adminProductName">نام محصول</label><input id="adminProductName" maxlength="120" required placeholder="مثلاً Violet Phantom"></div>
         <div><label for="adminProductPrice">قیمت (تومان)</label><input id="adminProductPrice" type="number" min="0" step="1" required placeholder="249000"></div>
+        <div><label for="adminProductImage">عکس محصول (اختیاری)</label><input id="adminProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><small style="display:block;color:#a99bb8;margin-top:6px">PNG، JPG، WEBP یا GIF · حداکثر 5 مگابایت</small><img id="adminProductImagePreview" alt="پیش‌نمایش عکس محصول" style="display:none;max-width:150px;max-height:110px;object-fit:contain;margin-top:8px;border-radius:8px"></div>
         <div class="admin-record-actions"><button class="button button-primary" id="adminProductSave" type="submit">ذخیره محصول</button><button class="button button-secondary" id="adminProductCancel" type="button">پاک‌کردن فرم</button></div>
         <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">محصولات را اینجا اضافه یا ویرایش کن. برای نمایش در فروشگاه، وضعیت محصول باید فعال باشد.</p>
       </form>
@@ -629,8 +630,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       return `<article class="product-card" data-product-id="${product.id}">
         <div class="product-visual" style="--glow:${product.glow};--item-color:${product.color}">
           ${product.badge ? `<span class="product-badge ${product.badgeType}">${product.badge}</span>` : ""}
+          ${product.image_url ? `<img src="${safeText(product.image_url)}" alt="${safeText(product.name)}" loading="lazy" style="width:100%;height:100%;object-fit:contain;position:absolute;inset:0;padding:22px">` : `<span class="item-symbol ${product.symbolClass}" aria-hidden="true">${product.symbol}</span>`}
           <button class="favorite-button ${favorite ? "is-favorite" : ""}" data-favorite="${product.id}" aria-label="${favorite ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}" aria-pressed="${favorite}">${favorite ? "♥" : "♡"}</button>
-          <span class="item-symbol ${product.symbolClass}" aria-hidden="true">${product.symbol}</span>
         </div>
         <div class="product-info">
           <div class="product-category"><span><i class="rarity-dot" style="--rarity:${product.color}"></i>${product.type}</span><span>${product.rarity}</span></div>
@@ -1020,21 +1021,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const el = $("#adminProductMessage"); if (!el) return;
     el.textContent = message; el.style.color = isError ? "#ff9da9" : "#9cf1c7";
   }
+  let adminProductImageUrl = "";
   function renderAdminProducts(rows) {
     const list = $("#adminProductsList");
     if (!rows?.length) { list.innerHTML = '<div class="admin-empty">محصولی در دیتابیس نیست.</div>'; return; }
-    list.innerHTML = rows.map(p => `<article class="admin-product-row"><div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
+    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
   }
   async function loadAdminProducts() {
     const list = $("#adminProductsList");
-    const { data, error } = await sb.from("products").select("id,name,price,active").order("id", { ascending: true });
+    const { data, error } = await sb.from("products").select("id,name,price,active,image_url").order("id", { ascending: true });
     if (error) { list.innerHTML = `<div class="admin-empty">خطای دریافت محصولات: ${safeText(error.message)}. مطمئن شو جدول products ستون‌های id، name، price و active را دارد.</div>`; return; }
     renderAdminProducts(data || []);
   }
   function resetAdminProductForm() {
     $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductSave").textContent = "ذخیره محصول";
+    adminProductImageUrl = ""; const preview = $("#adminProductImagePreview"); preview.removeAttribute("src"); preview.style.display = "none";
     adminProductMessage("برای افزودن محصول جدید، نام و قیمت را وارد کن.");
   }
+  $("#adminProductImage").addEventListener("change", event => {
+    const file = event.target.files?.[0]; const preview = $("#adminProductImagePreview");
+    if (!file) return;
+    if (!/^image\/(png|jpeg|webp|gif)$/.test(file.type) || file.size > 5 * 1024 * 1024) {
+      event.target.value = ""; adminProductMessage("عکس باید PNG، JPG، WEBP یا GIF و حداکثر 5 مگابایت باشد.", true); return;
+    }
+    preview.src = URL.createObjectURL(file); preview.style.display = "block";
+  });
   $("#adminProductForm").addEventListener("submit", async event => {
     event.preventDefault();
     if (!state.isAdmin || !sb) return;
@@ -1042,14 +1053,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const name = $("#adminProductName").value.trim();
     const price = Number($("#adminProductPrice").value);
     if (!name || !Number.isSafeInteger(price) || price < 0) { adminProductMessage("نام و قیمت معتبر وارد کن.", true); return; }
+    const imageFile = $("#adminProductImage").files?.[0];
     const button = $("#adminProductSave"); button.disabled = true;
     try {
+      let imageUrl = adminProductImageUrl;
+      if (imageFile) {
+        const ext = (imageFile.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+        const path = `${state.authUser.id}/${id || "new-" + Date.now()}-${crypto.randomUUID()}.${ext}`;
+        const { error: uploadError } = await sb.storage.from("product-images").upload(path, imageFile, { upsert: false, contentType: imageFile.type });
+        if (uploadError) throw uploadError;
+        const { data: publicData } = sb.storage.from("product-images").getPublicUrl(path);
+        imageUrl = publicData.publicUrl;
+      }
       let result;
-      if (id) result = await sb.from("products").update({name, price}).eq("id", Number(id)).select("id").single();
+      if (id) result = await sb.from("products").update({name, price, image_url:imageUrl || null}).eq("id", Number(id)).select("id").single();
       else {
         const { data: maxRow, error: maxError } = await sb.from("products").select("id").order("id", {ascending:false}).limit(1).maybeSingle();
         if (maxError) throw maxError;
-        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true}).select("id").single();
+        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true, image_url:imageUrl || null}).select("id").single();
       }
       if (result.error) throw result.error;
       adminProductMessage(id ? "محصول با موفقیت ویرایش شد." : "محصول جدید ذخیره شد.");
@@ -1063,9 +1084,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const toggle = event.target.closest("[data-product-toggle]");
     if (!state.isAdmin || !sb) return;
     if (edit) {
-      const {data, error} = await sb.from("products").select("id,name,price,active").eq("id", Number(edit.dataset.productEdit)).single();
+      const {data, error} = await sb.from("products").select("id,name,price,active,image_url").eq("id", Number(edit.dataset.productEdit)).single();
       if (error || !data) { adminProductMessage("خواندن محصول انجام نشد: " + (error?.message || "پیدا نشد"), true); return; }
-      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price;
+      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
       $("#adminProductSave").textContent = "ذخیره ویرایش"; adminProductMessage("در حال ویرایش محصول شماره " + data.id); $("#adminProductName").focus();
     }
     if (toggle) {
@@ -1077,16 +1098,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   });
   async function syncProductsFromDatabase() {
     if (!sb) return;
-    const {data, error} = await sb.from("products").select("id,name,price,active").order("id", {ascending:true});
+    const {data, error} = await sb.from("products").select("id,name,price,active,image_url").order("id", {ascending:true});
     if (error || !data) return;
     const byId = new Map(data.map(p => [Number(p.id), p]));
     for (let i = products.length - 1; i >= 0; i--) {
       const row = byId.get(Number(products[i].id));
       if (!row || row.active === false) { products.splice(i, 1); continue; }
-      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR");
+      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR"); products[i].image_url = row.image_url || "";
       byId.delete(Number(row.id));
     }
-    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:"آیتم منتخب PTY",category:"rifle",type:"ITEM",price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1});
+    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:"آیتم منتخب PTY",category:"rifle",type:"ITEM",price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),image_url:row.image_url || "",symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1});
     renderProducts();
   }
 
