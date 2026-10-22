@@ -976,11 +976,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const items = [...state.cart.entries()].map(([id, quantity]) => ({ product_id: id, quantity }));
     const button = $("#checkoutForm button[type=submit]"); button.disabled = true; button.textContent = "در حال ثبت سفارش...";
     try {
-      const { data: stockRows, error: stockError } = await sb.from("products").select("id,stock,active").in("id", items.map(item => item.product_id));
+      const { data: stockRows, error: stockError } = await sb.from("products").select("id,stock_quantity,active").in("id", items.map(item => item.product_id));
       if (stockError) throw stockError;
       for (const item of items) {
         const current = (stockRows || []).find(row => Number(row.id) === Number(item.product_id));
-        if (!current || current.active === false || Number(current.stock || 0) < Number(item.quantity)) {
+        if (!current || current.active === false || Number(current.stock_quantity || 0) < Number(item.quantity)) {
           const product = productById(item.product_id);
           throw new Error(`موجودی ${product?.name || "یکی از اسکین‌ها"} کافی نیست؛ سبد خرید را به‌روزرسانی کن.`);
         }
@@ -1007,7 +1007,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       }, 1200);
     } catch (error) {
       const msg = String(error?.message || error || "خطای نامشخص");
-      $("#checkoutMessage").textContent = /insufficient|موجودی|wallet/i.test(msg) ? "موجودی کیف پول کافی نیست؛ ابتدا کیف پول را شارژ کن." : `ثبت سفارش انجام نشد: ${msg}`;
+      if (/INSUFFICIENT_STOCK|PRODUCT_UNAVAILABLE/i.test(msg)) {
+        $("#checkoutMessage").textContent = "موجودی این اسکین کافی نیست یا دیگر فعال نیست؛ سبد خرید را تازه‌سازی کن.";
+        await syncProductsFromDatabase();
+      } else if (/INSUFFICIENT_WALLET|wallet/i.test(msg)) {
+        $("#checkoutMessage").textContent = "موجودی کیف پول کافی نیست؛ ابتدا کیف پول را شارژ کن.";
+      } else if (/INVALID_TRADE_URL/i.test(msg)) {
+        $("#checkoutMessage").textContent = "لینک Steam Trade Offer معتبر نیست.";
+      } else if (/TELEGRAM_REQUIRED/i.test(msg)) {
+        $("#checkoutMessage").textContent = "وارد کردن آیدی تلگرام الزامی است.";
+      } else {
+        $("#checkoutMessage").textContent = `ثبت سفارش انجام نشد: ${msg}`;
+      }
       $("#checkoutMessage").classList.add("coupon-error"); button.disabled = false; button.innerHTML = 'تأیید اطلاعات سفارش <span>←</span>';
     }
   });
@@ -1096,11 +1107,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   function renderAdminProducts(rows) {
     const list = $("#adminProductsList");
     if (!rows?.length) { list.innerHTML = '<div class="admin-empty">محصولی در دیتابیس نیست.</div>'; return; }
-    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)} · موجودی: ${Number(p.stock||0)} · کیفیت: ${safeText(p.wear||"Factory New")}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
+    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)} · موجودی: ${Number(p.stock_quantity||0)} · کیفیت: ${safeText(p.skin_wear||"Factory New")}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
   }
   async function loadAdminProducts() {
     const list = $("#adminProductsList");
-    const { data, error } = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").order("id", { ascending: true });
+    const { data, error } = await sb.from("products").select("id,name,price,active,image_url,stock_quantity,skin_wear,category").order("id", { ascending: true });
     if (error) { list.innerHTML = `<div class="admin-empty">خطای دریافت محصولات: ${safeText(error.message)}. مطمئن شو جدول products ستون‌های id، name، price و active را دارد.</div>`; return; }
     renderAdminProducts(data || []);
   }
@@ -1140,11 +1151,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         imageUrl = publicData.publicUrl;
       }
       let result;
-      if (id) result = await sb.from("products").update({name, price, image_url:imageUrl || null, stock, wear, category}).eq("id", Number(id)).select("id").single();
+      if (id) result = await sb.from("products").update({name, price, image_url:imageUrl || null, stock_quantity:stock, skin_wear:wear, category}).eq("id", Number(id)).select("id").single();
       else {
         const { data: maxRow, error: maxError } = await sb.from("products").select("id").order("id", {ascending:false}).limit(1).maybeSingle();
         if (maxError) throw maxError;
-        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true, image_url:imageUrl || null, stock, wear, category}).select("id").single();
+        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true, image_url:imageUrl || null, stock_quantity:stock, skin_wear:wear, category}).select("id").single();
       }
       if (result.error) throw result.error;
       adminProductMessage(id ? "محصول با موفقیت ویرایش شد." : "محصول جدید ذخیره شد.");
@@ -1158,9 +1169,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const toggle = event.target.closest("[data-product-toggle]");
     if (!state.isAdmin || !sb) return;
     if (edit) {
-      const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").eq("id", Number(edit.dataset.productEdit)).single();
+      const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock_quantity,skin_wear,category").eq("id", Number(edit.dataset.productEdit)).single();
       if (error || !data) { adminProductMessage("خواندن محصول انجام نشد: " + (error?.message || "پیدا نشد"), true); return; }
-      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; $("#adminProductStock").value = Number(data.stock||0); $("#adminProductWear").value = data.wear || "Factory New"; $("#adminProductCategory").value = data.category || "rifle"; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
+      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; $("#adminProductStock").value = Number(data.stock_quantity||0); $("#adminProductWear").value = data.skin_wear || "Factory New"; $("#adminProductCategory").value = data.category || "rifle"; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
       $("#adminProductSave").textContent = "ذخیره ویرایش"; adminProductMessage("در حال ویرایش محصول شماره " + data.id); $("#adminProductName").focus();
     }
     if (toggle) {
@@ -1172,16 +1183,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   });
   async function syncProductsFromDatabase() {
     if (!sb) return;
-    const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").order("id", {ascending:true});
+    const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock_quantity,skin_wear,category").order("id", {ascending:true});
     if (error || !data) return;
     const byId = new Map(data.map(p => [Number(p.id), p]));
     for (let i = products.length - 1; i >= 0; i--) {
       const row = byId.get(Number(products[i].id));
       if (!row || row.active === false) { products.splice(i, 1); continue; }
-      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR"); products[i].image_url = row.image_url || ""; products[i].stock = Number(row.stock || 0); products[i].wear = row.wear || "Factory New"; products[i].category = row.category || products[i].category || "rifle"; products[i].subtitle = `${products[i].wear} · PTY STORE`;
+      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR"); products[i].image_url = row.image_url || ""; products[i].stock = Number(row.stock_quantity || 0); products[i].wear = row.skin_wear || "Factory New"; products[i].category = row.category || products[i].category || "rifle"; products[i].subtitle = `${products[i].wear} · PTY STORE`;
       byId.delete(Number(row.id));
     }
-    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:`${row.wear || "Factory New"} · PTY STORE`,category:row.category || "rifle",type:String(row.category || "ITEM").toUpperCase(),price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),image_url:row.image_url || "",symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1,stock:Number(row.stock||0),wear:row.wear||"Factory New"});
+    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:`${row.skin_wear || "Factory New"} · PTY STORE`,category:row.category || "rifle",type:String(row.category || "ITEM").toUpperCase(),price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),image_url:row.image_url || "",symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1,stock:Number(row.stock_quantity||0),wear:row.skin_wear||"Factory New"});
     renderProducts();
   }
 
