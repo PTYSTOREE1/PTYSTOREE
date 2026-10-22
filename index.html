@@ -399,15 +399,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .social-links svg{width:20px;height:20px;display:block;fill:currentColor}
 .social-links .discord{color:#a9a7ff}.social-links .telegram{color:#79cfff}.social-links .instagram{color:#f2a1df}.social-links .youtube{color:#ff8b9a}
 @media(max-width:760px){.social-links{padding:18px 12px 22px;gap:10px}.social-links a{width:40px;height:40px;border-radius:12px}}
+.product-condition{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:3px 7px;border:1px solid #a77aff38;border-radius:7px;background:#9b5cff12;color:#d6baff;font-size:9px;line-height:1.5}.product-stock{display:block;margin-top:4px;font-size:9px;color:#8fe8b8}.product-stock.sold-out{color:#ff9ba9}.add-cart:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(1)}.telegram-support-float{position:fixed;z-index:35;right:22px;bottom:78px;width:52px;height:52px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#27a9e8,#087eb8);color:white;box-shadow:0 10px 30px #168bc65c;border:1px solid #b9e9ff55;transition:transform .22s,box-shadow .22s}.telegram-support-float:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 15px 38px #168bc68c}.telegram-support-float svg{width:26px;height:26px;fill:currentColor}@media(max-width:760px){.telegram-support-float{right:14px;bottom:72px;width:48px;height:48px;border-radius:15px}}
 </style>
 </head>
 <body>
+  <a class="telegram-support-float" href="https://t.me/ptystore" target="_blank" rel="noopener noreferrer" aria-label="پشتیبانی تلگرام PTY STORE" title="پشتیبانی تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 4.2 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.5l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5L20.4 3.3c.9-.3 1.7.2 1.4.9Z"/></svg></a>
   <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
   <div class="announcement"><span class="pulse-dot"></span> فصل جدید بازار شروع شده <span class="announcement-sep">/</span> آیتم‌های تازه را کشف کن <button id="announcementClose" aria-label="بستن اعلان">×</button></div>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="PTY STORE صفحه اصلی">
       <span class="brand-mark"><span></span><span></span><span></span></span>
-      <span class="brand-word">PTY <b>STOREE</b><small>THE GAMING MARKET</small></span>
+      <span class="brand-word">PTY <b>STORE</b><small>THE GAMING MARKET</small></span>
     </a>
     <nav class="main-nav" id="mainNav">
       <a class="nav-link active" href="#home">خانه</a>
@@ -456,12 +458,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     </section>
 
     <section class="collections-section" id="collections"><div class="section-wrap"><div class="section-heading reveal"><div><div class="eyebrow"><span class="eyebrow-line"></span> CURATED FOR YOU</div><h2>کالکشن‌های <span class="gradient-text">منتخب</span></h2><p>هر استایل، یک داستان. مجموعه مناسب خودت را انتخاب کن.</p></div></div><div class="collection-grid">
-      <a class="collection-card collection-purple reveal" href="#market" data-collection="rifle"><div class="collection-top"><span>COLLECTION 01</span><span>↗</span></div><div class="collection-graphic graphic-purple"><div class="collection-ring"></div><span>✦</span></div><div class="collection-bottom"><div><small>THE DARK SIDE</small><h3>Shadow Protocol</h3></div><span class="collection-count">۰۴ آیتم</span></div></a>
-      <a class="collection-card collection-pink reveal" href="#market" data-collection="knife"><div class="collection-top"><span>COLLECTION 02</span><span>↗</span></div><div class="collection-graphic graphic-pink"><div class="collection-ring"></div><span>◈</span></div><div class="collection-bottom"><div><small>RARE & SHARP</small><h3>Prism Edge</h3></div><span class="collection-count">۰۲ آیتم</span></div></a>
-      <a class="collection-card collection-blue reveal" href="#market" data-collection="glove"><div class="collection-top"><span>COLLECTION 03</span><span>↗</span></div><div class="collection-graphic graphic-blue"><div class="collection-ring"></div><span>⌁</span></div><div class="collection-bottom"><div><small>FUTURE GEAR</small><h3>Cyber Utility</h3></div><span class="collection-count">۰۲ آیتم</span></div></a>
+      <a class="collection-card collection-purple reveal" href="#market" data-collection="rifle"><div class="collection-top"><span>COLLECTION 01</span><span>↗</span></div><div class="collection-graphic graphic-purple"><div class="collection-ring"></div><span aria-label="Rifle collection" title="Rifle collection">⌖</span></div><div class="collection-bottom"><div><small>THE DARK SIDE</small><h3>Shadow Protocol</h3></div><span class="collection-count" data-collection-count="rifle">۰ آیتم</span></div></a>
+      <a class="collection-card collection-pink reveal" href="#market" data-collection="knife"><div class="collection-top"><span>COLLECTION 02</span><span>↗</span></div><div class="collection-graphic graphic-pink"><div class="collection-ring"></div><span aria-label="Knife collection" title="Knife collection">⚔</span></div><div class="collection-bottom"><div><small>RARE & SHARP</small><h3>Prism Edge</h3></div><span class="collection-count" data-collection-count="knife">۰ آیتم</span></div></a>
+      <a class="collection-card collection-blue reveal" href="#market" data-collection="glove"><div class="collection-top"><span>COLLECTION 03</span><span>↗</span></div><div class="collection-graphic graphic-blue"><div class="collection-ring"></div><span aria-label="Glove collection" title="Glove collection">♧</span></div><div class="collection-bottom"><div><small>FUTURE GEAR</small><h3>Cyber Utility</h3></div><span class="collection-count" data-collection-count="glove">۰ آیتم</span></div></a>
     </div></div></section>
 
-    <section class="stats-section section-wrap"><div class="stats-panel reveal"><div class="stats-intro"><div class="eyebrow"><span class="eyebrow-line"></span> BUILT DIFFERENT</div><h2>بازار گیمینگ،<br><span class="gradient-text">با امضای PTY.</span></h2><p>تجربه‌ای مدرن برای کشف، مقایسه و مدیریت آیتم‌های مورد علاقه‌ات.</p></div><div class="stat"><strong data-count="8">۰۸</strong><span>آیتم نمایشی</span><small>CURATED ITEMS</small></div><div class="stat"><strong data-count="3">۰۳</strong><span>کالکشن منتخب</span><small>COLLECTIONS</small></div><div class="stat"><strong>۲۴/۷</strong><span>همیشه در دسترس</span><small>ONLINE EXPERIENCE</small></div></div></section>
+    <section class="stats-section section-wrap"><div class="stats-panel reveal"><div class="stats-intro"><div class="eyebrow"><span class="eyebrow-line"></span> BUILT DIFFERENT</div><h2>بازار گیمینگ،<br><span class="gradient-text">با امضای PTY.</span></h2><p>تجربه‌ای مدرن برای کشف، مقایسه و مدیریت آیتم‌های مورد علاقه‌ات.</p></div><div class="stat"><strong data-count="8" id="totalProductCount">۰۸</strong><span>آیتم در فروشگاه</span><small>CURATED ITEMS</small></div><div class="stat"><strong data-count="3">۰۳</strong><span>کالکشن منتخب</span><small>COLLECTIONS</small></div><div class="stat"><strong>ONLINE</strong><span>بازار آنلاین</span><small>STORE STATUS</small></div></div></section>
 
     <section class="how-section section-wrap" id="how"><div class="section-heading reveal"><div><div class="eyebrow"><span class="eyebrow-line"></span> HOW IT WORKS</div><h2>ساده. سریع. <span class="gradient-text">شفاف.</span></h2><p>برای شروع، فقط سه قدم فاصله داری.</p></div></div><div class="steps-grid"><article class="step-card reveal"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>کشف کن</h3><p>در بازار جست‌وجو کن و آیتم‌های مورد علاقه‌ات را با فیلترها پیدا کن.</p><span class="step-line"></span></article><article class="step-card reveal"><span class="step-number">02</span><div class="step-icon">＋</div><h3>به سبد اضافه کن</h3><p>محصولات را انتخاب کن و سبد خرید نمایشی خودت را بساز.</p><span class="step-line"></span></article><article class="step-card reveal"><span class="step-number">03</span><div class="step-icon">✦</div><h3>برای خرید آماده شو</h3><p>در نسخه فعلی پرداخت واقعی فعال نیست؛ زیرساخت امن آن باید جداگانه متصل شود.</p><span class="step-line"></span></article></div></section>
 
@@ -476,7 +478,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     </div>
   </section>
 
-  <footer class="site-footer"><div class="footer-main section-wrap"><div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><span></span><span></span><span></span></span><span class="brand-word">PTY <b>STOREE</b><small>THE GAMING MARKET</small></span></a><p>جایی برای کشف آیتم‌های خاص و ساختن استایل مخصوص خودت.</p></div><div class="footer-column"><strong>دسترسی سریع</strong><a href="#home">خانه</a><a href="#market">بازار</a><a href="#collections">کالکشن‌ها</a></div><div class="footer-column"><strong>راهنما</strong><a href="#how">چطور کار می‌کند؟</a><button id="footerLogin">حساب کاربری</button><a href="mailto:support@example.com">ارتباط با ما</a></div><div class="footer-status"><span class="status-pill"><i class="pulse-dot"></i> COMMUNITY LIVE</span><p>نظرات و حساب کاربری متصل به سامانه آنلاین PTY</p><small>© 2026 PTY STORE. All rights reserved.</small></div></div><nav class="social-links" aria-label="شبکه‌های اجتماعی PTY STORE">
+  <footer class="site-footer"><div class="footer-main section-wrap"><div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><span></span><span></span><span></span></span><span class="brand-word">PTY <b>STORE</b><small>THE GAMING MARKET</small></span></a><p>جایی برای کشف آیتم‌های خاص و ساختن استایل مخصوص خودت.</p></div><div class="footer-column"><strong>دسترسی سریع</strong><a href="#home">خانه</a><a href="#market">بازار</a><a href="#collections">کالکشن‌ها</a></div><div class="footer-column"><strong>راهنما</strong><a href="#how">چطور کار می‌کند؟</a><button id="footerLogin">حساب کاربری</button><a href="mailto:support@example.com">ارتباط با ما</a></div><div class="footer-status"><span class="status-pill"><i class="pulse-dot"></i> COMMUNITY LIVE</span><p>نظرات و حساب کاربری متصل به سامانه آنلاین PTY</p><small>© 2026 PTY STORE. All rights reserved.</small></div></div><nav class="social-links" aria-label="شبکه‌های اجتماعی PTY STORE">
     <a href="https://discord.gg/XmGmNQcyA" target="_blank" rel="noopener noreferrer" aria-label="Discord" title="Discord"><svg class="discord" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.7 5.2A18.5 18.5 0 0 0 15.1 3.8l-.6 1.2a17 17 0 0 0-5 0l-.6-1.2a18.5 18.5 0 0 0-4.6 1.4C1.4 9.5.6 13.7 1 17.8a18.7 18.7 0 0 0 5.7 2.9l1.2-2a12 12 0 0 1-1.9-.9l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.7 18.7 0 0 0 5.7-2.9c.5-4.8-.8-8.9-3.7-12.6ZM8.7 14.8c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/></svg></a>
     <a href="https://t.me/ptystore" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram"><svg class="telegram" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 4.2 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.5l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5L20.4 3.3c.9-.3 1.7.2 1.4.9Z"/></svg></a>
     <a href="https://www.instagram.com/ptystore.cs?dlrf=MXdhbDlwcHBoMmo1aA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg class="instagram" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm5 3.1a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4Zm0 2.2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm5-4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg></a>
@@ -567,9 +569,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         <input type="hidden" id="adminProductId">
         <div><label for="adminProductName">نام محصول</label><input id="adminProductName" maxlength="120" required placeholder="مثلاً Violet Phantom"></div>
         <div><label for="adminProductPrice">قیمت (تومان)</label><input id="adminProductPrice" type="number" min="0" step="1" required placeholder="249000"></div>
+        <div><label for="adminProductStock">موجودی واقعی</label><input id="adminProductStock" type="number" min="0" step="1" required value="0" placeholder="مثلاً 5"></div>
+        <div><label for="adminProductWear">کیفیت اسکین</label><select id="adminProductWear" required><option value="Factory New">Factory New</option><option value="Minimal Wear">Minimal Wear</option><option value="Field-Tested">Field-Tested</option><option value="Well-Worn">Well-Worn</option><option value="Battle-Scarred">Battle-Scarred</option></select></div>
+        <div><label for="adminProductCategory">دسته‌بندی</label><select id="adminProductCategory" required><option value="rifle">Rifle</option><option value="knife">Knife</option><option value="pistol">Pistol</option><option value="glove">Gloves</option></select></div>
         <div><label for="adminProductImage">عکس محصول (اختیاری)</label><input id="adminProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><small style="display:block;color:#a99bb8;margin-top:6px">PNG، JPG، WEBP یا GIF · حداکثر 5 مگابایت</small><img id="adminProductImagePreview" alt="پیش‌نمایش عکس محصول" style="display:none;max-width:150px;max-height:110px;object-fit:contain;margin-top:8px;border-radius:8px"></div>
         <div class="admin-record-actions"><button class="button button-primary" id="adminProductSave" type="submit">ذخیره محصول</button><button class="button button-secondary" id="adminProductCancel" type="button">پاک‌کردن فرم</button></div>
-        <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">محصولات را اینجا اضافه یا ویرایش کن. برای نمایش در فروشگاه، وضعیت محصول باید فعال باشد.</p>
+        <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">موجودی واقعی، کیفیت و دسته‌بندی هر اسکین را دقیق تنظیم کن. موجودی صفر یعنی خرید غیرفعال است.</p>
       </form>
       <div id="adminProductsList" class="admin-product-list"><div class="admin-empty">در حال دریافت محصولات...</div></div>
     </div>
@@ -588,14 +593,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   "use strict";
 
   const products = [
-    {id:1,name:"Violet Phantom",subtitle:"Minimal Wear · Series 01",category:"rifle",type:"RIFLE",price:249000,priceLabel:"۲۴۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#c9a0ff",glow:"#6b36a4",rarity:"EPIC",badge:"PTY SELECT",badgeType:"",featured:1},
-    {id:2,name:"Crimson Vector",subtitle:"Field-Tested · Series 02",category:"rifle",type:"RIFLE",price:189000,priceLabel:"۱۸۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#ff8fba",glow:"#8c294e",rarity:"RARE",badge:"HOT DROP",badgeType:"hot",featured:2},
-    {id:3,name:"Prism Fang",subtitle:"Factory New · Series 01",category:"knife",type:"KNIFE",price:679000,priceLabel:"۶۷۹,۰۰۰",symbol:"◢",symbolClass:"knife",color:"#a8f4ff",glow:"#276b9a",rarity:"LEGENDARY",badge:"RARE FIND",badgeType:"hot",featured:3},
-    {id:4,name:"Solar Burst",subtitle:"Minimal Wear · Series 03",category:"pistol",type:"PISTOL",price:129000,priceLabel:"۱۲۹,۰۰۰",symbol:"◈",symbolClass:"",color:"#ffce85",glow:"#9b5b20",rarity:"RARE",badge:"NEW",badgeType:"new",featured:4},
-    {id:5,name:"Shadow Circuit",subtitle:"Well-Worn · Series 04",category:"rifle",type:"RIFLE",price:159000,priceLabel:"۱۵۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#c3a0ff",glow:"#492978",rarity:"RARE",badge:"",badgeType:"",featured:5},
-    {id:6,name:"Cyber Grip",subtitle:"Special Edition · Series 01",category:"glove",type:"GLOVES",price:329000,priceLabel:"۳۲۹,۰۰۰",symbol:"✊",symbolClass:"glove",color:"#8bffcf",glow:"#236d53",rarity:"EPIC",badge:"PTY SELECT",badgeType:"",featured:6},
-    {id:7,name:"Night Bloom",subtitle:"Factory New · Series 02",category:"pistol",type:"PISTOL",price:99000,priceLabel:"۹۹,۰۰۰",symbol:"◈",symbolClass:"",color:"#f5a0ed",glow:"#742d79",rarity:"UNCOMMON",badge:"NEW",badgeType:"new",featured:7},
-    {id:8,name:"Glacier Claw",subtitle:"Special Edition · Series 03",category:"knife",type:"KNIFE",price:549000,priceLabel:"۵۴۹,۰۰۰",symbol:"◢",symbolClass:"knife",color:"#9cbcff",glow:"#294c9c",rarity:"LEGENDARY",badge:"RARE FIND",badgeType:"hot",featured:8}
+    {id:1,name:"Violet Phantom",subtitle:"Minimal Wear · Series 01",category:"rifle",type:"RIFLE",price:249000,priceLabel:"۲۴۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#c9a0ff",glow:"#6b36a4",rarity:"EPIC",badge:"PTY SELECT",badgeType:"",featured:1,stock:0,wear:"Minimal Wear"},
+    {id:2,name:"Crimson Vector",subtitle:"Field-Tested · Series 02",category:"rifle",type:"RIFLE",price:189000,priceLabel:"۱۸۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#ff8fba",glow:"#8c294e",rarity:"RARE",badge:"HOT DROP",badgeType:"hot",featured:2,stock:0,wear:"Field-Tested"},
+    {id:3,name:"Prism Fang",subtitle:"Factory New · Series 01",category:"knife",type:"KNIFE",price:679000,priceLabel:"۶۷۹,۰۰۰",symbol:"◢",symbolClass:"knife",color:"#a8f4ff",glow:"#276b9a",rarity:"LEGENDARY",badge:"RARE FIND",badgeType:"hot",featured:3,stock:0,wear:"Factory New"},
+    {id:4,name:"Solar Burst",subtitle:"Minimal Wear · Series 03",category:"pistol",type:"PISTOL",price:129000,priceLabel:"۱۲۹,۰۰۰",symbol:"◈",symbolClass:"",color:"#ffce85",glow:"#9b5b20",rarity:"RARE",badge:"NEW",badgeType:"new",featured:4,stock:0,wear:"Minimal Wear"},
+    {id:5,name:"Shadow Circuit",subtitle:"Well-Worn · Series 04",category:"rifle",type:"RIFLE",price:159000,priceLabel:"۱۵۹,۰۰۰",symbol:"➤",symbolClass:"rifle",color:"#c3a0ff",glow:"#492978",rarity:"RARE",badge:"",badgeType:"",featured:5,stock:0,wear:"Well-Worn"},
+    {id:6,name:"Cyber Grip",subtitle:"Special Edition · Series 01",category:"glove",type:"GLOVES",price:329000,priceLabel:"۳۲۹,۰۰۰",symbol:"✊",symbolClass:"glove",color:"#8bffcf",glow:"#236d53",rarity:"EPIC",badge:"PTY SELECT",badgeType:"",featured:6,stock:0,wear:"Factory New"},
+    {id:7,name:"Night Bloom",subtitle:"Factory New · Series 02",category:"pistol",type:"PISTOL",price:99000,priceLabel:"۹۹,۰۰۰",symbol:"◈",symbolClass:"",color:"#f5a0ed",glow:"#742d79",rarity:"UNCOMMON",badge:"NEW",badgeType:"new",featured:7,stock:0,wear:"Factory New"},
+    {id:8,name:"Glacier Claw",subtitle:"Special Edition · Series 03",category:"knife",type:"KNIFE",price:549000,priceLabel:"۵۴۹,۰۰۰",symbol:"◢",symbolClass:"knife",color:"#9cbcff",glow:"#294c9c",rarity:"LEGENDARY",badge:"RARE FIND",badgeType:"hot",featured:8,stock:0,wear:"Factory New"}
   ];
 
   const SUPABASE_URL = "https://gsslpnuhbztmlthrgqnd.supabase.co";
@@ -672,13 +677,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         </div>
         <div class="product-info">
           <div class="product-category"><span><i class="rarity-dot" style="--rarity:${product.color}"></i>${product.type}</span><span>${product.rarity}</span></div>
-          <h3 class="product-name">${product.name}</h3><p class="product-subtitle">${product.subtitle}</p>
-          <div class="product-bottom"><div class="product-price"><small>قیمت نمایشی</small><strong>${product.priceLabel} <em>تومان</em></strong></div><button class="add-cart" data-add="${product.id}" aria-label="افزودن ${product.name} به سبد">＋</button></div>
+          <h3 class="product-name">${safeText(product.name)}</h3><p class="product-subtitle">${safeText(product.subtitle || "آیتم منتخب PTY")}</p><span class="product-condition">${safeText(product.wear || "Factory New")}</span><small class="product-stock ${Number(product.stock||0)<=0 ? "sold-out" : ""}">${Number(product.stock||0)>0 ? `موجودی: ${Number(product.stock).toLocaleString("fa-IR")} عدد` : "ناموجود"}</small>
+          <div class="product-bottom"><div class="product-price"><small>قیمت</small><strong>${product.priceLabel} <em>تومان</em></strong></div><button class="add-cart" data-add="${product.id}" aria-label="افزودن ${safeText(product.name)} به سبد" ${Number(product.stock||0)<=0 ? 'disabled title="ناموجود"' : ''}>＋</button></div>
         </div>
       </article>`;
     }).join("");
     $("#emptyState").classList.toggle("hidden", list.length > 0);
     grid.classList.toggle("hidden", list.length === 0);
+    const totalCount = $("#totalProductCount");
+    if (totalCount) totalCount.textContent = products.length.toLocaleString("fa-IR");
+    $$("[data-collection-count]").forEach(el => {
+      const category = el.dataset.collectionCount;
+      const count = products.filter(p => p.category === category).length;
+      el.textContent = `${count.toLocaleString("fa-IR")} آیتم`;
+    });
   }
 
   function cartQuantity() {
@@ -709,7 +721,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       return `<div class="cart-line ${Number(state.lastAddedId) === Number(id) ? "cart-line-new" : ""}" data-cart-product="${id}">
         <div class="cart-thumb" style="--glow:${product.glow};--item-color:${product.color}">${product.symbol}</div>
         <div class="cart-line-info"><strong>${product.name}</strong><small>${product.subtitle}</small>
-          <div class="cart-line-controls"><button class="qty-button" data-qty="${id}" data-delta="-1" aria-label="کم کردن تعداد">−</button><span class="qty-number">${count.toLocaleString("fa-IR")}</span><button class="qty-button" data-qty="${id}" data-delta="1" aria-label="زیاد کردن تعداد">＋</button><button class="remove-item" data-remove="${id}">حذف</button></div>
+          <div class="cart-line-controls"><button class="qty-button" data-qty="${id}" data-delta="-1" aria-label="کم کردن تعداد">−</button><span class="qty-number">${count.toLocaleString("fa-IR")}</span><button class="qty-button" data-qty="${id}" data-delta="1" aria-label="زیاد کردن تعداد" ${count >= Number(product.stock||0) ? 'disabled title="بیشتر از موجودی نیست"' : ''}>＋</button><button class="remove-item" data-remove="${id}">حذف</button></div>
         </div><div class="cart-line-price">${money(product.price * count)}</div>
       </div>`;
     }).join("");
@@ -726,7 +738,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     }
     const product = productById(id);
     if (!product) return;
-    state.cart.set(product.id, (state.cart.get(product.id) || 0) + 1);
+    const inCart = state.cart.get(product.id) || 0;
+    if (Number(product.stock || 0) <= 0) { toast("این اسکین موجود نیست."); return; }
+    if (inCart >= Number(product.stock)) { toast(`از ${product.name} فقط ${Number(product.stock).toLocaleString("fa-IR")} عدد موجود است.`); return; }
+    state.cart.set(product.id, inCart + 1);
     state.lastAddedId = product.id;
     renderCart();
     openCart();
@@ -921,8 +936,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (quantityButton) {
       const id = Number(quantityButton.dataset.qty);
       const next = (state.cart.get(id) || 0) + Number(quantityButton.dataset.delta);
+      const product = productById(id);
       if (next <= 0) state.cart.delete(id);
-      else state.cart.set(id, next);
+      else if (product && next <= Number(product.stock || 0)) state.cart.set(id, next);
+      else { toast("تعداد انتخابی از موجودی واقعی بیشتر است."); return; }
       renderCart();
     }
     if (removeButton) {
@@ -959,6 +976,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const items = [...state.cart.entries()].map(([id, quantity]) => ({ product_id: id, quantity }));
     const button = $("#checkoutForm button[type=submit]"); button.disabled = true; button.textContent = "در حال ثبت سفارش...";
     try {
+      const { data: stockRows, error: stockError } = await sb.from("products").select("id,stock,active").in("id", items.map(item => item.product_id));
+      if (stockError) throw stockError;
+      for (const item of items) {
+        const current = (stockRows || []).find(row => Number(row.id) === Number(item.product_id));
+        if (!current || current.active === false || Number(current.stock || 0) < Number(item.quantity)) {
+          const product = productById(item.product_id);
+          throw new Error(`موجودی ${product?.name || "یکی از اسکین‌ها"} کافی نیست؛ سبد خرید را به‌روزرسانی کن.`);
+        }
+      }
       const { data, error } = await sb.rpc("create_order", { p_items: items, p_trade_url: tradeUrl, p_telegram_id: telegramId, p_phone: phone || null });
       if (error) throw error;
       const order = data?.order || data;
@@ -966,6 +992,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       state.walletBalance = newBalance;
       state.cart.clear(); renderCart(); renderWallet();
       await sb.from("profiles").update({ steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null }).eq("id", state.authUser.id);
+      await syncProductsFromDatabase();
       state.profile = { ...(state.profile || {}), steam_trade_url: tradeUrl, telegram_id: telegramId, phone: phone || null };
       $("#checkoutMessage").classList.remove("coupon-error");
       $("#checkoutMessage").textContent = `سفارش ${order?.tracking_code || order?.trackingCode || "ثبت شد"} با موفقیت پرداخت شد. موجودی جدید: ${money(newBalance)}.`;
@@ -1069,16 +1096,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   function renderAdminProducts(rows) {
     const list = $("#adminProductsList");
     if (!rows?.length) { list.innerHTML = '<div class="admin-empty">محصولی در دیتابیس نیست.</div>'; return; }
-    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
+    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)} · موجودی: ${Number(p.stock||0)} · کیفیت: ${safeText(p.wear||"Factory New")}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
   }
   async function loadAdminProducts() {
     const list = $("#adminProductsList");
-    const { data, error } = await sb.from("products").select("id,name,price,active,image_url").order("id", { ascending: true });
+    const { data, error } = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").order("id", { ascending: true });
     if (error) { list.innerHTML = `<div class="admin-empty">خطای دریافت محصولات: ${safeText(error.message)}. مطمئن شو جدول products ستون‌های id، name، price و active را دارد.</div>`; return; }
     renderAdminProducts(data || []);
   }
   function resetAdminProductForm() {
-    $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductSave").textContent = "ذخیره محصول";
+    $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductStock").value = "0"; $("#adminProductWear").value = "Factory New"; $("#adminProductCategory").value = "rifle"; $("#adminProductSave").textContent = "ذخیره محصول";
     adminProductImageUrl = ""; const preview = $("#adminProductImagePreview"); preview.removeAttribute("src"); preview.style.display = "none";
     adminProductMessage("برای افزودن محصول جدید، نام و قیمت را وارد کن.");
   }
@@ -1096,7 +1123,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const id = $("#adminProductId").value.trim();
     const name = $("#adminProductName").value.trim();
     const price = Number($("#adminProductPrice").value);
-    if (!name || !Number.isSafeInteger(price) || price < 0) { adminProductMessage("نام و قیمت معتبر وارد کن.", true); return; }
+    const stock = Number($("#adminProductStock").value);
+    const wear = $("#adminProductWear").value;
+    const category = $("#adminProductCategory").value;
+    if (!name || !Number.isSafeInteger(price) || price < 0 || !Number.isSafeInteger(stock) || stock < 0) { adminProductMessage("نام، قیمت و موجودی معتبر وارد کن.", true); return; }
     const imageFile = $("#adminProductImage").files?.[0];
     const button = $("#adminProductSave"); button.disabled = true;
     try {
@@ -1110,11 +1140,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         imageUrl = publicData.publicUrl;
       }
       let result;
-      if (id) result = await sb.from("products").update({name, price, image_url:imageUrl || null}).eq("id", Number(id)).select("id").single();
+      if (id) result = await sb.from("products").update({name, price, image_url:imageUrl || null, stock, wear, category}).eq("id", Number(id)).select("id").single();
       else {
         const { data: maxRow, error: maxError } = await sb.from("products").select("id").order("id", {ascending:false}).limit(1).maybeSingle();
         if (maxError) throw maxError;
-        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true, image_url:imageUrl || null}).select("id").single();
+        result = await sb.from("products").insert({id:Number(maxRow?.id || 0)+1, name, price, active:true, image_url:imageUrl || null, stock, wear, category}).select("id").single();
       }
       if (result.error) throw result.error;
       adminProductMessage(id ? "محصول با موفقیت ویرایش شد." : "محصول جدید ذخیره شد.");
@@ -1128,9 +1158,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     const toggle = event.target.closest("[data-product-toggle]");
     if (!state.isAdmin || !sb) return;
     if (edit) {
-      const {data, error} = await sb.from("products").select("id,name,price,active,image_url").eq("id", Number(edit.dataset.productEdit)).single();
+      const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").eq("id", Number(edit.dataset.productEdit)).single();
       if (error || !data) { adminProductMessage("خواندن محصول انجام نشد: " + (error?.message || "پیدا نشد"), true); return; }
-      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
+      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; $("#adminProductStock").value = Number(data.stock||0); $("#adminProductWear").value = data.wear || "Factory New"; $("#adminProductCategory").value = data.category || "rifle"; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
       $("#adminProductSave").textContent = "ذخیره ویرایش"; adminProductMessage("در حال ویرایش محصول شماره " + data.id); $("#adminProductName").focus();
     }
     if (toggle) {
@@ -1142,16 +1172,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   });
   async function syncProductsFromDatabase() {
     if (!sb) return;
-    const {data, error} = await sb.from("products").select("id,name,price,active,image_url").order("id", {ascending:true});
+    const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").order("id", {ascending:true});
     if (error || !data) return;
     const byId = new Map(data.map(p => [Number(p.id), p]));
     for (let i = products.length - 1; i >= 0; i--) {
       const row = byId.get(Number(products[i].id));
       if (!row || row.active === false) { products.splice(i, 1); continue; }
-      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR"); products[i].image_url = row.image_url || "";
+      products[i].name = row.name; products[i].price = Number(row.price); products[i].priceLabel = Number(row.price).toLocaleString("fa-IR"); products[i].image_url = row.image_url || ""; products[i].stock = Number(row.stock || 0); products[i].wear = row.wear || "Factory New"; products[i].category = row.category || products[i].category || "rifle"; products[i].subtitle = `${products[i].wear} · PTY STORE`;
       byId.delete(Number(row.id));
     }
-    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:"آیتم منتخب PTY",category:"rifle",type:"ITEM",price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),image_url:row.image_url || "",symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1});
+    for (const row of byId.values()) if (row.active !== false) products.push({id:Number(row.id),name:row.name,subtitle:`${row.wear || "Factory New"} · PTY STORE`,category:row.category || "rifle",type:String(row.category || "ITEM").toUpperCase(),price:Number(row.price),priceLabel:Number(row.price).toLocaleString("fa-IR"),image_url:row.image_url || "",symbol:"✦",symbolClass:"",color:"#c9a0ff",glow:"#6b36a4",rarity:"RARE",badge:"NEW",badgeType:"new",featured:products.length+1,stock:Number(row.stock||0),wear:row.wear||"Factory New"});
     renderProducts();
   }
 
