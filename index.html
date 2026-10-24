@@ -414,6 +414,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .category-tab[data-category="smg"]{--cat-glow:#ff7de02c;--cat-border:#ff7de02b}
 .category-tab[data-category="rifle"]{--cat-glow:#b18aff35;--cat-border:#b18aff30}
 .category-tab[data-category="sniper"]{--cat-glow:#70bfff30;--cat-border:#70bfff2b}
+.category-tab[data-category="shotgun"]{--cat-glow:#ff9f6b30;--cat-border:#ff9f6b2b}
 .category-tab[data-category="accessories"]{--cat-glow:#ff9dcc30;--cat-border:#ff9dcc2b}
 .category-tab:hover{transform:translateY(-3px);border-color:var(--cat-border);box-shadow:0 8px 24px #0006,0 0 19px var(--cat-glow),inset 0 1px 0 #ffffff16;color:#fff}
 .category-tab:hover::after{animation:pty-skin-shine .8s ease forwards}
@@ -482,6 +483,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
           <button class="category-tab" data-category="smg"><img src="https://csgoskin.ir/assets/images/a0abdc0c4418563e871c713a7d20029218006c0f_256.png" alt="" loading="lazy"><span class="category-label">SMGs</span></button>
           <button class="category-tab" data-category="rifle"><img src="https://csgoskin.ir/assets/images/0b2cd212c8187b028ebca28c9f121b9aa30cc69d_256.png" alt="" loading="lazy"><span class="category-label">Rifles</span></button>
           <button class="category-tab" data-category="sniper"><img src="https://csgoskin.ir/assets/images/08f1aa7c0129267dff3975a92191840a7c99065b_256.png" alt="" loading="lazy"><span class="category-label">Snipers</span></button>
+          <button class="category-tab" data-category="shotgun"><img src="https://cdn.cs2c.app/images/econ/default_generated/weapon_nova_hy_zodiac1_light_png.png" alt="" loading="lazy"><span class="category-label">Shotguns</span></button>
           <button class="category-tab" data-category="accessories"><img src="https://community.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJai0ki7VeTHjMmuOHaC619h7cj-61rsQA7i0Ybh7SdJ0Oi0cqV9bqXACj_Bmb4ntLI5GiixwU935Wzdw9ygJHvDOgQpA8N4RbMOuxa_l9P5d7S15MPRkS4/256fx256f" alt="" loading="lazy"><span class="category-label">Accessories</span></button>
         </div>
         <div class="toolbar-tools"><label class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg><input id="productSearch" type="search" placeholder="جست‌وجوی آیتم..." autocomplete="off"></label><select id="sortSelect" aria-label="مرتب‌سازی"><option value="featured">پیشنهادی</option><option value="low">قیمت: کم به زیاد</option><option value="high">قیمت: زیاد به کم</option><option value="name">نام آیتم</option></select></div>
@@ -586,7 +588,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <p class="modal-description">مبلغ را وارد کن، کارت مقصد را بررسی کن و رسید پرداخت را بارگذاری کن.</p>
     <form id="topupForm">
       <label for="topupAmount">مبلغ شارژ (تومان)</label><input id="topupAmount" type="number" min="1000" step="1000" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰" required><div class="amount-persian-summary" id="topupAmountSummary" aria-live="polite">مبلغ انتخابی: هنوز مبلغی وارد نشده</div>
-      <div class="bank-card-panel"><div class="bank-panel-kicker"><span class="bank-panel-pulse"></span> SECURE TRANSFER <span class="bank-panel-line"></span><span>PTY / PAY</span></div><div class="bank-card-scene"><div class="bank-card-3d" id="bankCard3d"><div class="bank-card-shine"></div><div class="bank-card-head"><span class="bank-card-chip">▦</span><span>PTY STORE · TRANSFER</span></div><div class="bank-card-number" id="bankCardNumber" dir="ltr">0000 0000 0000 0000</div><div class="bank-card-foot"><div><small>نام صاحب کارت</small><strong id="bankCardHolder">نام و نام خانوادگی</strong></div><span class="bank-card-logo">PTY<span>✦</span></span></div><div class="bank-card-watermark">PTY</div></div></div><p class="bank-details-note"><span class="bank-note-icon">✦</span><span><strong>اطلاعات مقصد پرداخت</strong><br>اطلاعات کارت بالا نمونه است؛ پیش از انتشار، شماره کارت و نام صاحب کارت واقعی را در تنظیمات فایل <code>app.js</code> جایگزین کن.</span></p><div class="bank-panel-foot"><span>ENCRYPTED PAYMENT FLOW</span><span>✧ ✦ ✧</span></div></div>
+      <div class="bank-card-panel"><div class="bank-panel-kicker"><span class="bank-panel-pulse"></span> SECURE TRANSFER <span class="bank-panel-line"></span><span>PTY / PAY</span></div><div class="bank-card-scene"><div class="bank-card-3d" id="bankCard3d"><div class="bank-card-shine"></div><div class="bank-card-head"><span class="bank-card-chip">▦</span><span>PTY STORE · TRANSFER</span></div><div class="bank-card-number" id="bankCardNumber" dir="ltr">6219 8619 4904 8317</div><div class="bank-card-foot"><div><small>نام صاحب کارت</small><strong id="bankCardHolder">پردیس پرویزی مقدم</strong></div><span class="bank-card-logo">PTY<span>✦</span></span></div><div class="bank-card-watermark">PTY</div></div></div><p class="bank-details-note"><span class="bank-note-icon">✦</span><span><strong>اطلاعات مقصد پرداخت</strong><br>شماره کارت و نام صاحب کارت مقصد را پیش از انتقال وجه بررسی کن.</span></p><div class="bank-panel-foot"><span>ENCRYPTED PAYMENT FLOW</span><span>✧ ✦ ✧</span></div></div>
       <label for="receiptUpload">آپلود رسید پرداخت</label><input id="receiptUpload" type="file" accept="image/*,.pdf" required><div class="receipt-preview hidden" id="receiptPreview"></div>
       <p class="form-message" id="topupMessage" role="status">پس از ارسال، درخواست در انتظار بررسی ادمین می‌ماند. موجودی قبل از تأیید افزایش نمی‌یابد.</p>
       <button class="button button-primary button-wide topup-finalize" id="topupFinalize" type="submit">Finalize · ارسال به بررسی ادمین <span>←</span></button>
@@ -604,8 +606,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         <div><label for="adminProductName">نام محصول</label><input id="adminProductName" maxlength="120" required placeholder="مثلاً Violet Phantom"></div>
         <div><label for="adminProductPrice">قیمت (تومان)</label><input id="adminProductPrice" type="number" min="0" step="1" required placeholder="249000"></div>
         <div><label for="adminProductStock">موجودی واقعی</label><input id="adminProductStock" type="number" min="0" step="1" required value="0" placeholder="مثلاً 5"></div>
-        <div><label for="adminProductWear">کیفیت اسکین</label><select id="adminProductWear" required><option value="Factory New">Factory New</option><option value="Minimal Wear">Minimal Wear</option><option value="Field-Tested">Field-Tested</option><option value="Well-Worn">Well-Worn</option><option value="Battle-Scarred">Battle-Scarred</option></select></div>
-        <div><label for="adminProductCategory">دسته‌بندی</label><select id="adminProductCategory" required><option value="knife">Knife</option><option value="glove">Gloves</option><option value="pistol">Pistol</option><option value="smg">SMG</option><option value="rifle">Rifle</option><option value="sniper">Sniper</option><option value="accessories">Accessories</option></select></div>
+        <div id="adminWearField"><label for="adminProductWear">کیفیت اسکین</label><select id="adminProductWear" required><option value="Factory New">Factory New</option><option value="Minimal Wear">Minimal Wear</option><option value="Field-Tested">Field-Tested</option><option value="Well-Worn">Well-Worn</option><option value="Battle-Scarred">Battle-Scarred</option><option value="بدون کیفیت">بدون کیفیت / اکسسوری</option></select></div>
+        <div><label for="adminProductCategory">دسته‌بندی</label><select id="adminProductCategory" required><option value="knife">Knife</option><option value="glove">Gloves</option><option value="pistol">Pistol</option><option value="smg">SMG</option><option value="rifle">Rifle</option><option value="sniper">Sniper</option><option value="shotgun">Shotgun</option><option value="accessories">Accessories</option></select></div>
+        <div class="admin-stattrak-field"><label class="admin-stattrak-label" for="adminProductStatTrak"><input id="adminProductStatTrak" type="checkbox"> دارای StatTrak™</label><small>برای آیتم‌های شمارنده‌دار CS2</small></div>
         <div><label for="adminProductImage">عکس محصول (اختیاری)</label><input id="adminProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><small style="display:block;color:#a99bb8;margin-top:6px">PNG، JPG، WEBP یا GIF · حداکثر 5 مگابایت</small><img id="adminProductImagePreview" alt="پیش‌نمایش عکس محصول" style="display:none;max-width:150px;max-height:110px;object-fit:contain;margin-top:8px;border-radius:8px"></div>
         <div class="admin-record-actions"><button class="button button-primary" id="adminProductSave" type="submit">ذخیره محصول</button><button class="button button-secondary" id="adminProductCancel" type="button">پاک‌کردن فرم</button></div>
         <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">موجودی واقعی، کیفیت و دسته‌بندی هر اسکین را دقیق تنظیم کن. موجودی صفر یعنی خرید غیرفعال است.</p>
@@ -645,9 +648,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const money = value => `${Number(value).toLocaleString("fa-IR")} تومان`;
   const productById = id => products.find(product => product.id === Number(id));
+  const wearSlug = wear => ({"Factory New":"factory-new","Minimal Wear":"minimal-wear","Field-Tested":"field-tested","Well-Worn":"well-worn","Battle-Scarred":"battle-scarred"}[wear] || "none");
 
   // Replace these placeholders with the verified recipient card details before publishing.
-  const PTY_BANK_CARD = { number: "0000 0000 0000 0000", holder: "نام و نام خانوادگی" };
+  const PTY_BANK_CARD = { number: "6219 8619 4904 8317", holder: "پردیس پرویزی مقدم" };
   function walletBalance() { return Math.max(0, Number(state.walletBalance || 0)); }
   async function refreshAccountData() {
     if (!sb || !state.authUser) { state.walletBalance = 0; state.profile = null; state.isAdmin = false; renderWallet(); return; }
@@ -711,7 +715,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         </div>
         <div class="product-info">
           <div class="product-category"><span><i class="rarity-dot" style="--rarity:${product.color}"></i>${product.type}</span><span>${product.rarity}</span></div>
-          <h3 class="product-name">${safeText(product.name)}</h3><p class="product-subtitle">${safeText(product.subtitle || "آیتم منتخب PTY")}</p><span class="product-condition">${safeText(product.wear || "Factory New")}</span><small class="product-stock ${Number(product.stock||0)<=0 ? "sold-out" : ""}">${Number(product.stock||0)>0 ? `موجودی: ${Number(product.stock).toLocaleString("fa-IR")} عدد` : "ناموجود"}</small>
+          <h3 class="product-name">${safeText(product.name)}</h3><p class="product-subtitle">${safeText(product.subtitle || "آیتم منتخب PTY")}</p>${product.category !== "accessories" && product.wear && product.wear !== "بدون کیفیت" ? `<span class="product-condition wear-${wearSlug(product.wear)}"><i></i>${safeText(product.wear)}</span>` : ""}${/^StatTrak™\s/i.test(product.name) ? '<span class="stattrak-mark">StatTrak™</span>' : ""}<small class="product-stock ${Number(product.stock||0)<=0 ? "sold-out" : ""}">${Number(product.stock||0)>0 ? `موجودی: ${Number(product.stock).toLocaleString("fa-IR")} عدد` : "ناموجود"}</small>
           <div class="product-bottom"><div class="product-price"><small>قیمت</small><strong>${product.priceLabel} <em>تومان</em></strong></div><button class="add-cart" data-add="${product.id}" aria-label="افزودن ${safeText(product.name)} به سبد" ${Number(product.stock||0)<=0 ? 'disabled title="ناموجود"' : ''}>＋</button></div>
         </div>
       </article>`;
@@ -1130,7 +1134,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   function renderAdminProducts(rows) {
     const list = $("#adminProductsList");
     if (!rows?.length) { list.innerHTML = '<div class="admin-empty">محصولی در دیتابیس نیست.</div>'; return; }
-    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)} · موجودی: ${Number(p.stock||0)} · کیفیت: ${safeText(p.wear||"Factory New")}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
+    list.innerHTML = rows.map(p => `<article class="admin-product-row">${p.image_url ? `<img src="${safeText(p.image_url)}" alt="" style="width:64px;height:64px;object-fit:contain;border-radius:9px;background:#0b0911">` : ""}<div><strong>${safeText(p.name)}</strong><small>شناسه: ${safeText(p.id)} · ${money(p.price)} · موجودی: ${Number(p.stock||0)}${p.category === "accessories" ? "" : " · کیفیت: " + safeText(p.wear||"Factory New")}</small><span class="admin-product-state ${p.active ? "" : "off"}">${p.active ? "فعال در فروشگاه" : "غیرفعال"}</span></div><div class="admin-record-actions"><button class="button button-secondary" type="button" data-product-edit="${safeText(p.id)}">ویرایش</button><button class="button ${p.active ? "button-secondary" : "button-primary"}" type="button" data-product-toggle="${safeText(p.id)}" data-active="${p.active ? "true" : "false"}">${p.active ? "غیرفعال‌کردن" : "فعال‌کردن"}</button></div></article>`).join("");
   }
   async function loadAdminProducts() {
     const list = $("#adminProductsList");
@@ -1139,7 +1143,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     renderAdminProducts(data || []);
   }
   function resetAdminProductForm() {
-    $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductStock").value = "0"; $("#adminProductWear").value = "Factory New"; $("#adminProductCategory").value = "rifle"; $("#adminProductSave").textContent = "ذخیره محصول";
+    $("#adminProductForm").reset(); $("#adminProductId").value = ""; $("#adminProductStock").value = "0"; $("#adminProductWear").value = "Factory New"; $("#adminProductCategory").value = "rifle"; $("#adminProductStatTrak").checked = false; $("#adminWearField").style.display = ""; $("#adminProductSave").textContent = "ذخیره محصول";
     adminProductImageUrl = ""; const preview = $("#adminProductImagePreview"); preview.removeAttribute("src"); preview.style.display = "none";
     adminProductMessage("برای افزودن محصول جدید، نام و قیمت را وارد کن.");
   }
@@ -1151,15 +1155,25 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     }
     preview.src = URL.createObjectURL(file); preview.style.display = "block";
   });
+  $("#adminProductCategory").addEventListener("change", () => {
+    const isAccessory = $("#adminProductCategory").value === "accessories";
+    $("#adminWearField").style.display = isAccessory ? "none" : "";
+    $("#adminProductWear").required = !isAccessory;
+    if (isAccessory) $("#adminProductWear").value = "بدون کیفیت";
+    else if ($("#adminProductWear").value === "بدون کیفیت") $("#adminProductWear").value = "Factory New";
+  });
   $("#adminProductForm").addEventListener("submit", async event => {
     event.preventDefault();
     if (!state.isAdmin || !sb) return;
     const id = $("#adminProductId").value.trim();
-    const name = $("#adminProductName").value.trim();
+    let name = $("#adminProductName").value.trim();
+    const statTrak = $("#adminProductStatTrak").checked;
+    name = name.replace(/^StatTrak™\s*/i, "");
+    if (statTrak) name = "StatTrak™ " + name;
     const price = Number($("#adminProductPrice").value);
     const stock = Number($("#adminProductStock").value);
-    const wear = $("#adminProductWear").value;
     const category = $("#adminProductCategory").value;
+    const wear = category === "accessories" ? "بدون کیفیت" : $("#adminProductWear").value;
     if (!name || !Number.isSafeInteger(price) || price < 0 || !Number.isSafeInteger(stock) || stock < 0) { adminProductMessage("نام، قیمت و موجودی معتبر وارد کن.", true); return; }
     const imageFile = $("#adminProductImage").files?.[0];
     const button = $("#adminProductSave"); button.disabled = true;
@@ -1194,7 +1208,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (edit) {
       const {data, error} = await sb.from("products").select("id,name,price,active,image_url,stock,wear,category").eq("id", Number(edit.dataset.productEdit)).single();
       if (error || !data) { adminProductMessage("خواندن محصول انجام نشد: " + (error?.message || "پیدا نشد"), true); return; }
-      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; $("#adminProductStock").value = Number(data.stock||0); $("#adminProductWear").value = data.wear || "Factory New"; $("#adminProductCategory").value = data.category || "rifle"; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
+      $("#adminProductId").value = data.id; $("#adminProductName").value = data.name; $("#adminProductPrice").value = data.price; $("#adminProductStock").value = Number(data.stock||0); $("#adminProductWear").value = data.wear || "Factory New"; $("#adminProductCategory").value = data.category || "rifle"; $("#adminProductStatTrak").checked = /^StatTrak™\s/i.test(data.name || ""); $("#adminWearField").style.display = data.category === "accessories" ? "none" : ""; adminProductImageUrl = data.image_url || ""; const preview = $("#adminProductImagePreview"); if (adminProductImageUrl) { preview.src = adminProductImageUrl; preview.style.display = "block"; } else { preview.removeAttribute("src"); preview.style.display = "none"; } $("#adminProductImage").value = "";
       $("#adminProductSave").textContent = "ذخیره ویرایش"; adminProductMessage("در حال ویرایش محصول شماره " + data.id); $("#adminProductName").focus();
     }
     if (toggle) {
@@ -1211,17 +1225,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (error || !data) { console.warn("PTY products could not be synced:", error?.message || "No data"); renderProducts(); return; }
     const liveProducts = data.filter(row => row.active !== false).map((row, index) => {
       const rawCategory = String(row.category || "rifle").toLowerCase().trim();
-      const aliases = {rifles:"rifle", rifle:"rifle", pistols:"pistol", pistol:"pistol", knives:"knife", knife:"knife", gloves:"glove", glove:"glove", smgs:"smg", smg:"smg", snipers:"sniper", sniper:"sniper", accessories:"accessories", accessory:"accessories", other:"accessories"};
+      const aliases = {rifles:"rifle", rifle:"rifle", pistols:"pistol", pistol:"pistol", knives:"knife", knife:"knife", gloves:"glove", glove:"glove", smgs:"smg", smg:"smg", snipers:"sniper", sniper:"sniper", shotguns:"shotgun", shotgun:"shotgun", accessories:"accessories", accessory:"accessories", other:"accessories"};
       const category = aliases[rawCategory] || "accessories";
       const existing = products.find(p => Number(p.id) === Number(row.id));
       const price = Number(row.price || 0);
       return {
-        id:Number(row.id), name:row.name || "CS2 Item", subtitle:`${row.wear || "Factory New"} · PTY STORE`,
+        id:Number(row.id), name:row.name || "CS2 Item", subtitle:`${row.category === "accessories" ? "Accessory" : (row.wear || "Factory New")} · PTY STORE`,
         category, type:category.toUpperCase(), price, priceLabel:price.toLocaleString("fa-IR"),
         image_url:row.image_url || "", symbol:existing?.symbol || "✦", symbolClass:existing?.symbolClass || "",
         color:existing?.color || "#c9a0ff", glow:existing?.glow || "#6b36a4", rarity:existing?.rarity || "RARE",
         badge:existing?.badge || "", badgeType:existing?.badgeType || "", featured:index+1,
-        stock:Number(row.stock || 0), wear:row.wear || "Factory New"
+        stock:Number(row.stock || 0), wear:category === "accessories" ? "بدون کیفیت" : (row.wear || "Factory New")
       };
     });
     products.splice(0, products.length, ...liveProducts);
@@ -1550,4 +1564,32 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .weapon-art .awp-dragon-lore-image{object-position:center!important;vertical-align:middle!important}
 .hero-art{overflow:visible!important}
 @media(max-width:760px){.hero-card-main{max-width:100%!important}.weapon-art .awp-dragon-lore-image{width:138%!important;height:245px!important}}
+
+/* PTY STORE requested fixes: clean CS2 wear colors, StatTrak, prices and accessory wear */
+.product-condition{display:inline-flex;align-items:center;gap:6px;margin-top:7px;padding:0;border:0!important;border-radius:0;background:transparent!important;font-size:10px;font-weight:800;line-height:1.5;letter-spacing:.1px}
+.product-condition i{display:inline-block;width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:currentColor;box-shadow:0 0 7px currentColor}
+.product-condition.wear-factory-new{color:#42a5ff}
+.product-condition.wear-minimal-wear{color:#a6e34a}
+.product-condition.wear-field-tested{color:#ffd34d}
+.product-condition.wear-well-worn{color:#ff9c45}
+.product-condition.wear-battle-scarred{color:#ff5b69}
+.stattrak-mark{display:flex;width:max-content;align-items:center;margin:5px 0 0 0;color:#ff9c45;font-size:9px;font-weight:900;letter-spacing:.2px;text-shadow:0 0 10px #ff7b2c35}
+.product-price strong{font-size:21px!important;font-weight:950!important;letter-spacing:-.35px;color:#f0ddff;text-shadow:0 0 18px #a56bff1f}
+.product-price strong em{font-size:10px!important;font-weight:700!important;color:#b7a3d0!important}
+.product-price small{font-size:9px!important;color:#a79ab7!important;font-weight:600}
+.admin-stattrak-field{display:flex;flex-direction:column;gap:5px;align-self:end;padding:10px 12px;border:1px solid #ff9c4540;border-radius:10px;background:#ff9c4508}
+.admin-stattrak-label{display:flex!important;align-items:center;gap:8px;margin:0!important;color:#ffbd7c!important;font-weight:800}
+.admin-stattrak-label input{width:16px!important;height:16px!important;accent-color:#ff9c45}
+.admin-stattrak-field small{font-size:10px;color:#a99bb8}
+.bank-card-number{font-size:clamp(18px,3vw,25px)!important;font-weight:800!important;letter-spacing:1.5px!important;white-space:nowrap}
+@media(max-width:420px){.product-price strong{font-size:17px!important}.product-price strong em{font-size:8px!important}.product-condition{font-size:9px}.bank-card-number{font-size:clamp(15px,4vw,20px)!important;letter-spacing:.6px!important}}
+</style>
+
+<style id="pty-final-visual-fixes">
+.product-condition{display:flex!important;width:max-content;max-width:100%;margin-top:7px!important}
+.stattrak-mark{display:flex!important;width:max-content!important;margin:5px 0 0!important;font-size:10px!important;line-height:1.4}
+.product-price strong{font-size:21px!important;font-weight:950!important;line-height:1.35;text-shadow:0 0 18px #a56bff35}
+.product-price strong em{font-size:10px!important;font-weight:800!important}
+@media(max-width:760px){.product-price strong{font-size:18px!important}}
+@media(max-width:420px){.product-price strong{font-size:17px!important}.product-price strong em{font-size:9px!important}}
 </style>
