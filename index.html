@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="./favicon.png">
-<link rel="shortcut icon" href="./favicon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%2309080d%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%239b5cff%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2239%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2221%22%20font-weight%3D%22900%22%20letter-spacing%3D%22-1%22%20fill%3D%22%23c9a2ff%22%3EPTY%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%2309080d%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%239b5cff%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2239%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2221%22%20font-weight%3D%22900%22%20letter-spacing%3D%22-1%22%20fill%3D%22%23c9a2ff%22%3EPTY%3C%2Ftext%3E%3C%2Fsvg%3E">
   <style>
 /* PTY STORE — polished dark violet storefront */
 :root{--bg:#09080d;--bg-soft:#0e0c14;--panel:#12101a;--panel-2:#171321;--line:rgba(211,187,255,.12);--line-strong:rgba(211,187,255,.23);--text:#f5f1fc;--muted:#9d95ad;--purple:#9b5cff;--purple-2:#6e35d4;--pink:#ed75db;--cyan:#74e6ff;--green:#74f3bb;--radius:22px;--font:'Vazirmatn',Tahoma,sans-serif;--shadow:0 24px 80px rgba(0,0,0,.36)}
@@ -429,6 +429,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media(max-width:760px){.category-tabs{gap:6px}.category-tab{padding:5px 8px;min-height:47px;gap:5px}.category-tab img{width:48px;height:31px}.category-tab .category-label{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.category-tab,.category-tab img,.category-tab::after{animation:none!important;transition:none!important}.category-tab:hover::after{animation:none!important}}
 </style>
+
+<style id="pty-featured-collections-admin-css">
+.admin-help-text{color:#b9abc9;font-size:12px;line-height:1.9;margin:0 0 15px}.admin-product-form select,.admin-product-form input{max-width:100%}#adminFeaturedCollectionsForm .admin-record-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}#adminFeaturedCollectionsForm .form-message{line-height:1.8}
+</style>
 </head>
 <body>
   <a class="telegram-support-float" href="https://t.me/ptystore" target="_blank" rel="noopener noreferrer" aria-label="پشتیبانی تلگرام PTY STORE" title="پشتیبانی تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 4.2 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.5l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5L20.4 3.3c.9-.3 1.7.2 1.4.9Z"/></svg></a>
@@ -457,8 +461,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <section class="hero section-wrap">
       <div class="hero-copy reveal">
         <div class="eyebrow"><span class="eyebrow-line"></span> نسل جدید بازار گیمینگ</div>
-        <h1>آیتم‌های خاص.<br><span class="gradient-text">استایل افسانه‌ای.</span></h1>
-        <p class="hero-description">دنیای اسکین‌ها و آیتم‌های گیمینگ را با تجربه‌ای سریع، شفاف و متفاوت کشف کن. کالکشن بعدی‌ات همین‌جاست.</p>
+        <h1><span class="gradient-text">PTY STORE</span></h1>
+        <p class="hero-description">تحویل آنی، قیمت پایین و مناسب<br><strong style="display:inline-block;margin-top:8px;color:#e8d8ff;font-size:1.08em">همین الان اولین گانتو با تخفیف بخر!</strong></p>
         <div class="hero-buttons"><a class="button button-primary" href="#market">مشاهده بازار <span class="button-arrow">←</span></a><a class="button button-text" href="#collections"><span class="play-icon">↗</span> بررسی کالکشن‌ها</a></div>
         <div class="hero-proof"><div class="avatar-stack"><span>G</span><span>P</span><span>S</span><span>+</span></div><div><strong>بازار ساخته‌شده برای گیمرها</strong><small>طراحی مستقل PTY STORE</small></div></div>
       </div>
@@ -495,11 +499,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <div class="market-footer"><span><i class="pulse-dot"></i> محصولات فعال فروشگاه</span><span>قیمت‌ها و موجودی این نسخه آزمایشی هستند.</span></div>
     </section>
 
-    <section class="collections-section" id="collections"><div class="section-wrap"><div class="section-heading reveal"><div><div class="eyebrow"><span class="eyebrow-line"></span> CURATED FOR YOU</div><h2>کالکشن‌های <span class="gradient-text">منتخب</span></h2><p>هر استایل، یک داستان. مجموعه مناسب خودت را انتخاب کن.</p></div></div><div class="collection-grid">
-      <a class="collection-card collection-purple reveal" href="#market" data-collection="rifle"><div class="collection-top"><span>COLLECTION 01</span><span>↗</span></div><div class="collection-graphic graphic-purple"><div class="collection-ring"></div><span aria-label="Rifle collection" title="Rifle collection">⌖</span></div><div class="collection-bottom"><div><small>THE DARK SIDE</small><h3>Shadow Protocol</h3></div><span class="collection-count" data-collection-count="rifle">۰ آیتم</span></div></a>
-      <a class="collection-card collection-pink reveal" href="#market" data-collection="knife"><div class="collection-top"><span>COLLECTION 02</span><span>↗</span></div><div class="collection-graphic graphic-pink"><div class="collection-ring"></div><span aria-label="Knife collection" title="Knife collection">⚔</span></div><div class="collection-bottom"><div><small>RARE & SHARP</small><h3>Prism Edge</h3></div><span class="collection-count" data-collection-count="knife">۰ آیتم</span></div></a>
-      <a class="collection-card collection-blue reveal" href="#market" data-collection="glove"><div class="collection-top"><span>COLLECTION 03</span><span>↗</span></div><div class="collection-graphic graphic-blue"><div class="collection-ring"></div><span aria-label="Glove collection" title="Glove collection">♧</span></div><div class="collection-bottom"><div><small>FUTURE GEAR</small><h3>Cyber Utility</h3></div><span class="collection-count" data-collection-count="glove">۰ آیتم</span></div></a>
-    </div></div></section>
+    <section class="collections-section" id="collections"><div class="section-wrap"><div class="section-heading reveal"><div><div class="eyebrow"><span class="eyebrow-line"></span> CURATED FOR YOU</div><h2>کالکشن‌های <span class="gradient-text">منتخب</span></h2><p>هر استایل، یک داستان. مجموعه مناسب خودت را انتخاب کن.</p></div></div><div class="collection-grid" id="featuredCollectionsGrid"></div></div></div></section>
 
     <section class="stats-section section-wrap"><div class="stats-panel reveal"><div class="stats-intro"><div class="eyebrow"><span class="eyebrow-line"></span> BUILT DIFFERENT</div><h2>بازار گیمینگ،<br><span class="gradient-text">با امضای PTY.</span></h2><p>تجربه‌ای مدرن برای کشف، مقایسه و مدیریت آیتم‌های مورد علاقه‌ات.</p></div><div class="stat"><strong data-count="8" id="totalProductCount">۰۸</strong><span>آیتم در فروشگاه</span><small>CURATED ITEMS</small></div><div class="stat"><strong data-count="3">۰۳</strong><span>کالکشن منتخب</span><small>COLLECTIONS</small></div><div class="stat"><strong>ONLINE</strong><span>بازار آنلاین</span><small>STORE STATUS</small></div></div></section>
 
@@ -617,6 +617,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       </form>
       <div id="adminProductsList" class="admin-product-list"><div class="admin-empty">در حال دریافت محصولات...</div></div>
     </div>
+    <div class="admin-section" id="adminFeaturedCollectionsSection"><div class="admin-section-heading"><h3>مدیریت کالکشن‌های منتخب</h3><span class="admin-status">ذخیره آنلاین</span></div>
+      <p class="admin-help-text">دسته‌بندی هر کارت و عنوانی که در صفحه اصلی نمایش داده می‌شود را انتخاب کن. برای نمایش در سایت همه کاربران، SQL همراه فایل را یک‌بار در Supabase اجرا کن.</p>
+      <form id="adminFeaturedCollectionsForm" class="admin-product-form">
+        <div><label for="featuredCategory1">کالکشن اول · دسته‌بندی</label><select id="featuredCategory1" required><option value="rifle">Rifle · رایفل</option><option value="knife">Knife · نایف</option><option value="glove">Gloves · گلاوز</option><option value="pistol">Pistol · پیستول</option><option value="smg">SMG</option><option value="sniper">Sniper · اسنایپر</option><option value="shotgun">Shotgun · شاتگان</option><option value="accessories">Accessories · اکسسوری</option></select></div>
+        <div><label for="featuredTitle1">عنوان کالکشن اول</label><input id="featuredTitle1" maxlength="60" required value="Shadow Protocol"></div>
+        <div><label for="featuredCategory2">کالکشن دوم · دسته‌بندی</label><select id="featuredCategory2" required><option value="rifle">Rifle · رایفل</option><option value="knife" selected>Knife · نایف</option><option value="glove">Gloves · گلاوز</option><option value="pistol">Pistol · پیستول</option><option value="smg">SMG</option><option value="sniper">Sniper · اسنایپر</option><option value="shotgun">Shotgun · شاتگان</option><option value="accessories">Accessories · اکسسوری</option></select></div>
+        <div><label for="featuredTitle2">عنوان کالکشن دوم</label><input id="featuredTitle2" maxlength="60" required value="Prism Edge"></div>
+        <div><label for="featuredCategory3">کالکشن سوم · دسته‌بندی</label><select id="featuredCategory3" required><option value="rifle">Rifle · رایفل</option><option value="knife">Knife · نایف</option><option value="glove" selected>Gloves · گلاوز</option><option value="pistol">Pistol · پیستول</option><option value="smg">SMG</option><option value="sniper">Sniper · اسنایپر</option><option value="shotgun">Shotgun · شاتگان</option><option value="accessories">Accessories · اکسسوری</option></select></div>
+        <div><label for="featuredTitle3">عنوان کالکشن سوم</label><input id="featuredTitle3" maxlength="60" required value="Cyber Utility"></div>
+        <div class="admin-record-actions"><button class="button button-primary" type="submit" id="adminFeaturedCollectionsSave">ذخیره کالکشن‌ها</button><button class="button button-secondary" type="button" id="adminFeaturedCollectionsReset">قرار دادن پیش‌فرض در فرم</button></div>
+        <p id="adminFeaturedCollectionsMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">انتخاب‌ها در صفحه اصلی نمایش داده می‌شوند.</p>
+      </form>
+    </div>
     <div class="admin-section"><div class="admin-section-heading"><h3>سفارش‌ها</h3><button class="button button-secondary" id="adminRefresh" type="button">به‌روزرسانی ↻</button></div><div id="adminOrdersList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>درخواست‌های شارژ و رسیدها</h3></div><div id="adminTopupsList" class="admin-record-list"></div></div>
     <div class="admin-section"><div class="admin-section-heading"><h3>نظرات کاربران</h3></div><div id="adminReviewsList" class="admin-record-list"></div></div>
@@ -694,6 +707,70 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       window.setTimeout(() => item.remove(), 260);
     }, 2800);
   }
+
+  const collectionCategoryInfo = {
+    rifle:{label:"RIFLE COLLECTION",title:"Shadow Protocol",icon:"⌖",theme:"purple",eyebrow:"THE DARK SIDE"},
+    knife:{label:"KNIFE COLLECTION",title:"Prism Edge",icon:"⚔",theme:"pink",eyebrow:"RARE & SHARP"},
+    glove:{label:"GLOVE COLLECTION",title:"Cyber Utility",icon:"♧",theme:"blue",eyebrow:"FUTURE GEAR"},
+    pistol:{label:"PISTOL COLLECTION",title:"Sidearm Theory",icon:"◈",theme:"pink",eyebrow:"PRECISION SERIES"},
+    smg:{label:"SMG COLLECTION",title:"Rapid Protocol",icon:"⌁",theme:"blue",eyebrow:"FAST & FOCUSED"},
+    sniper:{label:"SNIPER COLLECTION",title:"Longshot Elite",icon:"⌖",theme:"purple",eyebrow:"ONE SHOT · ONE STORY"},
+    shotgun:{label:"SHOTGUN COLLECTION",title:"Close Quarters",icon:"✦",theme:"pink",eyebrow:"CLOSE RANGE"},
+    accessories:{label:"ACCESSORY COLLECTION",title:"Utility Lab",icon:"✧",theme:"blue",eyebrow:"EXTRA GEAR"}
+  };
+  const defaultFeaturedCollections = [
+    {slot:1,category:"rifle",title:"Shadow Protocol"},
+    {slot:2,category:"knife",title:"Prism Edge"},
+    {slot:3,category:"glove",title:"Cyber Utility"}
+  ];
+  let featuredCollections = defaultFeaturedCollections.map(item=>({...item}));
+  function renderFeaturedCollections(rows=featuredCollections) {
+    featuredCollections = [...rows].sort((a,b)=>Number(a.slot)-Number(b.slot)).slice(0,3);
+    const grid = $("#featuredCollectionsGrid");
+    if (!grid) return;
+    grid.innerHTML = featuredCollections.map((item,index)=>{
+      const info = collectionCategoryInfo[item.category] || collectionCategoryInfo.rifle;
+      const theme = ["purple","pink","blue"][index] || info.theme;
+      const icon = info.icon;
+      const safeCategory = safeText(item.category);
+      return `<a class="collection-card collection-${theme} reveal" href="#market" data-collection="${safeCategory}"><div class="collection-top"><span>COLLECTION ${String(index+1).padStart(2,"0")}</span><span>↗</span></div><div class="collection-graphic graphic-${theme}"><div class="collection-ring"></div><span aria-label="${safeText(info.label)}" title="${safeText(info.label)}">${icon}</span></div><div class="collection-bottom"><div><small>${safeText(info.eyebrow)}</small><h3>${safeText(item.title || info.title)}</h3></div><span class="collection-count" data-collection-count="${safeCategory}">۰ آیتم</span></div></a>`;
+    }).join("");
+    renderProducts();
+  }
+  function setFeaturedCollectionsForm(rows=featuredCollections) {
+    const ordered=[...rows].sort((a,b)=>Number(a.slot)-Number(b.slot));
+    for(let i=1;i<=3;i++){
+      const item=ordered[i-1] || defaultFeaturedCollections[i-1];
+      $("#featuredCategory"+i).value=item.category;
+      $("#featuredTitle"+i).value=item.title || collectionCategoryInfo[item.category]?.title || "کالکشن منتخب";
+    }
+  }
+  async function loadFeaturedCollections() {
+    if (!sb) { renderFeaturedCollections(); return; }
+    const {data,error}=await sb.from("featured_collections").select("slot,category,title").order("slot",{ascending:true});
+    if (error) { console.warn("Featured collections are using defaults:",error.message); renderFeaturedCollections(); return; }
+    if (data && data.length) {
+      const loaded=data.filter(row=>Number(row.slot)>=1&&Number(row.slot)<=3&&collectionCategoryInfo[row.category]).map(row=>({slot:Number(row.slot),category:row.category,title:String(row.title||collectionCategoryInfo[row.category].title)}));
+      const merged=defaultFeaturedCollections.map(def=>loaded.find(row=>row.slot===def.slot)||def);
+      renderFeaturedCollections(merged);
+    } else renderFeaturedCollections();
+    setFeaturedCollectionsForm(featuredCollections);
+  }
+  function featuredCollectionsMessage(message,isError=false){const el=$("#adminFeaturedCollectionsMessage");if(el){el.textContent=message;el.style.color=isError?"#ff9da9":"#9cf1c7";}}
+  $("#adminFeaturedCollectionsForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+    if(!state.isAdmin||!sb){featuredCollectionsMessage("برای ذخیره آنلاین باید با حساب ادمین وارد شوی.",true);return;}
+    const rows=[];
+    for(let i=1;i<=3;i++) rows.push({slot:i,category:$("#featuredCategory"+i).value,title:$("#featuredTitle"+i).value.trim()});
+    if(new Set(rows.map(row=>row.category)).size!==3){featuredCollectionsMessage("هر سه کالکشن باید دسته‌بندی متفاوتی داشته باشند.",true);return;}
+    if(rows.some(row=>!row.title)){featuredCollectionsMessage("عنوان هر سه کالکشن را وارد کن.",true);return;}
+    const button=$("#adminFeaturedCollectionsSave");button.disabled=true;button.textContent="در حال ذخیره…";
+    const {error}=await sb.from("featured_collections").upsert(rows,{onConflict:"slot"});
+    button.disabled=false;button.textContent="ذخیره کالکشن‌ها";
+    if(error){featuredCollectionsMessage("ذخیره نشد: "+error.message+" — SQL همراه فایل را در Supabase اجرا کن.",true);return;}
+    renderFeaturedCollections(rows);setFeaturedCollectionsForm(rows);featuredCollectionsMessage("کالکشن‌های منتخب ذخیره شد و در صفحه اصلی نمایش داده می‌شوند.");toast("کالکشن‌های منتخب به‌روزرسانی شد.");
+  });
+  $("#adminFeaturedCollectionsReset").addEventListener("click",()=>setFeaturedCollectionsForm(defaultFeaturedCollections));
 
   function renderProducts() {
     let list = products.filter(product => {
@@ -1453,12 +1530,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     $("#mainNav").classList.remove("open");
     $$(".nav-link").forEach(item => item.classList.toggle("active", item === link));
   }));
-  $$(".collection-card").forEach(card => card.addEventListener("click", () => {
+  $("#featuredCollectionsGrid").addEventListener("click", event => {
+    const card = event.target.closest(".collection-card");
+    if (!card) return;
     const category = card.dataset.collection;
     state.category = category;
     $$(".category-tab").forEach(tab => tab.classList.toggle("active", tab.dataset.category === category));
     renderProducts();
-  }));
+  });
 
   $("#searchToggle").addEventListener("click", () => {
     $("#market").scrollIntoView({ behavior: "smooth" });
@@ -1496,6 +1575,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   renderProducts();
   renderCart();
   // Load live products immediately so the category buttons do not briefly show hard-coded demo items.
+  renderFeaturedCollections();
+  loadFeaturedCollections();
   syncProductsFromDatabase().catch(error => console.error("PTY product sync failed", error));
   initAccountServices().then(() => syncProductsFromDatabase()).catch(error => console.error("PTY initialization failed", error));
 })();
