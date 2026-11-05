@@ -433,6 +433,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <style id="pty-featured-collections-admin-css">
 .admin-help-text{color:#b9abc9;font-size:12px;line-height:1.9;margin:0 0 15px}.admin-product-form select,.admin-product-form input{max-width:100%}#adminFeaturedCollectionsForm .admin-record-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}#adminFeaturedCollectionsForm .form-message{line-height:1.8}
 </style>
+
+<style id="pty-hero-number-title-fix">
+.hero-number-title{direction:ltr!important;text-align:right!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important;letter-spacing:clamp(-2px,-.5vw,-.5px)!important}
+.hero-number-title .gradient-text{display:inline-block;unicode-bidi:isolate}
+@media(max-width:760px){.hero-number-title{text-align:center!important;font-size:clamp(42px,12vw,68px)!important}}
+</style>
+
+<style id="pty-slider-stability-fixes">
+.pty-image-slider{touch-action:pan-y;outline-offset:4px}
+.pty-slider-track{min-width:0;overflow:hidden}
+.pty-slide{will-change:opacity,transform}
+.pty-slide img{max-width:46vw;flex:0 1 auto}
+.pty-slider-dots button[hidden]{display:none!important}
+@media(max-width:600px){.pty-slide{min-width:0}.pty-slide-copy{overflow:hidden}.pty-slide-copy strong,.pty-slide-copy small{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){.pty-slide{transform:none!important}.pty-slide img{animation:none!important}}
+</style>
+
 </head>
 <body>
   <a class="telegram-support-float" href="https://t.me/ptystore" target="_blank" rel="noopener noreferrer" aria-label="پشتیبانی تلگرام PTY STORE" title="پشتیبانی تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 4.2 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.5l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5L20.4 3.3c.9-.3 1.7.2 1.4.9Z"/></svg></a>
@@ -461,10 +478,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <section class="hero section-wrap">
       <div class="hero-copy reveal">
         <div class="eyebrow"><span class="eyebrow-line"></span> نسل جدید بازار گیمینگ</div>
-        <h1><span class="gradient-text">PTY STORE</span></h1>
+        <h1 class="hero-number-title"><span class="gradient-text" dir="ltr">22404231</span></h1>
         <p class="hero-description">تحویل آنی، قیمت پایین و مناسب<br><strong style="display:inline-block;margin-top:8px;color:#e8d8ff;font-size:1.08em">همین الان اولین گانتو با تخفیف بخر!</strong></p>
         <div class="hero-buttons"><a class="button button-primary" href="#market">مشاهده بازار <span class="button-arrow">←</span></a><a class="button button-text" href="#collections"><span class="play-icon">↗</span> بررسی کالکشن‌ها</a></div>
-        <div class="hero-proof"><div class="avatar-stack"><span>G</span><span>P</span><span>S</span><span>+</span></div><div><strong>بازار ساخته‌شده برای گیمرها</strong><small>طراحی مستقل PTY STORE</small></div></div>
+        <div class="hero-proof"><div class="avatar-stack"><span>G</span><span>P</span><span>S</span><span>+</span></div><div><strong>بازار ساخته‌شده برای گیمرها</strong><small>بازار آیتم‌های گیمینگ</small></div></div>
       </div>
       <div class="hero-art reveal">
         <div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div>
@@ -476,7 +493,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <div class="hero-bottom-line"><span>01 — DISCOVER</span><span class="hero-bottom-center">SCROLL TO EXPLORE <i>↓</i></span><span>PTY STORE © 2026</span></div>
     </section>
 
-    <section class="pty-image-slider" aria-label="تصاویر منتخب PTY STORE">
+    <section class="pty-image-slider" aria-label="تصاویر منتخب فروشگاه" tabindex="0">
       <div class="pty-slider-track">
         <article class="pty-slide active"><img src="https://csgoskin.ir/assets/images/f234848fe767f36e04120bedfcc4944a69ff02a3_256.png" alt="AWP Dragon Lore" loading="eager"><div class="pty-slide-copy"><span>PTY STORE · FEATURED</span><strong>LEGENDARY SKINS</strong><small>دنیای اسکین‌های خاص کانتر استرایک</small></div></article>
         <article class="pty-slide"><img src="https://csgoskin.ir/assets/images/90bd09b63bd836d58b1b8ca53b65a105adfb76f1_256.png" alt="CS2 Knife Skin" loading="lazy"><div class="pty-slide-copy"><span>THE KNIFE COLLECTION</span><strong>MAKE YOUR MOVE</strong><small>کالکشن چاقوهای خاص</small></div></article>
@@ -507,7 +524,38 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       @media(prefers-reduced-motion:reduce){.pty-slide,.pty-slide img{transition:none;animation:none}}
     </style>
     <script>
-      (()=>{const slider=document.querySelector('.pty-image-slider');if(!slider||slider.dataset.ready)return;slider.dataset.ready='1';const slides=[...slider.querySelectorAll('.pty-slide')],dots=[...slider.querySelectorAll('.pty-slider-dots button')];let current=0,timer;function show(index){current=(index+slides.length)%slides.length;slides.forEach((el,i)=>el.classList.toggle('active',i===current));dots.forEach((el,i)=>el.classList.toggle('active',i===current));}function restart(){clearInterval(timer);timer=setInterval(()=>show(current+1),5000);}dots.forEach((dot,i)=>dot.addEventListener('click',()=>{show(i);restart();}));slider.addEventListener('mouseenter',()=>clearInterval(timer));slider.addEventListener('mouseleave',restart);restart();})();
+      (()=>{
+        const slider=document.querySelector('.pty-image-slider');
+        if(!slider||slider.dataset.ready==='1')return;
+        const track=slider.querySelector('.pty-slider-track');
+        const slides=[...slider.querySelectorAll('.pty-slide')];
+        const dots=[...slider.querySelectorAll('.pty-slider-dots button')];
+        if(!track||slides.length<2)return;
+        slider.dataset.ready='1';
+        let current=Math.max(0,slides.findIndex(el=>el.classList.contains('active')));
+        let timer=null,paused=false,touchStartX=0,touchStartY=0;
+        const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Keep controls in sync even if the HTML contains an extra/missing dot.
+        dots.forEach((dot,i)=>{dot.hidden=i>=slides.length;dot.setAttribute('aria-pressed',String(i===current));});
+        function show(index){
+          current=(index+slides.length)%slides.length;
+          slides.forEach((slide,i)=>{const active=i===current;slide.classList.toggle('active',active);slide.setAttribute('aria-hidden',String(!active));});
+          dots.forEach((dot,i)=>{const active=i===current;dot.classList.toggle('active',active);dot.setAttribute('aria-pressed',String(active));});
+        }
+        function stop(){if(timer!==null){window.clearInterval(timer);timer=null;}}
+        function start(){stop();if(paused||reducedMotion||document.hidden)return;timer=window.setInterval(()=>show(current+1),5000);}
+        function pause(){paused=true;stop();}
+        function resume(){paused=false;start();}
+        dots.forEach((dot,i)=>{if(i<slides.length)dot.addEventListener('click',()=>{show(i);start();});});
+        slider.addEventListener('mouseenter',pause);slider.addEventListener('mouseleave',resume);
+        slider.addEventListener('focusin',pause);slider.addEventListener('focusout',e=>{if(!slider.contains(e.relatedTarget))resume();});
+        document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else start();});
+        slider.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(current+(e.key==='ArrowLeft'?1:-1));start();}});
+        slider.addEventListener('touchstart',e=>{const t=e.changedTouches&&e.changedTouches[0];if(!t)return;touchStartX=t.clientX;touchStartY=t.clientY;pause();},{passive:true});
+        slider.addEventListener('touchend',e=>{const t=e.changedTouches&&e.changedTouches[0];if(!t)return;const dx=t.clientX-touchStartX,dy=t.clientY-touchStartY;if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy))show(current+(dx<0?1:-1));resume();},{passive:true});
+        slides.forEach(slide=>{const img=slide.querySelector('img');if(!img)return;img.addEventListener('error',()=>{if(img.dataset.fallbackApplied)return;img.dataset.fallbackApplied='1';img.removeAttribute('src');img.alt='تصویر این آیتم در دسترس نیست';img.style.opacity='.35';img.style.filter='none';},{once:true});});
+        show(current);start();
+      })();
     </script>
 
     <section class="section-wrap market-section" id="market">
@@ -645,7 +693,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         <div class="admin-stattrak-field"><label class="admin-stattrak-label" for="adminProductStatTrak"><input id="adminProductStatTrak" type="checkbox"> دارای StatTrak™</label><small>برای آیتم‌های شمارنده‌دار CS2</small></div>
         <div><label for="adminProductImage">عکس محصول (اختیاری)</label><input id="adminProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><small style="display:block;color:#a99bb8;margin-top:6px">PNG، JPG، WEBP یا GIF · حداکثر 5 مگابایت</small><img id="adminProductImagePreview" alt="پیش‌نمایش عکس محصول" style="display:none;max-width:150px;max-height:110px;object-fit:contain;margin-top:8px;border-radius:8px"></div>
         <div class="admin-record-actions"><button class="button button-primary" id="adminProductSave" type="submit">ذخیره محصول</button><button class="button button-secondary" id="adminProductCancel" type="button">پاک‌کردن فرم</button></div>
-        <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">موجودی واقعی، کیفیت و دسته‌بندی هر اسکین را دقیق تنظیم کن. موجودی صفر یعنی خرید غیرفعال است.</p>
+        <p id="adminProductMessage" class="form-message" style="grid-column:1/-1;margin:0;text-align:right">موجودی واقعی، کیفیت و دسته‌بندی هر اسکین را دقیق تنظیم کن. برای فعال‌شدن اکسسوری، فایل SQL همراه نسخه را یک‌بار در Supabase اجرا کن. موجودی صفر یعنی خرید غیرفعال است.</p>
       </form>
       <div id="adminProductsList" class="admin-product-list"><div class="admin-empty">در حال دریافت محصولات...</div></div>
     </div>
@@ -1283,8 +1331,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     if (statTrak) name = "StatTrak™ " + name;
     const price = Number($("#adminProductPrice").value);
     const stock = Number($("#adminProductStock").value);
-    const category = $("#adminProductCategory").value;
+    const category = String($("#adminProductCategory").value || "").toLowerCase().trim();
+    const allowedCategories = new Set(["knife","glove","pistol","smg","rifle","sniper","shotgun","accessories"]);
     const wear = category === "accessories" ? "بدون کیفیت" : $("#adminProductWear").value;
+    if (!allowedCategories.has(category)) { adminProductMessage("دسته‌بندی انتخاب‌شده معتبر نیست.", true); return; }
     if (!name || !Number.isSafeInteger(price) || price < 0 || !Number.isSafeInteger(stock) || stock < 0) { adminProductMessage("نام، قیمت و موجودی معتبر وارد کن.", true); return; }
     const imageFile = $("#adminProductImage").files?.[0];
     const button = $("#adminProductSave"); button.disabled = true;
@@ -1308,7 +1358,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       if (result.error) throw result.error;
       adminProductMessage(id ? "محصول با موفقیت ویرایش شد." : "محصول جدید ذخیره شد.");
       resetAdminProductForm(); await loadAdminProducts(); await syncProductsFromDatabase();
-    } catch (error) { adminProductMessage("ذخیره انجام نشد: " + (error?.message || "خطای ناشناخته"), true); }
+    } catch (error) {
+      const detail = String(error?.message || error?.details || "خطای ناشناخته");
+      const categoryConstraint = /check constraint|products_category|category.*constraint|violates.*constraint/i.test(detail);
+      adminProductMessage(categoryConstraint ? "دسته‌بندی اکسسوری در محدودیت دیتابیس مجاز نیست. فایل SQL همراه این نسخه را در Supabase اجرا کن و دوباره ذخیره کن. جزئیات: " + detail : "ذخیره انجام نشد: " + detail, true);
+    }
     finally { button.disabled = false; }
   });
   $("#adminProductCancel").addEventListener("click", resetAdminProductForm);
