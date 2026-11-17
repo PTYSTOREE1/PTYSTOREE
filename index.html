@@ -1100,12 +1100,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <a href="https://www.youtube.com/@PartyArena-YT1" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg class="youtube" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.4V8.6l6.2 3.4-6.2 3.4Z"/></svg></a>
   </nav><div class="footer-bottom section-wrap"><span>DESIGNED FOR GAMERS</span><span>PTY STORE <b>✳</b> 2026</span><a href="#home">بازگشت به بالا ↑</a><button class="admin-footer-trigger" id="adminPanelOpen" type="button" aria-hidden="true" tabindex="-1">پنل مدیریت</button></div></footer>
 
+  <div class="pty-inventory-pop" id="ptyInventoryPop" aria-live="polite" aria-label="آیتم اضافه شده به سبد خرید">
+    <div class="pty-inventory-head"><span><i></i> INVENTORY UPDATED</span><strong id="ptyInventoryTitle">به سبد خرید اضافه شد</strong><button class="pty-inventory-close" id="ptyInventoryClose" type="button" aria-label="بستن سبد خرید" title="بستن">×</button></div>
+    <div class="pty-inventory-slots" id="ptyInventorySlots" dir="rtl"></div>
+  </div>
+
   <div class="overlay" id="overlay"></div>
   <div class="modal product-detail-modal" id="productDetailModal" role="dialog" aria-modal="true" aria-labelledby="productDetailName">
     <button class="close-button product-detail-close" id="productDetailClose" aria-label="بستن">×</button>
     <div id="productDetailContent"></div>
   </div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="سبد خرید" aria-hidden="true"><div class="drawer-header"><div><small>YOUR SELECTION</small><h2>سبد خرید <span id="drawerCount">(۰)</span></h2></div><button class="close-button" id="cartClose" aria-label="بستن">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-empty" id="cartEmpty"><div class="empty-bag">⌑</div><strong>سبدت هنوز خالیه</strong><p>از بازار آیتم‌های مورد علاقه‌ات را اضافه کن.</p><button class="button button-primary" id="continueShopping">رفتن به بازار</button></div><div class="cart-summary hidden" id="cartSummary"><div><span>جمع جزء</span><strong id="cartSubtotal">۰ تومان</strong></div><div><span>هزینه ارسال</span><strong>رایگان</strong></div><div class="summary-total"><span>مجموع نمایشی</span><strong id="cartTotal">۰ تومان</strong></div><button class="button button-primary button-wide" id="checkoutButton">ادامه سفارش <span>←</span></button><small>هزینه سفارش از موجودی کیف پول کسر می‌شود.</small></div></aside>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="سبد خرید" aria-hidden="true"><div class="drawer-header"><div><small>YOUR SELECTION</small><h2>سبد خرید <span id="drawerCount">(۰)</span></h2></div><div class="cart-header-actions"><button class="cart-exit-button" id="cartExit" type="button">خروج از سبد</button><button class="close-button" id="cartClose" aria-label="بستن" title="بستن سبد خرید">×</button></div></div><div class="cart-items" id="cartItems"></div><div class="cart-empty" id="cartEmpty"><div class="empty-bag">⌑</div><strong>سبدت هنوز خالیه</strong><p>از بازار آیتم‌های مورد علاقه‌ات را اضافه کن.</p><button class="button button-primary" id="continueShopping">رفتن به بازار</button></div><div class="cart-summary hidden" id="cartSummary"><div><span>جمع جزء</span><strong id="cartSubtotal">۰ تومان</strong></div><div><span>هزینه ارسال</span><strong>رایگان</strong></div><div class="summary-total"><span>مجموع نمایشی</span><strong id="cartTotal">۰ تومان</strong></div><button class="button button-primary button-wide" id="checkoutButton">ادامه سفارش <span>←</span></button><small>هزینه سفارش از موجودی کیف پول کسر می‌شود.</small></div></aside>
 
   <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="close-button modal-close" id="loginClose" aria-label="بستن">×</button><div class="modal-brand"><span class="brand-mark"><span></span><span></span><span></span></span></div><div class="eyebrow centered">WELCOME TO PTY</div><h2 id="loginTitle">ورود به <span class="gradient-text">دنیای PTY</span></h2><p class="modal-description">برای شروع، اطلاعات حساب خود را وارد کن.</p><div class="login-only-note"><span>✦</span><span>ورود امن اعضای PTY STORE</span><i class="pulse-dot"></i></div><form id="authForm"><label for="authEmail">ایمیل</label><input id="authEmail" type="email" placeholder="you@example.com" required><label for="authPassword">رمز عبور</label><input id="authPassword" type="password" placeholder="رمز عبور" minlength="6" required><div id="ptyPasswordRules" class="pty-password-rules" hidden><div data-rule="length">○ حداقل ۸ کاراکتر</div><div data-rule="upper">○ یک حرف بزرگ انگلیسی (A–Z)</div><div data-rule="number">○ یک عدد (0–9)</div></div><button class="button button-primary button-wide" type="submit" id="authSubmit">ورود امن <span>←</span></button><button type="button" id="authModeToggle" class="button button-text" style="width:100%;margin-top:8px;font-size:12px;justify-content:center">حساب نداری؟ ثبت‌نام کن</button><p class="form-message" id="authMessage" role="status">برای ورود، ایمیل و رمز حساب خودت را وارد کن.</p></form><div class="modal-security"><span>◇</span> اتصال امن و محافظت‌شده</div></div>
 
@@ -1385,6 +1390,58 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     $("#cartTotal").textContent = money(total);
   }
 
+  let ptyInventoryTimer = null;
+  function renderPtyInventorySlots() {
+    const slots = document.getElementById("ptyInventorySlots");
+    if (!slots) return;
+    const entries = [];
+    state.cart.forEach((count, id) => {
+      const product = productById(id);
+      if (!product) return;
+      for (let n = 0; n < count; n++) entries.push({ product, id, copy: n + 1 });
+    });
+    slots.innerHTML = Array.from({ length: 12 }, (_, index) => {
+      const entry = entries[index];
+      if (!entry) return `<div class="pty-inventory-slot" data-slot="${index}" aria-label="اسلات خالی"><span>${String(index + 1).padStart(2, "0")}</span></div>`;
+      const product = entry.product;
+      const image = product.image_url
+        ? `<img src="${safeText(product.image_url)}" alt="${safeText(product.name)}" onerror="this.style.display='none';this.nextElementSibling.hidden=false"><b class="pty-slot-symbol" hidden>✦</b>`
+        : `<b class="pty-slot-symbol">${safeText(product.symbol || "✦")}</b>`;
+      return `<div class="pty-inventory-slot filled slot-arrive" data-slot="${index}" data-inventory-item="${entry.id}" title="${safeText(product.name)} — برای حذف کلیک کن">
+        <span>${String(index + 1).padStart(2, "0")}</span>${image}<small>${safeText(product.name)}</small>
+        <button class="pty-slot-remove" type="button" data-inventory-remove="${entry.id}" aria-label="حذف ${safeText(product.name)} از سبد" title="حذف از سبد">×</button>
+      </div>`;
+    }).join("");
+  }
+
+  function showPtyInventoryItem(product, duration = 10000, title = "به سبد خرید اضافه شد") {
+    const panel = document.getElementById("ptyInventoryPop");
+    const slots = document.getElementById("ptyInventorySlots");
+    if (!panel || !slots) return;
+    renderPtyInventorySlots();
+    const titleEl = document.getElementById("ptyInventoryTitle");
+    if (titleEl) titleEl.textContent = title;
+    panel.classList.remove("is-visible", "is-hiding");
+    void panel.offsetWidth;
+    panel.classList.add("is-visible");
+    if (ptyInventoryTimer) window.clearTimeout(ptyInventoryTimer);
+    ptyInventoryTimer = window.setTimeout(() => {
+      panel.classList.add("is-hiding");
+      window.setTimeout(() => {
+        panel.classList.remove("is-visible", "is-hiding");
+        slots.innerHTML = "";
+      }, 420);
+    }, duration);
+  }
+
+  function hidePtyInventory() {
+    const panel = document.getElementById("ptyInventoryPop");
+    const slots = document.getElementById("ptyInventorySlots");
+    if (ptyInventoryTimer) window.clearTimeout(ptyInventoryTimer);
+    if (panel) panel.classList.remove("is-visible", "is-hiding");
+    if (slots) slots.innerHTML = "";
+  }
+
   function addToCart(id) {
     if (!state.user) {
       state.pendingProductId = Number(id);
@@ -1400,13 +1457,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     state.cart.set(product.id, inCart + 1);
     state.lastAddedId = product.id;
     renderCart();
-    openCart();
-    toast(`${product.name} با انیمیشن به سبد اضافه شد.`);
-    window.setTimeout(() => {
-      state.lastAddedId = null;
-      const newLine = $(`#cartItems [data-cart-product="${product.id}"]`);
-      if (newLine) newLine.classList.remove("cart-line-new");
-    }, 900);
+    showPtyInventoryItem(product);
+    toast(`${product.name} به سبد خرید اضافه شد ✓`);
+    const addButton = document.querySelector(`.add-cart[data-add="${product.id}"]`);
+    if (addButton) {
+      addButton.classList.remove("just-added");
+      void addButton.offsetWidth;
+      addButton.classList.add("just-added");
+      window.setTimeout(() => addButton.classList.remove("just-added"), 850);
+    }
+    window.setTimeout(() => { state.lastAddedId = null; }, 900);
   }
 
   function openProductDetails(id) {
@@ -1466,8 +1526,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
   function openCart() {
     closePanels();
-    openOverlayPanel($("#cartDrawer"));
-    $("#cartDrawer").setAttribute("aria-hidden", "false");
+    showPtyInventoryItem(null, 10000, "محتویات فعلی سبد خرید");
   }
 
   function openSettings() {
@@ -1650,6 +1709,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
   $("#cartOpen").addEventListener("click", openCart);
   $("#cartClose").addEventListener("click", closePanels);
+  const cartExitButton = document.getElementById("cartExit");
+  if (cartExitButton) cartExitButton.addEventListener("click", closePanels);
+  const inventoryCloseButton = document.getElementById("ptyInventoryClose");
+  if (inventoryCloseButton) inventoryCloseButton.addEventListener("click", hidePtyInventory);
   $("#overlay").addEventListener("click", closePanels);
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") closePanels();
@@ -1671,11 +1734,35 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       renderCart();
     }
     if (removeButton) {
-      state.cart.delete(Number(removeButton.dataset.remove));
-      renderCart();
-      toast("آیتم از سبد حذف شد.");
+      const id = Number(removeButton.dataset.remove);
+      const line = removeButton.closest(".cart-line");
+      if (removeButton.disabled || !state.cart.has(id)) return;
+      removeButton.disabled = true;
+      if (line) line.classList.add("cart-line-removing");
+      window.setTimeout(() => {
+        state.cart.delete(id);
+        renderCart();
+        toast("آیتم از سبد حذف شد.");
+      }, 340);
     }
   });
+  $("#ptyInventorySlots").addEventListener("click", event => {
+    const removeButton = event.target.closest("[data-inventory-remove]");
+    if (!removeButton) return;
+    const id = Number(removeButton.dataset.inventoryRemove);
+    if (removeButton.disabled || !state.cart.has(id)) return;
+    const slot = removeButton.closest(".pty-inventory-slot");
+    removeButton.disabled = true;
+    if (slot) slot.classList.add("pty-slot-removing");
+    // Keep the inventory panel open; animate first, then update the cart.
+    window.setTimeout(() => {
+      state.cart.delete(id);
+      renderCart();
+      renderPtyInventorySlots();
+      toast("آیتم از سبد خرید حذف شد.");
+    }, 360);
+  });
+
   $("#checkoutButton").addEventListener("click", () => {
     if (!state.user) { closePanels(); openLogin("login"); toast("برای ادامه خرید، ابتدا وارد حساب شو."); return; }
     closePanels();
@@ -2338,5 +2425,69 @@ window.ptyOpenGoftino = function(){
 .settings-modal #myOrdersOpen{margin-top:12px!important}
 @media(max-width:520px){.settings-modal{max-height:90dvh!important;padding-bottom:22px}}
 </style>
+
+<style id="pty-cart-toast-and-fullscreen-settings-v2">
+/* Adding an item only confirms with a short animation; the cart drawer stays closed. */
+.add-cart.just-added{animation:pty-add-confirm .72s cubic-bezier(.2,.8,.2,1) both!important}
+@keyframes pty-add-confirm{0%{transform:scale(1)}28%{transform:scale(.86);box-shadow:0 0 0 7px #9b5cff22,0 0 26px #9b5cff88}58%{transform:scale(1.12)}100%{transform:scale(1);box-shadow:0 0 0 0 transparent}}
+.toast-region{z-index:90}
+/* Account settings become a true full-screen page; the shop behind it is fully hidden. */
+#overlay.active{background:#09070e!important;backdrop-filter:none!important;opacity:1!important}
+.settings-modal{position:fixed!important;inset:0!important;left:0!important;top:0!important;transform:none!important;width:100vw!important;max-width:none!important;height:100dvh!important;max-height:100dvh!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding:clamp(24px,5vh,52px) clamp(18px,5vw,64px) 38px!important;background:#100d16!important;z-index:50!important}
+.settings-modal.open{transform:none!important}
+.settings-modal>*:not(.modal-close){width:min(640px,100%)!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box}
+.settings-modal .modal-close{position:fixed!important;top:18px!important;left:18px!important;z-index:3!important}
+.settings-modal .modal-brand{margin-top:12px!important}
+.settings-modal h2{margin-top:10px!important}
+.settings-modal #settingsForm{margin-top:22px!important}
+@media(max-width:520px){.settings-modal{padding:22px 18px 30px!important}.settings-modal .modal-close{top:12px!important;left:12px!important}}
+/* CS2-style temporary inventory strip */
+.cart-header-actions{display:flex;align-items:center;gap:9px}.cart-exit-button{border:1px solid #a879ff55;background:#9b5cff18;color:#d9c5ff;border-radius:9px;padding:8px 12px;font-size:10px;cursor:pointer;transition:.2s}.cart-exit-button:hover{background:#9b5cff35;border-color:#bd93ff;color:#fff}
+.pty-inventory-pop{position:fixed;z-index:120;left:50%;bottom:22px;width:min(1100px,calc(100vw - 28px));padding:13px 16px 15px;border:1px solid #8050b866;border-radius:17px;background:linear-gradient(135deg,rgba(13,10,20,.98),rgba(28,17,43,.98));box-shadow:0 18px 65px #000b,0 0 34px #8c4dff22;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,35px) scale(.97);transition:opacity .35s ease,transform .42s cubic-bezier(.2,.8,.2,1),visibility .35s;backdrop-filter:blur(18px)}
+.pty-inventory-pop.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0) scale(1)}
+.pty-inventory-pop.is-hiding{opacity:0;transform:translate(-50%,24px) scale(.98)}
+.pty-inventory-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 1px 11px;color:#eee;font-size:12px}
+.pty-inventory-head>span{color:#b78aff;font-size:10px;letter-spacing:1.8px;font-weight:900;display:flex;align-items:center;gap:8px}.pty-inventory-head>span i{width:7px;height:7px;border-radius:50%;background:#a879ff;box-shadow:0 0 12px #a879ff;display:inline-block}.pty-inventory-head strong{font-size:11px;color:#d9c9f7;font-weight:700}
+.pty-inventory-slots{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px}
+.pty-inventory-slot{height:82px;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;border:1px solid #ffffff12;border-radius:9px;background:linear-gradient(145deg,#ffffff09,#00000020);box-shadow:inset 0 1px #ffffff08;overflow:hidden}
+.pty-inventory-slot>span{position:absolute;top:5px;right:7px;font-size:8px;color:#746b80;letter-spacing:1px}.pty-inventory-slot.filled{border-color:#9b69e8aa;background:linear-gradient(145deg,#69419b38,#1b1425);box-shadow:inset 0 0 22px #9d62ff18,0 0 14px #9d62ff18}.pty-inventory-slot img{width:88%;height:55px;object-fit:contain;filter:drop-shadow(0 5px 8px #0009)}.pty-slot-remove{position:absolute;top:5px;left:5px;width:23px;height:23px;display:grid;place-items:center;border:1px solid #ff829966;border-radius:7px;background:#230d1bdc;color:#ff9bb7;font-size:19px;line-height:1;opacity:0;transform:scale(.75);transition:opacity .18s ease,transform .18s ease,background .18s ease;cursor:pointer;z-index:4}.pty-inventory-slot:hover .pty-slot-remove,.pty-inventory-slot:focus-within .pty-slot-remove{opacity:1;transform:scale(1)}.pty-slot-remove:focus-visible{opacity:1;transform:scale(1);outline:2px solid #ff9bb7;outline-offset:2px}.pty-slot-remove:hover{background:#d83d70;color:#fff;border-color:#ffb0c5;box-shadow:0 0 14px #ff4e8b66}@media(hover:none){.pty-slot-remove{opacity:.92;transform:none}}.pty-inventory-slot small{max-width:95%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d9c9ed;font-size:8px}.pty-slot-symbol{font-size:29px;color:#bd93ff}.pty-inventory-slot.slot-arrive{animation:pty-slot-pop .55s cubic-bezier(.15,.9,.25,1.2) both}@keyframes pty-slot-pop{0%{opacity:0;transform:translateY(20px) scale(.65)}65%{opacity:1;transform:translateY(-4px) scale(1.06)}100%{transform:translateY(0) scale(1)}}
+@media(max-width:650px){.pty-inventory-pop{bottom:12px;padding:10px;border-radius:13px}.pty-inventory-slots{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.pty-inventory-slot{height:66px}.pty-inventory-slot img{height:42px}.pty-inventory-slot small{font-size:7px}.pty-inventory-head{margin-bottom:8px}}
+
+/* PTY STORE: legacy side cart removed from the interface; cart is shown as the inventory bar only. */
+#cartDrawer{display:none!important;visibility:hidden!important;pointer-events:none!important}
+.cart-exit-button{appearance:none!important;-webkit-appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:9px 14px!important;border:1px solid #a978f2!important;border-radius:10px!important;background:linear-gradient(135deg,#8d4de0,#5c2ba5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 11px inherit!important;box-shadow:0 5px 16px #8d4de044!important;cursor:pointer!important}
+.cart-exit-button:hover{background:linear-gradient(135deg,#a66af0,#7139bd)!important;color:#fff!important;filter:brightness(1.08)}
+.pty-inventory-close{appearance:none!important;-webkit-appearance:none!important;display:grid!important;place-items:center!important;flex:0 0 32px!important;min-width:32px!important;width:32px!important;height:32px!important;padding:0!important;border:1px solid #a978f2!important;border-radius:9px!important;background:linear-gradient(135deg,#8d4de0,#5c2ba5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 22px/1 Arial,sans-serif!important;opacity:1!important;cursor:pointer!important;box-shadow:0 4px 14px #8d4de044!important}
+.pty-inventory-close:hover{background:linear-gradient(135deg,#a66af0,#7139bd)!important;color:#fff!important}
+
+/* Final mobile polish: compact, touch-friendly inventory and controls. */
+@media(max-width:520px){
+  .pty-inventory-pop{left:10px;right:10px;bottom:10px;width:auto;max-width:none;padding:10px 10px 11px;transform:translateY(28px) scale(.985)}
+  .pty-inventory-pop.is-visible{transform:translateY(0) scale(1)}
+  .pty-inventory-head{gap:7px;font-size:11px}
+  .pty-inventory-head>span{font-size:8px;letter-spacing:1px;gap:5px}
+  .pty-inventory-head strong{font-size:10px;flex:1;min-width:0}
+  .pty-inventory-close{flex-basis:30px!important;min-width:30px!important;width:30px!important;height:30px!important}
+  .pty-inventory-slots{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .pty-inventory-slot{height:62px;border-radius:8px}
+  .pty-inventory-slot img{height:39px}
+  .pty-inventory-slot small{font-size:7px}
+  .pty-slot-remove{opacity:1;transform:none;width:22px;height:22px}
+  button,.button,a{touch-action:manipulation}
+}
+@media(max-width:360px){
+  .pty-inventory-slots{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pty-inventory-pop{left:7px;right:7px;padding:8px}
+}
+</style>
 </body>
 </html>
+
+<style id="pty-cart-remove-animation">
+/* Smooth remove animation: item leaves, cart/inventory panel stays open. */
+.cart-line-removing{animation:pty-cart-line-out .34s cubic-bezier(.55,0,.8,.35) both;pointer-events:none}
+.pty-slot-removing{animation:pty-slot-out .36s cubic-bezier(.55,0,.8,.35) both;pointer-events:none}
+@keyframes pty-cart-line-out{0%{opacity:1;transform:translateX(0) scale(1);max-height:140px;margin-block:0}55%{opacity:.35;transform:translateX(24px) scale(.96)}100%{opacity:0;transform:translateX(42px) scale(.88);max-height:0;margin-block:0;padding-block:0;border-width:0}}
+@keyframes pty-slot-out{0%{opacity:1;transform:scale(1) rotate(0);filter:blur(0)}45%{opacity:.55;transform:scale(.82) rotate(5deg)}100%{opacity:0;transform:scale(.35) rotate(12deg);filter:blur(4px)}}
+@media(prefers-reduced-motion:reduce){.cart-line-removing,.pty-slot-removing{animation:none!important;opacity:.35}}
+</style>
