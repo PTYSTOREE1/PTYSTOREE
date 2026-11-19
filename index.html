@@ -1101,7 +1101,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   </nav><div class="footer-bottom section-wrap"><span>DESIGNED FOR GAMERS</span><span>PTY STORE <b>✳</b> 2026</span><a href="#home">بازگشت به بالا ↑</a><button class="admin-footer-trigger" id="adminPanelOpen" type="button" aria-hidden="true" tabindex="-1">پنل مدیریت</button></div></footer>
 
   <div class="pty-inventory-pop" id="ptyInventoryPop" aria-live="polite" aria-label="آیتم اضافه شده به سبد خرید">
-    <div class="pty-inventory-head"><span><i></i> INVENTORY UPDATED</span><strong id="ptyInventoryTitle">به سبد خرید اضافه شد</strong><button class="pty-inventory-close" id="ptyInventoryClose" type="button" aria-label="بستن سبد خرید" title="بستن">×</button></div>
+    <div class="pty-inventory-head"><span><i></i> INVENTORY UPDATED</span><strong id="ptyInventoryTitle">به سبد خرید اضافه شد</strong><button class="pty-inventory-close" id="ptyInventoryClose" type="button" aria-label="خروج از سبد خرید" title="خروج از سبد">خروج از سبد</button></div>
     <div class="pty-inventory-slots" id="ptyInventorySlots" dir="rtl"></div>
   </div>
 
@@ -1414,7 +1414,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     }).join("");
   }
 
-  function showPtyInventoryItem(product, duration = 10000, title = "به سبد خرید اضافه شد") {
+  function showPtyInventoryItem(product, duration = 5000, title = "به سبد خرید اضافه شد") {
     const panel = document.getElementById("ptyInventoryPop");
     const slots = document.getElementById("ptyInventorySlots");
     if (!panel || !slots) return;
@@ -1734,33 +1734,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       renderCart();
     }
     if (removeButton) {
-      const id = Number(removeButton.dataset.remove);
-      const line = removeButton.closest(".cart-line");
-      if (removeButton.disabled || !state.cart.has(id)) return;
-      removeButton.disabled = true;
-      if (line) line.classList.add("cart-line-removing");
-      window.setTimeout(() => {
-        state.cart.delete(id);
-        renderCart();
-        toast("آیتم از سبد حذف شد.");
-      }, 340);
+      state.cart.delete(Number(removeButton.dataset.remove));
+      renderCart();
+      toast("آیتم از سبد حذف شد.");
     }
   });
   $("#ptyInventorySlots").addEventListener("click", event => {
     const removeButton = event.target.closest("[data-inventory-remove]");
     if (!removeButton) return;
     const id = Number(removeButton.dataset.inventoryRemove);
-    if (removeButton.disabled || !state.cart.has(id)) return;
-    const slot = removeButton.closest(".pty-inventory-slot");
-    removeButton.disabled = true;
-    if (slot) slot.classList.add("pty-slot-removing");
-    // Keep the inventory panel open; animate first, then update the cart.
-    window.setTimeout(() => {
-      state.cart.delete(id);
-      renderCart();
-      renderPtyInventorySlots();
-      toast("آیتم از سبد خرید حذف شد.");
-    }, 360);
+    if (!state.cart.has(id)) return;
+    state.cart.delete(id);
+    renderCart();
+    renderPtyInventorySlots();
+    toast("آیتم از سبد خرید حذف شد.");
+    if (state.cart.size === 0) {
+      hidePtyInventory();
+    }
   });
 
   $("#checkoutButton").addEventListener("click", () => {
@@ -2457,37 +2447,8 @@ window.ptyOpenGoftino = function(){
 #cartDrawer{display:none!important;visibility:hidden!important;pointer-events:none!important}
 .cart-exit-button{appearance:none!important;-webkit-appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:9px 14px!important;border:1px solid #a978f2!important;border-radius:10px!important;background:linear-gradient(135deg,#8d4de0,#5c2ba5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 11px inherit!important;box-shadow:0 5px 16px #8d4de044!important;cursor:pointer!important}
 .cart-exit-button:hover{background:linear-gradient(135deg,#a66af0,#7139bd)!important;color:#fff!important;filter:brightness(1.08)}
-.pty-inventory-close{appearance:none!important;-webkit-appearance:none!important;display:grid!important;place-items:center!important;flex:0 0 32px!important;min-width:32px!important;width:32px!important;height:32px!important;padding:0!important;border:1px solid #a978f2!important;border-radius:9px!important;background:linear-gradient(135deg,#8d4de0,#5c2ba5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 22px/1 Arial,sans-serif!important;opacity:1!important;cursor:pointer!important;box-shadow:0 4px 14px #8d4de044!important}
+.pty-inventory-close{appearance:none!important;-webkit-appearance:none!important;min-width:94px!important;width:auto!important;height:32px!important;padding:0 11px!important;border:1px solid #a978f2!important;border-radius:9px!important;background:linear-gradient(135deg,#8d4de0,#5c2ba5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 10px inherit!important;line-height:1!important;opacity:1!important;cursor:pointer!important;box-shadow:0 4px 14px #8d4de044!important}
 .pty-inventory-close:hover{background:linear-gradient(135deg,#a66af0,#7139bd)!important;color:#fff!important}
-
-/* Final mobile polish: compact, touch-friendly inventory and controls. */
-@media(max-width:520px){
-  .pty-inventory-pop{left:10px;right:10px;bottom:10px;width:auto;max-width:none;padding:10px 10px 11px;transform:translateY(28px) scale(.985)}
-  .pty-inventory-pop.is-visible{transform:translateY(0) scale(1)}
-  .pty-inventory-head{gap:7px;font-size:11px}
-  .pty-inventory-head>span{font-size:8px;letter-spacing:1px;gap:5px}
-  .pty-inventory-head strong{font-size:10px;flex:1;min-width:0}
-  .pty-inventory-close{flex-basis:30px!important;min-width:30px!important;width:30px!important;height:30px!important}
-  .pty-inventory-slots{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
-  .pty-inventory-slot{height:62px;border-radius:8px}
-  .pty-inventory-slot img{height:39px}
-  .pty-inventory-slot small{font-size:7px}
-  .pty-slot-remove{opacity:1;transform:none;width:22px;height:22px}
-  button,.button,a{touch-action:manipulation}
-}
-@media(max-width:360px){
-  .pty-inventory-slots{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .pty-inventory-pop{left:7px;right:7px;padding:8px}
-}
 </style>
 </body>
 </html>
-
-<style id="pty-cart-remove-animation">
-/* Smooth remove animation: item leaves, cart/inventory panel stays open. */
-.cart-line-removing{animation:pty-cart-line-out .34s cubic-bezier(.55,0,.8,.35) both;pointer-events:none}
-.pty-slot-removing{animation:pty-slot-out .36s cubic-bezier(.55,0,.8,.35) both;pointer-events:none}
-@keyframes pty-cart-line-out{0%{opacity:1;transform:translateX(0) scale(1);max-height:140px;margin-block:0}55%{opacity:.35;transform:translateX(24px) scale(.96)}100%{opacity:0;transform:translateX(42px) scale(.88);max-height:0;margin-block:0;padding-block:0;border-width:0}}
-@keyframes pty-slot-out{0%{opacity:1;transform:scale(1) rotate(0);filter:blur(0)}45%{opacity:.55;transform:scale(.82) rotate(5deg)}100%{opacity:0;transform:scale(.35) rotate(12deg);filter:blur(4px)}}
-@media(prefers-reduced-motion:reduce){.cart-line-removing,.pty-slot-removing{animation:none!important;opacity:.35}}
-</style>
