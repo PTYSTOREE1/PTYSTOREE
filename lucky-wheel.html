@@ -15,15 +15,15 @@ main{width:min(1240px,calc(100% - 42px));margin:55px auto 70px}
 .kicker{display:flex;align-items:center;gap:9px;color:#b99aff;font-size:10px;letter-spacing:2px;font-weight:bold}.dot{width:7px;height:7px;border-radius:50%;background:#8cf0b9;box-shadow:0 0 12px #8cf0b9}
 .layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:48px;align-items:center;margin-top:24px}
 h1{font-size:clamp(34px,4.2vw,58px);line-height:1.35;margin:0 0 20px;font-weight:900;letter-spacing:-1.5px}
-.copy p{color:#b6aabe;font-size:14px;line-height:2.25;margin:0 0 13px}.copy strong{color:#fff}.copy .cta{display:block;margin:20px 0 0 auto;padding:15px 22px;border:0;border-radius:13px;background:linear-gradient(110deg,#a66aff,#7134c6);color:white;font-weight:bold;font-size:13px;box-shadow:0 10px 30px #8a45e64a;cursor:pointer;transition:.25s}.cta:hover{transform:translateY(-2px);box-shadow:0 14px 35px #8a45e66b}.note{font-size:10px!important;color:#887b95!important;margin-top:15px!important}
+.copy{position:relative;padding:30px 28px;border:1px solid #b98aff25;border-radius:24px;background:radial-gradient(ellipse at 90% 0%,#9c5cff20,transparent 48%),linear-gradient(145deg,#191323d9,#100d17d9);box-shadow:0 24px 65px #0005,inset 0 1px #ffffff0b;overflow:hidden}.copy:before{content:"";position:absolute;width:190px;height:190px;border:1px solid #b98aff16;border-radius:50%;left:-95px;bottom:-115px;box-shadow:0 0 0 18px #b98aff08,0 0 0 38px #b98aff05;pointer-events:none}.copy-kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid #b98aff30;border-radius:99px;background:#a66aff12;color:#c9a8ff;font-size:9px;font-weight:bold;letter-spacing:1.2px;margin-bottom:20px}.copy-kicker i{width:6px;height:6px;border-radius:50%;background:#b88aff;box-shadow:0 0 10px #b88aff}.copy h1{font-size:clamp(34px,4vw,52px);line-height:1.28;margin:0 0 17px;letter-spacing:-1.7px}.copy p{position:relative;color:#b6aabe;font-size:13px;line-height:2.2;margin:0 0 13px}.copy .lead{color:#e5d9f2;font-size:14px}.copy .cta{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin:22px 0 0;padding:16px 22px;border:1px solid #d5b7ff55;border-radius:14px;background:linear-gradient(110deg,#a66aff,#7134c6 72%,#5525a0);color:white;font-weight:900;font-size:14px;box-shadow:0 12px 34px #8a45e65a,inset 0 1px #ffffff50;cursor:pointer;transition:.25s}.copy .cta:after{content:"↙";font-size:18px;line-height:1}.copy .cta:hover{transform:translateY(-3px);box-shadow:0 17px 40px #8a45e680}.note{font-size:10px!important;color:#887b95!important;margin-top:15px!important}.copy .note{padding-top:12px;border-top:1px solid #ffffff10}
 .machine-shell{position:relative;padding:24px 0 27px;border:1px solid #ffffff12;border-radius:23px;background:linear-gradient(145deg,#171221ed,#100d17f2);box-shadow:0 30px 90px #0008,inset 0 1px #ffffff08;overflow:hidden}
-.machine-head{display:flex;align-items:center;justify-content:space-between;padding:0 22px 18px;color:#a99bb9;font-size:10px}.machine-head b{color:#e9ddf8;font-size:11px}.machine-head span:last-child{color:#8e78a8}
+.machine-head{display:flex;align-items:center;justify-content:space-between;padding:0 22px 14px;color:#a99bb9;font-size:10px}.machine-head b{color:#e9ddf8;font-size:11px}.machine-head span:last-child{color:#8e78a8}.odds-wrap{padding:0 16px 17px}.odds-title{display:flex;align-items:center;gap:8px;color:#e4d8f2;font-size:10px;font-weight:900;margin:0 5px 13px}.odds-title:before{content:"";width:6px;height:6px;border-radius:50%;background:#b88aff;box-shadow:0 0 10px #b88aff}.odds-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 8px;direction:rtl}.odds-chip{--c:#b88aff;--p:12.5%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px;min-width:0;padding:5px 2px 7px;border:1px solid #ffffff0b;border-radius:13px;background:linear-gradient(155deg,#ffffff08,#ffffff02);color:#e9e1f2;font-size:9px;text-align:center;white-space:normal;transition:.2s}.odds-chip:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,#100d17);transform:translateY(-2px)}.odds-chip i{position:relative;display:grid;place-items:center;width:55px;height:55px;flex:0 0 55px;border-radius:50%;background:conic-gradient(var(--c) var(--p),#ffffff12 0);box-shadow:0 0 18px color-mix(in srgb,var(--c) 20%,transparent)}.odds-chip i:before{content:"";position:absolute;inset:5px;border-radius:50%;background:#171221;border:1px solid #ffffff12}.odds-chip b{position:absolute;z-index:1;color:#fff;font-size:11px;font-weight:900;direction:ltr}.odds-chip .odds-label{font-size:9px;color:#cfc3dc;line-height:1.5;min-height:14px}
 .reel-window{position:relative;height:192px;overflow:hidden;border-block:1px solid #ffffff12;background:linear-gradient(90deg,#0b0910 0%,transparent 13%,transparent 87%,#0b0910 100%);direction:ltr}
 .reel-window:before,.reel-window:after{content:"";position:absolute;z-index:3;top:0;bottom:0;width:12%;pointer-events:none}.reel-window:before{left:0;background:linear-gradient(90deg,#100d17,transparent)}.reel-window:after{right:0;background:linear-gradient(270deg,#100d17,transparent)}
 .reel-track{height:100%;display:flex;align-items:center;gap:12px;padding:0 18px;will-change:transform;transform:translateX(0)}
 .item{width:150px;height:146px;flex:0 0 150px;position:relative;border:1px solid #ffffff17;border-radius:13px;background:linear-gradient(155deg,#272033,#17131f 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:border-color .3s,box-shadow .3s,background .3s;overflow:hidden}
 .item:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,var(--glow,#9858f5) 0%,transparent 68%);opacity:.16}
-.item-art{position:relative;width:95px;height:58px;display:grid;place-items:center;font-size:39px;filter:drop-shadow(0 9px 10px #0009);transform:rotate(-13deg)}
+.item-art{position:relative;width:132px;height:78px;display:grid;place-items:center;filter:drop-shadow(0 9px 12px #000b);z-index:1}.item-art img{width:100%;height:100%;object-fit:contain;mix-blend-mode:screen;transform:scale(1.08);}.item-name{position:relative;font-size:10px;font-weight:bold;color:#eee;z-index:1}.item-type{position:relative;font-size:8px;color:#9688a8;z-index:1}
 .item-name{position:relative;font-size:10px;font-weight:bold;color:#eee}.item-type{position:relative;font-size:8px;color:#9688a8}
 .item.winner{border-color:#fff;background:linear-gradient(150deg,#ffffff20,#9c70d522);box-shadow:0 0 0 1px #fff7,0 0 34px #c8a5ff9c,inset 0 0 28px #ffffff18}
 .item.winner:before{opacity:.42}.item.winner .item-name{color:#fff}
@@ -32,7 +32,7 @@ h1{font-size:clamp(34px,4.2vw,58px);line-height:1.35;margin:0 0 20px;font-weight
 .result{min-height:22px;text-align:center;color:#e4d2ff;font-size:11px;padding:10px 10px 0}
 .modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:#05030bd9;backdrop-filter:blur(9px)}.modal.show{display:grid}.modal-card{width:min(430px,100%);padding:30px 25px;border:1px solid #ffffff24;border-radius:22px;background:linear-gradient(145deg,#21172f,#100d17);box-shadow:0 25px 90px #000b;text-align:center;animation:pop .3s ease-out}.modal-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;font-size:30px;background:#9d63ed24;border:1px solid #b98aff55}.modal-card h2{font-size:23px;margin:0 0 12px}.modal-card p{color:#c1b3d0;font-size:13px;line-height:2;margin:0 0 15px}.coupon{direction:ltr;font: bold 18px monospace;letter-spacing:2px;padding:14px;border-radius:11px;background:#09070e;border:1px dashed #b88aff;color:#e6d4ff;margin:15px 0}.modal-close{border:0;border-radius:11px;padding:12px 25px;background:linear-gradient(110deg,#a66aff,#7134c6);color:white;font-weight:bold;cursor:pointer;margin-top:8px}.copy-code{border:1px solid #ffffff26;border-radius:9px;padding:9px 15px;background:#ffffff0b;color:#eee;cursor:pointer}@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
 @media(max-width:850px){.layout{grid-template-columns:1fr;gap:35px}.copy{grid-row:1}.machine-shell{grid-row:2}main{margin-top:38px}.copy{text-align:center}.kicker{justify-content:center}}
-@media(max-width:520px){.top{height:70px;width:calc(100% - 28px)}main{width:calc(100% - 24px);margin-top:28px}.layout{gap:25px}.copy p{font-size:12px}.machine-shell{padding-top:18px}.reel-window{height:170px}.item{width:126px;height:130px;flex-basis:126px}.item-art{font-size:34px}</style>
+@media(max-width:520px){.top{height:70px;width:calc(100% - 28px)}main{width:calc(100% - 24px);margin-top:28px}.layout{gap:25px}.copy p{font-size:12px}.machine-shell{padding-top:18px}.reel-window{height:170px}.item{width:126px;height:130px;flex-basis:126px}.item-art{width:112px;height:67px}.odds-wrap{padding:0 10px 13px}.odds-bar{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 5px}.odds-chip{padding:5px 1px 6px;font-size:8px}.odds-chip i{width:49px;height:49px;flex-basis:49px}.odds-chip b{font-size:10px}.odds-chip .odds-label{font-size:8px}.copy{padding:25px 20px}.copy h1{font-size:34px}</style>
 </head>
 <body>
 <header class="top">
@@ -43,10 +43,22 @@ h1{font-size:clamp(34px,4.2vw,58px);line-height:1.35;margin:0 0 20px;font-weight
 <a class="back" href="index.html">← بازگشت به مارکت</a>
 </header>
 <main>
-<div class="kicker"><i class="dot"></i> PTY STORE · INVENTORY ROULETTE</div>
+<div class="kicker"><i class="dot"></i> گردونه شانسی ویژه</div>
 <section class="layout">
 <div class="machine-shell">
-<div class="machine-head"><b>CASE OPENING</b><span>۵ نتیجه‌ی احتمالی</span></div>
+<div class="machine-head"><b>CASE OPENING</b><span>شانس هر جایزه</span></div>
+<div class="odds-wrap">
+ <div class="odds-title">شانس برنده شدن هر جایزه</div>
+ <div class="odds-bar">
+  <span class="odds-chip" style="--c:#ffd166;--p:5%"><i><b>۵٪</b></i><span class="odds-label">۱ میلیون</span></span>
+  <span class="odds-chip" style="--c:#c084fc;--p:12%"><i><b>۱۲٪</b></i><span class="odds-label">۵۰۰ هزار</span></span>
+  <span class="odds-chip" style="--c:#60a5fa;--p:20%"><i><b>۲۰٪</b></i><span class="odds-label">۲۰۰ هزار</span></span>
+  <span class="odds-chip" style="--c:#4ade80;--p:23%"><i><b>۲۳٪</b></i><span class="odds-label">۱۰۰ هزار</span></span>
+  <span class="odds-chip" style="--c:#fb7185;--p:20%"><i><b>۲۰٪</b></i><span class="odds-label">۵۰ هزار</span></span>
+  <span class="odds-chip" style="--c:#2dd4bf;--p:5%"><i><b>۵٪</b></i><span class="odds-label">شانس دوباره</span></span>
+  <span class="odds-chip" style="--c:#9ca3af;--p:15%"><i><b>۱۵٪</b></i><span class="odds-label">پوچ</span></span>
+ </div>
+</div>
 <div class="reel-window" id="window">
 <div class="marker"></div>
 <div class="reel-track" id="track"></div>
@@ -55,37 +67,44 @@ h1{font-size:clamp(34px,4.2vw,58px);line-height:1.35;margin:0 0 20px;font-weight
 <div class="result" id="result" aria-live="polite"></div>
 </div>
 <aside class="copy">
-<h1>هنوز کامل نیست؛<br><span style="color:#bd91ff">به‌زودی...</span></h1>
-<p>با شروع گردونه، شانس بردن یکی از تخفیف‌های PTY رو امتحان کن!</p>
-<p>همین الان شروع کن</p>
+<div class="copy-kicker"><i></i> PTY LUCKY DROP · COMING SOON</div>
+<h1>آماده‌ای برای<br><span style="background:linear-gradient(90deg,#e4caff,#a66aff);-webkit-background-clip:text;background-clip:text;color:transparent">یه دراپ خفن؟</span></h1>
+<p class="lead">یه شانس، یه اسلات؛ شاید تخفیف بزرگ PTY برنده‌ی بعدی تو باشه!</p>
+<p>گردونه رو بچرخون و ببین کدوم جایزه زیر نشانگر متوقف می‌شه. از یک میلیون تخفیف تا «شانس دوباره»؛ نتیجه با توئه!</p>
 <button class="cta" id="spin">همین الان شروع کن</button>
-
-<p class="note">این گردونه فعلاً نمایشی است و پرداخت واقعی انجام نمی‌شود.</p>
+<p class="note">نسخه‌ی آزمایشی · پرداخت و صدور کد تخفیف فعلاً نمایشی است.</p>
 </aside>
 </section>
 </main>
 <div class="modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><div class="modal-icon" id="modalIcon">🎉</div><h2 id="modalTitle">تبریک!</h2><p id="modalMessage"></p><div id="couponArea" hidden><div class="coupon" id="couponCode"></div><button class="copy-code" id="copyCode">کپی کد تخفیف</button></div><button class="modal-close" id="modalClose">باشه</button></div></div>
 <script>
+const skinImages=[
+ "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jZG4uY3Nnb3NraW5zLmdnL3B1YmxpYy9pbWFnZXMvYnVja2V0cy9lY29uL2RlZmF1bHRfZ2VuZXJhdGVkL3dlYXBvbl9hd3BfY3VfbWVkaWV2YWxfZHJhZ29uX2F3cF9saWdodC45MDc2ODlkZmJlMThkZGViZWMxMDU1Y2E0MTUxYjgyZjcyNjVjZDY3LnBuZw--/auto/auto/85/notrim/988bf7c729a627e1f4dbabc774308c89.webp",
+ "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jZG4uY3Nnb3NraW5zLmdnL3B1YmxpYy9pbWFnZXMvYnVja2V0cy9lY29uL2RlZmF1bHRfZ2VuZXJhdGVkL3dlYXBvbl9hazQ3X2N1X2FrNDdfY29icmFfbGlnaHQuMTI1NWNkNzliOTljZGFkMDZmNjljNzQwY2YwN2E1MjMxMDY3YWIxYy5wbmc-/auto/auto/85/notrim/7bcb6ae7793940cacb5d2686f4a798c4.webp",
+ "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jZG4uY3Nnb3NraW5zLmdnL3B1YmxpYy9pbWFnZXMvYnVja2V0cy9lY29uL2RlZmF1bHRfZ2VuZXJhdGVkL3dlYXBvbl9tNGExX2N1X200YTFfaG93bGluZ19saWdodC41NTRlN2ZiZjIwMGViM2VjZDU3NGM5OGViMmU1ODIzNTkzN2VmMzAxLnBuZw--/auto/auto/85/notrim/e8a5fe8044802a8c18fc98ea0257712c.webp",
+ "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jZG4uY3Nnb3NraW5zLmdnL3B1YmxpYy9pbWFnZXMvYnVja2V0cy9lY29uL2RlZmF1bHRfZ2VuZXJhdGVkL3dlYXBvbl9hd3BfY3VfYXdwX2FzaW1vdl9tZWRpdW0uNDEzZDM5Yzc4NjcyMTZiNTI0ZDNiNDQ0NjU4ZWIyOThhYmYyNGRkYi5wbmc-/auto/auto/85/notrim/9ec7891902505eb3118624a753beff23.webp",
+ "https://cdn.csgoskins.gg/public/uih/products/aHR0cHM6Ly9jZG4uY3Nnb3NraW5zLmdnL3B1YmxpYy9pbWFnZXMvYnVja2V0cy9lY29uL2RlZmF1bHRfZ2VuZXJhdGVkL3dlYXBvbl9kZWFnbGVfYWFfZmxhbWVzX2xpZ2h0LjNmNzM1MjI4YTU4YmM1Yjk2M2RiNDEzZmI0NTk5Mzc1MjM5NWE4MzEucG5n/auto/auto/85/notrim/6a582eadb9de6f02db3aa8fa9407951c.webp"
+];
 const outcomes=[
- {name:"۱ میلیون تومان تخفیف",type:"SPECIAL REWARD",art:"★",glow:"#c9a2ff"},
- {name:"۵۰۰ هزار تومان تخفیف",type:"REWARD",art:"✦",glow:"#a879d9"},
- {name:"۲۰۰ هزار تومان تخفیف",type:"REWARD",art:"◆",glow:"#8b67c7"},
- {name:"۱۰۰ هزار تومان تخفیف",type:"REWARD",art:"✧",glow:"#7f65bb"},
- {name:"۵۰ هزار تومان تخفیف",type:"REWARD",art:"◈",glow:"#ba7cae"},
- {name:"شانس دوباره",type:"TRY AGAIN",art:"↻",glow:"#8e78a8"},
- {name:"پوچ",type:"NO PRIZE",art:"—",glow:"#77717f"},
- {name:"پوچ",type:"NO PRIZE",art:"×",glow:"#77717f"}
+ {name:"۱ میلیون تومان تخفیف",type:"AWP · DRAGON LORE",glow:"#c9a2ff",image:skinImages[0],weight:5},
+ {name:"۵۰۰ هزار تومان تخفیف",type:"AK-47 · REDLINE",glow:"#a879d9",image:skinImages[1],weight:12},
+ {name:"۲۰۰ هزار تومان تخفیف",type:"M4A4 · HOWL",glow:"#8b67c7",image:skinImages[2],weight:20},
+ {name:"۱۰۰ هزار تومان تخفیف",type:"AWP · ASIIMOV",glow:"#7f65bb",image:skinImages[3],weight:23},
+ {name:"۵۰ هزار تومان تخفیف",type:"DESERT EAGLE · BLAZE",glow:"#ba7cae",image:skinImages[4],weight:20},
+ {name:"شانس دوباره",type:"BONUS ROUND",glow:"#8e78a8",image:skinImages[1],weight:5},
+ {name:"پوچ",type:"NO DROP",glow:"#77717f",image:skinImages[2],weight:7.5},
+ {name:"پوچ",type:"NO DROP",glow:"#77717f",image:skinImages[4],weight:7.5}
 ]
 const track=document.getElementById("track"), spin=document.getElementById("spin"), result=document.getElementById("result"), status=document.getElementById("status");
 let busy=false;
 const modal=document.getElementById("resultModal"), modalTitle=document.getElementById("modalTitle"), modalMessage=document.getElementById("modalMessage"), modalIcon=document.getElementById("modalIcon"), couponArea=document.getElementById("couponArea"), couponCode=document.getElementById("couponCode");
 function makeCode(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let code="PTY-";for(let i=0;i<4;i++)code+=chars[Math.floor(Math.random()*chars.length)];code+="-";for(let i=0;i<4;i++)code+=chars[Math.floor(Math.random()*chars.length)];return code;}
 function showOutcome(o){couponArea.hidden=true;if(o.name==="پوچ"){modalIcon.textContent="×";modalTitle.textContent="این بار پوچ شد!";modalMessage.textContent="متأسفانه این دفعه جایزه‌ای نبردی. شاید دفعه‌ی بعد شانست بگیره!";}else if(o.name==="شانس دوباره"){modalIcon.textContent="↻";modalTitle.textContent="شانس دوباره!";modalMessage.textContent="این بار جایزه‌ای برنده نشدی؛ می‌تونی دوباره شانستو امتحان کنی.";}else{const code=makeCode();modalIcon.textContent="🎉";modalTitle.textContent="تبریک! برنده شدی";modalMessage.textContent="تو "+o.name+" برنده شدی. کد تخفیفت رو نگه دار:";couponArea.hidden=false;couponCode.textContent=code;try{const saved=JSON.parse(localStorage.getItem("pty_demo_codes")||"[]");saved.push({code,prize:o.name,createdAt:new Date().toISOString()});localStorage.setItem("pty_demo_codes",JSON.stringify(saved));}catch(e){}}modal.classList.add("show");}
-function card(o){const el=document.createElement("div");el.className="item";el.style.setProperty("--glow",o.glow);el.innerHTML=`<div class="item-art">${o.art}</div><div class="item-name">${o.name}</div><div class="item-type">${o.type}</div>`;return el}
+function card(o){const el=document.createElement("div");el.className="item";el.style.setProperty("--glow",o.glow);el.innerHTML=`<div class="item-art"><img src="${o.image}" alt="${o.type}" loading="eager" draggable="false"></div><div class="item-name">${o.name}</div><div class="item-type">${o.type}</div>`;return el}
 function fill(){track.innerHTML="";for(let i=0;i<45;i++)track.appendChild(card(outcomes[(i*3+Math.floor(i/5))%outcomes.length]));}
 fill();
 function run(){if(busy)return;busy=true;spin.disabled=true;result.textContent="";status.textContent="در حال باز شدن...";[...track.children].forEach(x=>x.classList.remove("winner"));
- const chosen=Math.floor(Math.random()*outcomes.length);
+ const roll=Math.random()*outcomes.reduce((sum,item)=>sum+item.weight,0);let cumulative=0;const chosen=outcomes.findIndex(item=>(cumulative+=item.weight)>roll);
  const targetIndex=34;const target=track.children[targetIndex];const winCard=card(outcomes[chosen]);track.replaceChild(winCard,target);
  const windowEl=document.getElementById("window"), windowRect=windowEl.getBoundingClientRect();
  const cardCenter=winCard.offsetLeft+winCard.offsetWidth/2;
